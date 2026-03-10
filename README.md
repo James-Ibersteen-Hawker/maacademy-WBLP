@@ -1,2 +1,6 @@
-# maacademy-WBLP
-musicandartacademy.com -> a fresh redesign, because their website is....interesting
+# CHANGELOG
+
+## Original Site
+- [musicandartacademy.com](https://musicandartacademy.com)
+
+Prototype
