@@ -9,11 +9,12 @@ const navBar = {
       query.value = e.target.value;
       emit("query", query.value);
     }
-    return { input, props };
+    return { input, query, props };
   },
-  template: `
-  <ul>
-  <li v-for="link in props.links">{{link}}</li>
-  </ul>
-  `,
+  template: `<ul>
+    <li v-for="link in props.links">
+      <a :href="link + '.html'" target="_blank">link</a>
+    </li>
+    <input type="text" v-model="query" @input="input">
+  </ul>`,
 };

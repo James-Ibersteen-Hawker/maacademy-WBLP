@@ -73,10 +73,9 @@
   <body>
     <h1>heading</h1>
     <main id="vue_app">
-      <nav-bar :links="['alpha', 'beta']"></nav-bar>
-      after
+      <nav-bar :links="['alpha', 'beta']" @query="handleQuery"></nav-bar>
+      {{query}}
     </main>
-    here
     <script defer src="./javascript/bootstrap.bundle.min.js"></script>
     <script defer src="./javascript/script.js"></script>
   </body>
