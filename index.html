@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <title>MAAcademy</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!--SEO-->
+    <meta
+      name="description"
+      content="Come study the arts at the Music and Art Academy!"
+    />
+    <meta name="theme-color" content="#1C0A00" />
+    <meta name="format-detection" content="telephone=no" />
+    <!--OG-->
+    <meta property="og:title" content="Music and Art Academy" />
+    <meta
+      property="og:description"
+      content="Come study the arts at the Music and Art Academy!"
+    />
+    <meta property="og:image" content="https://james-ibersteen-hawker.github.io/maacademy-WBLP/MAINLOGO.png" />
+    <meta property="og:type" content="website" />
+    <!--referrer + security + canonical-->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-eval';
+        img-src 'self' https://lh3.googleusercontent.com;
+        connect-src 'self' https://script.google.com;
+        style-src 'self' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+      "
+    />
+    <link rel="canonical" href="https://james-ibersteen-hawker.github.io/maacademy-WBLP/" />
+    <!--CSS + fonts-->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/navbar.css">
+    <!--favicons-->
+    <link rel="icon" type="image/png" sizes="16x16" href="./webicons/logo16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./webicons/logo32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="./webicons/logo48x48.png" />
+    <link rel="apple-touch-icon" href="https://james-ibersteen-hawker.github.io/maacademy-WBLP/webicons/logo180x180.png" />
+    <!--prefetch-->
+    <link rel="prefetch" href="./html/about.html" />
+    <link rel="prefetch" href="./html/contact.html" />
+    <!--ld+json-->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "MAAcademy",
+        "description": "Come and study music and art at the Music and Art Academy!",
+        "url": "https://james-ibersteen-hawker.github.io/maacademy-WBLP/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Music and Art Academy",
+            "logo": "https://james-ibersteen-hawker.github.io/maacademy-WBLP/MAINLOGO.png"
+        }
+      }
+    </script>
+    <!--Vue-->
+    <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+    <script defer src="./javascript/components.js"></script>
+    <script defer src="./javascript/sheet.js"></script>
+  </head>
+  <body>
+    <h1>heading</h1>
+    <main id="vue_app">
+      <nav-bar :links="['alpha', 'beta']" @query="handleQuery"></nav-bar>
+      {{query}}
+    </main>
+    <script defer src="./javascript/bootstrap.bundle.min.js"></script>
+    <script defer src="./javascript/script.js"></script>
+  </body>
+</html>
