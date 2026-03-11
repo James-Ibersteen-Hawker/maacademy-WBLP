@@ -1,3 +1,12 @@
 .nav-bar {
   background: black;
+}
+.nav-bar .nav-bar-body .nav-bar-list {
+  background: red;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item {
+  background: yellow;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item a {
+  color: teal;
 }/*# sourceMappingURL=navbar.css.map */

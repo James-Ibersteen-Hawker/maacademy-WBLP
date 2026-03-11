@@ -1,10 +1,19 @@
 $base: "nav-bar";
 
 .#{$base} {
-    $self: &;
-    background: black;
-
-    #{$self}-body {
-        
+  $self: &;
+  background: black;
+  #{$self}-body {
+    #{$self}-section {
     }
+    #{$self}-list {
+      background: red;
+      #{$self}-item {
+      background: yellow;
+        a {
+          color: teal;
+        }
+      }
+    }
+  }
 }
