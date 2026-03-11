@@ -1,12 +1,11 @@
 "use strict";
-const { createApp, ref } = Vue;
+const { createApp, ref, reactive } = Vue;
 const pages = ["about-us", "classes", "contact", "gallery", "parties", "radio-city", "teachers", "index"]
 const App = createApp({
     setup() {
+        const content = reactive({data: null})
         const query = ref(" ");
-        function handleQuery(val) {
-            query.value = val;
-        }
+        const handleQuery = (val) => query.value = val;
         return { query, handleQuery };
     }
 });
