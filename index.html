@@ -28,8 +28,8 @@
       http-equiv="Content-Security-Policy"
       content="
         default-src 'self';
-        script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-eval';
-        img-src 'self' https://lh3.googleusercontent.com;
+        script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-eval' 'unsafe-inline';
+        img-src 'self' https://lh3.googleusercontent.com https://james-ibersteen-hawker.github.io;
         connect-src 'self' https://script.google.com;
         style-src 'self' https://fonts.googleapis.com;
         font-src 'self' https://fonts.gstatic.com;
@@ -48,7 +48,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="./webicons/logo48x48.png" />
     <link rel="apple-touch-icon" href="https://james-ibersteen-hawker.github.io/maacademy-WBLP/webicons/logo180x180.png" />
     <!--prefetch-->
-    <link rel="prefetch" href="./html/about.html" />
+    <link rel="prefetch" href="./html/about-us.html" />
     <link rel="prefetch" href="./html/contact.html" />
     <!--ld+json-->
     <script type="application/ld+json">
@@ -67,13 +67,14 @@
     </script>
     <!--Vue-->
     <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+    <!-- <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"></script> -->
     <script defer src="./javascript/components.js"></script>
     <script defer src="./javascript/sheet.js" type="module"></script>
   </head>
   <body>
     <h1>heading</h1>
     <main id="vue_app">
-      <nav-bar :links="['alpha', 'beta']" @query="handleQuery"></nav-bar>
+      <nav-bar :links="pages" @query="handleQuery"></nav-bar>
       {{query}}<br>
       {{content.data}}
     </main>

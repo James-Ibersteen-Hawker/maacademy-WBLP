@@ -1,15 +1,15 @@
 "use strict";
 const { createApp, ref, reactive } = Vue;
-const worker = new Worker(`${window.location.origin}/javascript/worker.js`, {type: "module"});
+const worker = new Worker(`/javascript/worker.js`, {type: "module"});
 const pages = [
-  "about-us",
-  "classes",
-  "contact",
-  "gallery",
-  "parties",
-  "radio-city",
-  "teachers",
-  "index",
+  "Index",
+  "About Us",
+  "Classes",
+  "Teachers",
+  "Parties",
+  "Radio City",
+  "Gallery",
+  "Contact"
 ];
 const App = createApp({
   setup() {
@@ -17,7 +17,7 @@ const App = createApp({
     getSheetData().then((data) => (content.data = data)).catch(err => alert(err));
     const query = ref(" ");
     const handleQuery = (val) => (query.value = val);
-    return { query, handleQuery, content };
+    return { query, handleQuery, content, pages };
   },
 });
 App.component("nav-bar", navBar);
