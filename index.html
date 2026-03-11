@@ -28,7 +28,7 @@
       http-equiv="Content-Security-Policy"
       content="
         default-src 'self';
-        script-src 'self' https://cdn.jsdelivr.net https://unpkg.com;
+        script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-eval';
         img-src 'self' https://lh3.googleusercontent.com;
         connect-src 'self' https://script.google.com;
         style-src 'self' https://fonts.googleapis.com;
@@ -72,6 +72,11 @@
   </head>
   <body>
     <h1>heading</h1>
+    <main id="vue_app">
+      <nav-bar :links="['alpha', 'beta']"></nav-bar>
+      after
+    </main>
+    here
     <script defer src="./javascript/bootstrap.bundle.min.js"></script>
     <script defer src="./javascript/script.js"></script>
   </body>
