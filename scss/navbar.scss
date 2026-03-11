@@ -1,3 +1,10 @@
-.nav-bar {
-    border: 1px solid red;
+$base: "nav-bar";
+
+.#{$base} {
+    $self: &;
+    background: black;
+
+    #{$self}-body {
+        
+    }
 }
