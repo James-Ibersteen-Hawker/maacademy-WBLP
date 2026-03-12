@@ -3,6 +3,7 @@ $base: "nav-bar";
 .#{$base} {
   $self: &;
   background: black;
+  color: white;
   #{$self}-body {
     #{$self}-section {
     }

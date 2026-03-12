@@ -1,5 +1,6 @@
 .nav-bar {
   background: black;
+  color: white;
 }
 .nav-bar .nav-bar-body .nav-bar-list {
   background: red;
