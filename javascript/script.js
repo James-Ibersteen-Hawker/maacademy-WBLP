@@ -2,23 +2,31 @@
 const { createApp, ref, reactive } = Vue;
 const worker = new Worker(`/javascript/worker.js`, { type: "module" });
 const pages = [
-  "Index",
-  "About Us",
-  "Classes",
-  "Teachers",
-  "Parties",
-  "Radio City",
-  "Gallery",
-  "Contact",
+  new Page("Home", "index.html", "iconurl"),
+  new Page("About Us", "/html/about-us.html", "iconurl"),
+  new Page("Classes", "/html/classes.html", "iconurl"),
+  new Page("Teachers", "/html/teachers.html", "iconurl"),
+  new Page("Parties", "/html/parties.html", "iconurl"),
+  new Page("Radio City", "/html/radio-city.html", "iconurl"),
+  new Page("Gallery", "/html/gallery.html", "iconurl"),
+  new Page("Contact", "/html/contact.html", "iconurl"),
 ];
-class Hit {
-  constructor(match, url) {
-    this.match = match;
-    this.url = url;
-  }
-}
+const media = [
+  new MediaIcon("youtubeIcon", "https://youtube.com", "YouTube Link"),
+  new MediaIcon("instagramIcon", "https://instagram.com", "Instagram Link"),
+  new MediaIcon("facebookIcon", "https://facebook.com", "Facebook Link"),
+];
+const teachers = [
+  new Teacher(
+    "Jefferey Pantelas",
+    "/MAINLOGO.png",
+    ["Piano", "Voice"],
+    "About Jeff",
+  ),
+];
 const App = createApp({
   setup() {
+    const copyright = "Copyright 2026 Music and Art Academy";
     const content = reactive({ data: null });
     const results = reactive({ data: [] });
     getSheetData()
@@ -28,12 +36,30 @@ const App = createApp({
       results.data = [new Hit("Higgeldy Piggeldy", "link.html")];
     }
     function runSelection(selection) {
-      alert(selection.match)
+      alert(selection.match);
     }
-    return { searchSite, content, pages, results, runSelection };
+    function testEmit(e) {
+      alert("emit");
+    }
+    return {
+      searchSite,
+      content,
+      pages,
+      media,
+      results,
+      runSelection,
+      copyright,
+      testEmit,
+      teachers,
+    };
   },
 });
 App.component("nav-bar", navBar);
+App.component("page-footer", footer);
+App.component("carousel", carousel);
+App.component("teacher", teacherCard);
+App.component("schedule", classSchedule);
+
 App.mount("#vue_app");
 
 //////////////////////////////

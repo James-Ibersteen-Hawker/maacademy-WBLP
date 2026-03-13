@@ -10,37 +10,37 @@ const navBar = {
   emits: ["query", "choose"],
   setup(props, { emit }) {
     const query = Vue.ref("");
+    const open = Vue.ref(true);
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
-      // const splitted = number.trim().split(" ").map(e => {e.replace(\(|\))})
-      return number;
+      const splitted = number
+        .trim()
+        .split(/[\s-]+/)
+        .map((e) => Number(e.replace(/[()]/g, "")));
+      return splitted.join("-");
     };
-    const formatLink = (link) => {
-      if (typeof link !== "string") return "invalid";
-      const newLink = link.trim().toLowerCase().split(/\s+/).join("-");
-      return `/html/${newLink}.html`;
+    const showNav = () => {
+      if (!open.value) {
+        open.value = true;
+      }
     };
-    const getLink = (link) => {
-      if (typeof link !== "string") return "invalid";
-      return link.trim().toLowerCase() === "index" ? "Home" : link.trim();
+    const hideNav = () => {
+      open.value = false;
     };
-    const showNav = () => {};
-    const hideNav = () => {};
     return {
       formSubmit,
       choose,
       query,
       props,
-      formatLink,
-      getLink,
       showNav,
       hideNav,
       makePhone,
+      open,
     };
   },
   template: `
-  <div class="nav-bar">
+  <div class="nav-bar nav-show" @mouseover="">
     <div class="nav-bar-close" @click="showNav">-></div>
     <div class="nav-bar-open" @click="hideNav">X</div>
     <div class="nav-bar-header">
@@ -49,7 +49,10 @@ const navBar = {
     <div class="nav-bar-body">
       <div class="nav-bar-section nav-bar-list">
         <div class="nav-bar-item" v-for="link in props.links">
-          <a :href="formatLink(link)" target="_blank">{{getLink(link)}}</a>
+          <a :href="link.url" target="_blank">{{link.name}}</a>
+          <div class="nav-bar-item-icon" @mouseover="">
+            <img src="link.icon" :alt="link.name">
+          </div>
         </div>
       </div>
       <div class="nav-bar-section nav-bar-search">
@@ -70,13 +73,9 @@ const navBar = {
     </div>
   </div>
   <!--modal-->
-  <div class="modal fade" tabindex="-1" id="search-modal" aria-labelledby="searchModalLabel">
+  <div class="search-modal modal fade" tabindex="-1" id="search-modal" aria-labelledby="searchModalLabel">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
         <div class="modal-body">
           <form @submit.prevent="formSubmit">
             <label for="search-input">Search Icon</label>
@@ -99,4 +98,118 @@ const navBar = {
     </div>
   </div>
   `,
-};
+}; //finish navbar fade sequences and whatnot
+const footer = {
+  props: {
+    icons: { type: Array, default: () => [] },
+    copyright: { type: String, default: "" },
+  },
+  setup(props) {
+    return { props };
+  },
+  template: `
+  <footer>
+    <div class="footer-icons">
+      <div class="footer-icons-icon" v-for="icon in props.icons">
+        <a :href="icon.url" target="_blank">
+          <img :src="icon.icon" :alt="icon.alt">
+        <a>
+      </div>
+      <div class="footer-copyright" v-if="props.copyright">
+        <p>{{props.copyright}}</p>
+      </div>
+    </div>
+  </footer>
+  `,
+}; //footer done
+const carousel = {
+  props: {},
+  emits: [],
+  setup(props, { emit }) {},
+  template: ``,
+}; //find something on codepen or smth, or look at CSS carousels
+const teacherCard = {
+  props: {
+    name: { type: String, default: "" },
+    photo: { type: String, default: "" },
+    blurb: { type: String, default: "" },
+    specs: { type: Array, default: () => [] },
+  },
+  emits: ["search-class"],
+  setup(props, { emit }) {
+    const searchClass = () => emit("search-class", props.name)
+    const photo = (url) => (!url ? "/imgs/no-image.png" : url.trim());
+    function name(input) {
+      return input.trim().toLowerCase().split(/\s+/g).join("")
+    }
+    return { props, searchClass, photo, name };
+  },
+  template: `
+  <div class="teacher-card">
+    <div class="teacher-img teacher-section">
+      <img :src="photo(props.photo)" :alt="props.name">
+    </div>
+    <div class="teacher-section teacher-body">
+      <div class="teacher-header">
+        <p>{{props.name}}<p>
+        <div class="teacher-chips">
+          <ul>
+            <li v-for="spec in props.specs" class="chip">
+              {{spec}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="teacher-main row">
+        <div class="teacher-blurb col-8">
+          {{props.blurb}}
+          <div class="see-more" data-bs-toggle="modal" :data-bs-target="'#' + name(props.name) + 'about-modal'">See More</div>
+        </div>
+        <div class="teacher-actions col-4">
+          <p class="action-button" @click="searchClass">See the Schedule</p>
+          <a class="action-button" href="/html/contact.html">Schedule a Class</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--modal-->
+  <div class="teacher-modal modal fade" tabindex="-1" :id="name(props.name) + 'about-modal'" aria-labelledby="aboutModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{props.name}}</h5>
+          <p data-bs-dismiss="modal">Close</p>
+        </div>
+        <div class="modal-body">
+          {{blurb}}
+        </div>
+      </div>
+    </div>
+  </div>
+  `,
+}; //teacherCard done
+const classSchedule = {
+  props: {
+    name: { type: String, default: ""},
+    class: { type: Object, default: () => ({})}
+  },
+  setup(props) {
+    return props;
+  },
+  template: `
+  <div class="accordion" :id="">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Accordion Item #1
+       </button>
+     </h2>
+     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+       <div class="accordion-body">
+         <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+       </div>
+     </div>
+   </div>
+  </div>
+  `,
+}; //
