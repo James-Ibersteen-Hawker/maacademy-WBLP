@@ -26,13 +26,23 @@ class Teacher {
     this.blurb = blurb;
   }
 }
+//reminder, sheet.js already FILTERED the teachers!
 class Instrument {
   constructor(name, teachers) {
     this.name = name;
-    this.teachers = teachers.map(e => this.processTeacher(e));
+    this.teachers = teachers.map((e) => this.processTeacher(e));
   }
-  processTeacher(t) {
-    const { TEACHERS, SCHEDULES } = t;
-    
+  processTeacher({ TEACHERS: { name } = {}, SCHEDULES: sched = {} }) {
+    const schedule = Object.entries(sched).filter(([_, times]) => times !== "");
+    const days = schedule.map(([day]) => day);
+    const times = schedule.map(([days, times]) => {
+      const entries = times.split(/\n/g).map((e) => e.split(": "));
+      const applicable = entries.filter(
+        (e) =>
+          e.substring(0, 1).toLowerCase() ===
+          this.name.substring(0, 1).toLowerCase(),
+      );
+    });
+    return { name, days, times };
   }
 }

@@ -188,25 +188,43 @@ const teacherCard = {
   </div>
   `,
 }; //teacherCard done
-const instrument = {
+const instrumentComponent = {
   props: {
-    name: { type: String, default: ""},
-    class: { type: Object, default: () => ({})}
+    instrument: { type: Object, default: null}
   },
   setup(props) {
-    return props;
+    return {props};
   },
   template: `
-  <div class="accordion" :id="">
+  <div class="accordion" :id="props.name + 'accordionID'" v-if="props.instrument">
     <div class="accordion-item">
       <h2 class="accordion-header">
-       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Accordion Item #1
+       <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {{props.instrument.name}}
        </button>
      </h2>
      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
        <div class="accordion-body">
-         <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+         <table>
+         <thead>
+           <tr>
+              <th scope="col">Teachers</th>
+              <th scope="col">Days</th>
+              <th scope="col">Times</th>
+           </tr>
+          </thead>
+          <tbody>
+            <tr v-for="teacher in props.instrument.teachers">
+              <th scope="row">{{teacher.name}}</th>
+              <td>
+                <p v-for="day in teacher.days">{{day}}</p>
+              </td>
+              <td>
+                <p v-for="time in teacher.times">{{time}}</p>
+              </td>
+            </tr>
+          </tbody>
+         </table>
        </div>
      </div>
    </div>

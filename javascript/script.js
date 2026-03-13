@@ -24,6 +24,15 @@ const teachers = [
     "About Jeff",
   ),
 ];
+const testInstrument = new Instrument("Piano", [{
+  TEACHERS: {...teachers[0]},
+  SCHEDULES: {
+    "SUN": "",
+    "MON": "3pm-9pm",
+    "TUES": "5:30pm-7pm",
+    "WED": "10am-3pm",
+  }
+}])
 const App = createApp({
   setup() {
     const copyright = "Copyright 2026 Music and Art Academy";
@@ -51,6 +60,7 @@ const App = createApp({
       copyright,
       testEmit,
       teachers,
+      testInstrument
     };
   },
 });
@@ -58,7 +68,7 @@ App.component("nav-bar", navBar);
 App.component("page-footer", footer);
 App.component("carousel", carousel);
 App.component("teacher", teacherCard);
-App.component("instrument", instrument);
+App.component("instrument-accordion", instrumentComponent);
 
 App.mount("#vue_app");
 
