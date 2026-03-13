@@ -28,7 +28,7 @@ const testInstrument = new Instrument("Piano", [{
   TEACHERS: {...teachers[0]},
   SCHEDULES: {
     "SUN": "",
-    "MON": "3pm-9pm",
+    "MON": "P: 3pm-9pm",
     "TUES": "5:30pm-7pm",
     "WED": "10am-3pm",
   }
@@ -69,6 +69,7 @@ App.component("page-footer", footer);
 App.component("carousel", carousel);
 App.component("teacher", teacherCard);
 App.component("instrument-accordion", instrumentComponent);
+App.component("class-filter", classFilter)
 
 App.mount("#vue_app");
 

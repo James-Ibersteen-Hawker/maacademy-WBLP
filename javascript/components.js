@@ -230,4 +230,29 @@ const instrumentComponent = {
    </div>
   </div>
   `,
-}; //
+}; //instrumentComponent done
+const classFilter = {
+  props: {
+    values: {type: Array, default: () => []}
+  },
+  emits: ["select"],
+  setup(props, { emit }) {
+    const safe = (e) => e.replace(/\s+/g, "");
+    const filters = reactive();
+    function select() {
+
+    }
+    return { props, safe }
+  },
+  template: `
+  <div class="class-filters">
+    <div class="fitler-name">Filters:</div>
+    <div class="filters">
+      <div class="filter" v-for="value in props.values">
+        <input type="checkbox" :name="safe(value)" :id="safe(value)+'filter'" :value="safe(value)">
+        <label :for="safe(value) + 'filter'">{{value}}</label>
+      </div>
+    </div>
+  </div>
+  `
+}

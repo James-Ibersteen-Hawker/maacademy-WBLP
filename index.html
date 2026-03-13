@@ -75,8 +75,8 @@
   <body>
     <h1>heading</h1>
     <main id="vue_app">
-      <!-- navbar -->
-      <!-- <nav-bar 
+      <hr>
+      <nav-bar 
         :links="pages"
         :results="results.data"
         phone="(123) 456-7890"
@@ -84,13 +84,15 @@
         map="https://maps.google.com"
         @query="searchSite" 
         @choose="runSelection"
-      ></nav-bar> -->
-      <!-- footer -->
-      <!-- <page-footer :icons="media" :copyright="copyright"></page-footer> -->
-      <!-- teacher -->
-      <!-- <teacher v-for="t in teachers" :name="t.name" :photo="t.image" :blurb="t.blurb" :specs="t.specs" @search-class="testEmit"></teacher> -->
-      //instrument//
+      ></nav-bar>
+      <hr>
+      <page-footer :icons="media" :copyright="copyright"></page-footer>
+      <hr>
+      <teacher v-for="t in teachers" :name="t.name" :photo="t.image" :blurb="t.blurb" :specs="t.specs" @search-class="testEmit"></teacher>
+      <hr>
       <instrument-accordion :instrument="testInstrument"></instrument-accordion>
+      <hr>
+      <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']"></class-filter>
       {{content.data}}
     </main>
     <script defer src="./javascript/bootstrap.bundle.min.js"></script>

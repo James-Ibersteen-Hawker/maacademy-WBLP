@@ -37,11 +37,12 @@ class Instrument {
     const days = schedule.map(([day]) => day);
     const times = schedule.map(([days, times]) => {
       const entries = times.split(/\n/g).map((e) => e.split(": "));
-      const applicable = entries.filter(
-        (e) =>
-          e.substring(0, 1).toLowerCase() ===
-          this.name.substring(0, 1).toLowerCase(),
-      );
+      const applicable = entries.filter((e) => {
+        const scnd = e?.[1] ? true : false;
+        if (scnd) return e[0] === this.name.substring(0,1);
+        else return true;
+      }).flat().filter(e => isFinite(+e.substring(0,1)));
+      return `${days}: ${applicable.join(" ; ")}`;
     });
     return { name, days, times };
   }
