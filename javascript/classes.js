@@ -26,3 +26,13 @@ class Teacher {
     this.blurb = blurb;
   }
 }
+class Instrument {
+  constructor(name, teachers) {
+    this.name = name;
+    this.teachers = teachers.map(e => this.processTeacher(e));
+  }
+  processTeacher(t) {
+    const { TEACHERS, SCHEDULES } = t;
+    
+  }
+}

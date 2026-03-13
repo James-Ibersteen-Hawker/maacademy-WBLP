@@ -58,7 +58,7 @@ App.component("nav-bar", navBar);
 App.component("page-footer", footer);
 App.component("carousel", carousel);
 App.component("teacher", teacherCard);
-App.component("schedule", classSchedule);
+App.component("instrument", instrument);
 
 App.mount("#vue_app");
 

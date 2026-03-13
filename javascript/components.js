@@ -188,7 +188,7 @@ const teacherCard = {
   </div>
   `,
 }; //teacherCard done
-const classSchedule = {
+const instrument = {
   props: {
     name: { type: String, default: ""},
     class: { type: Object, default: () => ({})}
