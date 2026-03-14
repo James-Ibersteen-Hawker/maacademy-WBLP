@@ -69,7 +69,8 @@ App.component("page-footer", footer);
 App.component("carousel", carousel);
 App.component("teacher", teacherCard);
 App.component("instrument-accordion", instrumentComponent);
-App.component("class-filter", classFilter)
+App.component("class-filter", classFilter);
+App.component("special-class", specialClass);
 
 App.mount("#vue_app");
 

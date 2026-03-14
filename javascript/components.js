@@ -1,3 +1,4 @@
+"use strict";
 const navBar = {
   props: {
     logo: { type: String, default: `/imgs/no-image.png` },
@@ -9,8 +10,11 @@ const navBar = {
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
+    const animLength = 200;
+    let currentTimeout = null;
     const query = Vue.ref("");
     const open = Vue.ref(true);
+    const opening = Vue.ref(false);
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -20,37 +24,51 @@ const navBar = {
         .map((e) => Number(e.replace(/[()]/g, "")));
       return splitted.join("-");
     };
-    const showNav = () => {
-      if (!open.value) {
-        open.value = true;
-      }
+    const animOpen = () => {
+      if (currentTimeout) clearTimeout(currentTimeout);
+      opening.value = true;
+      currentTimeout = setTimeout(
+        () => ((open.value = true), (currentTimeout = null)),
+        animLength,
+      );
     };
-    const hideNav = () => {
-      open.value = false;
+    const animClose = () => {
+      if (currentTimeout) clearTimeout(currentTimeout);
+      opening.value = false;
+      currentTimeout = setTimeout(
+        () => ((open.value = false), (currentTimeout = null)),
+        animLength,
+      );
     };
+    const instOpen = () => (open.value = true);
+    const instClose = () => (open.value = false);
     return {
       formSubmit,
       choose,
+      animOpen,
+      animClose,
+      makePhone,
+      instOpen,
+      instClose,
+      open,
+      opening,
       query,
       props,
-      showNav,
-      hideNav,
-      makePhone,
-      open,
     };
   },
+  //anim on icon hover, but if the navbar is clicked, wait for the animation to end and freeze the navbar in place
   template: `
-  <div class="nav-bar nav-show" @mouseover="">
-    <div class="nav-bar-close" @click="showNav">-></div>
-    <div class="nav-bar-open" @click="hideNav">X</div>
+  <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': open, 'nav-bar-away': !open, 'nav-bar-opening': opening, 'nav-bar-closing': !opening }">
+    <div class="nav-bar-close" @click="instOpen">-></div>
+    <div class="nav-bar-open" @click="instClose">X</div>
     <div class="nav-bar-header">
       <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo">
     </div>
     <div class="nav-bar-body">
       <div class="nav-bar-section nav-bar-list">
-        <div class="nav-bar-item" v-for="link in props.links">
+        <div class="nav-bar-item" v-for="link in props.links" @mouseenter="animOpen" @mouseleave="animClose">
           <a :href="link.url" target="_blank">{{link.name}}</a>
-          <div class="nav-bar-item-icon" @mouseover="">
+          <div class="nav-bar-item-icon">
             <img src="link.icon" :alt="link.name">
           </div>
         </div>
@@ -98,7 +116,7 @@ const navBar = {
     </div>
   </div>
   `,
-}; //finish navbar fade sequences and whatnot
+}; //navBar done
 const footer = {
   props: {
     icons: { type: Array, default: () => [] },
@@ -123,8 +141,9 @@ const footer = {
   `,
 }; //footer done
 const carousel = {
-  props: {},
-  emits: [],
+  props: {
+    images: { type: Array, default: () => [] },
+  },
   setup(props, { emit }) {},
   template: ``,
 }; //find something on codepen or smth, or look at CSS carousels
@@ -137,10 +156,10 @@ const teacherCard = {
   },
   emits: ["search-class"],
   setup(props, { emit }) {
-    const searchClass = () => emit("search-class", props.name)
+    const searchClass = () => emit("search-class", props.name);
     const photo = (url) => (!url ? "/imgs/no-image.png" : url.trim());
     function name(input) {
-      return input.trim().toLowerCase().split(/\s+/g).join("")
+      return input.trim().toLowerCase().split(/\s+/g).join("");
     }
     return { props, searchClass, photo, name };
   },
@@ -190,10 +209,10 @@ const teacherCard = {
 }; //teacherCard done
 const instrumentComponent = {
   props: {
-    instrument: { type: Object, default: null}
+    instrument: { type: Object, default: null },
   },
   setup(props) {
-    return {props};
+    return { props };
   },
   template: `
   <div class="accordion" :id="props.name + 'accordionID'" v-if="props.instrument">
@@ -233,26 +252,61 @@ const instrumentComponent = {
 }; //instrumentComponent done
 const classFilter = {
   props: {
-    values: {type: Array, default: () => []}
+    values: { type: Array, default: () => [] },
   },
   emits: ["select"],
   setup(props, { emit }) {
     const safe = (e) => e.replace(/\s+/g, "");
-    const filters = reactive();
+    const filterObj = props.values.reduce((acc, val) => {
+      acc[val] = false;
+      return acc;
+    }, {});
+    const filters = Vue.reactive(filterObj);
     function select() {
-
+      emit("select", filters);
     }
-    return { props, safe }
+    return { props, safe, select, filters };
   },
   template: `
   <div class="class-filters">
     <div class="fitler-name">Filters:</div>
     <div class="filters">
       <div class="filter" v-for="value in props.values">
-        <input type="checkbox" :name="safe(value)" :id="safe(value)+'filter'" :value="safe(value)">
+        <input type="checkbox" v-model="filters[value]" :name="safe(value)" :id="safe(value)+'filter'" :value="safe(value)" @click="select">
         <label :for="safe(value) + 'filter'">{{value}}</label>
       </div>
     </div>
   </div>
+  `,
+}; //classFilter done
+const specialClass = {
+  props: {
+    title: { type: String, default: "" },
+    dateTime: { type: String, default: "" },
+    teacher: { type: String, default: "" },
+    text: { type: String, default: "" },
+    when: { type: String, default: "" },
+  },
+  setup(props) {
+    return { props };
+  },
+  template: `
+  <div class="special-class">
+    <div class="special-class-card">
+      <div class="special-class-header">
+        {{props.title}}
+      </div>
+      <div class="special-class-info">
+        <p>{{props.dateTime}}</p>
+        <p>Teacher: {{props.teacher}}</p>
+      </div>
+      <div class="special-class-body">
+        {{props.text}}
+      </div>
+      <div class="special-class-foot">
+        <div class="special-button">{{props.when}}</div>
+      </div>
+    </div>
+  </div>
   `
-}
+};

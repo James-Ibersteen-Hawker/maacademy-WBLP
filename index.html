@@ -92,7 +92,9 @@
       <hr>
       <instrument-accordion :instrument="testInstrument"></instrument-accordion>
       <hr>
-      <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']"></class-filter>
+      <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']" @select="testEmit"></class-filter>
+      <hr>
+      <special-class title="Holiday Show Chorus" date-time="Monday: 5:30-7pm" teacher="Jeff Pantelas" text="body text" when="September - December 2025"></special-class>
       {{content.data}}
     </main>
     <script defer src="./javascript/bootstrap.bundle.min.js"></script>
