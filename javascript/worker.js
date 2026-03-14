@@ -5,8 +5,14 @@ self.onmessage = async (e) => {
   try {
     switch (mode) {
       case "load":
+        const { link, timeout } = e.data;
+        if (!link || !timeout) throw new Error("No Fetchlink / Timeout provided");
         if (!sheet) throw new Error("Sheet Function is Invalid");
-        message.data = await sheet();
+        message.data = await sheet(link, timeout);
+        break;
+      case "search":
+        break;
+      case "buildLUT": 
         break;
       default:
         throw new Error(`Invalid Mode: ${mode}`);

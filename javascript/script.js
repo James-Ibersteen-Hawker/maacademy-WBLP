@@ -1,5 +1,7 @@
 "use strict";
 const { createApp, ref, reactive } = Vue;
+const weblink = "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
+const signalTimeout = 5000;
 const worker = new Worker(`/javascript/worker.js`, { type: "module" });
 const pages = [
   new Page("Home", "index.html", "iconurl"),
@@ -40,7 +42,7 @@ const App = createApp({
     const results = reactive({ data: [] });
     getSheetData()
       .then((data) => (content.data = data))
-      .catch((err) => alert(err));
+      .catch((err) => alert(err.message));
     function searchSite(input) {
       results.data = [new Hit("Higgeldy Piggeldy", "link.html")];
     }
@@ -84,6 +86,6 @@ function getSheetData() {
       else if (!err && data) resolve(data);
       else reject(new Error("No Data Returned"));
     };
-    worker.postMessage({ mode: "load" });
+    worker.postMessage({ mode: "load", link: weblink, timeout: 5000 });
   });
 }

@@ -144,7 +144,9 @@ const carousel = {
   props: {
     images: { type: Array, default: () => [] },
   },
-  setup(props, { emit }) {},
+  setup(props) {
+    return { props }
+  },
   template: ``,
 }; //find something on codepen or smth, or look at CSS carousels
 const teacherCard = {
@@ -309,4 +311,4 @@ const specialClass = {
     </div>
   </div>
   `
-};
+}; //specialClass done
