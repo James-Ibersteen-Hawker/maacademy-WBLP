@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>MAAcademy</title>
@@ -28,8 +28,8 @@
       http-equiv="Content-Security-Policy"
       content="
         default-src 'self';
-        script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-eval';
-        img-src 'self' https://lh3.googleusercontent.com;
+        script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-eval' 'unsafe-inline';
+        img-src 'self' data: https://lh3.googleusercontent.com https://james-ibersteen-hawker.github.io http://www.w3.org;
         connect-src 'self' https://script.google.com;
         style-src 'self' https://fonts.googleapis.com;
         font-src 'self' https://fonts.gstatic.com;
@@ -40,15 +40,15 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/components.css">
     <!--favicons-->
     <link rel="icon" type="image/png" sizes="16x16" href="./webicons/logo16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="./webicons/logo32x32.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="./webicons/logo48x48.png" />
     <link rel="apple-touch-icon" href="https://james-ibersteen-hawker.github.io/maacademy-WBLP/webicons/logo180x180.png" />
     <!--prefetch-->
-    <link rel="prefetch" href="./html/about.html" />
+    <link rel="prefetch" href="./html/about-us.html" />
     <link rel="prefetch" href="./html/contact.html" />
     <!--ld+json-->
     <script type="application/ld+json">
@@ -67,14 +67,37 @@
     </script>
     <!--Vue-->
     <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+    <!-- <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"></script> -->
     <script defer src="./javascript/components.js"></script>
-    <script defer src="./javascript/sheet.js"></script>
+    <script defer src="./javascript/classes.js"></script>
+    <script defer src="./javascript/sheet.js" type="module"></script>
   </head>
   <body>
-    <h1>heading</h1>
+    <h1>heading 2</h1>
     <main id="vue_app">
-      <nav-bar :links="['alpha', 'beta']" @query="handleQuery"></nav-bar>
-      {{query}}
+      <hr>
+      <nav-bar 
+        :links="pages"
+        :results="results.data"
+        phone="(123) 456-7890"
+        address="Main Street, Holmdel"
+        map="https://maps.google.com"
+        @query="searchSite" 
+        @choose="runSelection"
+      ></nav-bar>
+      <hr>
+      <page-footer :icons="media" :copyright="copyright"></page-footer>
+      <hr>
+      <teacher v-for="t in teachers" :name="t.name" :photo="t.image" :blurb="t.blurb" :specs="t.specs" @search-class="testEmit"></teacher>
+      <hr>
+      <instrument-accordion :instrument="testInstrument"></instrument-accordion>
+      <hr>
+      <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']" @select="testEmit"></class-filter>
+      <hr>
+      <special-class title="Holiday Show Chorus" date-time="Monday: 5:30-7pm" teacher="Jeff Pantelas" text="body text" when="September - December 2025"></special-class>
+      <hr>
+      <img-carousel :images="content.data?.['IMAGE GALLERIES']?.['CAROUSEL']"></img-carousel>
+      {{content.data}}
     </main>
     <script defer src="./javascript/bootstrap.bundle.min.js"></script>
     <script defer src="./javascript/script.js"></script>

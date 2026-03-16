@@ -1,0 +1,24 @@
+.nav-bar {
+  background: black;
+  color: white;
+}
+.nav-bar .nav-bar-body .nav-bar-list {
+  background: gray;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item a {
+  color: teal;
+}
+
+.footer-icons {
+  background: yellow;
+}
+.footer-icons .footer-icons-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: black;
+}
+
+.footer-copyright p {
+  color: green;
+}/*# sourceMappingURL=components.css.map */

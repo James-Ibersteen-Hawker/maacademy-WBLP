@@ -1,0 +1,34 @@
+$base: "nav-bar";
+
+.#{$base} {
+  $self: &;
+  background: black;
+  color: white;
+  #{$self}-body {
+    #{$self}-list {
+      background: gray;
+      #{$self}-item {
+        a {
+          color: teal;
+        }
+      }
+    }
+  }
+}
+
+$footBase: "footer";
+.#{$footBase}-icons {
+  $self: &;
+  background: yellow;
+  #{$self}-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: black;
+  }
+}
+.#{$footBase}-copyright {
+  p {
+    color: green;
+  }
+}
