@@ -38,10 +38,10 @@ const testInstrument = new Instrument("Piano", [{
 const App = createApp({
   setup() {
     const copyright = "Copyright 2026 Music and Art Academy";
-    const content = reactive({ data: null });
+    const content = ref({});
     const results = reactive({ data: [] });
     getSheetData()
-      .then((data) => (content.data = ref(data)))
+      .then((data) => (content.value = data))
       .catch((err) => alert(err.message));
     function searchSite(input) {
       results.data = [new Hit("Higgeldy Piggeldy", "link.html")];

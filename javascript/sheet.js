@@ -18,7 +18,6 @@ const funcLUT = {
   "image galleries": imgGalleries,
 };
 export async function sheet(fetchlink, abortTimeout) {
-  console.log(abortTimeout)
   const controller = new AbortController();
   const signal = controller.signal;
   const timeout = setTimeout(() => controller.abort(), abortTimeout);
@@ -27,7 +26,7 @@ export async function sheet(fetchlink, abortTimeout) {
     const sheets = (await data.json())?.sheets ?? {};
     return Object.entries(sheets).reduce((obj, [name, sheetData]) => {
       const func = funcLUT[name.trim().toLowerCase()];
-      if (func) obj[name] = func(sheetData);
+      if (func) Object.assign(obj, func(sheetData))
       return obj;
     }, {});
   } catch (err) {
