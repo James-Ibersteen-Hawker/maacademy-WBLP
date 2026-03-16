@@ -41,7 +41,7 @@ const App = createApp({
     const content = reactive({ data: null });
     const results = reactive({ data: [] });
     getSheetData()
-      .then((data) => (content.data = data))
+      .then((data) => (content.data = ref(data)))
       .catch((err) => alert(err.message));
     function searchSite(input) {
       results.data = [new Hit("Higgeldy Piggeldy", "link.html")];

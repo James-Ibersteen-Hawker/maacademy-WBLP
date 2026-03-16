@@ -41,7 +41,7 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/components.css">
     <!--favicons-->
     <link rel="icon" type="image/png" sizes="16x16" href="./webicons/logo16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="./webicons/logo32x32.png" />
@@ -96,7 +96,7 @@
       <hr>
       <special-class title="Holiday Show Chorus" date-time="Monday: 5:30-7pm" teacher="Jeff Pantelas" text="body text" when="September - December 2025"></special-class>
       <hr>
-      <img-carousel :images="content['IMAGE + GALLERIES']"></img-carousel>
+      <img-carousel :images="content.data?.['IMAGE GALLERIES']?.['CAROUSEL']"></img-carousel>
       {{content.data}}
     </main>
     <script defer src="./javascript/bootstrap.bundle.min.js"></script>

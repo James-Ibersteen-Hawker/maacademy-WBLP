@@ -126,17 +126,17 @@ const footer = {
     return { props };
   },
   template: `
-  <footer>
-    <div class="footer-icons">
-      <div class="footer-icons-icon" v-for="icon in props.icons">
-        <a :href="icon.url" target="_blank">
-          <img :src="icon.icon" :alt="icon.alt" loading="lazy">
-        </a>
+  <footer class="footer-icons">
+      <div class="footer-icons-container">
+       <div class="footer-icons-icon" v-for="icon in props.icons">
+         <a :href="icon.url" target="_blank">
+           <img :src="icon.icon" :alt="icon.alt" loading="lazy">
+         </a>
+       </div>
       </div>
       <div class="footer-copyright" v-if="props.copyright">
         <p>{{props.copyright}}</p>
       </div>
-    </div>
   </footer>
   `,
 }; //footer done
@@ -145,11 +145,11 @@ const imgCarousel = {
     images: { type: Array, default: () => [] },
   },
   setup(props) {
-    console.log(props);
     return { props }
   },
   template: `
-  <img v-for="image in props.images" :src="image" loading="lazy">`,
+  <img v-for="image in props.images" :src="image" loading="lazy">
+  `,
 }; //find something on codepen or smth, or look at CSS carousels
 const teacherCard = {
   props: {
