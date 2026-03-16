@@ -62,14 +62,14 @@ const navBar = {
     <div class="nav-bar-close" @click="instOpen">-></div>
     <div class="nav-bar-open" @click="instClose">X</div>
     <div class="nav-bar-header">
-      <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo">
+      <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo" loading="lazy">
     </div>
     <div class="nav-bar-body">
       <div class="nav-bar-section nav-bar-list">
         <div class="nav-bar-item" v-for="link in props.links" @mouseenter="animOpen" @mouseleave="animClose">
           <a :href="link.url" target="_blank">{{link.name}}</a>
           <div class="nav-bar-item-icon">
-            <img src="link.icon" :alt="link.name">
+            <img src="link.icon" :alt="link.name" loading="lazy">
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@ const navBar = {
         </div>
         <div class="col-5 extras-map">
           <a :href="props.map" target="_blank">
-            <img src="/imgs/no-image.png">
+            <img src="/imgs/no-image.png" loading="lazy">
           </a>
         </div>
       </div>
@@ -130,8 +130,8 @@ const footer = {
     <div class="footer-icons">
       <div class="footer-icons-icon" v-for="icon in props.icons">
         <a :href="icon.url" target="_blank">
-          <img :src="icon.icon" :alt="icon.alt">
-        <a>
+          <img :src="icon.icon" :alt="icon.alt" loading="lazy">
+        </a>
       </div>
       <div class="footer-copyright" v-if="props.copyright">
         <p>{{props.copyright}}</p>
@@ -140,14 +140,16 @@ const footer = {
   </footer>
   `,
 }; //footer done
-const carousel = {
+const imgCarousel = {
   props: {
     images: { type: Array, default: () => [] },
   },
   setup(props) {
+    console.log(props);
     return { props }
   },
-  template: ``,
+  template: `
+  <img v-for="image in props.images" :src="image" loading="lazy">`,
 }; //find something on codepen or smth, or look at CSS carousels
 const teacherCard = {
   props: {
@@ -168,11 +170,11 @@ const teacherCard = {
   template: `
   <div class="teacher-card">
     <div class="teacher-img teacher-section">
-      <img :src="photo(props.photo)" :alt="props.name">
+      <img :src="photo(props.photo)" :alt="props.name" loading="lazy">
     </div>
     <div class="teacher-section teacher-body">
       <div class="teacher-header">
-        <p>{{props.name}}<p>
+        <p>{{props.name}}</p>
         <div class="teacher-chips">
           <ul>
             <li v-for="spec in props.specs" class="chip">

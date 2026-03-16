@@ -1,7 +1,7 @@
 "use strict";
 const { createApp, ref, reactive } = Vue;
 const weblink = "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
-const signalTimeout = 5000;
+const signalTimeout = 10000;
 const worker = new Worker(`/javascript/worker.js`, { type: "module" });
 const pages = [
   new Page("Home", "index.html", "iconurl"),
@@ -68,7 +68,7 @@ const App = createApp({
 });
 App.component("nav-bar", navBar);
 App.component("page-footer", footer);
-App.component("carousel", carousel);
+App.component("img-carousel", imgCarousel);
 App.component("teacher", teacherCard);
 App.component("instrument-accordion", instrumentComponent);
 App.component("class-filter", classFilter);
@@ -86,6 +86,6 @@ function getSheetData() {
       else if (!err && data) resolve(data);
       else reject(new Error("No Data Returned"));
     };
-    worker.postMessage({ mode: "load", link: weblink, timeout: 5000 });
+    worker.postMessage({ mode: "load", link: weblink, timeout: signalTimeout });
   });
 }
