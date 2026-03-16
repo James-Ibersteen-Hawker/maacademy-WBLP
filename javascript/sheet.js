@@ -11,22 +11,20 @@ export async function sheet(fetchlink, abortTimeout) {
   });
   const sheets = (await data.json())?.sheets ?? {};
   return Object.entries(sheets).reduce((obj, [name, sheetData]) => {
-    const func = funcLUT[name.trim().toLowerCase()]
+    const func = funcLUT[name.trim().toLowerCase()];
     if (func) obj[name] = func(sheetData);
     return obj;
   }, {});
 }
 
-
-function frontpage(data) {
-  return "lollipop";
-}
+const frontpage = (data) => data;
 function teachersSched(data) {
   return "bacon";
 }
-function contactOpp(data) {
-  return "sandwich";
-}
+const contactOpp = (data) => data;
 function imgGalleries(data) {
-  return "skerdoodlydumptious";
+  return Object.entries(data).reduce((payload, [category, images]) => {
+    payload[category] = images.filter(Boolean);
+    return payload;
+  }, {});
 }
