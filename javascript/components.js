@@ -42,6 +42,15 @@ const navBar = {
     };
     const instOpen = () => (open.value = true);
     const instClose = () => (open.value = false);
+    function makeMaskStyle(img) {
+      return {
+        maskImage: `url(${img})`,
+        WebkitMaskImage: `url(${img})`,
+        maskSize: 'contain',
+        maskPosition: 'center',
+        maskRepeat: 'no-repeat',
+      }
+    }
     return {
       formSubmit,
       choose,
@@ -50,6 +59,7 @@ const navBar = {
       makePhone,
       instOpen,
       instClose,
+      makeMaskStyle,
       open,
       opening,
       query,
@@ -69,8 +79,7 @@ const navBar = {
         <div class="nav-bar-item" v-for="link in props.links" @mouseenter="animOpen" @mouseleave="animClose">
           <a :href="link.url" target="_blank">{{link.name}}</a>
           <div class="nav-bar-item-icon">
-            <img :src="link.icon" :alt="link.name" loading="lazy">
-            <div :style=""></div>
+            <div :style="makeMaskStyle(link.icon)" class="nav-bar-item-icon-mask"></div>
           </div>
         </div>
       </div>

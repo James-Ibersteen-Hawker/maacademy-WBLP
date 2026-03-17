@@ -1,39 +1,90 @@
 .nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  aspect-ratio: 1/3;
+  max-width: 300px;
+  min-width: 200px;
+  z-index: 10;
   background: black;
-  width: 300px;
 }
-.nav-bar .nav-bar-body .nav-bar-list {
-  background: gray;
+.nav-bar .nav-bar-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 38px;
+  aspect-ratio: 1/1;
+  right: 0;
+  color: #F8FF95;
+  background: rgba(0, 0, 0, 0.5);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.nav-bar .nav-bar-open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 38px;
+  aspect-ratio: 1/1;
+  right: 0;
+  color: #F8FF95;
+  transform: translateX(100%);
+  background: black;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.nav-bar .nav-bar-header img {
+  width: 100%;
+  height: auto;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-item {
+  cursor: pointer;
   position: relative;
   font-family: "Arsenal", sans-serif;
   font-size: 25px;
-  height: 40px;
+  height: 35px;
   text-align: right;
   padding-right: 10px;
+  transition: background 0.3s;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover {
+  background: #F8FF95;
+  transition: background 0.3s;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover a {
+  color: black;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover .nav-bar-item-icon {
+  background: #F8FF95;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover .nav-bar-item-icon .nav-bar-item-icon-mask {
+  background: black;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-item a {
   color: #F8FF95;
   text-decoration: none;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon {
-  position: absolute;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  position: absolute;
   height: 100%;
   aspect-ratio: 1/1;
   background: black;
   top: 0;
   right: 0;
   transform: translateX(100%);
+  transition: background 0.3s;
 }
-.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon img {
-  height: 80%;
-  aspect-ratio: 1/1;
-  -o-object-fit: cover;
-     object-fit: cover;
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon .nav-bar-item-icon-mask {
+  height: 70%;
+  width: 70%;
+  background: #F8FF95;
+  transition: background 0.3s;
 }
 
 .footer-icons {
