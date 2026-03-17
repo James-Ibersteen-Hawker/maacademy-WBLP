@@ -12,6 +12,7 @@ const pages = [
   new Page("Radio City", "/html/radio-city.html", "/webicons/navbar-icons/radio-city.png"),
   new Page("Gallery", "/html/gallery.html", "/webicons/navbar-icons/images.png"),
   new Page("Contact", "/html/contact.html", "/webicons/navbar-icons/phone-call.png"),
+  new Page("Contact", "/html/contact.html", "/webicons/navbar-icons/phone-call.png"),
 ];
 const media = [
   new MediaIcon("youtubeIcon", "https://youtube.com", "YouTube Link"),

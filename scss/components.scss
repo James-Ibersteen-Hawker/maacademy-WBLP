@@ -1,5 +1,5 @@
 $base: "nav-bar";
-$accent: #F8FF95;
+$accent: #f8ff95;
 $border: rgba($accent, 0.5);
 $dark: black;
 $anim-length: 0.3s;
@@ -53,7 +53,9 @@ $anim-length: 0.3s;
   #{$self}-body {
     $searchHeight: 50px;
     $extrasHeight: 80px;
-    $listHeight: calc(100vh - (100vh * (1/3)) - $searchHeight - $extrasHeight);
+    $listHeight: calc(
+      100vh - (100vh * (1 / 3)) - $searchHeight - $extrasHeight
+    );
     #{$self}-list {
       border-bottom: 1px solid $border;
       height: $listHeight;
@@ -103,6 +105,33 @@ $anim-length: 0.3s;
           }
         }
       }
+      #{$self}-dropdown {
+        position: relative;
+        .dropdown-body {
+          display: none;
+          background: $dark;
+          border-top: 1px solid $accent;
+          border-bottom: 1px solid $accent;
+          position: absolute;
+          bottom: -1px;
+          left: 100%;
+          padding: 0 !important;
+          .nav-dropdown-item a {
+            padding: 0px 5px;
+            margin: 0 !important;
+            height: 35px;
+            color: $accent;
+            transition: $anim-length;
+            &:hover {
+              background: $accent;
+              color: $dark !important;
+            }
+          }
+        }
+        &:hover .dropdown-body {
+          display: block;
+        }
+      }
     }
     #{$self}-search {
       cursor: pointer;
@@ -123,7 +152,7 @@ $anim-length: 0.3s;
         padding-left: 5px;
         color: $border;
         cursor: pointer;
-        font-family: 'Arsenal', sans-serif;
+        font-family: "Arsenal", sans-serif;
         transition: box-shadow 0.1s;
         &:hover {
           color: $accent;
@@ -146,7 +175,8 @@ $anim-length: 0.3s;
         width: 70%;
         padding-top: 5px;
         padding-left: 5px;
-        p, a {
+        p,
+        a {
           display: block;
           color: white;
           font-size: 15px;
@@ -177,10 +207,6 @@ $anim-length: 0.3s;
 .#{$base}-away {
   // transform: translateX(-100%);
 }
-
-
-
-
 
 $footBase: "footer";
 .#{$footBase}-icons {

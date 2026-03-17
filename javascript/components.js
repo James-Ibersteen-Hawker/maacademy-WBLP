@@ -15,6 +15,10 @@ const navBar = {
     const query = Vue.ref("");
     const open = Vue.ref(true);
     const opening = Vue.ref(false);
+    const navBody = ref(null);
+    const navItem = ref(null);
+    const links = ref(props.links);
+    const overflow = ref([]);
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -51,6 +55,18 @@ const navBar = {
         maskRepeat: "no-repeat",
       };
     }
+    function checkFit() {
+      const boxHeight = navBody.value.offsetHeight;
+      const itemHeight = navItem.value.offsetHeight + 4;
+      const totalHeight = itemHeight * props.links.length;
+      const diff = boxHeight - totalHeight;
+      if (diff > 0) return;
+      const dontFit = Math.ceil(Math.abs(diff) / itemHeight) + 1;
+      links.value = props.links.slice(0, -dontFit);
+      const remaining = props.links.slice(-dontFit);
+      overflow.value = remaining;
+    }
+    Vue.onMounted(checkFit)
     return {
       formSubmit,
       choose,
@@ -64,6 +80,10 @@ const navBar = {
       opening,
       query,
       props,
+      navBody,
+      navItem,
+      links,
+      overflow
     };
   },
   //anim on icon hover, but if the navbar is clicked, wait for the animation to end and freeze the navbar in place
@@ -73,17 +93,28 @@ const navBar = {
       <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/close.png')"></div>
     </div>
     <div class="nav-bar-open" @click.stop="instOpen">
-      <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/next.png')"></div>
+      <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/right-arrow.png')"></div>
     </div>
     <div class="nav-bar-header">
       <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo" loading="lazy">
     </div>
     <div class="nav-bar-body">
-      <div class="nav-bar-section nav-bar-list">
-        <div class="nav-bar-item" v-for="link in props.links" @mouseenter="animOpen" @mouseleave="animClose">
+      <div class="nav-bar-section nav-bar-list" ref="navBody">
+        <div class="nav-bar-item" ref="navItem" v-for="link in links" @mouseenter="animOpen" @mouseleave="animClose">
           <a :href="link.url" target="_blank">{{link.name}}</a>
           <div class="nav-bar-item-icon">
             <div :style="makeMaskStyle(link.icon)" class="nav-bar-item-icon-mask"></div>
+          </div>
+        </div>
+        <div class="nav-bar-dropdown nav-bar-item" v-if="overflow.length > 0" @mouseenter="animOpen" @mouseleave="animClose">
+          <a>More</a>
+          <div class="nav-bar-item-icon">
+            <div :style="makeMaskStyle('/webicons/navbar-icons/next.png')" class="nav-bar-item-icon-mask"></div>
+          </div>
+          <div class="dropdown-body">
+              <div class="nav-dropdown-item" v-for="link in overflow">
+                <a :href="link.url" target="_blank">{{link.name}}</a>
+              </div>
           </div>
         </div>
       </div>
