@@ -22,7 +22,8 @@ export async function sheet(fetchlink, abortTimeout) {
   const signal = controller.signal;
   const timeout = setTimeout(() => controller.abort(), abortTimeout);
   try {
-    const data = await fetch(fetchlink, { signal });
+    // const data = await fetch(fetchlink, { signal });
+    const data = await fetch("/test.json", { signal });
     const sheets = (await data.json())?.sheets ?? {};
     return Object.entries(sheets).reduce((obj, [name, sheetData]) => {
       const func = funcLUT[name.trim().toLowerCase()];

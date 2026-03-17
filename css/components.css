@@ -6,7 +6,6 @@
   aspect-ratio: 1/3;
   max-width: 300px;
   min-width: 200px;
-  border-right: 1px solid #F8FF95;
   z-index: 10;
   background: black;
 }
@@ -14,6 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   position: absolute;
   height: 38px;
   aspect-ratio: 1/1;
@@ -27,6 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   position: absolute;
   height: 38px;
   aspect-ratio: 1/1;
@@ -37,19 +38,27 @@
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+.nav-bar .control-icon {
+  height: 70%;
+  width: 70%;
+  background: #F8FF95;
+}
 .nav-bar .nav-bar-header img {
   width: 100%;
   height: auto;
 }
 .nav-bar .nav-bar-body .nav-bar-list {
   border-bottom: 1px solid rgba(248, 255, 149, 0.5);
+  height: calc(66.6666666667vh - 50px - 80px);
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-item {
   cursor: pointer;
   position: relative;
   font-family: "Arsenal", sans-serif;
   font-size: 25px;
-  height: 40px;
+  height: 34px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   text-align: right;
   padding-right: 10px;
   transition: background 0.3s;
@@ -91,12 +100,15 @@
   transition: background 0.3s;
 }
 .nav-bar .nav-bar-body .nav-bar-search {
+  cursor: pointer;
+  height: 50px;
   display: flex;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid rgba(248, 255, 149, 0.5);
   padding: 5px;
 }
 .nav-bar .nav-bar-body .nav-bar-search #sham-input {
@@ -113,7 +125,6 @@
   transition: box-shadow 0.1s;
 }
 .nav-bar .nav-bar-body .nav-bar-search #sham-input:hover {
-  box-shadow: 0px 0px 5px black inset;
   color: #F8FF95;
 }
 .nav-bar .nav-bar-body .nav-bar-search .search-icon {
@@ -121,6 +132,43 @@
   aspect-ratio: 1/1;
   background: #F8FF95;
   margin-left: 10px;
+}
+.nav-bar .nav-bar-body .nav-bar-extras {
+  height: 80px;
+  overflow: auto;
+  display: flex;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-text {
+  border-right: 1px solid rgba(248, 255, 149, 0.5);
+  height: 100%;
+  width: 70%;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-text p, .nav-bar .nav-bar-body .nav-bar-extras .extras-text a {
+  display: block;
+  color: white;
+  font-size: 15px;
+  position: relative;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-map {
+  width: 30%;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-map a img {
+  height: 72px;
+  width: 90%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 2px;
 }
 
 .footer-icons {

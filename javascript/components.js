@@ -69,8 +69,12 @@ const navBar = {
   //anim on icon hover, but if the navbar is clicked, wait for the animation to end and freeze the navbar in place
   template: `
   <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': open, 'nav-bar-away': !open, 'nav-bar-opening': opening, 'nav-bar-closing': !opening }">
-    <div class="nav-bar-close" @click.stop="instClose">X</div>
-    <div class="nav-bar-open" @click.stop="instOpen">-></div>
+    <div class="nav-bar-close" @click.stop="instClose">
+      <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/close.png')"></div>
+    </div>
+    <div class="nav-bar-open" @click.stop="instOpen">
+      <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/next.png')"></div>
+    </div>
     <div class="nav-bar-header">
       <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo" loading="lazy">
     </div>
@@ -83,18 +87,18 @@ const navBar = {
           </div>
         </div>
       </div>
-      <div class="nav-bar-section nav-bar-search">
-        <div class="fake-search" id="sham-input" data-bs-toggle="modal" data-bs-target="#search-modal">Search...</div>
+      <div class="nav-bar-section nav-bar-search" data-bs-toggle="modal" data-bs-target="#search-modal">
+        <div class="fake-search" id="sham-input">Search...</div>
         <div class="search-icon" :style="makeMaskStyle('/webicons/navbar-icons/search.png')"></div>
       </div>
-      <div class="nav-bar-section nav-bar-extras row">
-        <div class="col-7 extras-text">
+      <div class="nav-bar-section nav-bar-extras">
+        <div class="extras-text extras-section">
           <a :href="'tel:' + makePhone(props.phone)">{{props.phone}}</a>
           <p>{{props.address}}</p>
         </div>
-        <div class="col-5 extras-map">
+        <div class="extras-map extras-section">
           <a :href="props.map" target="_blank">
-            <img src="/imgs/no-image.png" loading="lazy">
+            <img src="/map.png" loading="lazy" class="img-fluid">
           </a>
         </div>
       </div>

@@ -85,12 +85,12 @@
         @query="searchSite" 
         @choose="runSelection"
       ></nav-bar>
-      <page-footer :icons="media" :copyright="content?.['copyright']"></page-footer>
-      <teacher v-for="t in teachers" :name="t.name" :photo="t.image" :blurb="t.blurb" :specs="t.specs" @search-class="testEmit"></teacher>
-      <instrument-accordion :instrument="testInstrument"></instrument-accordion>
-      <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']" @select="testEmit"></class-filter>
-      <special-class title="Holiday Show Chorus" date-time="Monday: 5:30-7pm" teacher="Jeff Pantelas" text="body text" when="September - December 2025"></special-class>
-      <img-carousel :images="content?.['CAROUSEL']"></img-carousel>
+      <!-- <page-footer :icons="media" :copyright="content?.['copyright']"></page-footer> -->
+      <!-- <teacher v-for="t in teachers" :name="t.name" :photo="t.image" :blurb="t.blurb" :specs="t.specs" @search-class="testEmit"></teacher> -->
+      <!-- <instrument-accordion :instrument="testInstrument"></instrument-accordion> -->
+      <!-- <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']" @select="testEmit"></class-filter> -->
+      <!-- <special-class title="Holiday Show Chorus" date-time="Monday: 5:30-7pm" teacher="Jeff Pantelas" text="body text" when="September - December 2025"></special-class> -->
+      <!-- <img-carousel :images="content?.['CAROUSEL']"></img-carousel> -->
       {{content}}
     </main>
     <script defer src="./javascript/bootstrap.bundle.min.js"></script>
