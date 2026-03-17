@@ -69,7 +69,8 @@ const navBar = {
         <div class="nav-bar-item" v-for="link in props.links" @mouseenter="animOpen" @mouseleave="animClose">
           <a :href="link.url" target="_blank">{{link.name}}</a>
           <div class="nav-bar-item-icon">
-            <img src="link.icon" :alt="link.name" loading="lazy">
+            <img :src="link.icon" :alt="link.name" loading="lazy">
+            <div :style=""></div>
           </div>
         </div>
       </div>

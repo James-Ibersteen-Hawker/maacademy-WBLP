@@ -1,15 +1,41 @@
 $base: "nav-bar";
+$accent: #F8FF95;
 
 .#{$base} {
   $self: &;
-  background: black;
-  color: white;
+  $nav-bg: black;
+  background: $nav-bg;
+  width: 300px;
   #{$self}-body {
     #{$self}-list {
       background: gray;
       #{$self}-item {
+        position: relative;
+        font-family: "Arsenal", sans-serif;
+        font-size: 25px;
+        height: 40px;
+        text-align: right;
+        padding-right: 10px;
         a {
-          color: teal;
+          color: $accent;
+          text-decoration: none;
+        }
+        #{$self}-item-icon {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          aspect-ratio: 1/1;
+          background: $nav-bg;
+          top: 0;
+          right: 0;
+          transform: translateX(100%);
+          img {
+            height: 80%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+          }
         }
       }
     }
