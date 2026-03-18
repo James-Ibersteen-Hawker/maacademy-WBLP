@@ -1,16 +1,361 @@
 $base: "nav-bar";
-
+$accent: #f8ff95;
+$border: rgba($accent, 0.5);
+$dark: black;
+$anim-length: 0.3s;
+@mixin centerFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .#{$base} {
-  $self: &;
-  background: black;
-  color: white;
-  #{$self}-body {
-    #{$self}-list {
-      background: gray;
-      #{$self}-item {
-        a {
-          color: teal;
+  @mixin toggle {
+    @include centerFlex;
+    cursor: pointer;
+    position: absolute;
+    height: 50px;
+    aspect-ratio: 1/1;
+    right: 0;
+    color: $accent;
+  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  aspect-ratio: 1/3;
+  max-width: 300px;
+  min-width: 200px;
+  z-index: 10;
+  background: $dark;
+  transition: 0.5s;
+  transition-timing-function: ease-out;
+  .#{$base}-close {
+    @include toggle;
+    background: rgba($dark, 0.5);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: $anim-length;
+    &:hover {
+      background: rgba($dark, 0.8);
+    }
+  }
+  .#{$base}-open {
+    @include toggle;
+    transform: translateX(100%);
+    background: $dark;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .control-icon {
+    height: 50%;
+    width: 50%;
+    background: $accent;
+  }
+  .#{$base}-header img {
+    width: 100%;
+    height: auto;
+  }
+  .#{$base}-body {
+    $searchHeight: 50px;
+    $extrasHeight: 80px;
+    $listHeight: calc(
+      100vh - (100vh * (1 / 3)) - $searchHeight - $extrasHeight
+    );
+    .#{$base}-list {
+      border-bottom: 1px solid $border;
+      height: $listHeight;
+      .#{$base}-item {
+        cursor: pointer;
+        position: relative;
+        font-family: "Arsenal", sans-serif;
+        font-size: 25px;
+        height: 34px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        text-align: right;
+        padding-right: 10px;
+        transition: background $anim-length;
+        &:hover {
+          background: $accent;
+          transition: background $anim-length;
+          a {
+            color: $dark;
+          }
+          .#{$base}-item-icon {
+            background: $accent;
+            .#{$base}-item-icon-mask {
+              background: $dark;
+            }
+          }
         }
+        a {
+          color: $accent;
+          text-decoration: none;
+        }
+        .#{$base}-item-icon {
+          @include centerFlex;
+          position: absolute;
+          height: 100%;
+          aspect-ratio: 1/1;
+          background: $dark;
+          top: 0;
+          right: 0;
+          transform: translateX(100%);
+          transition: background $anim-length;
+          .#{$base}-item-icon-mask {
+            height: 70%;
+            width: 70%;
+            background: $accent;
+            transition: background $anim-length;
+          }
+        }
+      }
+      .#{$base}-dropdown {
+        position: relative;
+        a {
+          font-size: 20px;
+        }
+        .dropdown-body {
+          display: none;
+          background: $dark;
+          border-top: 1px solid $accent;
+          border-bottom: 1px solid $accent;
+          position: absolute;
+          bottom: -1px;
+          left: 100%;
+          padding: 0 !important;
+          min-width: 140px;
+          .nav-dropdown-item a {
+            display: block;
+            padding: 0px 5px;
+            margin: 0 !important;
+            height: 35px;
+            font-size: 25px;
+            color: $accent;
+            transition: $anim-length;
+            &:hover {
+              background: $accent;
+              color: $dark !important;
+            }
+          }
+        }
+        &:hover .dropdown-body {
+          display: block;
+        }
+      }
+    }
+    .#{$base}-search {
+      @include centerFlex;
+      cursor: pointer;
+      height: $searchHeight;
+      user-select: none;
+      border-bottom: 1px solid $border;
+      padding: 5px;
+      #sham-input {
+        height: 35px;
+        background: rgba(128, 128, 128, 0.5);
+        border: 2px solid $border;
+        width: calc(100% - 40px);
+        font-size: 25px;
+        line-height: 30px;
+        padding-left: 5px;
+        color: $border;
+        font-family: "Arsenal", sans-serif;
+        transition: box-shadow 0.1s;
+        &:hover {
+          color: $accent;
+        }
+      }
+      .search-icon {
+        height: calc(0.9 * 35px);
+        aspect-ratio: 1/1;
+        background: $accent;
+        margin-left: 10px;
+      }
+    }
+    .#{$base}-extras {
+      height: $extrasHeight;
+      overflow: auto;
+      display: flex;
+      .extras-text {
+        border-right: 1px solid $border;
+        height: 100%;
+        width: 70%;
+        padding-top: 5px;
+        padding-left: 5px;
+        p,
+        a {
+          display: block;
+          color: white;
+          font-size: 15px;
+          position: relative;
+          padding: 0 !important;
+          margin: 0 !important;
+          box-sizing: border-box;
+        }
+      }
+      .extras-map {
+        width: 30%;
+        padding: 0 !important;
+        margin: 0 !important;
+        @include centerFlex;
+        text-align: center;
+        a img {
+          height: calc(0.9 * $extrasHeight);
+          width: calc(0.9 * 100%);
+          object-fit: cover;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+}
+.#{$base}-show {
+  .#{$base}-close {
+    display: flex !important;
+  }
+  .#{$base}-open {
+    display: none !important;
+  }
+  .#{$base}-body .#{$base}-list .#{$base}-item .#{$base}-item-icon {
+    display: none !important;
+  }
+}
+.#{$base}-away {
+  transform: translateX(-100%);
+  .#{$base}-close {
+    display: none !important;
+  }
+  .#{$base}-open {
+    display: flex !important;
+  }
+  .#{$base}-body .#{$base}-list .#{$base}-item .#{$base}-item-icon {
+    display: flex !important;
+  }
+}
+.search-modal {
+  background: rgba($dark, 0.7);
+  backdrop-filter: blur(3px);
+  .modal-content {
+    background: $dark !important;
+    border: 1px solid $border;
+    border-radius: 0;
+    .modal-body {
+      position: relative;
+      form {
+        display: flex;
+        align-items: center;
+        input {
+          width: calc(100% - 40px);
+          height: 35px;
+          background: transparent;
+          border-top: 0px solid transparent;
+          border-right: 0px solid transparent;
+          border-left: 0px solid transparent;
+          border-bottom: 5px solid $border;
+          transition: $anim-length;
+          color: white;
+          font-size: 22px;
+          font-family: "Arsenal", sans-serif;
+          padding: 0 !important;
+          &:focus {
+            outline: none;
+            border-bottom: 5px solid $accent;
+          }
+        }
+        label {
+          margin-left: 10px;
+          background: $accent;
+          height: 30px;
+          aspect-ratio: 1/1;
+        }
+      }
+      .search-results {
+        margin-top: 10px;
+        max-height: 300px;
+        overflow-y: auto;
+        &:after {
+          display: none;
+        }
+        ul {
+          list-style-type: none;
+          padding: 0;
+          .result {
+            cursor: pointer;
+            border-bottom: 1px solid $border;
+            border-top: 1px solid $border;
+            padding: 2px 8px;
+            transition: $anim-length;
+            a {
+              color: $accent;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              text-decoration: none;
+              font-size: 22px;
+              font-family: "Arsenal", sans-serif;
+              p {
+                display: block;
+                margin: 0 !important;
+                padding: 0 !important;
+              }
+              p:first-child {
+                width: 80%;
+                font-weight: 700;
+                mask-image: linear-gradient(to right, black 50%, transparent 98%);
+              }
+              p:last-child {
+                width: 20%;
+                font-size: 18px;
+                font-style: italic;
+                text-align: right;
+              }
+            }
+            &:hover {
+              background-color: $border;
+              a {
+                color: $dark !important;
+              }
+            }
+          }
+          .result:first-child {
+            border-top: none;
+          }
+        }
+      }
+      .search-results.scrollMore {
+        transition: $anim-length;
+        &::after {
+          content: 'Scroll to see more';
+          @include centerFlex;
+          position: absolute;
+          bottom: 15px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: calc(100% - 30px);
+          height: 40px;
+          opacity: 1;
+          color: black;
+          font-weight: 900;
+          font-family: 'Arsenal', sans-serif;
+          font-size: 20px;
+          background: linear-gradient(to bottom, transparent, $border, $accent);
+          animation-name: fadein;
+          animation-timing-function: ease-out;
+          animation-fill-mode: forwards;
+          animation-iteration-count: 1;
+          animation-duration: $anim-length;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-height: 800px) {
+  .#{$base}-body {
+    .#{$base}-list {
+      .#{$base}-item {
+        height: 40px !important;
+        font-size: 30px !important;
       }
     }
   }
@@ -30,5 +375,14 @@ $footBase: "footer";
 .#{$footBase}-copyright {
   p {
     color: green;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

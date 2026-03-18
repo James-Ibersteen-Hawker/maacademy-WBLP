@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/components.css">
     <!--favicons-->
@@ -73,30 +74,23 @@
     <script defer src="./javascript/sheet.js" type="module"></script>
   </head>
   <body>
-    <h1>heading 2</h1>
     <main id="vue_app">
-      <hr>
       <nav-bar 
         :links="pages"
+        logo="/MAINLOGO.png"
         :results="results.data"
-        phone="(123) 456-7890"
-        address="Main Street, Holmdel"
+        :phone="content?.['Phone Number']"
+        :address="content?.['Address']"
         map="https://maps.google.com"
         @query="searchSite" 
         @choose="runSelection"
       ></nav-bar>
-      <hr>
-      <page-footer :icons="media" :copyright="copyright"></page-footer>
-      <hr>
-      <teacher v-for="t in teachers" :name="t.name" :photo="t.image" :blurb="t.blurb" :specs="t.specs" @search-class="testEmit"></teacher>
-      <hr>
-      <instrument-accordion :instrument="testInstrument"></instrument-accordion>
-      <hr>
-      <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']" @select="testEmit"></class-filter>
-      <hr>
-      <special-class title="Holiday Show Chorus" date-time="Monday: 5:30-7pm" teacher="Jeff Pantelas" text="body text" when="September - December 2025"></special-class>
-      <hr>
-      <img-carousel :images="content?.['CAROUSEL']"></img-carousel>
+      <!-- <page-footer :icons="media" :copyright="content?.['copyright']"></page-footer> -->
+      <!-- <teacher v-for="t in teachers" :name="t.name" :photo="t.image" :blurb="t.blurb" :specs="t.specs" @search-class="testEmit"></teacher> -->
+      <!-- <instrument-accordion :instrument="testInstrument"></instrument-accordion> -->
+      <!-- <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']" @select="testEmit"></class-filter> -->
+      <!-- <special-class title="Holiday Show Chorus" date-time="Monday: 5:30-7pm" teacher="Jeff Pantelas" text="body text" when="September - December 2025"></special-class> -->
+      <!-- <img-carousel :images="content?.['CAROUSEL']"></img-carousel> -->
       {{content}}
     </main>
     <script defer src="./javascript/bootstrap.bundle.min.js"></script>

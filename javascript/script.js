@@ -4,14 +4,15 @@ const weblink = "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBM
 const signalTimeout = 10000;
 const worker = new Worker(`/javascript/worker.js`, { type: "module" });
 const pages = [
-  new Page("Home", "index.html", "iconurl"),
-  new Page("About Us", "/html/about-us.html", "iconurl"),
-  new Page("Classes", "/html/classes.html", "iconurl"),
-  new Page("Teachers", "/html/teachers.html", "iconurl"),
-  new Page("Parties", "/html/parties.html", "iconurl"),
-  new Page("Radio City", "/html/radio-city.html", "iconurl"),
-  new Page("Gallery", "/html/gallery.html", "iconurl"),
-  new Page("Contact", "/html/contact.html", "iconurl"),
+  new Page("Home", "index.html", "/webicons/navbar-icons/home.png"),
+  new Page("About Us", "/html/about-us.html", "/webicons/navbar-icons/information.png"),
+  new Page("Classes", "/html/classes.html", "/webicons/navbar-icons/music.png"),
+  new Page("Teachers", "/html/teachers.html", "/webicons/navbar-icons/teacher.png"),
+  new Page("Parties", "/html/parties.html", "/webicons/navbar-icons/party.png"),
+  new Page("Radio City", "/html/radio-city.html", "/webicons/navbar-icons/radio-city.png"),
+  new Page("Gallery", "/html/gallery.html", "/webicons/navbar-icons/images.png"),
+  new Page("Contact", "/html/contact.html", "/webicons/navbar-icons/phone-call.png"),
+  new Page("Contact", "/html/contact.html", "/webicons/navbar-icons/phone-call.png"),
 ];
 const media = [
   new MediaIcon("youtubeIcon", "https://youtube.com", "YouTube Link"),
@@ -44,7 +45,15 @@ const App = createApp({
       .then((data) => (content.value = data))
       .catch((err) => alert(err.message));
     function searchSite(input) {
-      results.data = [new Hit("Higgeldy Piggeldy", "link.html")];
+      results.data = [
+        new Hit("Higgeldy Piggeldy 1", "link.html"),
+        new Hit("Higgeldy Piggeldy 2", "link.html"),
+        new Hit("Higgeldy Piggeldy 3", "link.html"),
+        new Hit("Higgeldy Piggeldy 4", "link.html"),
+        new Hit("Higgeldy Piggeldy 5", "link.html"),
+        new Hit("Higgeldy Piggeldy 6", "link.html"),
+        new Hit("Higgeldy Piggeldy 7", "link.html"),
+      ];
     }
     function runSelection(selection) {
       alert(selection.match);

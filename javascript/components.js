@@ -10,11 +10,17 @@ const navBar = {
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
-    const animLength = 200;
-    let currentTimeout = null;
     const query = Vue.ref("");
     const open = Vue.ref(true);
     const opening = Vue.ref(false);
+    const navBody = ref(null);
+    const navItem = ref(null);
+    const links = ref(props.links);
+    const overflow = ref([]);
+    const permaOpen = ref(true);
+    const resultsCont = ref(null);
+    const scrollMore = ref(true);
+    const resultItem = ref(null);
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -24,24 +30,60 @@ const navBar = {
         .map((e) => Number(e.replace(/[()]/g, "")));
       return splitted.join("-");
     };
+    const instOpen = () => {
+      open.value = true;
+      permaOpen.value = true;
+    };
+    const instClose = () => {
+      open.value = false;
+      permaOpen.value = false;
+    };
     const animOpen = () => {
-      if (currentTimeout) clearTimeout(currentTimeout);
-      opening.value = true;
-      currentTimeout = setTimeout(
-        () => ((open.value = true), (currentTimeout = null)),
-        animLength,
-      );
+      open.value = true;
     };
     const animClose = () => {
-      if (currentTimeout) clearTimeout(currentTimeout);
-      opening.value = false;
-      currentTimeout = setTimeout(
-        () => ((open.value = false), (currentTimeout = null)),
-        animLength,
-      );
+      open.value = false;
     };
-    const instOpen = () => (open.value = true);
-    const instClose = () => (open.value = false);
+    function makeMaskStyle(img) {
+      return {
+        maskImage: `url(${img})`,
+        WebkitMaskImage: `url(${img})`,
+        maskSize: "contain",
+        maskPosition: "center",
+        maskRepeat: "no-repeat",
+      };
+    }
+    function checkFit() {
+      const boxHeight = navBody.value.offsetHeight;
+      const itemHeight = navItem.value.offsetHeight + 2;
+      const totalHeight = itemHeight * props.links.length;
+      const diff = boxHeight - totalHeight;
+      if (diff > 0) {
+        links.value = props.links;
+        overflow.value = [];
+        return;
+      }
+      const dontFit = Math.ceil(Math.abs(diff) / itemHeight) + 1;
+      links.value = props.links.slice(0, -dontFit);
+      const remaining = props.links.slice(-dontFit);
+      overflow.value = remaining;
+    }
+    function resultScroll() {
+      const el = resultsCont.value;
+      const scrollBottom = Math.round(el.scrollHeight - el.scrollTop - el.clientHeight);
+      if (scrollBottom <= 1) scrollMore.value = false;
+      else scrollMore.value = true;
+    }
+    Vue.watch(() => props.results, () => {
+      Vue.nextTick(() => {
+        if (resultItem.value) resultScroll()
+      })
+    }, {deep: true})
+    Vue.onMounted(() => {
+      checkFit();
+      const observer = new ResizeObserver(() => checkFit());
+      observer.observe(navBody.value)
+    });
     return {
       formSubmit,
       choose,
@@ -50,41 +92,65 @@ const navBar = {
       makePhone,
       instOpen,
       instClose,
+      makeMaskStyle,
+      resultScroll,
       open,
       opening,
       query,
       props,
+      navBody,
+      navItem,
+      links,
+      overflow,
+      permaOpen,
+      resultsCont,
+      scrollMore,
+      resultItem
     };
   },
-  //anim on icon hover, but if the navbar is clicked, wait for the animation to end and freeze the navbar in place
   template: `
-  <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': open, 'nav-bar-away': !open, 'nav-bar-opening': opening, 'nav-bar-closing': !opening }">
-    <div class="nav-bar-close" @click="instOpen">-></div>
-    <div class="nav-bar-open" @click="instClose">X</div>
+  <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
+    <div class="nav-bar-close" @click.stop="instClose">
+      <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/close.png')"></div>
+    </div>
+    <div class="nav-bar-open" @click.stop="instOpen">
+      <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/right-arrow.png')"></div>
+    </div>
     <div class="nav-bar-header">
       <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo" loading="lazy">
     </div>
     <div class="nav-bar-body">
-      <div class="nav-bar-section nav-bar-list">
-        <div class="nav-bar-item" v-for="link in props.links" @mouseenter="animOpen" @mouseleave="animClose">
+      <div class="nav-bar-section nav-bar-list" ref="navBody">
+        <div class="nav-bar-item" ref="navItem" v-for="link in links" @mouseenter="animOpen" @mouseleave="animClose">
           <a :href="link.url" target="_blank">{{link.name}}</a>
           <div class="nav-bar-item-icon">
-            <img src="link.icon" :alt="link.name" loading="lazy">
+            <div :style="makeMaskStyle(link.icon)" class="nav-bar-item-icon-mask"></div>
+          </div>
+        </div>
+        <div class="nav-bar-dropdown nav-bar-item" v-if="overflow.length > 0" @mouseenter="animOpen" @mouseleave="animClose">
+          <a>More</a>
+          <div class="nav-bar-item-icon">
+            <div :style="makeMaskStyle('/webicons/navbar-icons/next.png')" class="nav-bar-item-icon-mask"></div>
+          </div>
+          <div class="dropdown-body">
+              <div class="nav-dropdown-item" v-for="link in overflow">
+                <a :href="link.url" target="_blank">{{link.name}}</a>
+              </div>
           </div>
         </div>
       </div>
-      <div class="nav-bar-section nav-bar-search">
-        <div class="search-icon">Search Icon</div>
-        <div class="fake-search" id="sham-input" data-bs-toggle="modal" data-bs-target="#search-modal">Search...</div>
+      <div class="nav-bar-section nav-bar-search" data-bs-toggle="modal" data-bs-target="#search-modal">
+        <div class="fake-search" id="sham-input">Search...</div>
+        <div class="search-icon" :style="makeMaskStyle('/webicons/navbar-icons/search.png')"></div>
       </div>
-      <div class="nav-bar-section nav-bar-extras row">
-        <div class="col-7 extras-text">
+      <div class="nav-bar-section nav-bar-extras">
+        <div class="extras-text extras-section">
           <a :href="'tel:' + makePhone(props.phone)">{{props.phone}}</a>
           <p>{{props.address}}</p>
         </div>
-        <div class="col-5 extras-map">
+        <div class="extras-map extras-section">
           <a :href="props.map" target="_blank">
-            <img src="/imgs/no-image.png" loading="lazy">
+            <img src="/map.png" loading="lazy" class="img-fluid">
           </a>
         </div>
       </div>
@@ -96,21 +162,19 @@ const navBar = {
       <div class="modal-content">
         <div class="modal-body">
           <form @submit.prevent="formSubmit">
-            <label for="search-input">Search Icon</label>
-            <input v-model="query" id="search-input" name="search-input" placeholder="...">
-            <button type="submit">Search</button>
+            <input v-model="query" id="search-input" name="search-input" placeholder="Search..." maxlength="30">
+            <label for="search-input" :style="makeMaskStyle('/webicons/navbar-icons/search.png')"></label>
           </form>
-          <div v-if="props.results.length > 0">
-            results
+          <div v-if="props.results.length > 0" class="search-results" :class="{'scrollMore': scrollMore}" ref="resultsCont" @scroll="resultScroll">
             <ul>
-              <li v-for="result in props.results" @click="choose(result)">
-                <a :href="result.url" target="_blank">{{result.match}}</a>
+              <li v-for="result in props.results" @click="choose(result)" class="result" ref="resultItem">
+                <a :href="result.url" target="_blank">
+                  <p>{{result.match}}</p>
+                  <p>{{result.url}}</p>
+                </a>
               </li>
             </ul>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -145,7 +209,7 @@ const imgCarousel = {
     images: { type: Array, default: () => [] },
   },
   setup(props) {
-    return { props }
+    return { props };
   },
   template: `
   <img v-for="image in props.images" :src="image" loading="lazy">
@@ -312,5 +376,5 @@ const specialClass = {
       </div>
     </div>
   </div>
-  `
+  `,
 }; //specialClass done

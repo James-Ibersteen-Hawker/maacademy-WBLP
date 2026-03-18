@@ -1,14 +1,365 @@
 .nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  aspect-ratio: 1/3;
+  max-width: 300px;
+  min-width: 200px;
+  z-index: 10;
   background: black;
-  color: white;
+  transition: 0.5s;
+  transition-timing-function: ease-out;
+}
+.nav-bar .nav-bar-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  height: 50px;
+  aspect-ratio: 1/1;
+  right: 0;
+  color: #f8ff95;
+  background: rgba(0, 0, 0, 0.5);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: 0.3s;
+}
+.nav-bar .nav-bar-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.nav-bar .nav-bar-open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  height: 50px;
+  aspect-ratio: 1/1;
+  right: 0;
+  color: #f8ff95;
+  transform: translateX(100%);
+  background: black;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.nav-bar .control-icon {
+  height: 50%;
+  width: 50%;
+  background: #f8ff95;
+}
+.nav-bar .nav-bar-header img {
+  width: 100%;
+  height: auto;
 }
 .nav-bar .nav-bar-body .nav-bar-list {
-  background: gray;
+  border-bottom: 1px solid rgba(248, 255, 149, 0.5);
+  height: calc(66.6666666667vh - 50px - 80px);
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item {
+  cursor: pointer;
+  position: relative;
+  font-family: "Arsenal", sans-serif;
+  font-size: 25px;
+  height: 34px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  text-align: right;
+  padding-right: 10px;
+  transition: background 0.3s;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover {
+  background: #f8ff95;
+  transition: background 0.3s;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover a {
+  color: black;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover .nav-bar-item-icon {
+  background: #f8ff95;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover .nav-bar-item-icon .nav-bar-item-icon-mask {
+  background: black;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-item a {
-  color: teal;
+  color: #f8ff95;
+  text-decoration: none;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  aspect-ratio: 1/1;
+  background: black;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  transition: background 0.3s;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon .nav-bar-item-icon-mask {
+  height: 70%;
+  width: 70%;
+  background: #f8ff95;
+  transition: background 0.3s;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown {
+  position: relative;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown a {
+  font-size: 20px;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown .dropdown-body {
+  display: none;
+  background: black;
+  border-top: 1px solid #f8ff95;
+  border-bottom: 1px solid #f8ff95;
+  position: absolute;
+  bottom: -1px;
+  left: 100%;
+  padding: 0 !important;
+  min-width: 140px;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown .dropdown-body .nav-dropdown-item a {
+  display: block;
+  padding: 0px 5px;
+  margin: 0 !important;
+  height: 35px;
+  font-size: 25px;
+  color: #f8ff95;
+  transition: 0.3s;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown .dropdown-body .nav-dropdown-item a:hover {
+  background: #f8ff95;
+  color: black !important;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown:hover .dropdown-body {
+  display: block;
+}
+.nav-bar .nav-bar-body .nav-bar-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 50px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  border-bottom: 1px solid rgba(248, 255, 149, 0.5);
+  padding: 5px;
+}
+.nav-bar .nav-bar-body .nav-bar-search #sham-input {
+  height: 35px;
+  background: rgba(128, 128, 128, 0.5);
+  border: 2px solid rgba(248, 255, 149, 0.5);
+  width: calc(100% - 40px);
+  font-size: 25px;
+  line-height: 30px;
+  padding-left: 5px;
+  color: rgba(248, 255, 149, 0.5);
+  font-family: "Arsenal", sans-serif;
+  transition: box-shadow 0.1s;
+}
+.nav-bar .nav-bar-body .nav-bar-search #sham-input:hover {
+  color: #f8ff95;
+}
+.nav-bar .nav-bar-body .nav-bar-search .search-icon {
+  height: 31.5px;
+  aspect-ratio: 1/1;
+  background: #f8ff95;
+  margin-left: 10px;
+}
+.nav-bar .nav-bar-body .nav-bar-extras {
+  height: 80px;
+  overflow: auto;
+  display: flex;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-text {
+  border-right: 1px solid rgba(248, 255, 149, 0.5);
+  height: 100%;
+  width: 70%;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-text p,
+.nav-bar .nav-bar-body .nav-bar-extras .extras-text a {
+  display: block;
+  color: white;
+  font-size: 15px;
+  position: relative;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-map {
+  width: 30%;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-map a img {
+  height: 72px;
+  width: 90%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 2px;
 }
 
+.nav-bar-show .nav-bar-close {
+  display: flex !important;
+}
+.nav-bar-show .nav-bar-open {
+  display: none !important;
+}
+.nav-bar-show .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon {
+  display: none !important;
+}
+
+.nav-bar-away {
+  transform: translateX(-100%);
+}
+.nav-bar-away .nav-bar-close {
+  display: none !important;
+}
+.nav-bar-away .nav-bar-open {
+  display: flex !important;
+}
+.nav-bar-away .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon {
+  display: flex !important;
+}
+
+.search-modal {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+.search-modal .modal-content {
+  background: black !important;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  border-radius: 0;
+}
+.search-modal .modal-content .modal-body {
+  position: relative;
+}
+.search-modal .modal-content .modal-body form {
+  display: flex;
+  align-items: center;
+}
+.search-modal .modal-content .modal-body form input {
+  width: calc(100% - 40px);
+  height: 35px;
+  background: transparent;
+  border-top: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-left: 0px solid transparent;
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  transition: 0.3s;
+  color: white;
+  font-size: 22px;
+  font-family: "Arsenal", sans-serif;
+  padding: 0 !important;
+}
+.search-modal .modal-content .modal-body form input:focus {
+  outline: none;
+  border-bottom: 5px solid #f8ff95;
+}
+.search-modal .modal-content .modal-body form label {
+  margin-left: 10px;
+  background: #f8ff95;
+  height: 30px;
+  aspect-ratio: 1/1;
+}
+.search-modal .modal-content .modal-body .search-results {
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.search-modal .modal-content .modal-body .search-results:after {
+  display: none;
+}
+.search-modal .modal-content .modal-body .search-results ul {
+  list-style-type: none;
+  padding: 0;
+}
+.search-modal .modal-content .modal-body .search-results ul .result {
+  cursor: pointer;
+  border-bottom: 1px solid rgba(248, 255, 149, 0.5);
+  border-top: 1px solid rgba(248, 255, 149, 0.5);
+  padding: 2px 8px;
+  transition: 0.3s;
+}
+.search-modal .modal-content .modal-body .search-results ul .result a {
+  color: #f8ff95;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  font-size: 22px;
+  font-family: "Arsenal", sans-serif;
+}
+.search-modal .modal-content .modal-body .search-results ul .result a p {
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.search-modal .modal-content .modal-body .search-results ul .result a p:first-child {
+  width: 80%;
+  font-weight: 700;
+  -webkit-mask-image: linear-gradient(to right, black 50%, transparent 98%);
+          mask-image: linear-gradient(to right, black 50%, transparent 98%);
+}
+.search-modal .modal-content .modal-body .search-results ul .result a p:last-child {
+  width: 20%;
+  font-size: 18px;
+  font-style: italic;
+  text-align: right;
+}
+.search-modal .modal-content .modal-body .search-results ul .result:hover {
+  background-color: rgba(248, 255, 149, 0.5);
+}
+.search-modal .modal-content .modal-body .search-results ul .result:hover a {
+  color: black !important;
+}
+.search-modal .modal-content .modal-body .search-results ul .result:first-child {
+  border-top: none;
+}
+.search-modal .modal-content .modal-body .search-results.scrollMore {
+  transition: 0.3s;
+}
+.search-modal .modal-content .modal-body .search-results.scrollMore::after {
+  content: "Scroll to see more";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 30px);
+  height: 40px;
+  opacity: 1;
+  color: black;
+  font-weight: 900;
+  font-family: "Arsenal", sans-serif;
+  font-size: 20px;
+  background: linear-gradient(to bottom, transparent, rgba(248, 255, 149, 0.5), #f8ff95);
+  animation-name: fadein;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-duration: 0.3s;
+}
+
+@media screen and (min-height: 800px) {
+  .nav-bar-body .nav-bar-list .nav-bar-item {
+    height: 40px !important;
+    font-size: 30px !important;
+  }
+}
 .footer-icons {
   background: yellow;
 }
@@ -21,4 +372,13 @@
 
 .footer-copyright p {
   color: green;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }/*# sourceMappingURL=components.css.map */
