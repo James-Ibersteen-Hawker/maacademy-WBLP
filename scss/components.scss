@@ -5,8 +5,8 @@ $dark: black;
 $mid: #1C0A00;
 $light: #2E1000;
 $anim-length: 0.3s;
-$navWidth: 25vw;
-$min: 250px;
+$navWidth: 16vw;
+$min: 200px;
 $max: 300px;
 @mixin centerFlex {
   display: flex;
@@ -50,6 +50,7 @@ $max: 300px;
     background: $dark;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 2px $border;
   }
   .control-icon {
     height: 50%;
@@ -274,6 +275,9 @@ $max: 300px;
             outline: none;
             border-bottom: 5px solid $accent;
           }
+          &::placeholder {
+            color: rgb(158, 158, 158);
+          }
         }
         label {
           margin-left: 10px;
@@ -397,6 +401,11 @@ $footBase: "footer";
     display: flex;
     justify-content: center;
     width: 100%;
+    a {
+      margin-left: 10px;
+      margin-right: 10px;
+      background: white;
+    }
   }
 }
 .#{$footBase}-copyright {
