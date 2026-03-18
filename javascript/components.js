@@ -10,7 +10,7 @@ const navBar = {
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
-    const animLength = 200;
+    const animLength = 0;
     let currentTimeout = null;
     const query = Vue.ref("");
     const open = Vue.ref(true);
@@ -19,6 +19,7 @@ const navBar = {
     const navItem = ref(null);
     const links = ref(props.links);
     const overflow = ref([]);
+    const permaOpen = ref(true);
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -28,24 +29,20 @@ const navBar = {
         .map((e) => Number(e.replace(/[()]/g, "")));
       return splitted.join("-");
     };
+    const instOpen = () => {
+      open.value = true;
+      permaOpen.value = true;
+    };
+    const instClose = () => {
+      open.value = false;
+      permaOpen.value = false;
+    };
     const animOpen = () => {
-      if (currentTimeout) clearTimeout(currentTimeout);
-      opening.value = true;
-      currentTimeout = setTimeout(
-        () => ((open.value = true), (currentTimeout = null)),
-        animLength,
-      );
+      open.value = true;
     };
     const animClose = () => {
-      if (currentTimeout) clearTimeout(currentTimeout);
-      opening.value = false;
-      currentTimeout = setTimeout(
-        () => ((open.value = false), (currentTimeout = null)),
-        animLength,
-      );
+      open.value = false;
     };
-    const instOpen = () => (open.value = true);
-    const instClose = () => (open.value = false);
     function makeMaskStyle(img) {
       return {
         maskImage: `url(${img})`,
@@ -66,7 +63,7 @@ const navBar = {
       const remaining = props.links.slice(-dontFit);
       overflow.value = remaining;
     }
-    Vue.onMounted(checkFit)
+    Vue.onMounted(checkFit);
     return {
       formSubmit,
       choose,
@@ -83,12 +80,13 @@ const navBar = {
       navBody,
       navItem,
       links,
-      overflow
+      overflow,
+      permaOpen,
     };
   },
   //anim on icon hover, but if the navbar is clicked, wait for the animation to end and freeze the navbar in place
   template: `
-  <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': open, 'nav-bar-away': !open, 'nav-bar-opening': opening, 'nav-bar-closing': !opening }">
+  <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
     <div class="nav-bar-close" @click.stop="instClose">
       <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/close.png')"></div>
     </div>

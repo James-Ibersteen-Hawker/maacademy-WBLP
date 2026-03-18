@@ -9,7 +9,6 @@ $anim-length: 0.3s;
   align-items: center;
 }
 .#{$base} {
-  $self: &;
   @mixin toggle {
     @include centerFlex;
     cursor: pointer;
@@ -28,13 +27,15 @@ $anim-length: 0.3s;
   min-width: 200px;
   z-index: 10;
   background: $dark;
-  #{$self}-close {
+  transition: 0.5s;
+  transition-timing-function: ease-out;
+  .#{$base}-close {
     @include toggle;
     background: rgba($dark, 0.5);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
   }
-  #{$self}-open {
+  .#{$base}-open {
     @include toggle;
     transform: translateX(100%);
     background: $dark;
@@ -46,20 +47,20 @@ $anim-length: 0.3s;
     width: 70%;
     background: $accent;
   }
-  #{$self}-header img {
+  .#{$base}-header img {
     width: 100%;
     height: auto;
   }
-  #{$self}-body {
+  .#{$base}-body {
     $searchHeight: 50px;
     $extrasHeight: 80px;
     $listHeight: calc(
       100vh - (100vh * (1 / 3)) - $searchHeight - $extrasHeight
     );
-    #{$self}-list {
+    .#{$base}-list {
       border-bottom: 1px solid $border;
       height: $listHeight;
-      #{$self}-item {
+      .#{$base}-item {
         cursor: pointer;
         position: relative;
         font-family: "Arsenal", sans-serif;
@@ -76,9 +77,9 @@ $anim-length: 0.3s;
           a {
             color: $dark;
           }
-          #{$self}-item-icon {
+          .#{$base}-item-icon {
             background: $accent;
-            #{$self}-item-icon-mask {
+            .#{$base}-item-icon-mask {
               background: $dark;
             }
           }
@@ -87,7 +88,7 @@ $anim-length: 0.3s;
           color: $accent;
           text-decoration: none;
         }
-        #{$self}-item-icon {
+        .#{$base}-item-icon {
           @include centerFlex;
           position: absolute;
           height: 100%;
@@ -97,7 +98,7 @@ $anim-length: 0.3s;
           right: 0;
           transform: translateX(100%);
           transition: background $anim-length;
-          #{$self}-item-icon-mask {
+          .#{$base}-item-icon-mask {
             height: 70%;
             width: 70%;
             background: $accent;
@@ -105,8 +106,11 @@ $anim-length: 0.3s;
           }
         }
       }
-      #{$self}-dropdown {
+      .#{$base}-dropdown {
         position: relative;
+        a {
+          font-size: 20px
+        }
         .dropdown-body {
           display: none;
           background: $dark;
@@ -133,13 +137,11 @@ $anim-length: 0.3s;
         }
       }
     }
-    #{$self}-search {
+    .#{$base}-search {
+      @include centerFlex;
       cursor: pointer;
       height: $searchHeight;
-      display: flex;
       user-select: none;
-      justify-content: center;
-      align-items: center;
       border-bottom: 1px solid $border;
       padding: 5px;
       #sham-input {
@@ -151,7 +153,6 @@ $anim-length: 0.3s;
         line-height: 30px;
         padding-left: 5px;
         color: $border;
-        cursor: pointer;
         font-family: "Arsenal", sans-serif;
         transition: box-shadow 0.1s;
         &:hover {
@@ -165,7 +166,7 @@ $anim-length: 0.3s;
         margin-left: 10px;
       }
     }
-    #{$self}-extras {
+    .#{$base}-extras {
       height: $extrasHeight;
       overflow: auto;
       display: flex;
@@ -190,9 +191,7 @@ $anim-length: 0.3s;
         width: 30%;
         padding: 0 !important;
         margin: 0 !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include centerFlex;
         text-align: center;
         a img {
           height: calc(0.9 * $extrasHeight);
@@ -204,8 +203,28 @@ $anim-length: 0.3s;
     }
   }
 }
+.#{$base}-show {
+  .#{$base}-close {
+    display: flex !important;
+  }
+  .#{$base}-open {
+    display: none !important;
+  }
+  .#{$base}-body .#{$base}-list .#{$base}-item .#{$base}-item-icon {
+    display: none !important;
+  }
+}
 .#{$base}-away {
-  // transform: translateX(-100%);
+  transform: translateX(-100%);
+  .#{$base}-close {
+    display: none !important;
+  }
+  .#{$base}-open {
+    display: flex !important;
+  }
+  .#{$base}-body .#{$base}-list .#{$base}-item .#{$base}-item-icon {
+    display: flex !important;
+  }
 }
 
 $footBase: "footer";
