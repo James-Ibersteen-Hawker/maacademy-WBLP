@@ -276,7 +276,9 @@ $anim-length: 0.3s;
           padding: 0;
           .result {
             border-bottom: 1px solid $border;
+            border-top: 1px solid $border;
             padding: 2px 8px;
+            transition: $anim-length;
             a {
               color: $accent;
               display: flex;
@@ -292,6 +294,7 @@ $anim-length: 0.3s;
               }
               p:first-child {
                 width: 80%;
+                font-weight: 700;
                 mask-image: linear-gradient(to right, black 50%, transparent 98%);
               }
               p:last-child {
@@ -301,6 +304,15 @@ $anim-length: 0.3s;
                 text-align: right;
               }
             }
+            &:hover {
+              background-color: $border;
+              a {
+                color: $dark !important;
+              }
+            }
+          }
+          .result:first-child {
+            border-top: none;
           }
         }
       }

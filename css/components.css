@@ -281,7 +281,9 @@
 }
 .search-modal .modal-content .modal-body .search-results ul .result {
   border-bottom: 1px solid rgba(248, 255, 149, 0.5);
+  border-top: 1px solid rgba(248, 255, 149, 0.5);
   padding: 2px 8px;
+  transition: 0.3s;
 }
 .search-modal .modal-content .modal-body .search-results ul .result a {
   color: #f8ff95;
@@ -299,6 +301,7 @@
 }
 .search-modal .modal-content .modal-body .search-results ul .result a p:first-child {
   width: 80%;
+  font-weight: 700;
   -webkit-mask-image: linear-gradient(to right, black 50%, transparent 98%);
           mask-image: linear-gradient(to right, black 50%, transparent 98%);
 }
@@ -307,6 +310,15 @@
   font-size: 18px;
   font-style: italic;
   text-align: right;
+}
+.search-modal .modal-content .modal-body .search-results ul .result:hover {
+  background-color: rgba(248, 255, 149, 0.5);
+}
+.search-modal .modal-content .modal-body .search-results ul .result:hover a {
+  color: black !important;
+}
+.search-modal .modal-content .modal-body .search-results ul .result:first-child {
+  border-top: none;
 }
 .search-modal .modal-content .modal-body .search-results.scrollMore {
   transition: 0.3s;
