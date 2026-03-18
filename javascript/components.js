@@ -10,8 +10,6 @@ const navBar = {
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
-    const animLength = 0;
-    let currentTimeout = null;
     const query = Vue.ref("");
     const open = Vue.ref(true);
     const opening = Vue.ref(false);
@@ -20,6 +18,9 @@ const navBar = {
     const links = ref(props.links);
     const overflow = ref([]);
     const permaOpen = ref(true);
+    const resultsCont = ref(null);
+    const scrollMore = ref(true);
+    const resultItem = ref(null);
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -63,7 +64,20 @@ const navBar = {
       const remaining = props.links.slice(-dontFit);
       overflow.value = remaining;
     }
-    Vue.onMounted(checkFit);
+    function resultScroll() {
+      const el = resultsCont.value;
+      const scrollBottom = Math.round(el.scrollHeight - el.scrollTop - el.clientHeight);
+      if (scrollBottom <= 1) scrollMore.value = false;
+      else scrollMore.value = true;
+    }
+    Vue.watch(() => props.results, () => {
+      Vue.nextTick(() => {
+        if (resultItem.value) resultScroll()
+      })
+    }, {deep: true})
+    Vue.onMounted(() => {
+      checkFit();
+    });
     return {
       formSubmit,
       choose,
@@ -73,6 +87,7 @@ const navBar = {
       instOpen,
       instClose,
       makeMaskStyle,
+      resultScroll,
       open,
       opening,
       query,
@@ -82,6 +97,9 @@ const navBar = {
       links,
       overflow,
       permaOpen,
+      resultsCont,
+      scrollMore,
+      resultItem
     };
   },
   //anim on icon hover, but if the navbar is clicked, wait for the animation to end and freeze the navbar in place
@@ -142,17 +160,16 @@ const navBar = {
             <input v-model="query" id="search-input" name="search-input" placeholder="Search..." maxlength="30">
             <label for="search-input" :style="makeMaskStyle('/webicons/navbar-icons/search.png')"></label>
           </form>
-          <div v-if="props.results.length > 0">
-            results
+          <div v-if="props.results.length > 0" class="search-results" :class="{'scrollMore': scrollMore}" ref="resultsCont" @scroll="resultScroll">
             <ul>
-              <li v-for="result in props.results" @click="choose(result)">
-                <a :href="result.url" target="_blank">{{result.match}}</a>
+              <li v-for="result in props.results" @click="choose(result)" class="result" ref="resultItem">
+                <a :href="result.url" target="_blank">
+                  <p>{{result.match}}</p>
+                  <p>{{result.url}}</p>
+                </a>
               </li>
             </ul>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

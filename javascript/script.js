@@ -45,7 +45,15 @@ const App = createApp({
       .then((data) => (content.value = data))
       .catch((err) => alert(err.message));
     function searchSite(input) {
-      results.data = [new Hit("Higgeldy Piggeldy", "link.html")];
+      results.data = [
+        new Hit("Higgeldy Piggeldy 1", "link.html"),
+        new Hit("Higgeldy Piggeldy 2", "link.html"),
+        new Hit("Higgeldy Piggeldy 3", "link.html"),
+        new Hit("Higgeldy Piggeldy 4", "link.html"),
+        new Hit("Higgeldy Piggeldy 5", "link.html"),
+        new Hit("Higgeldy Piggeldy 6", "link.html"),
+        new Hit("Higgeldy Piggeldy 7", "link.html"),
+      ];
     }
     function runSelection(selection) {
       alert(selection.match);

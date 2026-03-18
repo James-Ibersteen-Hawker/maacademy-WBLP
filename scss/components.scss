@@ -124,6 +124,7 @@ $anim-length: 0.3s;
             padding: 0px 5px;
             margin: 0 !important;
             height: 35px;
+            font-size: 25px;
             color: $accent;
             transition: $anim-length;
             &:hover {
@@ -227,12 +228,14 @@ $anim-length: 0.3s;
   }
 }
 .search-modal {
-  background: rgba($dark, 0.8);
+  background: rgba($dark, 0.7);
+  backdrop-filter: blur(3px);
   .modal-content {
     background: $dark !important;
     border: 1px solid $border;
     border-radius: 0;
     .modal-body {
+      position: relative;
       form {
         display: flex;
         align-items: center;
@@ -261,6 +264,70 @@ $anim-length: 0.3s;
           aspect-ratio: 1/1;
         }
       }
+      .search-results {
+        margin-top: 10px;
+        max-height: 300px;
+        overflow-y: auto;
+        &:after {
+          display: none;
+        }
+        ul {
+          list-style-type: none;
+          padding: 0;
+          .result {
+            border-bottom: 1px solid $border;
+            padding: 2px 8px;
+            a {
+              color: $accent;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              text-decoration: none;
+              font-size: 22px;
+              font-family: "Arsenal", sans-serif;
+              p {
+                display: block;
+                margin: 0 !important;
+                padding: 0 !important;
+              }
+              p:first-child {
+                width: 80%;
+                mask-image: linear-gradient(to right, black 50%, transparent 98%);
+              }
+              p:last-child {
+                width: 20%;
+                font-size: 18px;
+                font-style: italic;
+                text-align: right;
+              }
+            }
+          }
+        }
+      }
+      .search-results.scrollMore {
+        transition: $anim-length;
+        &::after {
+          content: 'Scroll to see more';
+          @include centerFlex;
+          position: absolute;
+          bottom: 15px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: calc(100% - 30px);
+          height: 40px;
+          opacity: 1;
+          color: black;
+          font-weight: 900;
+          font-family: 'Arsenal', sans-serif;
+          font-size: 20px;
+          background: linear-gradient(to bottom, transparent, $border, $accent);
+          animation-name: fadein;
+          animation-timing-function: ease-out;
+          animation-fill-mode: forwards;
+          animation-iteration-count: 1;
+          animation-duration: $anim-length;
+        }
+      }
     }
   }
 }
@@ -279,5 +346,14 @@ $footBase: "footer";
 .#{$footBase}-copyright {
   p {
     color: green;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
