@@ -139,9 +139,8 @@ const navBar = {
       <div class="modal-content">
         <div class="modal-body">
           <form @submit.prevent="formSubmit">
-            <label for="search-input">Search Icon</label>
-            <input v-model="query" id="search-input" name="search-input" placeholder="...">
-            <button type="submit">Search</button>
+            <input v-model="query" id="search-input" name="search-input" placeholder="Search..." maxlength="30">
+            <label for="search-input" :style="makeMaskStyle('/webicons/navbar-icons/search.png')"></label>
           </form>
           <div v-if="props.results.length > 0">
             results
