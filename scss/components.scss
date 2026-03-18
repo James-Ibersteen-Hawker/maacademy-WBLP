@@ -20,11 +20,12 @@ $anim-length: 0.3s;
   }
   $min: 250px;
   $max: 300px;
+  $width: 25vw;
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 30vw;
+  width: $width;
   max-width: $max;
   min-width: $min;
   z-index: 10;
@@ -59,7 +60,7 @@ $anim-length: 0.3s;
     user-select: none;
   }
   .#{$base}-body {
-    $headHeight: max($min, min(30vw, $max));
+    $headHeight: max($min, min($width, $max));
     $searchHeight: 50px;
     $extrasHeight: 80px;
     $listHeight: calc(
@@ -73,7 +74,7 @@ $anim-length: 0.3s;
         position: relative;
         font-family: "Arsenal", sans-serif;
         font-size: 25px;
-        height: 30px;
+        height: 34px;
         user-select: none;
         margin-top: 1px;
         margin-bottom: 1px;
@@ -95,6 +96,9 @@ $anim-length: 0.3s;
           }
         }
         a {
+          display: flex;
+          justify-content: end;
+          align-items: center;
           color: $accent;
           text-decoration: none;
         }
