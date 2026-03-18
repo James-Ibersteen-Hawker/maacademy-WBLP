@@ -111,10 +111,10 @@ const navBar = {
   template: `
   <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
     <div class="nav-bar-close" @click.stop="instClose">
-      <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/close.png')"></div>
+      <div class="control-icon" :style="makeMaskStyle('../webicons/navbar-icons/close.png')"></div>
     </div>
     <div class="nav-bar-open" @click.stop="instOpen">
-      <div class="control-icon" :style="makeMaskStyle('/webicons/navbar-icons/right-arrow.png')"></div>
+      <div class="control-icon" :style="makeMaskStyle('../webicons/navbar-icons/right-arrow.png')"></div>
     </div>
     <div class="nav-bar-header">
       <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo" loading="lazy">
@@ -122,7 +122,7 @@ const navBar = {
     <div class="nav-bar-body">
       <div class="nav-bar-section nav-bar-list" ref="navBody">
         <div class="nav-bar-item" ref="navItem" v-for="link in links" @mouseenter="animOpen" @mouseleave="animClose">
-          <a :href="link.url" target="_blank">{{link.name}}</a>
+          <a :href="link.url">{{link.name}}</a>
           <div class="nav-bar-item-icon">
             <div :style="makeMaskStyle(link.icon)" class="nav-bar-item-icon-mask"></div>
           </div>
@@ -130,7 +130,7 @@ const navBar = {
         <div class="nav-bar-dropdown nav-bar-item" v-if="overflow.length > 0" @mouseenter="animOpen" @mouseleave="animClose">
           <a>More</a>
           <div class="nav-bar-item-icon">
-            <div :style="makeMaskStyle('/webicons/navbar-icons/next.png')" class="nav-bar-item-icon-mask"></div>
+            <div :style="makeMaskStyle('../webicons/navbar-icons/next.png')" class="nav-bar-item-icon-mask"></div>
           </div>
           <div class="dropdown-body">
               <div class="nav-dropdown-item" v-for="link in overflow">
@@ -141,7 +141,7 @@ const navBar = {
       </div>
       <div class="nav-bar-section nav-bar-search" data-bs-toggle="modal" data-bs-target="#search-modal">
         <div class="fake-search" id="sham-input">Search...</div>
-        <div class="search-icon" :style="makeMaskStyle('/webicons/navbar-icons/search.png')"></div>
+        <div class="search-icon" :style="makeMaskStyle('../webicons/navbar-icons/search.png')"></div>
       </div>
       <div class="nav-bar-section nav-bar-extras">
         <div class="extras-text extras-section">
@@ -163,7 +163,7 @@ const navBar = {
         <div class="modal-body">
           <form @submit.prevent="formSubmit">
             <input v-model="query" id="search-input" name="search-input" placeholder="Search..." maxlength="30">
-            <label for="search-input" :style="makeMaskStyle('/webicons/navbar-icons/search.png')"></label>
+            <label for="search-input" :style="makeMaskStyle('../webicons/navbar-icons/search.png')"></label>
           </form>
           <div v-if="props.results.length > 0" class="search-results" :class="{'scrollMore': scrollMore}" ref="resultsCont" @scroll="resultScroll">
             <ul>
