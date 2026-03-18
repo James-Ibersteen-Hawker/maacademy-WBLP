@@ -55,10 +55,14 @@ const navBar = {
     }
     function checkFit() {
       const boxHeight = navBody.value.offsetHeight;
-      const itemHeight = navItem.value.offsetHeight + 4;
+      const itemHeight = navItem.value.offsetHeight + 2;
       const totalHeight = itemHeight * props.links.length;
       const diff = boxHeight - totalHeight;
-      if (diff > 0) return;
+      if (diff > 0) {
+        links.value = props.links;
+        overflow.value = [];
+        return;
+      }
       const dontFit = Math.ceil(Math.abs(diff) / itemHeight) + 1;
       links.value = props.links.slice(0, -dontFit);
       const remaining = props.links.slice(-dontFit);
@@ -77,6 +81,8 @@ const navBar = {
     }, {deep: true})
     Vue.onMounted(() => {
       checkFit();
+      const observer = new ResizeObserver(() => checkFit());
+      observer.observe(navBody.value)
     });
     return {
       formSubmit,
@@ -102,7 +108,6 @@ const navBar = {
       resultItem
     };
   },
-  //anim on icon hover, but if the navbar is clicked, wait for the animation to end and freeze the navbar in place
   template: `
   <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
     <div class="nav-bar-close" @click.stop="instClose">

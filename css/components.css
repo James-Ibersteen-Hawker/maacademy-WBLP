@@ -17,13 +17,17 @@
   align-items: center;
   cursor: pointer;
   position: absolute;
-  height: 38px;
+  height: 50px;
   aspect-ratio: 1/1;
   right: 0;
   color: #f8ff95;
   background: rgba(0, 0, 0, 0.5);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  transition: 0.3s;
+}
+.nav-bar .nav-bar-close:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 .nav-bar .nav-bar-open {
   display: flex;
@@ -31,7 +35,7 @@
   align-items: center;
   cursor: pointer;
   position: absolute;
-  height: 38px;
+  height: 50px;
   aspect-ratio: 1/1;
   right: 0;
   color: #f8ff95;
@@ -41,8 +45,8 @@
   border-bottom-right-radius: 10px;
 }
 .nav-bar .control-icon {
-  height: 70%;
-  width: 70%;
+  height: 50%;
+  width: 50%;
   background: #f8ff95;
 }
 .nav-bar .nav-bar-header img {
@@ -59,8 +63,8 @@
   font-family: "Arsenal", sans-serif;
   font-size: 25px;
   height: 34px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   text-align: right;
   padding-right: 10px;
   transition: background 0.3s;
@@ -116,8 +120,10 @@
   bottom: -1px;
   left: 100%;
   padding: 0 !important;
+  min-width: 140px;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown .dropdown-body .nav-dropdown-item a {
+  display: block;
   padding: 0px 5px;
   margin: 0 !important;
   height: 35px;
@@ -280,6 +286,7 @@
   padding: 0;
 }
 .search-modal .modal-content .modal-body .search-results ul .result {
+  cursor: pointer;
   border-bottom: 1px solid rgba(248, 255, 149, 0.5);
   border-top: 1px solid rgba(248, 255, 149, 0.5);
   padding: 2px 8px;
@@ -347,6 +354,12 @@
   animation-duration: 0.3s;
 }
 
+@media screen and (min-height: 800px) {
+  .nav-bar-body .nav-bar-list .nav-bar-item {
+    height: 40px !important;
+    font-size: 30px !important;
+  }
+}
 .footer-icons {
   background: yellow;
 }
