@@ -2,7 +2,12 @@ $base: "nav-bar";
 $accent: #f8ff95;
 $border: rgba($accent, 0.5);
 $dark: black;
+$mid: #1C0A00;
+$light: #2E1000;
 $anim-length: 0.3s;
+$navWidth: 25vw;
+$min: 250px;
+$max: 300px;
 @mixin centerFlex {
   display: flex;
   justify-content: center;
@@ -18,14 +23,11 @@ $anim-length: 0.3s;
     right: 0;
     color: $accent;
   }
-  $min: 250px;
-  $max: 300px;
-  $width: 25vw;
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: $width;
+  width: $navWidth;
   max-width: $max;
   min-width: $min;
   z-index: 10;
@@ -60,7 +62,7 @@ $anim-length: 0.3s;
     user-select: none;
   }
   .#{$base}-body {
-    $headHeight: max($min, min($width, $max));
+    $headHeight: max($min, min($navWidth, $max));
     $searchHeight: 50px;
     $extrasHeight: 80px;
     $listHeight: calc(
@@ -382,21 +384,28 @@ $anim-length: 0.3s;
     }
   }
 }
+#vue_app:has(div.#{$base}-show) {
+  $inset: max($min, min($navWidth, $max));
+  padding-left: $inset;
+}
 
 $footBase: "footer";
 .#{$footBase}-icons {
-  $self: &;
-  background: yellow;
-  #{$self}-container {
+  background: $mid;
+  .#{$footBase}-icons-container {
+    padding: 10px;
     display: flex;
     justify-content: center;
     width: 100%;
-    background: black;
   }
 }
 .#{$footBase}-copyright {
   p {
-    color: green;
+    text-align: center;
+    font-style: italic;
+    color: white;
+    padding: 4px 0px 6px 0px;
+    font-family: 'Times New Roman', serif;
   }
 }
 

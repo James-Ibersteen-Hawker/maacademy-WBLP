@@ -130,7 +130,7 @@ const navBar = {
           </div>
         </div>
         <div class="nav-bar-dropdown nav-bar-item" v-if="overflow.length > 0" @mouseenter="animOpen" @mouseleave="animClose">
-          <a>More</a>
+          <a>More ➤</a>
           <div class="nav-bar-item-icon">
             <div :style="makeMaskStyle('webicons/navbar-icons/next.png')" class="nav-bar-item-icon-mask"></div>
           </div>

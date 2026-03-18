@@ -386,18 +386,26 @@
     font-size: 30px !important;
   }
 }
+#vue_app:has(div.nav-bar-show) {
+  padding-left: max(250px, min(25vw, 300px));
+}
+
 .footer-icons {
-  background: yellow;
+  background: #1C0A00;
 }
 .footer-icons .footer-icons-container {
+  padding: 10px;
   display: flex;
   justify-content: center;
   width: 100%;
-  background: black;
 }
 
 .footer-copyright p {
-  color: green;
+  text-align: center;
+  font-style: italic;
+  color: white;
+  padding: 4px 0px 6px 0px;
+  font-family: "Times New Roman", serif;
 }
 
 @keyframes fadein {
