@@ -2,17 +2,20 @@
 const { createApp, ref, reactive } = Vue;
 const weblink = "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
 const signalTimeout = 10000;
-const worker = new Worker(`/javascript/worker.js`, { type: "module" });
+const worker = new Worker(`../javascript/worker.js`, { type: "module" });
+const base = function(path) {
+  return `${window.location.origin}`
+}
 const pages = [
-  new Page("Home", "index.html", "/webicons/navbar-icons/home.png"),
-  new Page("About Us", "/html/about-us.html", "/webicons/navbar-icons/information.png"),
-  new Page("Classes", "/html/classes.html", "/webicons/navbar-icons/music.png"),
-  new Page("Teachers", "/html/teachers.html", "/webicons/navbar-icons/teacher.png"),
-  new Page("Parties", "/html/parties.html", "/webicons/navbar-icons/party.png"),
-  new Page("Radio City", "/html/radio-city.html", "/webicons/navbar-icons/radio-city.png"),
-  new Page("Gallery", "/html/gallery.html", "/webicons/navbar-icons/images.png"),
-  new Page("Contact", "/html/contact.html", "/webicons/navbar-icons/phone-call.png"),
-  new Page("Contact", "/html/contact.html", "/webicons/navbar-icons/phone-call.png"),
+  new Page("Home", "index.html", "../webicons/navbar-icons/home.png"),
+  new Page("About Us", "html/about-us.html", "../webicons/navbar-icons/information.png"),
+  new Page("Classes", "../html/classes.html", "../webicons/navbar-icons/music.png"),
+  new Page("Teachers", "../html/teachers.html", "../webicons/navbar-icons/teacher.png"),
+  new Page("Parties", "../html/parties.html", "../webicons/navbar-icons/party.png"),
+  new Page("Radio City", "../html/radio-city.html", "../webicons/navbar-icons/radio-city.png"),
+  new Page("Gallery", "../html/gallery.html", "../webicons/navbar-icons/images.png"),
+  new Page("Contact", "../html/contact.html", "../webicons/navbar-icons/phone-call.png"),
+  new Page("Contact", "../html/contact.html", "../webicons/navbar-icons/phone-call.png"),
 ];
 const media = [
   new MediaIcon("youtubeIcon", "https://youtube.com", "YouTube Link"),
