@@ -62,7 +62,7 @@
   position: relative;
   font-family: "Arsenal", sans-serif;
   font-size: 25px;
-  height: 34px;
+  height: 30px;
   margin-top: 1px;
   margin-bottom: 1px;
   text-align: right;
@@ -115,9 +115,8 @@
   display: none;
   background: black;
   border-top: 1px solid #f8ff95;
-  border-bottom: 1px solid #f8ff95;
   position: absolute;
-  bottom: -1px;
+  bottom: 0;
   left: 100%;
   padding: 0 !important;
   min-width: 140px;
@@ -126,7 +125,7 @@
   display: block;
   padding: 0px 5px;
   margin: 0 !important;
-  height: 35px;
+  height: 34px;
   font-size: 25px;
   color: #f8ff95;
   transition: 0.3s;
