@@ -12,7 +12,6 @@ const pages = [
   new Page("Radio City", "html/radio-city.html", "webicons/navbar-icons/radio-city.png"),
   new Page("Gallery", "html/gallery.html", "webicons/navbar-icons/images.png"),
   new Page("Contact", "html/contact.html", "webicons/navbar-icons/phone-call.png"),
-  new Page("Contact", "html/contact.html", "webicons/navbar-icons/phone-call.png"),
 ];
 const media = [
   new MediaIcon("youtubeIcon", "https://youtube.com", "YouTube Link"),
@@ -52,6 +51,9 @@ const App = createApp({
         new Hit("Higgeldy Piggeldy 4", "link.html"),
         new Hit("Higgeldy Piggeldy 5", "link.html"),
         new Hit("Higgeldy Piggeldy 6", "link.html"),
+        new Hit("Higgeldy Piggeldy 7", "link.html"),
+        new Hit("Higgeldy Piggeldy 7", "link.html"),
+        new Hit("Higgeldy Piggeldy 7", "link.html"),
         new Hit("Higgeldy Piggeldy 7", "link.html"),
       ];
     }

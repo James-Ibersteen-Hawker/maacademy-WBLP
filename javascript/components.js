@@ -10,6 +10,7 @@ const navBar = {
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
+    const itemOffsetHeight = 34;
     const query = Vue.ref("");
     const open = Vue.ref(true);
     const opening = Vue.ref(false);
@@ -55,7 +56,8 @@ const navBar = {
     }
     function checkFit() {
       const boxHeight = navBody.value.offsetHeight;
-      const itemHeight = navItem.value.offsetHeight + 2;
+      // const itemHeight = navItem.value.offsetHeight + 2;
+      const itemHeight = itemOffsetHeight + 2;
       const totalHeight = itemHeight * props.links.length;
       const diff = boxHeight - totalHeight;
       if (diff > 0) {
@@ -150,7 +152,7 @@ const navBar = {
         </div>
         <div class="extras-map extras-section">
           <a :href="props.map" target="_blank">
-            <img src="/map.png" loading="lazy" class="img-fluid">
+            <img src="map.png" loading="lazy" class="img-fluid">
           </a>
         </div>
       </div>
