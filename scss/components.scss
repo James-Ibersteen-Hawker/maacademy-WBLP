@@ -2,7 +2,12 @@ $base: "nav-bar";
 $accent: #f8ff95;
 $border: rgba($accent, 0.5);
 $dark: black;
+$mid: #1C0A00;
+$light: #2E1000;
 $anim-length: 0.3s;
+$navWidth: 16vw;
+$min: 200px;
+$max: 300px;
 @mixin centerFlex {
   display: flex;
   justify-content: center;
@@ -18,13 +23,11 @@ $anim-length: 0.3s;
     right: 0;
     color: $accent;
   }
-  $min: 250px;
-  $max: 300px;
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 30vw;
+  width: $navWidth;
   max-width: $max;
   min-width: $min;
   z-index: 10;
@@ -47,6 +50,7 @@ $anim-length: 0.3s;
     background: $dark;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 2px $border;
   }
   .control-icon {
     height: 50%;
@@ -59,7 +63,7 @@ $anim-length: 0.3s;
     user-select: none;
   }
   .#{$base}-body {
-    $headHeight: max($min, min(30vw, $max));
+    $headHeight: max($min, min($navWidth, $max));
     $searchHeight: 50px;
     $extrasHeight: 80px;
     $listHeight: calc(
@@ -73,7 +77,7 @@ $anim-length: 0.3s;
         position: relative;
         font-family: "Arsenal", sans-serif;
         font-size: 25px;
-        height: 30px;
+        height: 34px;
         user-select: none;
         margin-top: 1px;
         margin-bottom: 1px;
@@ -95,6 +99,9 @@ $anim-length: 0.3s;
           }
         }
         a {
+          display: flex;
+          justify-content: end;
+          align-items: center;
           color: $accent;
           text-decoration: none;
         }
@@ -268,6 +275,9 @@ $anim-length: 0.3s;
             outline: none;
             border-bottom: 5px solid $accent;
           }
+          &::placeholder {
+            color: rgb(158, 158, 158);
+          }
         }
         label {
           margin-left: 10px;
@@ -378,21 +388,33 @@ $anim-length: 0.3s;
     }
   }
 }
+#vue_app:has(div.#{$base}-show) {
+  $inset: max($min, min($navWidth, $max));
+  padding-left: $inset;
+}
 
 $footBase: "footer";
 .#{$footBase}-icons {
-  $self: &;
-  background: yellow;
-  #{$self}-container {
+  background: $mid;
+  .#{$footBase}-icons-container {
+    padding: 10px;
     display: flex;
     justify-content: center;
     width: 100%;
-    background: black;
+    a {
+      margin-left: 10px;
+      margin-right: 10px;
+      background: white;
+    }
   }
 }
 .#{$footBase}-copyright {
   p {
-    color: green;
+    text-align: center;
+    font-style: italic;
+    color: white;
+    padding: 4px 0px 6px 0px;
+    font-family: 'Times New Roman', serif;
   }
 }
 
