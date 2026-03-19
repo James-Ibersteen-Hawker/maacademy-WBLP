@@ -103,5 +103,21 @@
     <script defer src="../javascript/classes.js"></script>
     <script defer src="../javascript/sheet.js" type="module"></script>
   </head>
-  <body></body>
+  <body>
+    <main id="vue_app">
+      <nav-bar 
+        :links="pages"
+        logo="../MAINLOGO.png"
+        :results="results.data"
+        :phone="content?.['Phone Number']"
+        :address="content?.['Address']"
+        :map="content?.['Map']"
+        :level="1"
+        @query="searchSite" 
+        @choose="runSelection"
+      ></nav-bar>
+    </main>
+    <script defer src="../javascript/bootstrap.bundle.min.js"></script>
+    <script defer src="../javascript/script.js"></script>
+  </body>
 </html>

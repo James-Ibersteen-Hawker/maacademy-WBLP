@@ -2,10 +2,10 @@ $base: "nav-bar";
 $accent: #f8ff95;
 $border: rgba($accent, 0.5);
 $dark: black;
-$mid: #1C0A00;
-$light: #2E1000;
+$mid: #1c0a00;
+$light: #2e1000;
 $anim-length: 0.3s;
-$navWidth: 16vw;
+$navWidth: 17vw;
 $min: 200px;
 $max: 300px;
 @mixin centerFlex {
@@ -66,9 +66,7 @@ $max: 300px;
     $headHeight: max($min, min($navWidth, $max));
     $searchHeight: 50px;
     $extrasHeight: 80px;
-    $listHeight: calc(
-      100vh - $headHeight - $searchHeight - $extrasHeight
-    );
+    $listHeight: calc(100vh - $headHeight - $searchHeight - $extrasHeight);
     .#{$base}-list {
       border-bottom: 1px solid $border;
       height: $listHeight;
@@ -230,9 +228,6 @@ $max: 300px;
   .#{$base}-open {
     display: none !important;
   }
-  .#{$base}-body .#{$base}-list .#{$base}-item .#{$base}-item-icon {
-    display: none !important;
-  }
 }
 .#{$base}-away {
   transform: translateX(-100%);
@@ -242,10 +237,8 @@ $max: 300px;
   .#{$base}-open {
     display: flex !important;
   }
-  .#{$base}-body .#{$base}-list .#{$base}-item .#{$base}-item-icon {
-    display: flex !important;
-  }
 }
+
 .search-modal {
   background: rgba($dark, 0.7);
   backdrop-filter: blur(3px);
@@ -320,7 +313,11 @@ $max: 300px;
               p:first-child {
                 width: 80%;
                 font-weight: 700;
-                mask-image: linear-gradient(to right, black 50%, transparent 98%);
+                mask-image: linear-gradient(
+                  to right,
+                  black 50%,
+                  transparent 98%
+                );
               }
               p:last-child {
                 width: 20%;
@@ -354,7 +351,7 @@ $max: 300px;
       .search-results.scrollMore {
         transition: $anim-length;
         &::after {
-          content: 'Scroll to see more';
+          content: "Scroll to see more";
           @include centerFlex;
           position: absolute;
           bottom: 15px;
@@ -364,7 +361,7 @@ $max: 300px;
           opacity: 1;
           color: black;
           font-weight: 900;
-          font-family: 'Arsenal', sans-serif;
+          font-family: "Arsenal", sans-serif;
           font-size: 20px;
           background: linear-gradient(to bottom, transparent, $border, $accent);
           pointer-events: none;
@@ -389,7 +386,7 @@ $max: 300px;
   }
 }
 #vue_app:has(div.#{$base}-show) {
-  $inset: max($min, min($navWidth, $max));
+  $inset: calc(max($min, min($navWidth, $max)) + 34px);
   padding-left: $inset;
 }
 
@@ -414,7 +411,7 @@ $footBase: "footer";
     font-style: italic;
     color: white;
     padding: 4px 0px 6px 0px;
-    font-family: 'Times New Roman', serif;
+    font-family: "Times New Roman", serif;
   }
 }
 

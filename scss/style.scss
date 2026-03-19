@@ -1,7 +1,14 @@
+$dark: black;
+$mid: #1C0A00;
+$light: #2E1000;
+$accent: #f8ff95;
+$border: rgba($accent, 0.5);
+
 html {
     height: 100%;
     width: 100%;
 }
 body {
-    background: black;
+    filter: saturate(80%);
+    background: $light;
 }
