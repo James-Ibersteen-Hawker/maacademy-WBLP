@@ -49,8 +49,8 @@
     <link rel="icon" type="image/png" sizes="48x48" href="webicons/logo48x48.png" />
     <link rel="apple-touch-icon" href="https://james-ibersteen-hawker.github.io/maacademy-WBLP/webicons/logo180x180.png" />
     <!--prefetch-->
-    <link rel="prefetch" href="html/about-us.html" />
-    <link rel="prefetch" href="html/contact.html" />
+    <link rel="prefetch" href="./html/about-us.html" />
+    <link rel="prefetch" href="./html/contact.html" />
     <!--ld+json-->
     <script type="application/ld+json">
       {
@@ -86,14 +86,8 @@
         @choose="runSelection"
       ></nav-bar>
       <page-footer :icons="media" :copyright="content?.['copyright']"></page-footer>
-      <!-- <teacher v-for="t in teachers" :name="t.name" :photo="t.image" :blurb="t.blurb" :specs="t.specs" @search-class="testEmit"></teacher> -->
-      <!-- <instrument-accordion :instrument="testInstrument"></instrument-accordion> -->
-      <!-- <class-filter :values="['Piano', 'Guitar-Bass-Ukelele']" @select="testEmit"></class-filter> -->
-      <!-- <special-class title="Holiday Show Chorus" date-time="Monday: 5:30-7pm" teacher="Jeff Pantelas" text="body text" when="September - December 2025"></special-class> -->
-      <!-- <img-carousel :images="content?.['CAROUSEL']"></img-carousel> -->
-      <!-- {{content}} -->
     </main>
-    <script defer src="./javascript/bootstrap.bundle.min.js"></script>
-    <script defer src="./javascript/script.js"></script>
+    <script defer src="javascript/bootstrap.bundle.min.js"></script>
+    <script defer src="javascript/script.js"></script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 "use strict";
 const { createApp, ref, reactive } = Vue;
+console.log("working")
 const weblink = "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
 const signalTimeout = 10000;
 const worker = new Worker(`./javascript/worker.js`, { type: "module" });
