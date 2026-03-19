@@ -1,4 +1,4 @@
-import { sheet } from "sheet.js";
+import { sheet } from "../javascript/sheet.js";
 self.onmessage = async (e) => {
   console.log("worker")
   const { mode } = e.data;
