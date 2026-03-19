@@ -1,5 +1,6 @@
 import { sheet } from "/javascript/sheet.js";
 self.onmessage = async (e) => {
+  console.log("worker")
   const { mode } = e.data;
   const message = { data: null, err: null };
   try {

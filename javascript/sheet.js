@@ -18,6 +18,7 @@ const funcLUT = {
   "image galleries": imgGalleries,
 };
 export async function sheet(fetchlink, abortTimeout) {
+  console.log("sheet js")
   const controller = new AbortController();
   const signal = controller.signal;
   const timeout = setTimeout(() => controller.abort(), abortTimeout);
