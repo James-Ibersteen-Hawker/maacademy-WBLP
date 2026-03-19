@@ -2,7 +2,7 @@
 const { createApp, ref, reactive } = Vue;
 const weblink = "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
 const signalTimeout = 10000;
-const worker = new Worker(`worker.js`, { type: "module" });
+const worker = new Worker(`./javascript/worker.js`, { type: "module" });
 const pages = [
   new Page("Home", "index.html", "webicons/navbar-icons/home.png"),
   new Page("About Us", "html/about-us.html", "webicons/navbar-icons/information.png"),
