@@ -43,41 +43,42 @@
       href="https://james-ibersteen-hawker.github.io/maacademy-WBLP/html/teachers.html"
     />
     <!--CSS + fonts-->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+     <link rel="preload" as="font" href="../fonts/Arsenal-Regular.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="../fonts/Arsenal-Bold.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="../fonts/Arsenal-BoldItalic.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="../fonts/Arsenal-Italic.woff2" type="font/woff2" crossorigin="anonymous">
     <!--favicons-->
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="webicons/logo16x16.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="webicons/logo32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="48x48"
-      href="webicons/logo48x48.png"
+      href="../webicons/logo16x16.png"
     />
     <link
       rel="apple-touch-icon"
       href="https://james-ibersteen-hawker.github.io/maacademy-WBLP/webicons/logo180x180.png"
     />
     <!--prefetch-->
-    <link rel="prefetch" href="html/classes.html" />
-    <link rel="prefetch" href="html/teachers.html" />
+    <link rel="prefetch" href="../html/classes.html" />
+    <link rel="prefetch" href="../html/teachers.html" />
+    <link rel="preload" href="../MAINLOGO.png" as="image">
+    <link rel="preload" href="../map.png" as="image">
+    <!--nav icons preload-->
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/close.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/right-arrow.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/home.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/information.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/phone-call.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/music.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/teacher.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/party.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/radio-city.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/images.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/search.png" as="image">
+    <link crossorigin rel="preload" href="../webicons/navbar-icons/next.png" as="image">
     <!--ld+json-->
     <script type="application/ld+json">
       {
@@ -99,9 +100,25 @@
       src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"
     ></script>
     <!-- <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"></script> -->
-    <script defer src="javascript/components.js"></script>
-    <script defer src="javascript/classes.js"></script>
-    <script defer src="javascript/sheet.js" type="module"></script>
+    <script defer src="../javascript/components.js"></script>
+    <script defer src="../javascript/classes.js"></script>
+    <script defer src="../javascript/sheet.js" type="module"></script>
   </head>
-    <body></body>
+    <body>
+    <main id="vue_app">
+      <nav-bar 
+        :links="pages"
+        logo="../MAINLOGO.png"
+        :results="results.data"
+        :phone="content?.['Phone Number']"
+        :address="content?.['Address']"
+        :map="content?.['Map']"
+        :level="1"
+        @query="searchSite" 
+        @choose="runSelection"
+      ></nav-bar>
+    </main>
+    <script defer src="../javascript/bootstrap.bundle.min.js"></script>
+    <script defer src="../javascript/script.js"></script>
+  </body>
 </html>

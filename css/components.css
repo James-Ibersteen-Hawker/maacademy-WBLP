@@ -388,7 +388,7 @@
   }
 }
 #vue_app:has(div.nav-bar-show) {
-  padding-left: calc(max(200px, min(17vw, 300px)) + 34px);
+  padding-left: max(200px, min(17vw, 300px));
 }
 
 .footer-icons {

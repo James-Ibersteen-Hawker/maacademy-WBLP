@@ -1,6 +1,6 @@
 "use strict";
 const { createApp, ref, reactive } = Vue;
-console.log("working")
+console.log("JS working")
 const weblink = "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
 const signalTimeout = 10000;
 const workerName = location.pathname.includes("/html/") ? '../javascript/worker.js' : "./javascript/worker.js";
@@ -93,14 +93,14 @@ App.mount("#vue_app");
 
 function getSheetData() {
   return new Promise((resolve, reject) => {
-    console.log("here");
-    console.log(worker)
+    console.log("in promise");
     worker.onmessage = (e) => {
       const { data, err } = e.data;
       if (err) reject(err);
       else if (!err && data) resolve(data);
       else reject(new Error("No Data Returned"));
     };
+    worker.onerror = (err) => reject(err);
     worker.postMessage({ mode: "load", link: weblink, timeout: signalTimeout });
   });
 }

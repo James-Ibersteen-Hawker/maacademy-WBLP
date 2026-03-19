@@ -386,7 +386,7 @@ $max: 300px;
   }
 }
 #vue_app:has(div.#{$base}-show) {
-  $inset: calc(max($min, min($navWidth, $max)) + 34px);
+  $inset: max($min, min($navWidth, $max));
   padding-left: $inset;
 }
 
