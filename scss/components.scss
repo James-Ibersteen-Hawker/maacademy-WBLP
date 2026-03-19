@@ -34,6 +34,8 @@ $max: 300px;
   background: $dark;
   transition: 0.5s;
   transition-timing-function: ease-out;
+  padding: 0 !important;
+  margin: 0 !important;
   .#{$base}-close {
     @include toggle;
     background: rgba($dark, 0.5);

@@ -10,6 +10,8 @@
   background: black;
   transition: 0.5s;
   transition-timing-function: ease-out;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .nav-bar .nav-bar-close {
   display: flex;

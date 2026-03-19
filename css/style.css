@@ -32,6 +32,6 @@ html {
 }
 
 body {
-  filter: saturate(80%);
   background: #2E1000;
+  overflow-x: hidden;
 }/*# sourceMappingURL=style.css.map */

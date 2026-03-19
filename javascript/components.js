@@ -14,7 +14,6 @@ const navBar = {
     const itemOffsetHeight = 34;
     const query = Vue.ref("");
     const open = Vue.ref(true);
-    const icons = Vue.ref(false);
     const opening = Vue.ref(false);
     const navBody = Vue.ref(null);
     const navItem = Vue.ref(null);
@@ -24,8 +23,8 @@ const navBar = {
     const resultsCont = Vue.ref(null);
     const scrollMore = Vue.ref(true);
     const resultItem = Vue.ref(null);
-    const formSubmit = () => Vue.emit("query", query.value);
-    const choose = (result) => Vue.emit("choose", result);
+    const formSubmit = () => emit("query", query.value);
+    const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
       const splitted = number
         .trim()
@@ -41,12 +40,8 @@ const navBar = {
       open.value = false;
       permaOpen.value = false;
     };
-    const animOpen = () => {
-      open.value = true;
-    };
-    const animClose = () => {
-      open.value = false;
-    };
+    const animOpen = () => open.value = true;
+    const animClose = () => open.value = false;
     function makeMaskStyle(img) {
       return {
         maskImage: `url(${img})`,
@@ -58,7 +53,6 @@ const navBar = {
     }
     function checkFit() {
       const boxHeight = navBody.value.offsetHeight;
-      // const itemHeight = navItem.value.offsetHeight + 2;
       const itemHeight = itemOffsetHeight + 2;
       const totalHeight = itemHeight * props.links.length;
       const diff = boxHeight - totalHeight;
@@ -69,8 +63,7 @@ const navBar = {
       }
       const dontFit = Math.ceil(Math.abs(diff) / itemHeight) + 1;
       links.value = props.links.slice(0, -dontFit);
-      const remaining = props.links.slice(-dontFit);
-      overflow.value = remaining;
+      overflow.value = props.links.slice(-dontFit);
     }
     function resultScroll() {
       const el = resultsCont.value;
@@ -78,12 +71,7 @@ const navBar = {
       if (scrollBottom <= 1) scrollMore.value = false;
       else scrollMore.value = true;
     }
-    function prefix() {
-      return "../".repeat(props.level)
-    }
-    function htmlPrefix() {
-      // return props.level === 0 ? "html/" : ""; 
-    }
+    const prefix = () => "../".repeat(props.level);
     Vue.watch(() => props.results, () => {
       Vue.nextTick(() => {
         if (resultItem.value) resultScroll()
@@ -105,7 +93,6 @@ const navBar = {
       makeMaskStyle,
       resultScroll,
       prefix,
-      htmlPrefix,
       open,
       opening,
       query,
@@ -121,7 +108,7 @@ const navBar = {
     };
   },
   template: `
-  <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open,}">
+  <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
     <div class="nav-bar-close" @click.stop="instClose">
       <div class="control-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/close.png')"></div>
     </div>
@@ -133,9 +120,8 @@ const navBar = {
     </div>
     <div class="nav-bar-body">
       <div class="nav-bar-section nav-bar-list" ref="navBody">
-        <div class="nav-bar-item" ref="navItem" v-for="link in links" @mouseenter="animOpen" @mouseleave="animClose">
-          <a :href="prefix() + 'html/' + link.url" v-if="link.url !== 'index.html'">{{link.name}}</a>
-          <a :href="prefix() + link.url" v-if="link.url === 'index.html'">{{link.name}}</a>
+        <div class="nav-bar-item" ref="navItem" v-for="link in links" :key="link.url" @mouseenter="animOpen" @mouseleave="animClose">
+          <a :href="link.url === 'index.html' ? prefix() + link.url : prefix() + 'html/' + link.url">{{link.name}}</a>
           <div class="nav-bar-item-icon">
             <div :style="makeMaskStyle(prefix() + link.icon)" class="nav-bar-item-icon-mask"></div>
           </div>
@@ -146,7 +132,7 @@ const navBar = {
             <div :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/next.png')" class="nav-bar-item-icon-mask"></div>
           </div>
           <div class="dropdown-body">
-              <div class="nav-dropdown-item" v-for="link in overflow">
+              <div class="nav-dropdown-item" v-for="link in overflow" :key="link.url">
                 <a :href="link.url" target="_blank">{{link.name}}</a>
               </div>
           </div>

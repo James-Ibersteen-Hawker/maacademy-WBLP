@@ -37,6 +37,6 @@ html {
     width: 100%;
 }
 body {
-    filter: saturate(80%);
     background: $light;
+    overflow-x: hidden;
 }
