@@ -91,6 +91,8 @@ App.mount("#vue_app");
 
 function getSheetData() {
   return new Promise((resolve, reject) => {
+    console.log("here");
+    console.log(worker)
     worker.onmessage = (e) => {
       const { data, err } = e.data;
       if (err) reject(err);
