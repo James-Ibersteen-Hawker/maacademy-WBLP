@@ -137,7 +137,8 @@
   min-width: 140px;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown .dropdown-body .nav-dropdown-item a {
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 0px 5px;
   margin: 0 !important;
   height: 34px;
@@ -297,8 +298,9 @@
   padding-right: 2px;
   overflow-y: auto;
 }
-.search-modal .modal-content .modal-body .search-results:after {
-  display: none;
+.search-modal .modal-content .modal-body .search-results::after {
+  pointer-events: none;
+  opacity: 0;
 }
 .search-modal .modal-content .modal-body .search-results ul {
   list-style-type: none;
@@ -348,12 +350,20 @@
 }
 .search-modal .modal-content .modal-body .search-results::-webkit-scrollbar {
   width: 5px;
+  cursor: pointer;
 }
 .search-modal .modal-content .modal-body .search-results::-webkit-scrollbar-track {
   background: transparent;
 }
 .search-modal .modal-content .modal-body .search-results::-webkit-scrollbar-thumb {
   background: rgba(248, 255, 149, 0.8);
+  border-radius: 2px;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  cursor: pointer;
+}
+.search-modal .modal-content .modal-body .search-results::-webkit-scrollbar-thumb:hover {
+  background: #f8ff95;
   border-radius: 2px;
 }
 .search-modal .modal-content .modal-body .search-results.scrollMore {
@@ -375,7 +385,6 @@
   font-family: "Arsenal", sans-serif;
   font-size: 20px;
   background: linear-gradient(to bottom, transparent, rgba(248, 255, 149, 0.5), #f8ff95);
-  pointer-events: none;
   animation-name: fadein;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
@@ -389,8 +398,15 @@
     font-size: 30px !important;
   }
 }
+#vue_app {
+  transition: padding 0.5s;
+  transition-timing-function: ease-out;
+}
+
 #vue_app:has(div.nav-bar-show) {
   padding-left: max(200px, min(17vw, 300px));
+  transition: padding 0.5s;
+  transition-timing-function: ease-out;
 }
 
 .footer-icons {

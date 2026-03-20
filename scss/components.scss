@@ -138,7 +138,8 @@ $max: 300px;
           padding: 0 !important;
           min-width: 140px;
           .nav-dropdown-item a {
-            display: block;
+            display: flex;
+            align-items: center;
             padding: 0px 5px;
             margin: 0 !important;
             height: 34px;
@@ -287,8 +288,9 @@ $max: 300px;
         padding-bottom: 0 !important;
         padding-right: 2px;
         overflow-y: auto;
-        &:after {
-          display: none;
+        &::after {
+          pointer-events: none;
+          opacity: 0;
         }
         ul {
           list-style-type: none;
@@ -341,12 +343,19 @@ $max: 300px;
         }
         &::-webkit-scrollbar {
           width: 5px;
+          cursor: pointer;
         }
         &::-webkit-scrollbar-track {
           background: transparent;
         }
         &::-webkit-scrollbar-thumb {
           background: rgba($accent, 0.8);
+          border-radius: 2px;
+          transition: 0.1s;
+          cursor: pointer;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+          background: $accent;
           border-radius: 2px;
         }
       }
@@ -366,7 +375,6 @@ $max: 300px;
           font-family: "Arsenal", sans-serif;
           font-size: 20px;
           background: linear-gradient(to bottom, transparent, $border, $accent);
-          pointer-events: none;
           animation-name: fadein;
           animation-timing-function: ease-out;
           animation-fill-mode: forwards;
@@ -387,9 +395,15 @@ $max: 300px;
     }
   }
 }
+#vue_app {
+  transition: padding 0.5s;
+  transition-timing-function: ease-out;
+}
 #vue_app:has(div.#{$base}-show) {
   $inset: max($min, min($navWidth, $max));
   padding-left: $inset;
+  transition: padding 0.5s;
+  transition-timing-function: ease-out;
 }
 
 $footBase: "footer";

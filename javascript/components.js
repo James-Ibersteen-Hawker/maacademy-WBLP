@@ -133,7 +133,7 @@ const navBar = {
           </div>
           <div class="dropdown-body">
               <div class="nav-dropdown-item" v-for="link in overflow" :key="link.url">
-                <a :href="link.url" target="_blank">{{link.name}}</a>
+                <a :href="link.url === 'index.html' ? prefix() + link.url : prefix() + 'html/' + link.url">{{link.name}}</a>
               </div>
           </div>
         </div>
