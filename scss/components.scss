@@ -8,6 +8,7 @@ $anim-length: 0.3s;
 $navWidth: 17vw;
 $min: 200px;
 $max: 300px;
+/////navbar//////////navbar//////////navbar//////////navbar/////
 @mixin centerFlex {
   display: flex;
   justify-content: center;
@@ -241,7 +242,6 @@ $max: 300px;
     display: flex !important;
   }
 }
-
 .search-modal {
   background: rgba($dark, 0.7);
   backdrop-filter: blur(3px);
@@ -405,7 +405,7 @@ $max: 300px;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
-
+/////footer//////////footer//////////footer//////////footer/////
 $footBase: "footer";
 .#{$footBase}-icons {
   background: $mid;
