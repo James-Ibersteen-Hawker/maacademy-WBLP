@@ -259,6 +259,7 @@ const teacherCard = {
       </div>
     </div>
   </div>
+  </div>
   <!--modal-->
   <div class="teacher-modal modal fade" tabindex="-1" :id="name(props.name) + 'about-modal'" aria-labelledby="aboutModalLabel">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -272,7 +273,6 @@ const teacherCard = {
         </div>
       </div>
     </div>
-  </div>
   </div>
   `,
 }; //teacherCard done
