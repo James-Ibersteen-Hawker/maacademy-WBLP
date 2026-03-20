@@ -25,6 +25,18 @@ const teachers = [
     "Jefferey Pantelas",
     "/MAINLOGO.png",
     ["Piano", "Voice"],
+    "About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff About Jeff ",
+  ),
+   new Teacher(
+    "Jefferey Pantelas",
+    "/MAINLOGO.png",
+    ["Piano", "Voice"],
+    "About Jeff",
+  ),
+   new Teacher(
+    "Jefferey Pantelas",
+    "/MAINLOGO.png",
+    ["Piano", "Voice"],
     "About Jeff",
   ),
 ];

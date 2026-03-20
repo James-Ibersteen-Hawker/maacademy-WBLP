@@ -231,13 +231,14 @@ const teacherCard = {
     return { props, searchClass, photo, name };
   },
   template: `
+  <div class="teacher-container">
   <div class="teacher-card">
     <div class="teacher-img teacher-section">
       <img :src="photo(props.photo)" :alt="props.name" loading="lazy">
     </div>
     <div class="teacher-section teacher-body">
       <div class="teacher-header">
-        <p>{{props.name}}</p>
+        <div>{{props.name}}</div>
         <div class="teacher-chips">
           <ul>
             <li v-for="spec in props.specs" class="chip">
@@ -246,12 +247,12 @@ const teacherCard = {
           </ul>
         </div>
       </div>
-      <div class="teacher-main row">
-        <div class="teacher-blurb col-8">
+      <div class="teacher-main">
+        <div class="teacher-blurb">
           {{props.blurb}}
-          <div class="see-more" data-bs-toggle="modal" :data-bs-target="'#' + name(props.name) + 'about-modal'">See More</div>
+          <div class="see-more" data-bs-toggle="modal" :data-bs-target="'#' + name(props.name) + 'about-modal'"></div>
         </div>
-        <div class="teacher-actions col-4">
+        <div class="teacher-actions">
           <p class="action-button" @click="searchClass">See the Schedule</p>
           <a class="action-button" href="/html/contact.html">Schedule a Class</a>
         </div>
@@ -271,6 +272,7 @@ const teacherCard = {
         </div>
       </div>
     </div>
+  </div>
   </div>
   `,
 }; //teacherCard done
