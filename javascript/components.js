@@ -7,7 +7,7 @@ const navBar = {
     map: { type: String, default: "#" },
     phone: { type: String, default: "XXX-XXX-XXXX" },
     address: { type: String, default: "Unlisted" },
-    level: { type: Number, default: 0 }
+    level: { type: Number, default: 0 },
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
@@ -40,8 +40,8 @@ const navBar = {
       open.value = false;
       permaOpen.value = false;
     };
-    const animOpen = () => open.value = true;
-    const animClose = () => open.value = false;
+    const animOpen = () => (open.value = true);
+    const animClose = () => (open.value = false);
     function makeMaskStyle(img) {
       return {
         maskImage: `url(${img})`,
@@ -67,20 +67,26 @@ const navBar = {
     }
     function resultScroll() {
       const el = resultsCont.value;
-      const scrollBottom = Math.round(el.scrollHeight - el.scrollTop - el.clientHeight);
+      const scrollBottom = Math.round(
+        el.scrollHeight - el.scrollTop - el.clientHeight,
+      );
       if (scrollBottom <= 1) scrollMore.value = false;
       else scrollMore.value = true;
     }
     const prefix = () => "../".repeat(props.level);
-    Vue.watch(() => props.results, () => {
-      Vue.nextTick(() => {
-        if (resultItem.value) resultScroll()
-      })
-    }, {deep: true})
+    Vue.watch(
+      () => props.results,
+      () => {
+        Vue.nextTick(() => {
+          if (resultItem.value) resultScroll();
+        });
+      },
+      { deep: true },
+    );
     Vue.onMounted(() => {
       checkFit();
       const observer = new ResizeObserver(() => checkFit());
-      observer.observe(navBody.value)
+      observer.observe(navBody.value);
     });
     return {
       formSubmit,
@@ -266,7 +272,13 @@ const teacherCard = {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">{{props.name}}</h5>
-          <p data-bs-dismiss="modal">Close</p>
+          <div class="teacher-chips">
+            <ul>
+              <li v-for="spec in props.specs" class="chip">
+                {{spec}}
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="modal-body">
           {{blurb}}

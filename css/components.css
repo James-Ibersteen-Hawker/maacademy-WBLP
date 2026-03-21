@@ -412,15 +412,15 @@
 
 .teacher-container {
   border-left: 3px solid rgba(248, 255, 149, 0.5);
-  padding-left: 5%;
-  padding-top: 2.5%;
-  padding-bottom: 2.5%;
+  padding-left: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   position: relative;
 }
 .teacher-container::after {
   content: "";
   position: absolute;
-  width: 5%;
+  width: 40px;
   height: 2px;
   background: rgba(248, 255, 149, 0.5);
   top: 50%;
@@ -433,13 +433,15 @@
   align-items: start;
   border: 3px solid rgba(248, 255, 149, 0.5);
   height: 230px;
+  max-width: 1200px;
+  background: linear-gradient(110deg, #682800, #090400);
   overflow: hidden;
 }
 .teacher-container .teacher-card .teacher-section {
   height: 100%;
 }
 .teacher-container .teacher-card .teacher-section.teacher-img {
-  width: 35%;
+  width: 30%;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -455,7 +457,7 @@
   border-right: 2px solid rgba(248, 255, 149, 0.5);
 }
 .teacher-container .teacher-card .teacher-section.teacher-body {
-  width: 65%;
+  width: 70%;
 }
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-header {
   border-bottom: 2px solid rgba(248, 255, 149, 0.5);
@@ -488,10 +490,10 @@
 }
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-header .teacher-chips ul li {
   font-family: "Cinzel", serif;
-  border: 2px solid rgba(248, 255, 149, 0.5);
+  border: 1px solid rgba(248, 255, 149, 0.5);
   background: #2e1000;
   padding: 3px 5px;
-  border-radius: 15px;
+  border-radius: 8px;
   margin: 0 5px;
 }
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-main {
@@ -585,6 +587,50 @@
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-actions .action-button:hover {
   transform: scale(105%);
   color: #f8ff95;
+}
+
+.teacher-modal {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+.teacher-modal .modal-content {
+  background: black !important;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  border-radius: 0;
+}
+.teacher-modal .modal-content .modal-header {
+  color: #f8ff95;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.teacher-modal .modal-content .modal-header .modal-title {
+  font-size: 20px;
+  font-family: "Wittgenstein", serif;
+  font-style: italic;
+}
+.teacher-modal .modal-content .modal-header .teacher-chips ul {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.teacher-modal .modal-content .modal-header .teacher-chips ul li {
+  font-family: "Cinzel", serif;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  background: #2e1000;
+  padding: 3px 5px;
+  border-radius: 8px;
+  margin: 0 5px;
+}
+.teacher-modal .modal-content .modal-body {
+  color: white;
+  font-family: "Wittgenstein", serif;
 }
 
 @media screen and (max-width: 800px) {
