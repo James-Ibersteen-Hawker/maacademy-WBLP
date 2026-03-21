@@ -410,6 +410,17 @@
   transition-timing-function: ease-out;
 }
 
+.content-main {
+  width: 100%;
+}
+
+.teachers {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .teacher-container {
   border-left: 3px solid rgba(248, 255, 149, 0.5);
   padding-left: 40px;

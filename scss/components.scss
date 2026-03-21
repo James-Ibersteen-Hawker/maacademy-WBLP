@@ -408,6 +408,14 @@ $max: 300px;
 }
 /////teacher//////////teacher//////////teacher//////////teacher/////
 $teacher: "teacher";
+.content-main {
+  width: 100%;
+}
+.teachers {
+  width: fit-content;
+  margin-right: auto;
+  margin-left: auto;
+}
 @mixin teacherChips {
   ul {
     user-select: none;
