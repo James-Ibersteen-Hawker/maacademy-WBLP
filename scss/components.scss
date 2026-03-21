@@ -457,7 +457,8 @@ $teacher: "teacher";
         width: 30%;
         user-select: none;
         img {
-          border-radius: 3px;
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
           width: 100%;
           height: 100%;
           object-fit: cover;
