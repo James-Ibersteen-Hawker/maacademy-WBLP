@@ -1,5 +1,5 @@
 "use strict";
-const { createApp, ref, reactive } = Vue;
+const { createApp, ref, reactive, onMounted } = Vue;
 console.log("JS working");
 const weblink =
   "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
@@ -99,6 +99,16 @@ const App = createApp({
     function testEmit(e) {
       alert("emit");
     }
+    onMounted(() => {
+      console.log("mounted");
+      window.parent.postMessage(
+        { loaded: true, pageName: window.location.pathname },
+        window.location.origin,
+      );
+      //use the message via the iframe and window.addEventListener("message", ()=> {}...)
+      //to deal with the loading of the multiple iframes
+      //then extract textContent and send that to the web worker
+    });
     return {
       searchSite,
       content,
@@ -156,3 +166,4 @@ async function loadData() {
   localStorage.setItem(keys.dataKey, storage);
   return data;
 }
+async function initSearch() {}
