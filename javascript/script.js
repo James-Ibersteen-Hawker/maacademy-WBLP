@@ -25,6 +25,18 @@ const teachers = [
     "Jefferey Pantelas",
     "/MAINLOGO.png",
     ["Piano", "Voice"],
+    "Jeffrey Pantelas: Music Teacher.Instruments: Piano,Accordion and Electronic keyboards , Vocal training and Chorus.Band leader ,Adonis Orchestra 1981-1992. Music teacher NYC.Bd.of  Education 1985-2016, Project Arts Coordinator P.S.132 Manhattan (9 years).Teacher of piano,accordion and vocal training/chorus Music and Art Academy 2016-present.Education:Accordion and piano 7 years training, Bachelor’s Degree, Baruch college in...",
+  ),
+   new Teacher(
+    "Jefferey Pantelas",
+    "/MAINLOGO.png",
+    ["Piano", "Voice"],
+    "About Jeff",
+  ),
+   new Teacher(
+    "Jefferey Pantelas",
+    "/MAINLOGO.png",
+    ["Piano", "Voice"],
     "About Jeff",
   ),
 ];

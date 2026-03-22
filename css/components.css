@@ -399,16 +399,275 @@
   }
 }
 #vue_app {
+  padding: 35px;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
 
 #vue_app:has(div.nav-bar-show) {
-  padding-left: max(200px, min(17vw, 300px));
+  padding-left: calc(max(200px, min(17vw, 300px)) + 35px);
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
 
+.content-main {
+  width: 100%;
+}
+
+.teachers {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.teacher-container {
+  border-left: 3px solid rgba(248, 255, 149, 0.5);
+  padding-left: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: relative;
+}
+.teacher-container::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  background: rgba(248, 255, 149, 0.5);
+  top: 50%;
+  left: 0;
+}
+.teacher-container .teacher-card {
+  display: flex;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: start;
+  border: 3px solid rgba(248, 255, 149, 0.5);
+  height: 230px;
+  max-width: 1200px;
+  background: linear-gradient(110deg, #682800, #090400);
+  overflow: hidden;
+}
+.teacher-container .teacher-card .teacher-section {
+  height: 100%;
+}
+.teacher-container .teacher-card .teacher-section.teacher-img {
+  width: 30%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.teacher-container .teacher-card .teacher-section.teacher-img img {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-right: 2px solid rgba(248, 255, 149, 0.5);
+}
+.teacher-container .teacher-card .teacher-section.teacher-body {
+  width: 70%;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-header {
+  border-bottom: 2px solid rgba(248, 255, 149, 0.5);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #f8ff95;
+  height: 60px;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-header div:not(.teacher-chips) {
+  width: 50%;
+  font-size: 22px;
+  font-family: "Wittgenstein", serif;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-header .teacher-chips ul {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-header .teacher-chips ul li {
+  font-family: "Cinzel", serif;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  background: #2e1000;
+  padding: 3px 5px;
+  border-radius: 8px;
+  margin: 0 5px;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main {
+  height: calc(100% - 60px);
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-blurb {
+  padding: 5px 10px;
+  color: white;
+  width: 60%;
+  height: 100%;
+  overflow-y: hidden;
+  position: relative;
+  text-align: justify;
+  font-size: 16px;
+  font-family: "Wittgenstein", serif;
+  border-right: 1px solid rgba(248, 255, 149, 0.5);
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-blurb .see-more {
+  position: absolute;
+  height: 50%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-blurb .see-more::after {
+  cursor: pointer;
+  content: "See More";
+  text-align: center;
+  font-weight: 900;
+  font-family: "Arsenal", sans-serif;
+  font-size: 18px;
+  border-radius: 10px;
+  position: absolute;
+  width: 80%;
+  min-width: 100px;
+  max-width: 120px;
+  background: #1c0a00;
+  border: 2px solid rgba(248, 255, 149, 0.5);
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+  box-shadow: 0px 0px 5px black;
+  transition: 0.3s;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-blurb .see-more::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  will-change: backdrop-filter;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 80%);
+          mask-image: linear-gradient(to bottom, transparent, black 80%);
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-blurb .see-more:hover::after {
+  color: #f8ff95;
+  transform: translateX(-50%) scale(105%);
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-actions {
+  height: 100%;
+  width: 40%;
+  text-align: center;
+  padding: 10px;
+  border-left: 1px solid rgba(248, 255, 149, 0.5);
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-actions .action-button {
+  color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  font-family: "Wittgenstein", serif;
+  font-style: italic;
+  padding: 2px;
+  background: #1c0a00;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  box-shadow: 0px 0px 3px black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-actions .action-button:hover {
+  transform: scale(105%);
+  color: #f8ff95;
+}
+
+.teacher-modal {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+.teacher-modal .modal-content {
+  background: black !important;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  border-radius: 0;
+}
+.teacher-modal .modal-content .modal-header {
+  color: #f8ff95;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.teacher-modal .modal-content .modal-header .modal-title {
+  font-size: 20px;
+  font-family: "Wittgenstein", serif;
+  font-style: italic;
+}
+.teacher-modal .modal-content .modal-header .teacher-chips ul {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.teacher-modal .modal-content .modal-header .teacher-chips ul li {
+  font-family: "Cinzel", serif;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  background: #2e1000;
+  padding: 3px 5px;
+  border-radius: 8px;
+  margin: 0 5px;
+}
+.teacher-modal .modal-content .modal-body {
+  color: white;
+  font-family: "Wittgenstein", serif;
+}
+
+@media screen and (max-width: 800px) {
+  .teacher-container .teacher-card {
+    display: block !important;
+    height: 400px;
+  }
+  .teacher-container .teacher-card .teacher-img {
+    width: 100% !important;
+    border-right: none;
+    border-bottom: 2px solid rgba(248, 255, 149, 0.5);
+    height: 50% !important;
+  }
+  .teacher-container .teacher-card .teacher-img img {
+    -o-object-position: top center !important;
+       object-position: top center !important;
+  }
+  .teacher-container .teacher-card .teacher-body {
+    width: 100% !important;
+    height: 50%;
+  }
+  .teacher-container .teacher-card .teacher-body .teacher-header {
+    width: 100% !important;
+  }
+}
 .footer-icons {
   background: #1c0a00;
 }

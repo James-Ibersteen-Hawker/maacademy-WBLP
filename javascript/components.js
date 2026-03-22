@@ -7,7 +7,7 @@ const navBar = {
     map: { type: String, default: "#" },
     phone: { type: String, default: "XXX-XXX-XXXX" },
     address: { type: String, default: "Unlisted" },
-    level: { type: Number, default: 0 }
+    level: { type: Number, default: 0 },
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
@@ -40,8 +40,8 @@ const navBar = {
       open.value = false;
       permaOpen.value = false;
     };
-    const animOpen = () => open.value = true;
-    const animClose = () => open.value = false;
+    const animOpen = () => (open.value = true);
+    const animClose = () => (open.value = false);
     function makeMaskStyle(img) {
       return {
         maskImage: `url(${img})`,
@@ -67,20 +67,26 @@ const navBar = {
     }
     function resultScroll() {
       const el = resultsCont.value;
-      const scrollBottom = Math.round(el.scrollHeight - el.scrollTop - el.clientHeight);
+      const scrollBottom = Math.round(
+        el.scrollHeight - el.scrollTop - el.clientHeight,
+      );
       if (scrollBottom <= 1) scrollMore.value = false;
       else scrollMore.value = true;
     }
     const prefix = () => "../".repeat(props.level);
-    Vue.watch(() => props.results, () => {
-      Vue.nextTick(() => {
-        if (resultItem.value) resultScroll()
-      })
-    }, {deep: true})
+    Vue.watch(
+      () => props.results,
+      () => {
+        Vue.nextTick(() => {
+          if (resultItem.value) resultScroll();
+        });
+      },
+      { deep: true },
+    );
     Vue.onMounted(() => {
       checkFit();
       const observer = new ResizeObserver(() => checkFit());
-      observer.observe(navBody.value)
+      observer.observe(navBody.value);
     });
     return {
       formSubmit,
@@ -231,13 +237,14 @@ const teacherCard = {
     return { props, searchClass, photo, name };
   },
   template: `
+  <div class="teacher-container">
   <div class="teacher-card">
     <div class="teacher-img teacher-section">
       <img :src="photo(props.photo)" :alt="props.name" loading="lazy">
     </div>
     <div class="teacher-section teacher-body">
       <div class="teacher-header">
-        <p>{{props.name}}</p>
+        <div>{{props.name}}</div>
         <div class="teacher-chips">
           <ul>
             <li v-for="spec in props.specs" class="chip">
@@ -246,17 +253,18 @@ const teacherCard = {
           </ul>
         </div>
       </div>
-      <div class="teacher-main row">
-        <div class="teacher-blurb col-8">
+      <div class="teacher-main">
+        <div class="teacher-blurb">
           {{props.blurb}}
-          <div class="see-more" data-bs-toggle="modal" :data-bs-target="'#' + name(props.name) + 'about-modal'">See More</div>
+          <div class="see-more" data-bs-toggle="modal" :data-bs-target="'#' + name(props.name) + 'about-modal'"></div>
         </div>
-        <div class="teacher-actions col-4">
+        <div class="teacher-actions">
           <p class="action-button" @click="searchClass">See the Schedule</p>
           <a class="action-button" href="/html/contact.html">Schedule a Class</a>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!--modal-->
   <div class="teacher-modal modal fade" tabindex="-1" :id="name(props.name) + 'about-modal'" aria-labelledby="aboutModalLabel">
@@ -264,7 +272,13 @@ const teacherCard = {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">{{props.name}}</h5>
-          <p data-bs-dismiss="modal">Close</p>
+          <div class="teacher-chips">
+            <ul>
+              <li v-for="spec in props.specs" class="chip">
+                {{spec}}
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="modal-body">
           {{blurb}}

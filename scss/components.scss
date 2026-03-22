@@ -8,6 +8,7 @@ $anim-length: 0.3s;
 $navWidth: 17vw;
 $min: 200px;
 $max: 300px;
+/////navbar//////////navbar//////////navbar//////////navbar/////
 @mixin centerFlex {
   display: flex;
   justify-content: center;
@@ -15,7 +16,7 @@ $max: 300px;
 }
 .#{$base} {
   @mixin toggle {
-    @include centerFlex;
+    @include centerFlex();
     cursor: pointer;
     position: absolute;
     height: 50px;
@@ -37,7 +38,7 @@ $max: 300px;
   padding: 0 !important;
   margin: 0 !important;
   .#{$base}-close {
-    @include toggle;
+    @include toggle();
     background: rgba($dark, 0.5);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -47,7 +48,7 @@ $max: 300px;
     }
   }
   .#{$base}-open {
-    @include toggle;
+    @include toggle();
     transform: translateX(100%);
     background: $dark;
     border-top-right-radius: 10px;
@@ -106,7 +107,7 @@ $max: 300px;
           text-decoration: none;
         }
         .#{$base}-item-icon {
-          @include centerFlex;
+          @include centerFlex();
           position: absolute;
           height: 100%;
           aspect-ratio: 1/1;
@@ -158,7 +159,7 @@ $max: 300px;
       }
     }
     .#{$base}-search {
-      @include centerFlex;
+      @include centerFlex();
       cursor: pointer;
       height: $searchHeight;
       user-select: none;
@@ -211,7 +212,7 @@ $max: 300px;
         width: 30%;
         padding: 0 !important;
         margin: 0 !important;
-        @include centerFlex;
+        @include centerFlex();
         text-align: center;
         a img {
           height: calc(0.9 * $extrasHeight);
@@ -241,7 +242,6 @@ $max: 300px;
     display: flex !important;
   }
 }
-
 .search-modal {
   background: rgba($dark, 0.7);
   backdrop-filter: blur(3px);
@@ -363,7 +363,7 @@ $max: 300px;
         transition: $anim-length;
         &::after {
           content: "Scroll to see more";
-          @include centerFlex;
+          @include centerFlex();
           position: absolute;
           bottom: 15px;
           left: 16px;
@@ -396,16 +396,250 @@ $max: 300px;
   }
 }
 #vue_app {
+  padding: 35px;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
 #vue_app:has(div.#{$base}-show) {
-  $inset: max($min, min($navWidth, $max));
+  $inset: calc(max($min, min($navWidth, $max)) + 35px);
   padding-left: $inset;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
-
+/////teacher//////////teacher//////////teacher//////////teacher/////
+$teacher: "teacher";
+.content-main {
+  width: 100%;
+}
+.teachers {
+  width: fit-content;
+  margin-right: auto;
+  margin-left: auto;
+}
+@mixin teacherChips {
+  ul {
+    user-select: none;
+    @include centerFlex();
+    list-style-type: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    li {
+      font-family: "Cinzel", serif;
+      border: 1px solid $border;
+      background: $light;
+      padding: 3px 5px;
+      border-radius: 8px;
+      margin: 0 5px;
+    }
+  }
+}
+.#{$teacher}-container {
+  $universal: 2px solid $border;
+  border-left: 3px solid $border;
+  padding-left: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: $border;
+    top: 50%;
+    left: 0;
+  }
+  .#{$teacher}-card {
+    display: flex;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: start;
+    border: 3px solid $border;
+    height: 230px;
+    max-width: 1200px;
+    background: linear-gradient(110deg, #682800, #090400);
+    overflow: hidden;
+    .#{$teacher}-section {
+      height: 100%;
+      &.#{$teacher}-img {
+        width: 30%;
+        user-select: none;
+        img {
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          border-right: $universal;
+        }
+      }
+      &.#{$teacher}-body {
+        width: 70%;
+        .#{$teacher}-header {
+          border-bottom: $universal;
+          padding: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: $accent;
+          height: 60px;
+          div:not(.#{$teacher}-chips) {
+            width: 50%;
+            font-size: 22px;
+            font-family: "Wittgenstein", serif;
+            font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .#{$teacher}-chips {
+            @include teacherChips();
+          }
+        }
+        .#{$teacher}-main {
+          height: calc(100% - 60px);
+          display: flex;
+          justify-content: space-between;
+          align-items: start;
+          .#{$teacher}-blurb {
+            padding: 5px 10px;
+            color: white;
+            width: 60%;
+            height: 100%;
+            overflow-y: hidden;
+            position: relative;
+            text-align: justify;
+            font-size: 16px;
+            font-family: "Wittgenstein", serif;
+            border-right: 1px solid $border;
+            .see-more {
+              position: absolute;
+              height: 50%;
+              width: 100%;
+              bottom: 0;
+              left: 0;
+              &::after {
+                cursor: pointer;
+                content: "See More";
+                text-align: center;
+                font-weight: 900;
+                font-family: "Arsenal", sans-serif;
+                font-size: 18px;
+                border-radius: 10px;
+                position: absolute;
+                width: 80%;
+                min-width: 100px;
+                max-width: 120px;
+                background: $mid;
+                border: $universal;
+                left: 50%;
+                bottom: 10%;
+                transform: translateX(-50%);
+                box-shadow: 0px 0px 5px $dark;
+                transition: $anim-length;
+              }
+              &::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.25);
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+                will-change: backdrop-filter;
+                mask-image: linear-gradient(to bottom, transparent, black 80%);
+              }
+              &:hover {
+                &::after {
+                  color: $accent;
+                  transform: translateX(-50%) scale(105%);
+                }
+              }
+            }
+          }
+          .#{$teacher}-actions {
+            height: 100%;
+            width: 40%;
+            text-align: center;
+            padding: 10px;
+            border-left: 1px solid $border;
+            .action-button {
+              color: white;
+              user-select: none;
+              font-family: "Wittgenstein", serif;
+              font-style: italic;
+              padding: 2px;
+              background: $mid;
+              border: 1px solid $border;
+              box-shadow: 0px 0px 3px $dark;
+              border-radius: 5px;
+              @include centerFlex;
+              margin-bottom: 5px;
+              text-decoration: none;
+              cursor: pointer;
+              transition: $anim-length;
+              &:hover {
+                transform: scale(105%);
+                color: $accent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.#{$teacher}-modal {
+  background: rgba($dark, 0.7);
+  backdrop-filter: blur(3px);
+  .modal-content {
+    background: $dark !important;
+    border: 1px solid $border;
+    border-radius: 0;
+    .modal-header {
+      color: $accent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .modal-title {
+        font-size: 20px;
+        font-family: 'Wittgenstein', serif;
+        font-style: italic;
+      }
+      .teacher-chips {
+        @include teacherChips();
+      }
+    }
+    .modal-body {
+      color: white;
+      font-family: "Wittgenstein", serif;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .#{$teacher}-container .#{$teacher}-card {
+    display: block !important;
+    height: 400px;
+    .#{$teacher}-img {
+      width: 100% !important;
+      border-right: none;
+      border-bottom: 2px solid $border;
+      height: 50% !important;
+      img {
+        object-position: top center !important;
+      }
+    }
+    .#{$teacher}-body {
+      width: 100% !important;
+      height: 50%;
+      .#{$teacher}-header {
+        width: 100% !important;
+      }
+    }
+  }
+}
+/////footer//////////footer//////////footer//////////footer/////
 $footBase: "footer";
 .#{$footBase}-icons {
   background: $mid;
