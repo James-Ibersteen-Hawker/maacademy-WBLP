@@ -14,6 +14,7 @@ const workerName = location.pathname.includes("/html/")
   ? "../javascript/worker.js"
   : "./javascript/worker.js";
 const worker = new Worker(workerName, { type: "module" });
+let searchLUT;
 const pages = [
   new Page("Home", "index.html", "webicons/navbar-icons/home.png"),
   new Page(
@@ -76,7 +77,6 @@ const App = createApp({
     loadData()
       .then((data) => {
         content.value = data;
-        console.log(data);
       })
       .catch((err) => alert(err.message));
     function searchSite(input) {
@@ -100,15 +100,29 @@ const App = createApp({
       alert("emit");
     }
     onMounted(() => {
-      console.log("mounted");
       window.parent.postMessage(
         { loaded: true, pageName: window.location.pathname },
         window.location.origin,
       );
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
-      const query = urlParams.get('q');
-      if (query) goToSearch(query);
+      const query = urlParams.get("q");
+      const iframe = urlParams.get("iframe");
+      if (!iframe) initSearch();
+      else if (iframe) {
+        document
+          .querySelectorAll(
+            'img, link[rel="stylesheet"]:not([href*="vue"]), link[rel="preload"]:not([as="script"]), meta[name]:not([name="viewport"])',
+          )
+          .forEach((e) => e.remove());
+      }
+      Vue.nextTick(() => {
+        try {
+          if (query) goToSearch(query);
+        } catch (err) {
+          console.log(err);
+        }
+      });
       //use the message via the iframe and window.addEventListener("message", ()=> {}...)
       //to deal with the loading of the multiple iframes
       //then extract textContent and send that to the web worker
@@ -141,7 +155,6 @@ App.mount("#vue_app");
 
 function getSheetData() {
   return new Promise((resolve, reject) => {
-    console.log("in promise");
     worker.onmessage = (e) => {
       const { data, err } = e.data;
       if (err) reject(err);
@@ -170,45 +183,70 @@ async function loadData() {
   localStorage.setItem(keys.dataKey, storage);
   return data;
 }
-async function initSearch() {}
+async function initSearch() {
+  console.log("here");
+  const savedLUT = sessionStorage.getItem(keys.searchKey);
+  if (savedLUT) {
+    searchLUT = savedLUT;
+    return;
+  }
+  const path = window.location.pathname;
+  const subTrue = path.includes("/html/");
+  const links = pages.map(({ url }) => {
+    if (subTrue) return url === "index.html" ? `../${url}` : url;
+    else return url === "index.html" ? url : `html/${url}`;
+  });
+  console.log(links);
+  const loadedPages = [];
+  const fragment = document.createDocumentFragment();
+  window.addEventListener("message", (e) => handleMessage(e, loadedPages));
+  links.forEach((link) => {
+    const iframe = document.createElement("iframe");
+    iframe.src = `${window.location.origin}/${link}?iframe=true`;
+    iframe.width = "0";
+    iframe.height = "0";
+    iframe.style.display = "none";
+    fragment.appendChild(iframe);
+  });
+  document.body.append(fragment);
+}
 function goToSearch(q) {
   const walker = document.createTreeWalker(
     document.body,
     NodeFilter.SHOW_TEXT,
     null,
-    false
+    false,
   );
   let node, match;
-  while((node = walker.nextNode())) {
+  while ((node = walker.nextNode())) {
     const value = node.nodeValue.toLowerCase();
     const input = q.toLowerCase();
-    if (value.includes(input)) {
-      match = node;
-      break;
-    }
+    if (!value.includes(input)) continue;
+    match = node;
+    break;
   }
-  if (!match) {
-    alert("not found!");
-    return;
-  }
-  //style the node
+  if (!match) throw new Error("No match!");
   const fragment = document.createDocumentFragment();
   const words = match.nodeValue.split(" ");
-  const index = words.findIndex(e => e.toLowerCase().includes(q.toLowerCase()))
-  if (index === -1) {
-    alert("not found");
-    return;
-  };
+  const index = words.findIndex((e) =>
+    e.toLowerCase().includes(q.toLowerCase()),
+  );
+  if (index === -1) throw new Error("No match!");
   if (index > 0) {
-    fragment.appendChild(document.createTextNode(words.slice(0, index).join(" ") + " "))
+    fragment.appendChild(
+      document.createTextNode(words.slice(0, index).join(" ") + " "),
+    );
   }
   const span = document.createElement("span");
-  span.style.backgroundColor = "yellow";
+  span.classList.add("searchResult");
   span.textContent = words[index];
   fragment.appendChild(span);
   if (index < words.length - 1) {
-    fragment.appendChild(document.createTextNode(" " + words.slice(index + 1).join(" ")))
+    fragment.appendChild(
+      document.createTextNode(" " + words.slice(index + 1).join(" ")),
+    );
   }
   match.parentNode.replaceChild(fragment, match);
   span.scrollIntoView({ behavior: "smooth", block: "center" });
 }
+function handleMessage(message, list) {}
