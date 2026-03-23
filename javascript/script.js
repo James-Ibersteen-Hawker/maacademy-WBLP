@@ -105,6 +105,10 @@ const App = createApp({
         { loaded: true, pageName: window.location.pathname },
         window.location.origin,
       );
+      const searchString = window.location.search;
+      const urlParams = new URLSearchParams(searchString);
+      const query = urlParams.get('q');
+      if (query) goToSearch(q);
       //use the message via the iframe and window.addEventListener("message", ()=> {}...)
       //to deal with the loading of the multiple iframes
       //then extract textContent and send that to the web worker
@@ -167,3 +171,4 @@ async function loadData() {
   return data;
 }
 async function initSearch() {}
+function goToSearch(q) {}
