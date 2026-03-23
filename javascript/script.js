@@ -171,4 +171,43 @@ async function loadData() {
   return data;
 }
 async function initSearch() {}
-function goToSearch(q) {}
+function goToSearch(q) {
+  const walker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  let node, match;
+  while((node = walker.nextNode())) {
+    const value = node.nodeValue.toLowerCase();
+    const input = q.toLowerCase();
+    if (value.includes(input)) {
+      match = node;
+      break;
+    }
+  }
+  if (!match) {
+    alert("not found!");
+    return;
+  }
+  //style the node
+  const fragment = document.createDocumentFragment();
+  const words = match.nodeValue.split(" ");
+  const index = words.findIndex(e => e.toLowerCase().includes(q.toLowerCase()))
+  if (index === -1) {
+    alert("not found");
+    return;
+  };
+  if (index > 0) {
+    fragment.appendChild(document.createTextNode(words.slice(0, index).join(" ") + " "))
+  }
+  const span = document.createElement("span");
+  span.style.backgroundColor = "yellow";
+  span.textContent = words[index];
+  fragment.appendChild(span);
+  if (index < words.length - 1) {
+    fragment.appendChild(document.createTextNode(" " + words.slice(index + 1).join(" ")))
+  }
+  match.parentNode.replaceChild(fragment, match);
+}
