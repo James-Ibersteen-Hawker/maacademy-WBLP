@@ -108,7 +108,7 @@ const App = createApp({
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
       const query = urlParams.get('q');
-      if (query) goToSearch(q);
+      if (query) goToSearch(query);
       //use the message via the iframe and window.addEventListener("message", ()=> {}...)
       //to deal with the loading of the multiple iframes
       //then extract textContent and send that to the web worker
@@ -210,4 +210,5 @@ function goToSearch(q) {
     fragment.appendChild(document.createTextNode(" " + words.slice(index + 1).join(" ")))
   }
   match.parentNode.replaceChild(fragment, match);
+  span.scrollIntoView({ behavior: "smooth", block: "center" });
 }
