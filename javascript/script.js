@@ -1,6 +1,6 @@
 "use strict";
 const { createApp, ref, reactive, onMounted } = Vue;
-console.log("JS working");
+// console.log("JS working");
 const weblink =
   "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
 const signalTimeout = 10000;
@@ -100,15 +100,11 @@ const App = createApp({
       alert("emit");
     }
     onMounted(() => {
-      window.parent.postMessage(
-        { loaded: true, pageName: window.location.pathname },
-        window.location.origin,
-      );
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
       const query = urlParams.get("q");
       const iframe = urlParams.get("iframe");
-      if (!iframe) initSearch();
+      if (!iframe) initSearch().then((data) => searchLUT = data);
       else if (iframe) {
         document
           .querySelectorAll(
@@ -119,13 +115,16 @@ const App = createApp({
       Vue.nextTick(() => {
         try {
           if (query) goToSearch(query);
+          if (iframe) {
+            window.parent.postMessage(
+              { loaded: true, pageName: window.location.pathname },
+              window.location.origin,
+            );
+          }
         } catch (err) {
           console.log(err);
         }
       });
-      //use the message via the iframe and window.addEventListener("message", ()=> {}...)
-      //to deal with the loading of the multiple iframes
-      //then extract textContent and send that to the web worker
     });
     return {
       searchSite,
@@ -184,31 +183,39 @@ async function loadData() {
   return data;
 }
 async function initSearch() {
-  console.log("here");
-  const savedLUT = sessionStorage.getItem(keys.searchKey);
-  if (savedLUT) {
-    searchLUT = savedLUT;
-    return;
-  }
-  const path = window.location.pathname;
-  const subTrue = path.includes("/html/");
-  const links = pages.map(({ url }) => {
-    if (subTrue) return url === "index.html" ? `../${url}` : url;
-    else return url === "index.html" ? url : `html/${url}`;
+  return new Promise((resolve, reject) => {
+    try {
+      const savedLUT = sessionStorage.getItem(keys.searchKey);
+      if (savedLUT) resolve(JSON.parse(savedLUT));
+      else {
+        const path = window.location.pathname;
+        const subTrue = path.includes("/html/");
+        const links = pages.map(({ url }) => {
+          if (subTrue) return url === "index.html" ? `../${url}` : url;
+          else return url === "index.html" ? url : `html/${url}`;
+        });
+        const loadedPages = new Set();
+        window.addEventListener("message", (e) => {
+          const data = handleMessage(e, loadedPages);
+          if (data) {
+            sessionStorage.setItem(keys.searchKey, JSON.stringify(data));
+            resolve(data);
+          };
+        });
+        links.forEach((link) => {
+          const iframe = document.createElement("iframe");
+          iframe.src = `${window.location.origin}/${link}?iframe=true`;
+          iframe.width = "0";
+          iframe.height = "0";
+          iframe.style.display = "none";
+          iframe.classList.add("utilIframeJS");
+          document.body.appendChild(iframe);
+        });
+      }
+    } catch (err) {
+      reject(err);
+    }
   });
-  console.log(links);
-  const loadedPages = [];
-  const fragment = document.createDocumentFragment();
-  window.addEventListener("message", (e) => handleMessage(e, loadedPages));
-  links.forEach((link) => {
-    const iframe = document.createElement("iframe");
-    iframe.src = `${window.location.origin}/${link}?iframe=true`;
-    iframe.width = "0";
-    iframe.height = "0";
-    iframe.style.display = "none";
-    fragment.appendChild(iframe);
-  });
-  document.body.append(fragment);
 }
 function goToSearch(q) {
   const walker = document.createTreeWalker(
@@ -249,4 +256,22 @@ function goToSearch(q) {
   match.parentNode.replaceChild(fragment, match);
   span.scrollIntoView({ behavior: "smooth", block: "center" });
 }
-function handleMessage(message, list) {}
+function handleMessage({ data }, list) {
+  list.add({ name: data.pageName.split("/").at(-1) });
+  if (list.size < pages.length) return;
+  const iframes = document.querySelectorAll("iframe.utilIframeJS");
+  return Array.from(iframes).reduce((acc, iframe) => {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.querySelectorAll("script, style").forEach((e) => e.remove());
+    const walker = document.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+    const text = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      const trimmed = node.nodeValue?.trim();
+      if (trimmed) text.push(trimmed);
+    }
+    const src = iframe.src.split("/").pop().split("?")[0];
+    acc[src] = text.join(" ");
+    return acc;
+  }, {});
+}
