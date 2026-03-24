@@ -175,7 +175,11 @@ const navBar = {
             <ul>
               <li v-for="result in props.results" @click="choose(result)" class="result" ref="resultItem">
                 <a target="_blank">
-                  <p>{{result.match}}</p>
+                  <p>
+                    <span class="preamble">...{{result.preamble}}</span>
+                    <span class="match">{{result.exact}}</span>
+                    <span class="postamble">{{result.postamble}}...</span>
+                  </p>
                   <p>{{result.url}}</p>
                 </a>
               </li>

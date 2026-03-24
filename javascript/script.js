@@ -15,6 +15,7 @@ const workerName = location.pathname.includes("/html/")
   ? "../javascript/worker.js"
   : "./javascript/worker.js";
 const worker = new Worker(workerName, { type: "module" });
+const REPONAME = "/maacademy-WBLP";
 let searchLUT;
 let engine;
 const pages = [
@@ -84,8 +85,7 @@ const App = createApp({
     function searchSite(input) {
       if (!engine) {
         results.data = [];
-      }
-      else {
+      } else {
         const output = engine.search(input);
         const convertArray = output.map(({ item, matches }) => {
           const { value, indices } = matches[0];
@@ -99,7 +99,7 @@ const App = createApp({
           const string = value.slice(start, end + 1);
           let preamble = "";
           let postamble = "";
-          const threshold = 5;
+          const threshold = 8;
           if (start > 0) {
             const begin = Math.max(0, start - threshold);
             preamble = value.slice(begin, start);
@@ -108,17 +108,17 @@ const App = createApp({
             const stop = Math.min(value.length, end + threshold);
             postamble = value.slice(end + 1, stop + 1);
           }
-          const match = `...${preamble}${string}${postamble}...`;
           const { page: link } = item;
-          return new Hit(string, match, link);
+          return new Hit(string, preamble, postamble, link);
         });
         results.data = convertArray;
       }
     }
     function runSelection({ exact, url }) {
-      alert([exact, url]);
       const path = url === "index.html" ? "" : "/html";
-      window.location.href = `${window.location.origin}${path}/${url}?q=${encodeURIComponent(exact)}`;
+      const inRepo = window.location.pathname.includes(REPONAME);
+      const repoBase = inRepo ? REPONAME : "";
+      window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(exact)}`;
     }
     function testEmit(e) {
       alert("emit");
@@ -138,7 +138,7 @@ const App = createApp({
             keys: ["text"],
             ignoreDiacritics: true,
             includeMatches: true,
-            threshold: 0.5,
+            threshold: 0.4,
             ignoreLocation: true,
           });
         });
@@ -256,12 +256,14 @@ async function initSearch() {
   return new Promise((resolve, reject) => {
     try {
       const savedLUT = sessionStorage.getItem(keys.searchKey);
-      // if (savedLUT) resolve(JSON.parse(savedLUT));
-      /*else*/ {
+      if (savedLUT) resolve(JSON.parse(savedLUT));
+      else {
         const path = window.location.pathname;
-        const inRepo = path.includes("/maacademy-WBLP/");
-        const repoBase = inRepo ? "/maacademy-WBLP" : "";
-        const links = pages.map(({ url }) => url === "index.html" ? url : `html/${url}`);
+        const inRepo = path.includes(REPONAME);
+        const repoBase = inRepo ? REPONAME : "";
+        const links = pages.map(({ url }) =>
+          url === "index.html" ? url : `html/${url}`,
+        );
         const loadedPages = new Set();
         window.addEventListener("message", (e) => {
           const data = handleMessage(e, loadedPages);
@@ -303,7 +305,6 @@ function goToSearch(q) {
   if (!match) throw new Error("No match!");
   const fragment = document.createDocumentFragment();
   const words = match.nodeValue;
-  if (words.toLowerCase().includes(lower)) console.log("here");
   const start = words.toLowerCase().indexOf(lower);
   const end = start + lower.length;
   const matchedText = words.slice(start, end);

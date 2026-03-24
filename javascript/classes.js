@@ -1,7 +1,8 @@
 class Hit {
-  constructor(exact, match, url) {
+  constructor(exact, preamble, postamble, url) {
     this.exact = exact;
-    this.match = match;
+    this.preamble = preamble;
+    this.postamble = postamble;
     this.url = url;
   }
 }
