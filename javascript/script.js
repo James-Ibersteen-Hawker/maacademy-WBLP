@@ -98,7 +98,7 @@ const App = createApp({
           engineStart = () => {};
         });
       } else {
-        const output = engine.search(input);
+        const output = engine.search(input.trim());
         const convertArray = output.map(({ item, matches }) => {
           const { value, indices } = matches[0];
           const properIndexes = indices.filter(([start, end]) => end > start);
@@ -131,7 +131,7 @@ const App = createApp({
       const path = url === "index.html" ? "" : "/html";
       const inRepo = window.location.pathname.includes(REPONAME);
       const repoBase = inRepo ? REPONAME : "";
-      window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(exact)}`;
+      window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(exact.trim())}`;
     }
     function testEmit(e) {
       alert("emit");
@@ -322,7 +322,7 @@ function goToSearch(q) {
   const words = match.nodeValue;
   const start = words.toLowerCase().indexOf(lower);
   const end = start + lower.length;
-  const matchedText = words.slice(start, end);
+  const matchedText = words.slice(start, end).trim();
   if (start === -1) throw new Error("No Match!");
   if (start > 0) {
     fragment.appendChild(document.createTextNode(words.slice(0, start)));
