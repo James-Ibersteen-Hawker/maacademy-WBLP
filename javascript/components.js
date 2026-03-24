@@ -172,7 +172,7 @@ const navBar = {
             <label for="search-input" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')"></label>
           </form>
           <div v-if="props.results.length > 0" class="search-results" :class="{'scrollMore': scrollMore}" ref="resultsCont" @scroll="resultScroll">
-            <ul>
+            <ul :class="{'loading': props.results[1] === null}">
               <li v-for="result in props.results" @click="choose(result)" class="result" ref="resultItem">
                 <a target="_blank">
                   <p>

@@ -18,6 +18,7 @@ const worker = new Worker(workerName, { type: "module" });
 const REPONAME = "/maacademy-WBLP";
 let searchLUT;
 let engine;
+let engineStart = () => {};
 const pages = [
   new Page("Home", "index.html", "webicons/navbar-icons/home.png"),
   new Page(
@@ -82,9 +83,14 @@ const App = createApp({
         content.value = data;
       })
       .catch((err) => alert(err.message));
-    function searchSite(input) {
+    async function searchSite(input) {
       if (!engine) {
         results.data = [];
+        await new Promise((resolve, reject) => {
+          engineStart = resolve;
+        })
+        searchSite(input);
+        engineStart = () => {};
       } else {
         const output = engine.search(input);
         const convertArray = output.map(({ item, matches }) => {
@@ -128,7 +134,7 @@ const App = createApp({
       const urlParams = new URLSearchParams(searchString);
       const query = urlParams.get("q");
       const iframe = urlParams.get("iframe");
-      if (!iframe)
+      if (!iframe) {
         initSearch().then((data) => {
           searchLUT = Object.entries(data).map(([page, text]) => ({
             page,
@@ -141,8 +147,9 @@ const App = createApp({
             threshold: 0.4,
             ignoreLocation: true,
           });
+          engineStart();
         });
-      else if (iframe) {
+      } else if (iframe) {
         document
           .querySelectorAll(
             'img, link[rel="stylesheet"]:not([href*="vue"]), link[rel="preload"]:not([as="script"]), meta[name]:not([name="viewport"])',
@@ -256,7 +263,7 @@ async function initSearch() {
   return new Promise((resolve, reject) => {
     try {
       const savedLUT = sessionStorage.getItem(keys.searchKey);
-      if (savedLUT) resolve(JSON.parse(savedLUT));
+      if (savedLUT) return resolve(JSON.parse(savedLUT));
       else {
         const path = window.location.pathname;
         const inRepo = path.includes(REPONAME);
