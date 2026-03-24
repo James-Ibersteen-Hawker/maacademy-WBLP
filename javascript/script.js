@@ -259,7 +259,9 @@ async function initSearch() {
       // if (savedLUT) resolve(JSON.parse(savedLUT));
       /*else*/ {
         const path = window.location.pathname;
+        console.log(path, path.split("/"));
         const indexAt = path.includes("/html/") ? 2 : 1;
+        console.log(indexAt);
         const repoBase = path.split("/")[indexAt] ? "/" + path.split("/")[indexAt] : "";
         console.log(repoBase);
       
