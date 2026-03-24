@@ -34,4 +34,8 @@ html {
 body {
   background: #2E1000;
   overflow-x: hidden;
+}
+
+.searchResult {
+  background: red;
 }/*# sourceMappingURL=style.css.map */

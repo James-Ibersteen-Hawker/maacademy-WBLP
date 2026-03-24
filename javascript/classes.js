@@ -1,5 +1,6 @@
 class Hit {
-  constructor(match, url) {
+  constructor(exact, match, url) {
+    this.exact = exact;
     this.match = match;
     this.url = url;
   }
