@@ -37,5 +37,26 @@ body {
 }
 
 .searchResult {
-  background: red;
+  background: rgba(248, 255, 149, 0.3);
+  animation-name: loadTarget;
+  animation-fill-mode: forwards;
+  animation-duration: 10s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-delay: 1.5s;
+}
+
+@keyframes loadTarget {
+  0% {
+    background: rgba(248, 255, 149, 0.3);
+  }
+  10% {
+    background: rgba(248, 255, 149, 0.8);
+  }
+  30% {
+    background: rgba(248, 255, 149, 0.3);
+  }
+  100% {
+    background: rgba(248, 255, 149, 0);
+  }
 }/*# sourceMappingURL=style.css.map */

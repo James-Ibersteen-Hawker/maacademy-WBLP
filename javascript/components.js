@@ -8,6 +8,7 @@ const navBar = {
     phone: { type: String, default: "XXX-XXX-XXXX" },
     address: { type: String, default: "Unlisted" },
     level: { type: Number, default: 0 },
+    loading: { type: Boolean, default: false }
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
@@ -171,8 +172,8 @@ const navBar = {
             <input v-model="query" id="search-input" name="search-input" placeholder="Search..." maxlength="30">
             <label for="search-input" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')"></label>
           </form>
-          <div v-if="props.results.length > 0" class="search-results" :class="{'scrollMore': scrollMore}" ref="resultsCont" @scroll="resultScroll">
-            <ul :class="{'loading': props.results[1] === null}">
+          <div class="search-results" :class="{'scrollMore': scrollMore, 'loading': props.loading, 'hasResults': props.results.length > 0}" ref="resultsCont" @scroll="resultScroll">
+            <ul>
               <li v-for="result in props.results" @click="choose(result)" class="result" ref="resultItem">
                 <a target="_blank">
                   <p>

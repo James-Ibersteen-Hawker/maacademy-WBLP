@@ -19,6 +19,7 @@ const REPONAME = "/maacademy-WBLP";
 let searchLUT;
 let engine;
 let engineStart = () => {};
+let engineReject = () => {};
 const pages = [
   new Page("Home", "index.html", "webicons/navbar-icons/home.png"),
   new Page(
@@ -78,19 +79,24 @@ const App = createApp({
     const copyright = "Copyright 2026 Music and Art Academy";
     const content = ref({});
     const results = reactive({ data: [] });
+    const loading = ref(false);
     loadData()
       .then((data) => {
         content.value = data;
       })
       .catch((err) => alert(err.message));
     async function searchSite(input) {
+      loading.value = true;
+      engineReject();
       if (!engine) {
         results.data = [];
-        await new Promise((resolve, reject) => {
+        new Promise((resolve, reject) => {
           engineStart = resolve;
-        })
-        searchSite(input);
-        engineStart = () => {};
+          engineReject = reject;
+        }).then(() => {
+          searchSite(input);
+          engineStart = () => {};
+        });
       } else {
         const output = engine.search(input);
         const convertArray = output.map(({ item, matches }) => {
@@ -117,6 +123,7 @@ const App = createApp({
           const { page: link } = item;
           return new Hit(string, preamble, postamble, link);
         });
+        loading.value = false;
         results.data = convertArray;
       }
     }
@@ -181,6 +188,7 @@ const App = createApp({
       testEmit,
       teachers,
       testInstrument,
+      loading,
     };
   },
 });
@@ -317,14 +325,14 @@ function goToSearch(q) {
   const matchedText = words.slice(start, end);
   if (start === -1) throw new Error("No Match!");
   if (start > 0) {
-    fragment.appendChild(document.createTextNode(words.slice(0, start) + " "));
+    fragment.appendChild(document.createTextNode(words.slice(0, start)));
   }
   const span = document.createElement("span");
   span.classList.add("searchResult");
   span.textContent = matchedText;
   fragment.appendChild(span);
   if (start < words.length - 1) {
-    fragment.appendChild(document.createTextNode(" " + words.slice(end + 1)));
+    fragment.appendChild(document.createTextNode(words.slice(end)));
   }
   match.parentNode.replaceChild(fragment, match);
   span.scrollIntoView({ behavior: "smooth", block: "center" });

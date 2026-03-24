@@ -97,6 +97,7 @@
         :phone="content?.['Phone Number']"
         :address="content?.['Address']"
         :map="content?.['Map']"
+        :loading="loading"
         @query="searchSite" 
         @choose="runSelection"
       ></nav-bar>

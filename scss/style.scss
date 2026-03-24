@@ -41,5 +41,25 @@ body {
     overflow-x: hidden;
 }
 .searchResult {
-    background: red;
+    background: rgba($accent, 0.3);
+    animation-name: loadTarget;
+    animation-fill-mode: forwards;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-delay: 1.5s;
+}
+@keyframes loadTarget {
+    0% {
+        background: rgba($accent, 0.3);
+    }
+    10% {
+        background: rgba($accent, 0.8);
+    }
+    30% {
+        background: rgba($accent, 0.3);
+    }
+    100% {
+        background: rgba($accent, 0);
+    }
 }
