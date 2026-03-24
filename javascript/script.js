@@ -82,23 +82,10 @@ const App = createApp({
       })
       .catch((err) => alert(err.message));
     function searchSite(input) {
-      if (!engine) {
-        results.data = [];
-      } else {
-        // results.data = [
-        //   new Hit("Higgeldy Piggeldy 1", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 2", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 3", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 4", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 5", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 6", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 7", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 7", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 7", "link.html"),
-        //   new Hit("Higgeldy Piggeldy 7", "link.html"),
-        // ];
-        const results = engine.search(input);
-        const convertArray = results.map(({item, matches}) => {
+      if (!engine) results.data = [];
+      else {
+        const output = engine.search(input);
+        const convertArray = output.map(({item, matches}) => {
           const { value, indices } = matches[0];
           const properIndexes = indices.filter(([start, end]) => end > start);
           const sortedArr = properIndexes.sort((a,b) => {
@@ -121,12 +108,16 @@ const App = createApp({
             postamble = value.slice(end + 1, stop + 1);
           }
           const match = preamble + string + postamble;
-          console.log(match)
+          const { page: link } = item;
+          console.log(match, link);
+          return new Hit(string, match, link);
         })
       }
     }
-    function runSelection(selection) {
-      alert(selection.match);
+    function runSelection({match, url}) {
+      alert([match, url]);
+      const path = url === "index.html" ? "" : "/html";
+      window.location.href = `${window.location.origin}${path}/${url}?q=${encodeURIComponent(match)}`;
     }
     function testEmit(e) {
       alert("emit");
