@@ -114,10 +114,10 @@ const App = createApp({
         })
       }
     }
-    function runSelection({match, url}) {
-      alert([match, url]);
+    function runSelection({exact, url}) {
+      alert([exact, url]);
       const path = url === "index.html" ? "" : "/html";
-      window.location.href = `${window.location.origin}${path}/${url}?q=${encodeURIComponent(match)}`;
+      window.location.href = `${window.location.origin}${path}/${url}?q=${encodeURIComponent(exact)}`;
     }
     function testEmit(e) {
       alert("emit");
