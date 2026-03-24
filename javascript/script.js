@@ -16,6 +16,7 @@ const workerName = location.pathname.includes("/html/")
   : "./javascript/worker.js";
 const worker = new Worker(workerName, { type: "module" });
 let searchLUT;
+let engine;
 const pages = [
   new Page("Home", "index.html", "webicons/navbar-icons/home.png"),
   new Page(
@@ -81,18 +82,50 @@ const App = createApp({
       })
       .catch((err) => alert(err.message));
     function searchSite(input) {
-      results.data = [
-        new Hit("Higgeldy Piggeldy 1", "link.html"),
-        new Hit("Higgeldy Piggeldy 2", "link.html"),
-        new Hit("Higgeldy Piggeldy 3", "link.html"),
-        new Hit("Higgeldy Piggeldy 4", "link.html"),
-        new Hit("Higgeldy Piggeldy 5", "link.html"),
-        new Hit("Higgeldy Piggeldy 6", "link.html"),
-        new Hit("Higgeldy Piggeldy 7", "link.html"),
-        new Hit("Higgeldy Piggeldy 7", "link.html"),
-        new Hit("Higgeldy Piggeldy 7", "link.html"),
-        new Hit("Higgeldy Piggeldy 7", "link.html"),
-      ];
+      if (!engine) {
+        results.data = [];
+      } else {
+        // results.data = [
+        //   new Hit("Higgeldy Piggeldy 1", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 2", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 3", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 4", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 5", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 6", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 7", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 7", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 7", "link.html"),
+        //   new Hit("Higgeldy Piggeldy 7", "link.html"),
+        // ];
+        const results = engine.search(input);
+        const convertArray = results.map(({item, matches}) => {
+          const { value, indices } = matches[0];
+          const properIndexes = indices.filter(([start, end]) => end > start);
+          console.log(properIndexes)
+          const sortedArr = properIndexes.sort((a,b) => {
+            const aDistance = a[1] - a[0] + 1;
+            const bDisance = b[1] - b[0] + 1;
+            return bDisance - aDistance
+          })
+          console.log(sortedArr)
+          const [start, end] = properIndexes[0];
+          const string = value.slice(start, end + 1);
+          console.log(string)
+          let preamble = "";
+          let postamble = "";
+          const threshold = 5;
+          if (start > 0) {
+            const begin = Math.max(0, start - threshold);
+            preamble = value.slice(begin, start);
+          }
+          if (end < value.length) {
+            const stop = Math.min(value.length, end + threshold);
+            postamble = value.slice(end + 1, stop + 1);
+          }
+          const match = preamble + string + postamble;
+          console.log(match)
+        })
+      }
     }
     function runSelection(selection) {
       alert(selection.match);
@@ -105,7 +138,17 @@ const App = createApp({
       const urlParams = new URLSearchParams(searchString);
       const query = urlParams.get("q");
       const iframe = urlParams.get("iframe");
-      if (!iframe) initSearch().then((data) => searchLUT = data);
+      if (!iframe)
+        initSearch().then((data) => {
+          searchLUT = Object.entries(data).map(([page, text]) => ({page, text}));
+          engine = new Fuse(searchLUT, {
+            keys: ["text"],
+            ignoreDiacritics: true,
+            includeMatches: true,
+            threshold: 0.4,
+            ignoreLocation: true,
+          });
+        });
       else if (iframe) {
         document
           .querySelectorAll(
@@ -155,38 +198,47 @@ App.mount("#vue_app");
 
 function getSheetData() {
   return new Promise((resolve, reject) => {
-    if (!window.Worker) return reject(new Error("Workers are unsupported by this browser"))
-      let settled = false;
-      const timeout = setTimeout(() => {
+    if (!window.Worker)
+      return reject(new Error("Workers are unsupported by this browser"));
+    let settled = false;
+    const timeout = setTimeout(() => {
+      if (settled) return;
+      worker.terminate();
+      settled = true;
+      reject(new Error("Worker timed out"));
+    }, workerTimeout);
+    function clear() {
+      clearTimeout(timeout);
+      worker.terminate();
+    }
+    worker.addEventListener("message", (e) => {
+      if (settled) return;
+      settled = true;
+      const { data, err } = e.data;
+      clear();
+      if (err) reject(err);
+      else if (!err && data) resolve(data);
+      else reject(new Error("No Data Returned"));
+    });
+    worker.addEventListener(
+      "error",
+      (err) => {
         if (settled) return;
-        worker.terminate();
         settled = true;
-        reject(new Error("Worker timed out"));
-      }, workerTimeout);
-      function clear() {
-        clearTimeout(timeout);
-        worker.terminate();
-      }
-      worker.addEventListener("message", (e) => {
-        if (settled) return;
-        settled = true;
-        const { data, err } = e.data;
         clear();
-        if (err) reject(err);
-        else if (!err && data) resolve(data);
-        else reject(new Error("No Data Returned"));
+        reject(err);
+      },
+      { once: true },
+    );
+    try {
+      worker.postMessage({
+        mode: "load",
+        link: weblink,
+        timeout: signalTimeout,
       });
-      worker.addEventListener("error", (err) => {
-        if (settled) return;
-        settled = true;
-        clear();
-        reject(err);
-      }, {once: true})
-      try {
-        worker.postMessage({ mode: "load", link: weblink, timeout: signalTimeout });
-      } catch (err) {
-        reject(err);
-      }
+    } catch (err) {
+      reject(err);
+    }
   });
 }
 async function loadData() {
@@ -225,7 +277,7 @@ async function initSearch() {
           if (data) {
             sessionStorage.setItem(keys.searchKey, JSON.stringify(data));
             resolve(data);
-          };
+          }
         });
         links.forEach((link) => {
           const iframe = document.createElement("iframe");
@@ -249,34 +301,31 @@ function goToSearch(q) {
     null,
     false,
   );
+  const lower = q.toLowerCase();
   let node, match;
   while ((node = walker.nextNode())) {
     const value = node.nodeValue.toLowerCase();
-    const input = q.toLowerCase();
-    if (!value.includes(input)) continue;
+    if (!value.includes(lower)) continue;
     match = node;
     break;
   }
   if (!match) throw new Error("No match!");
   const fragment = document.createDocumentFragment();
-  const words = match.nodeValue.split(" ");
-  const index = words.findIndex((e) =>
-    e.toLowerCase().includes(q.toLowerCase()),
-  );
-  if (index === -1) throw new Error("No match!");
-  if (index > 0) {
-    fragment.appendChild(
-      document.createTextNode(words.slice(0, index).join(" ") + " "),
-    );
+  const words = match.nodeValue;
+  if (words.toLowerCase().includes(lower)) console.log("here");
+  const start = words.toLowerCase().indexOf(lower);
+  const end = start + lower.length;
+  const matchedText = words.slice(start, end);
+  if (start === -1) throw new Error("No Match!");
+  if (start > 0) {
+    fragment.appendChild(document.createTextNode(words.slice(0, start) + " "));
   }
   const span = document.createElement("span");
   span.classList.add("searchResult");
-  span.textContent = words[index];
+  span.textContent = matchedText;
   fragment.appendChild(span);
-  if (index < words.length - 1) {
-    fragment.appendChild(
-      document.createTextNode(" " + words.slice(index + 1).join(" ")),
-    );
+  if (start < words.length - 1) {
+    fragment.appendChild(document.createTextNode(" " + words.slice(end + 1)));
   }
   match.parentNode.replaceChild(fragment, match);
   span.scrollIntoView({ behavior: "smooth", block: "center" });
