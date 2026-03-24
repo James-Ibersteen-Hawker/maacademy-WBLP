@@ -259,8 +259,10 @@ async function initSearch() {
       // if (savedLUT) resolve(JSON.parse(savedLUT));
       /*else*/ {
         const path = window.location.pathname;
-        const repoBase = path.split("/")[2] ? "/" + path.split("/")[2] : "";
+        const indexAt = path.includes("/html/") ? 2 : 1;
+        const repoBase = path.split("/")[indexAt] ? "/" + path.split("/")[indexAt] : "";
         console.log(repoBase);
+      
         const links = pages.map(({ url }) => url === "index.html" ? url : `html/${url}`);
         const loadedPages = new Set();
         window.addEventListener("message", (e) => {
