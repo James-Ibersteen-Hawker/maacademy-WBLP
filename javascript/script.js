@@ -101,14 +101,12 @@ const App = createApp({
         const convertArray = results.map(({item, matches}) => {
           const { value, indices } = matches[0];
           const properIndexes = indices.filter(([start, end]) => end > start);
-          console.log(properIndexes)
           const sortedArr = properIndexes.sort((a,b) => {
             const aDistance = a[1] - a[0] + 1;
             const bDisance = b[1] - b[0] + 1;
             return bDisance - aDistance
           })
-          console.log(sortedArr)
-          const [start, end] = properIndexes[0];
+          const [start, end] = sortedArr[0];
           const string = value.slice(start, end + 1);
           console.log(string)
           let preamble = "";
