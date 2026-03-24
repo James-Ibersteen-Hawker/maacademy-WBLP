@@ -259,12 +259,11 @@ async function initSearch() {
       // if (savedLUT) resolve(JSON.parse(savedLUT));
       /*else*/ {
         const path = window.location.pathname;
-        console.log(path, path.split("/"));
-        const indexAt = path.includes("/html/") ? 2 : 1;
-        console.log(indexAt);
-        const repoBase = path.split("/")[indexAt + 1] ? "/" + path.split("/")[indexAt] : "";
-        console.log(repoBase);
-      
+        const subtrue = path.includes("/html/");
+        const indexAt = subtrue ? 3 : 2;
+        const pieces = path.split("/").filter(Boolean);
+        const repoBase = pieces.length === indexAt ? "/" + pieces[0] : "";
+        console.log(path, pieces, repoBase);
         const links = pages.map(({ url }) => url === "index.html" ? url : `html/${url}`);
         const loadedPages = new Set();
         window.addEventListener("message", (e) => {
