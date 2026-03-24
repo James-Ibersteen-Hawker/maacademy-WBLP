@@ -174,7 +174,7 @@ const navBar = {
           <div v-if="props.results.length > 0" class="search-results" :class="{'scrollMore': scrollMore}" ref="resultsCont" @scroll="resultScroll">
             <ul>
               <li v-for="result in props.results" @click="choose(result)" class="result" ref="resultItem">
-                <a :href="result.url" target="_blank">
+                <a target="_blank">
                   <p>{{result.match}}</p>
                   <p>{{result.url}}</p>
                 </a>
