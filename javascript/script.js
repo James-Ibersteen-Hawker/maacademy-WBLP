@@ -10,6 +10,7 @@ const keys = {
 };
 const hourInMillis = 60 * 60 * 1000;
 const dataTimeout = 12;
+const workerTimeout = 30000;
 const workerName = location.pathname.includes("/html/")
   ? "../javascript/worker.js"
   : "./javascript/worker.js";
@@ -154,14 +155,38 @@ App.mount("#vue_app");
 
 function getSheetData() {
   return new Promise((resolve, reject) => {
-    worker.onmessage = (e) => {
-      const { data, err } = e.data;
-      if (err) reject(err);
-      else if (!err && data) resolve(data);
-      else reject(new Error("No Data Returned"));
-    };
-    worker.onerror = (err) => reject(err);
-    worker.postMessage({ mode: "load", link: weblink, timeout: signalTimeout });
+    if (!window.Worker) return reject(new Error("Workers are unsupported by this browser"))
+      let settled = false;
+      const timeout = setTimeout(() => {
+        if (settled) return;
+        worker.terminate();
+        settled = true;
+        reject(new Error("Worker timed out"));
+      }, workerTimeout);
+      function clear() {
+        clearTimeout(timeout);
+        worker.terminate();
+      }
+      worker.addEventListener("message", (e) => {
+        if (settled) return;
+        settled = true;
+        const { data, err } = e.data;
+        clear();
+        if (err) reject(err);
+        else if (!err && data) resolve(data);
+        else reject(new Error("No Data Returned"));
+      });
+      worker.addEventListener("error", (err) => {
+        if (settled) return;
+        settled = true;
+        clear();
+        reject(err);
+      }, {once: true})
+      try {
+        worker.postMessage({ mode: "load", link: weblink, timeout: signalTimeout });
+      } catch (err) {
+        reject(err);
+      }
   });
 }
 async function loadData() {
@@ -257,7 +282,7 @@ function goToSearch(q) {
   span.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 function handleMessage({ data }, list) {
-  list.add({ name: data.pageName.split("/").at(-1) });
+  list.add(data.pageName.split("/").at(-1));
   if (list.size < pages.length) return;
   const iframes = document.querySelectorAll("iframe.utilIframeJS");
   return Array.from(iframes).reduce((acc, iframe) => {
@@ -272,6 +297,7 @@ function handleMessage({ data }, list) {
     }
     const src = iframe.src.split("/").pop().split("?")[0];
     acc[src] = text.join(" ");
+    iframe.remove();
     return acc;
   }, {});
 }
