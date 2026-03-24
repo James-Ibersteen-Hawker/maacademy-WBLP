@@ -262,7 +262,7 @@ async function initSearch() {
         console.log(path, path.split("/"));
         const indexAt = path.includes("/html/") ? 2 : 1;
         console.log(indexAt);
-        const repoBase = path.split("/")[indexAt] ? "/" + path.split("/")[indexAt] : "";
+        const repoBase = path.split("/")[indexAt + 1] ? "/" + path.split("/")[indexAt] : "";
         console.log(repoBase);
       
         const links = pages.map(({ url }) => url === "index.html" ? url : `html/${url}`);
