@@ -112,6 +112,7 @@ const App = createApp({
           console.log(match, link);
           return new Hit(string, match, link);
         })
+        results.data = convertArray;
       }
     }
     function runSelection({exact, url}) {
