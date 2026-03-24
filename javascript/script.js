@@ -82,20 +82,21 @@ const App = createApp({
       })
       .catch((err) => alert(err.message));
     function searchSite(input) {
-      if (!engine) results.data = [];
+      if (!engine) {
+        results.data = [];
+      }
       else {
         const output = engine.search(input);
-        const convertArray = output.map(({item, matches}) => {
+        const convertArray = output.map(({ item, matches }) => {
           const { value, indices } = matches[0];
           const properIndexes = indices.filter(([start, end]) => end > start);
-          const sortedArr = properIndexes.sort((a,b) => {
+          const sortedArr = properIndexes.sort((a, b) => {
             const aDistance = a[1] - a[0] + 1;
             const bDisance = b[1] - b[0] + 1;
-            return bDisance - aDistance
-          })
+            return bDisance - aDistance;
+          });
           const [start, end] = sortedArr[0];
           const string = value.slice(start, end + 1);
-          console.log(string)
           let preamble = "";
           let postamble = "";
           const threshold = 5;
@@ -107,15 +108,14 @@ const App = createApp({
             const stop = Math.min(value.length, end + threshold);
             postamble = value.slice(end + 1, stop + 1);
           }
-          const match = preamble + string + postamble;
+          const match = `...${preamble}${string}${postamble}...`;
           const { page: link } = item;
-          console.log(match, link);
           return new Hit(string, match, link);
-        })
+        });
         results.data = convertArray;
       }
     }
-    function runSelection({exact, url}) {
+    function runSelection({ exact, url }) {
       alert([exact, url]);
       const path = url === "index.html" ? "" : "/html";
       window.location.href = `${window.location.origin}${path}/${url}?q=${encodeURIComponent(exact)}`;
@@ -130,12 +130,15 @@ const App = createApp({
       const iframe = urlParams.get("iframe");
       if (!iframe)
         initSearch().then((data) => {
-          searchLUT = Object.entries(data).map(([page, text]) => ({page, text}));
+          searchLUT = Object.entries(data).map(([page, text]) => ({
+            page,
+            text,
+          }));
           engine = new Fuse(searchLUT, {
             keys: ["text"],
             ignoreDiacritics: true,
             includeMatches: true,
-            threshold: 0.4,
+            threshold: 0.5,
             ignoreLocation: true,
           });
         });
@@ -253,13 +256,12 @@ async function initSearch() {
   return new Promise((resolve, reject) => {
     try {
       const savedLUT = sessionStorage.getItem(keys.searchKey);
-      if (savedLUT) resolve(JSON.parse(savedLUT));
-      else {
+      // if (savedLUT) resolve(JSON.parse(savedLUT));
+      /*else*/ {
         const path = window.location.pathname;
         const subTrue = path.includes("/html/");
         const links = pages.map(({ url }) => {
-          if (subTrue) return url === "index.html" ? `../${url}` : url;
-          else return url === "index.html" ? url : `html/${url}`;
+          return url === "index.html" ? url : `html/${url}`;
         });
         const loadedPages = new Set();
         window.addEventListener("message", (e) => {

@@ -77,7 +77,6 @@ const navBar = {
     Vue.watch(
       () => props.results,
       () => {
-        alert(JSON.stringify(props.results))
         Vue.nextTick(() => {
           if (resultItem.value) resultScroll();
         });
