@@ -259,10 +259,9 @@ async function initSearch() {
       // if (savedLUT) resolve(JSON.parse(savedLUT));
       /*else*/ {
         const path = window.location.pathname;
-        const subTrue = path.includes("/html/");
-        const links = pages.map(({ url }) => {
-          return url === "index.html" ? url : `html/${url}`;
-        });
+        const repoBase = path.split("/")[2] ? "/" + path.split("/")[2] : "";
+        console.log(repoBase);
+        const links = pages.map(({ url }) => url === "index.html" ? url : `html/${url}`);
         const loadedPages = new Set();
         window.addEventListener("message", (e) => {
           const data = handleMessage(e, loadedPages);
@@ -273,7 +272,7 @@ async function initSearch() {
         });
         links.forEach((link) => {
           const iframe = document.createElement("iframe");
-          iframe.src = `${window.location.origin}/${link}?iframe=true`;
+          iframe.src = `${window.location.origin}${repoBase}/${link}?iframe=true`;
           iframe.width = "0";
           iframe.height = "0";
           iframe.style.display = "none";
