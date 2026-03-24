@@ -259,11 +259,8 @@ async function initSearch() {
       // if (savedLUT) resolve(JSON.parse(savedLUT));
       /*else*/ {
         const path = window.location.pathname;
-        const subtrue = path.includes("/html/");
-        const indexAt = subtrue ? 3 : 2;
-        const pieces = path.split("/").filter(Boolean);
-        const repoBase = pieces.length === indexAt ? "/" + pieces[0] : "";
-        console.log(path, pieces, repoBase);
+        const inRepo = path.includes("/maacademy-WBLP/");
+        const repoBase = inRepo ? "/maacademy-WBLP" : "";
         const links = pages.map(({ url }) => url === "index.html" ? url : `html/${url}`);
         const loadedPages = new Set();
         window.addEventListener("message", (e) => {
