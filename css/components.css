@@ -442,13 +442,15 @@
   }
 }
 #vue_app {
-  padding: 35px;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
+#vue_app .content-container {
+  padding: 35px;
+}
 
 #vue_app:has(div.nav-bar-show) {
-  padding-left: calc(max(200px, min(17vw, 300px)) + 35px);
+  padding-left: max(200px, min(17vw, 300px));
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }

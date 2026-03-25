@@ -436,12 +436,14 @@ $max: 300px;
   }
 }
 #vue_app {
-  padding: 35px;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
+  .content-container {
+    padding: 35px;
+  }
 }
 #vue_app:has(div.#{$base}-show) {
-  $inset: calc(max($min, min($navWidth, $max)) + 35px);
+  $inset: calc(max($min, min($navWidth, $max)));
   padding-left: $inset;
   transition: padding 0.5s;
   transition-timing-function: ease-out;

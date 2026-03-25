@@ -26,6 +26,27 @@
   font-style: italic;
   font-display: swap;
 }
+@font-face {
+  font-family: "ABeeZee";
+  src: url("ABeeZee-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABeeZee";
+  src: url("ABeeZee-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Jomhuria";
+  src: url("Jomhuria-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 html {
   height: 100%;
   width: 100%;
@@ -58,5 +79,92 @@ body {
   }
   100% {
     background: rgba(248, 255, 149, 0);
+  }
+}
+#vue_app .header {
+  position: relative;
+  min-height: 300px;
+  max-height: 700px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#vue_app .header video {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  min-height: 300px;
+  max-height: 700px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#vue_app .header .headerOver {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(175, 40, 40, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  min-height: 300px;
+  max-height: 700px;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+#vue_app .header .headerOver h1, #vue_app .header .headerOver h2 {
+  color: white;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+#vue_app .header .headerOver h1 {
+  font-family: "Amarante", serif;
+  font-size: 60px;
+}
+#vue_app .header .headerOver h1 span {
+  font-family: unset;
+}
+#vue_app .header .headerOver h2 {
+  font-family: "Arsenal", sans-serif;
+  font-weight: 600;
+  width: 80%;
+}
+#vue_app .header .headerOver div {
+  background: rgba(200, 200, 200, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 6px 15px;
+  border-radius: 15px;
+  border: 2px solid black;
+  font-family: "Arsenal", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-shadow: 0px 0px 5px white;
+  z-index: 10;
+  transition: 0.5s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+#vue_app .header .headerOver div:hover {
+  background: rgba(248, 248, 248, 0.8);
+}
+#vue_app .content-container.container-fluid {
+  margin: 0 !important;
+  padding: 0px 50px !important;
+  color: white;
+}
+
+@media screen and (min-width: 1000px) {
+  .headerOver h1 {
+    font-size: 80px !important;
+  }
+  .headerOver h2 {
+    font-size: calc(auto * 1.2);
   }
 }/*# sourceMappingURL=style.css.map */

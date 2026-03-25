@@ -83,6 +83,7 @@ const App = createApp({
     loadData()
       .then((data) => {
         content.value = data;
+        console.log(data);
       })
       .catch((err) => alert(err.message));
     async function searchSite(input) {
