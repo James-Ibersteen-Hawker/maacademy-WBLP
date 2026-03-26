@@ -153,7 +153,9 @@ const navBar = {
       <div class="nav-bar-section nav-bar-extras">
         <div class="extras-text extras-section">
           <a :href="'tel:' + makePhone(props.phone)">{{props.phone}}</a>
-          <p>{{props.address}}</p>
+          <p>
+            34 Main St<br>(Rear Building)<br>Holmdel, NJ 07733
+          </p>
         </div>
         <div class="extras-map extras-section">
           <a :href="props.map" target="_blank">
