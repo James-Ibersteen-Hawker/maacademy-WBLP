@@ -249,13 +249,16 @@
         <div class="reviews">
           <h1>Asbury Park Press</h1>
           <div v-for="(r, i) in content?.['reviews']" class="review row" :class="{'left': i % 2 === 0, 'right': i % 2 === 1}">
+            <div class="img col-12 col-md-4 top" :class="{'d-none': i % 2 === 0}">
+              <img :src="r.IMAGE" :alt="r['By:']" loading="lazy"/>
+            </div>
             <div class="text col-12 col-md-8">
               <span>{{r.REVIEWS}}</span>
               <div class="caption">
                 {{r["By:"]}}
               </div>
             </div>
-            <div class="img col-12 col-md-4">
+            <div class="img col-12 col-md-4 bottom" :class="{'d-none': i % 2 === 1}">
               <img :src="r.IMAGE" :alt="r['By:']" loading="lazy"/>
             </div>
           </div>
