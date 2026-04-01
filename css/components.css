@@ -12,6 +12,7 @@
   transition-timing-function: ease-out;
   padding: 0 !important;
   margin: 0 !important;
+  filter: drop-shadow(0px 0px 1px #f8ff95);
 }
 .nav-bar .nav-bar-close {
   display: flex;
@@ -61,7 +62,7 @@
 }
 .nav-bar .nav-bar-body .nav-bar-list {
   border-bottom: 1px solid rgba(248, 255, 149, 0.5);
-  height: calc(100vh - max(200px, min(17vw, 300px)) - 50px - 80px);
+  height: calc(100vh - max(200px, min(17vw, 300px)) - 50px - 100px);
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-item {
   cursor: pointer;
@@ -187,7 +188,7 @@
   margin-left: 10px;
 }
 .nav-bar .nav-bar-body .nav-bar-extras {
-  height: 80px;
+  height: 100px;
   overflow: auto;
   display: flex;
 }
@@ -218,7 +219,7 @@
   text-align: center;
 }
 .nav-bar .nav-bar-body .nav-bar-extras .extras-map a img {
-  height: 72px;
+  height: 90px;
   width: 90%;
   -o-object-fit: cover;
      object-fit: cover;
@@ -442,13 +443,15 @@
   }
 }
 #vue_app {
-  padding: 35px;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
+#vue_app .content-container {
+  padding: 35px;
+}
 
 #vue_app:has(div.nav-bar-show) {
-  padding-left: calc(max(200px, min(17vw, 300px)) + 35px);
+  padding-left: max(200px, min(17vw, 300px));
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
@@ -713,6 +716,7 @@
 }
 .footer-icons {
   background: #1c0a00;
+  border-top: 5px solid rgba(248, 255, 149, 0.5);
 }
 .footer-icons .footer-icons-container {
   padding: 10px;

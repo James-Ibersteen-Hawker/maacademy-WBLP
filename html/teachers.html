@@ -68,6 +68,27 @@
       type="font/woff2"
       crossorigin="anonymous"
     />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/ABeeZee-Italic.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/ABeeZee-Regular.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Jomhuria-Regular.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -214,6 +235,10 @@
           ></teacher>
         </div>
       </div>
+      <page-footer
+        :icons="media"
+        :copyright="content?.['copyright']"
+      ></page-footer>
     </main>
     <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
     <script defer src="../javascript/bootstrap.bundle.min.js"></script>

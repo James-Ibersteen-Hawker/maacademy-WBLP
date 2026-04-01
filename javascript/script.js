@@ -9,7 +9,7 @@ const keys = {
   searchKey: "searchData",
 };
 const hourInMillis = 60 * 60 * 1000;
-const dataTimeout = 12;
+const dataTimeout = 6;
 const workerTimeout = 30000;
 const workerName = location.pathname.includes("/html/")
   ? "../javascript/worker.js"
@@ -80,9 +80,11 @@ const App = createApp({
     const content = ref({});
     const results = reactive({ data: [] });
     const loading = ref(false);
+    const currentLocation = window.location.href;
     loadData()
       .then((data) => {
         content.value = data;
+        console.log(data);
       })
       .catch((err) => alert(err.message));
     async function searchSite(input) {
@@ -189,6 +191,8 @@ const App = createApp({
       teachers,
       testInstrument,
       loading,
+      weblink,
+      currentLocation
     };
   },
 });

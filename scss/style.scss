@@ -1,65 +1,296 @@
 $dark: black;
-$mid: #1C0A00;
-$light: #2E1000;
+$mid: #1c0a00;
+$light: #2e1000;
 $accent: #f8ff95;
 $border: rgba($accent, 0.5);
 @font-face {
-    font-family: 'Arsenal';
-    src: url('../fonts/Arsenal-Italic.woff2') format('woff2');
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap;
+  font-family: "Arsenal";
+  src: url("../fonts/Arsenal-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
 }
 @font-face {
-    font-family: 'Arsenal';
-    src: url('../fonts/Arsenal-Bold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Arsenal";
+  src: url("../fonts/Arsenal-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 @font-face {
-    font-family: 'Arsenal';
-    src: url('../fonts/Arsenal-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Arsenal";
+  src: url("../fonts/Arsenal-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 @font-face {
-    font-family: 'Arsenal';
-    src: url('../fonts/Arsenal-BoldItalic.woff2') format('woff2');
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
+  font-family: "Arsenal";
+  src: url("../fonts/Arsenal-BoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../fonts/ABeeZee-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../fonts/ABeeZee-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Jomhuria";
+  src: url("../fonts/Jomhuria-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 html {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 body {
-    background: $light;
-    overflow-x: hidden;
+  background: black;
+  overflow-x: hidden;
 }
 .searchResult {
-    background: rgba($accent, 0.3);
-    animation-name: loadTarget;
-    animation-fill-mode: forwards;
-    animation-duration: 10s;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-in-out;
-    animation-delay: 1.5s;
+  background: rgba($accent, 0.3);
+  animation-name: loadTarget;
+  animation-fill-mode: forwards;
+  animation-duration: 10s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-delay: 1.5s;
 }
 @keyframes loadTarget {
-    0% {
-        background: rgba($accent, 0.3);
+  0% {
+    background: rgba($accent, 0.3);
+  }
+  10% {
+    background: rgba($accent, 0.8);
+  }
+  30% {
+    background: rgba($accent, 0.3);
+  }
+  100% {
+    background: rgba($accent, 0);
+  }
+}
+#vue_app {
+  @mixin music {
+    content: '';
+    background: linear-gradient(to bottom, rgb(114, 65, 42) 50%, $dark);
+    position: fixed;
+    width: 120%;
+    height: 120%;
+    top: 0;
+    left: 50%;
+    mask-size: 750px;
+    filter: drop-shadow(0px 0px 1px $accent);
+  }
+  &::before {
+    @include music();
+    z-index: -2;
+    mask-image: url(../imgs/bg/page1.png);
+    opacity: 0.5;
+    transform: translateX(-50%) rotate(-10deg);
+  }
+  &::after {
+    @include music();
+    z-index: -1;
+    mask-image: url(../imgs/bg/page5.png);
+    mask-position: 30px 125px;
+    opacity: 0.8;
+    transform: translateX(-50%) rotate(10deg);
+  }
+  .header {
+    position: relative;
+    min-height: 300px;
+    max-height: 700px;
+    padding: 0 !important;
+    margin: 0 !important;
+    video {
+      width: 100%;
+      object-fit: cover;
+      min-height: 300px;
+      max-height: 700px;
+      padding: 0 !important;
+      margin: 0 !important;
     }
-    10% {
-        background: rgba($accent, 0.8);
+    .headerOver {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(175, 40, 40, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      min-height: 300px;
+      max-height: 700px;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-bottom: 5px solid $border;
+      z-index: 5;
+      h1,
+      h2 {
+        color: white;
+        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        user-select: none;
+      }
+      h1 {
+        font-family: "Amarante", serif;
+        font-size: 60px;
+        span {
+          font-family: unset;
+        }
+      }
+      h2 {
+        font-family: "Arsenal", sans-serif;
+        font-weight: 600;
+        width: 80%;
+      }
+      a {
+        text-decoration: none;
+      }
+      a div {
+        background: rgba(248, 248, 248, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 6px 15px;
+        border-radius: 15px;
+        border: 2px solid black;
+        font-family: "Arsenal", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        text-shadow: 0px 0px 5px white;
+        z-index: 10;
+        transition: 0.5s;
+        user-select: none;
+        cursor: pointer;
+        color: black !important;
+      }
+      a div:hover {
+        background: rgba(248, 248, 248, 1);
+      }
     }
-    30% {
-        background: rgba($accent, 0.3);
+  }
+  .content-container.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 10px 50px !important;
+    color: white;
+    max-width: 1100px;
+    width: 95%;
+    border-right: 1px solid $border;
+    border-left: 1px solid $border;
+    background: linear-gradient(to bottom, $light, $mid);
+    .reviews {
+      padding: 0px 10px;
+      max-width: 900px;
+      margin-right: auto;
+      margin-left: auto;
+      h1:first-child {
+        font-family: "Abril Fatface", serif;
+        font-size: 40px;
+        color: $accent;
+        margin-bottom: 10px;
+      }
+      .review {
+        $border: 8px solid $accent;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        .text {
+          height: fit-content !important;
+          box-sizing: border-box;
+          font-family: "ABeeZee", sans-serif;
+          .caption {
+            font-family: "Times New Roman", serif;
+            font-style: italic;
+            margin-top: 80px;
+            padding-bottom: 5px;
+          }
+        }
+        .img {
+          margin-bottom: 15px;
+          img {
+            width: 100%;
+            aspect-ratio: 5/6;
+            object-fit: cover;
+          }
+        }
+        &.left {
+          padding-left: 8px;
+          .text {
+            border-left: $border;
+            box-sizing: border-box !important;
+          }
+        }
+        &.right {
+          padding-right: 8px;
+          .text {
+            text-align: right;
+            border-right: $border;
+            box-sizing: border-box !important;
+            div,
+            span {
+              text-align: right;
+            }
+          }
+        }
+      }
     }
-    100% {
-        background: rgba($accent, 0);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .headerOver {
+    h1 {
+      font-size: 80px !important;
     }
+    h2 {
+      font-size: calc(auto * 1.2);
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .reviews {
+    max-width: 400px !important;
+  }
+  .review {
+    .text {
+      border: none !important;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+      text-align: center !important;
+      div,
+      span {
+        text-align: center !important;
+      }
+      .caption {
+        margin-bottom: 0 !important;
+        margin-top: 20px !important;
+      }
+    }
+    .img {
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      &.top {
+        display: none !important;
+      }
+    }
+    border: 1px solid $border;
+    padding-top: 10px;
+  }
 }

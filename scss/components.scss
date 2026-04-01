@@ -37,6 +37,7 @@ $max: 300px;
   transition-timing-function: ease-out;
   padding: 0 !important;
   margin: 0 !important;
+  filter: drop-shadow(0px 0px 1px $accent);
   .#{$base}-close {
     @include toggle();
     background: rgba($dark, 0.5);
@@ -68,7 +69,7 @@ $max: 300px;
   .#{$base}-body {
     $headHeight: max($min, min($navWidth, $max));
     $searchHeight: 50px;
-    $extrasHeight: 80px;
+    $extrasHeight: 100px;
     $listHeight: calc(100vh - $headHeight - $searchHeight - $extrasHeight);
     .#{$base}-list {
       border-bottom: 1px solid $border;
@@ -436,12 +437,14 @@ $max: 300px;
   }
 }
 #vue_app {
-  padding: 35px;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
+  .content-container {
+    padding: 35px;
+  }
 }
 #vue_app:has(div.#{$base}-show) {
-  $inset: calc(max($min, min($navWidth, $max)) + 35px);
+  $inset: calc(max($min, min($navWidth, $max)));
   padding-left: $inset;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
@@ -683,6 +686,7 @@ $teacher: "teacher";
 $footBase: "footer";
 .#{$footBase}-icons {
   background: $mid;
+  border-top: 5px solid $border;
   .#{$footBase}-icons-container {
     padding: 10px;
     display: flex;

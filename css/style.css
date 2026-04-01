@@ -26,13 +26,34 @@
   font-style: italic;
   font-display: swap;
 }
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../fonts/ABeeZee-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../fonts/ABeeZee-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Jomhuria";
+  src: url("../fonts/Jomhuria-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 html {
   height: 100%;
   width: 100%;
 }
 
 body {
-  background: #2E1000;
+  background: black;
   overflow-x: hidden;
 }
 
@@ -58,5 +79,227 @@ body {
   }
   100% {
     background: rgba(248, 255, 149, 0);
+  }
+}
+#vue_app::before {
+  content: "";
+  background: linear-gradient(to bottom, rgb(114, 65, 42) 50%, black);
+  position: fixed;
+  width: 120%;
+  height: 120%;
+  top: 0;
+  left: 50%;
+  -webkit-mask-size: 750px;
+          mask-size: 750px;
+  filter: drop-shadow(0px 0px 1px #f8ff95);
+  z-index: -2;
+  -webkit-mask-image: url(../imgs/bg/page1.png);
+          mask-image: url(../imgs/bg/page1.png);
+  opacity: 0.5;
+  transform: translateX(-50%) rotate(-10deg);
+}
+#vue_app::after {
+  content: "";
+  background: linear-gradient(to bottom, rgb(114, 65, 42) 50%, black);
+  position: fixed;
+  width: 120%;
+  height: 120%;
+  top: 0;
+  left: 50%;
+  -webkit-mask-size: 750px;
+          mask-size: 750px;
+  filter: drop-shadow(0px 0px 1px #f8ff95);
+  z-index: -1;
+  -webkit-mask-image: url(../imgs/bg/page5.png);
+          mask-image: url(../imgs/bg/page5.png);
+  -webkit-mask-position: 30px 125px;
+          mask-position: 30px 125px;
+  opacity: 0.8;
+  transform: translateX(-50%) rotate(10deg);
+}
+#vue_app .header {
+  position: relative;
+  min-height: 300px;
+  max-height: 700px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#vue_app .header video {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  min-height: 300px;
+  max-height: 700px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#vue_app .header .headerOver {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(175, 40, 40, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  min-height: 300px;
+  max-height: 700px;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  z-index: 5;
+}
+#vue_app .header .headerOver h1,
+#vue_app .header .headerOver h2 {
+  color: white;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+#vue_app .header .headerOver h1 {
+  font-family: "Amarante", serif;
+  font-size: 60px;
+}
+#vue_app .header .headerOver h1 span {
+  font-family: unset;
+}
+#vue_app .header .headerOver h2 {
+  font-family: "Arsenal", sans-serif;
+  font-weight: 600;
+  width: 80%;
+}
+#vue_app .header .headerOver a {
+  text-decoration: none;
+}
+#vue_app .header .headerOver a div {
+  background: rgba(248, 248, 248, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 6px 15px;
+  border-radius: 15px;
+  border: 2px solid black;
+  font-family: "Arsenal", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-shadow: 0px 0px 5px white;
+  z-index: 10;
+  transition: 0.5s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  color: black !important;
+}
+#vue_app .header .headerOver a div:hover {
+  background: rgb(248, 248, 248);
+}
+#vue_app .content-container.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 10px 50px !important;
+  color: white;
+  max-width: 1100px;
+  width: 95%;
+  border-right: 1px solid rgba(248, 255, 149, 0.5);
+  border-left: 1px solid rgba(248, 255, 149, 0.5);
+  background: linear-gradient(to bottom, #2e1000, #1c0a00);
+}
+#vue_app .content-container.container-fluid .reviews {
+  padding: 0px 10px;
+  max-width: 900px;
+  margin-right: auto;
+  margin-left: auto;
+}
+#vue_app .content-container.container-fluid .reviews h1:first-child {
+  font-family: "Abril Fatface", serif;
+  font-size: 40px;
+  color: #f8ff95;
+  margin-bottom: 10px;
+}
+#vue_app .content-container.container-fluid .reviews .review {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+#vue_app .content-container.container-fluid .reviews .review .text {
+  height: -moz-fit-content !important;
+  height: fit-content !important;
+  box-sizing: border-box;
+  font-family: "ABeeZee", sans-serif;
+}
+#vue_app .content-container.container-fluid .reviews .review .text .caption {
+  font-family: "Times New Roman", serif;
+  font-style: italic;
+  margin-top: 80px;
+  padding-bottom: 5px;
+}
+#vue_app .content-container.container-fluid .reviews .review .img {
+  margin-bottom: 15px;
+}
+#vue_app .content-container.container-fluid .reviews .review .img img {
+  width: 100%;
+  aspect-ratio: 5/6;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+#vue_app .content-container.container-fluid .reviews .review.left {
+  padding-left: 8px;
+}
+#vue_app .content-container.container-fluid .reviews .review.left .text {
+  border-left: 8px solid #f8ff95;
+  box-sizing: border-box !important;
+}
+#vue_app .content-container.container-fluid .reviews .review.right {
+  padding-right: 8px;
+}
+#vue_app .content-container.container-fluid .reviews .review.right .text {
+  text-align: right;
+  border-right: 8px solid #f8ff95;
+  box-sizing: border-box !important;
+}
+#vue_app .content-container.container-fluid .reviews .review.right .text div,
+#vue_app .content-container.container-fluid .reviews .review.right .text span {
+  text-align: right;
+}
+
+@media screen and (min-width: 1000px) {
+  .headerOver h1 {
+    font-size: 80px !important;
+  }
+  .headerOver h2 {
+    font-size: calc(auto * 1.2);
+  }
+}
+@media screen and (max-width: 768px) {
+  .reviews {
+    max-width: 400px !important;
+  }
+  .review .text {
+    border: none !important;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    text-align: center !important;
+  }
+  .review .text div,
+  .review .text span {
+    text-align: center !important;
+  }
+  .review .text .caption {
+    margin-bottom: 0 !important;
+    margin-top: 20px !important;
+  }
+  .review .img {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
+  .review .img.top {
+    display: none !important;
+  }
+  .review {
+    border: 1px solid rgba(248, 255, 149, 0.5);
+    padding-top: 10px;
   }
 }/*# sourceMappingURL=style.css.map */

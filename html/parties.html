@@ -47,6 +47,27 @@
     <link rel="preload" as="font" href="../fonts/Arsenal-Bold.woff2" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" as="font" href="../fonts/Arsenal-BoldItalic.woff2" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" as="font" href="../fonts/Arsenal-Italic.woff2" type="font/woff2" crossorigin="anonymous">
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/ABeeZee-Italic.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/ABeeZee-Regular.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Jomhuria-Regular.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
     <!--favicons-->
     <link
       rel="icon"
@@ -115,6 +136,10 @@
         @query="searchSite" 
         @choose="runSelection"
       ></nav-bar>
+      <page-footer
+        :icons="media"
+        :copyright="content?.['copyright']"
+      ></page-footer>
     </main>
     <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
     <script defer src="../javascript/bootstrap.bundle.min.js"></script>
