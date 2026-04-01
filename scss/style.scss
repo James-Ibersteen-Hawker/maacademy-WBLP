@@ -61,6 +61,9 @@ body {
   background: black;
   overflow-x: hidden;
 }
+img {
+  user-select: none;
+}
 .searchResult {
   background: rgba($accent, 0.3);
   animation-name: loadTarget;
@@ -86,7 +89,7 @@ body {
 }
 #vue_app {
   @mixin music {
-    content: '';
+    content: "";
     background: linear-gradient(to bottom, rgb(114, 65, 42) 50%, $dark);
     position: fixed;
     width: 120%;
@@ -247,6 +250,124 @@ body {
               text-align: right;
             }
           }
+        }
+      }
+    }
+  }
+  .contact-form.container-fluid {
+    background: linear-gradient(to bottom, $light, $mid);
+    width: 98%;
+    margin-top: 2%;
+    border: 5px solid $border;
+    border-bottom: 0 !important;
+    padding: 0 !important;
+    max-width: 1100px;
+    .row {
+      padding: 0 !important;
+      margin: 0 !important;
+      .formcontainer {
+        padding: 20px;
+        margin: 0 !important;
+        .inner {
+          padding: 20px 0px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border: 5px solid $border;
+          h1 {
+            font-family: "Times New Roman", serif;
+            color: $accent;
+            text-align: center;
+          }
+          table {
+            color: white;
+            tr {
+              th {
+                border-right: 1px solid white;
+                background: white;
+                mask-size: auto 80%;
+                mask-position: center;
+                mask-repeat: no-repeat;
+                aspect-ratio: 1/1;
+                width: 50px;
+                height: 40px;
+              }
+              td {
+                padding-left: 10px;
+                font-style: italic;
+                font-family: "ABeeZee", sans-serif;
+                a {
+                  color: white !important;
+                }
+              }
+            }
+          }
+          form {
+            label {
+              color: white;
+              font-family: "Times New Roman", serif;
+              margin-top: 8px;
+              font-size: 18px;
+            }
+            input,
+            textarea {
+              display: block;
+              width: 100%;
+              background-color: rgba(80, 80, 80, 0.5);
+              border: 1px solid $accent;
+              transition: 0.5s;
+              padding-left: 8px !important;
+              padding: 3px;
+              color: white;
+              &:focus {
+                outline: none;
+                background-color: rgba(120, 120, 120, 0.8);
+              }
+              &::placeholder {
+                color: rgba(255, 255, 255, 0.6);
+              }
+            }
+            button[type="submit"] {
+              background: $accent;
+              color: black;
+              padding: 2px 20px;
+              margin: 5px 0px 0px -2px !important;
+              border-radius: 5px;
+              font-family: "ABeeZee", sans-serif;
+            }
+          }
+          .d-none,
+          .d-block {
+            margin-top: 15px;
+            padding: 15px;
+            padding-right: 5px !important;
+            .box1,
+            .box2 {
+              color: black;
+              font-family: "ABeeZee", sans-serif;
+              font-size: 14px;
+            }
+            .box1 {
+              background-color: #ffd477;
+              padding: 10px;
+              margin-bottom: 10px;
+            }
+            .box2 {
+              background-color: rgba(#ffd477, 0.7);
+              border: 5px solid $accent;
+              padding: 10%;
+            }
+          }
+        }
+      }
+      .postercontainer {
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 100%;
+          height: auto;
         }
       }
     }

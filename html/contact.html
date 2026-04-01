@@ -8,17 +8,11 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!--SEO-->
-    <meta
-      name="description"
-      content="Contact us and our wonderful staff"
-    />
+    <meta name="description" content="Contact us and our wonderful staff" />
     <meta name="theme-color" content="#1C0A00" />
     <meta name="format-detection" content="telephone=no" />
     <!--OG-->
-    <meta
-      property="og:title"
-      content="Contact Us"
-    />
+    <meta property="og:title" content="Contact Us" />
     <meta
       property="og:description"
       content="Contact us and our wonderful staff"
@@ -49,10 +43,34 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/components.css" />
-    <link rel="preload" as="font" href="../fonts/Arsenal-Regular.woff2" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" as="font" href="../fonts/Arsenal-Bold.woff2" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" as="font" href="../fonts/Arsenal-BoldItalic.woff2" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" as="font" href="../fonts/Arsenal-Italic.woff2" type="font/woff2" crossorigin="anonymous">
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Arsenal-Regular.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Arsenal-Bold.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Arsenal-BoldItalic.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Arsenal-Italic.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
     <link
       rel="preload"
       as="font"
@@ -88,21 +106,81 @@
     <!--prefetch-->
     <link rel="prefetch" href="../html/about-us.html" />
     <link rel="prefetch" href="../html/teachers.html" />
-    <link rel="preload" href="../MAINLOGO.png" as="image">
-    <link rel="preload" href="../map.png" as="image">
+    <link rel="preload" href="../MAINLOGO.png" as="image" />
+    <link rel="preload" href="../map.png" as="image" />
     <!--nav icons preload-->
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/close.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/right-arrow.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/home.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/information.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/phone-call.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/music.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/teacher.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/party.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/radio-city.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/images.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/search.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/next.png" as="image">
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/close.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/right-arrow.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/home.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/information.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/phone-call.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/music.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/teacher.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/party.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/radio-city.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/images.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/search.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/next.png"
+      as="image"
+    />
     <!--ld+json-->
     <script type="application/ld+json">
       {
@@ -123,14 +201,17 @@
       defer
       src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"
     ></script> -->
-    <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"
+    ></script>
     <script defer src="../javascript/components.js"></script>
     <script defer src="../javascript/classes.js"></script>
     <script defer src="../javascript/sheet.js" type="module"></script>
   </head>
   <body>
     <main id="vue_app">
-      <nav-bar 
+      <nav-bar
         :links="pages"
         logo="../MAINLOGO.png"
         :results="results.data"
@@ -139,23 +220,134 @@
         :map="content?.['Map']"
         :level="1"
         :loading="loading"
-        @query="searchSite" 
+        @query="searchSite"
         @choose="runSelection"
       ></nav-bar>
       <div class="contact-form container-fluid">
-        <div class="col-12 col-md-6 formcontainer">
-          <form :action="weblink" method="post" id="contactForm">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="remy.serbinenko@gmail.com" required>
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" name="subject" required>
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" cols="50" required></textarea>
-            <button type="submit">Send</button>
-            <input :value="currentLocation" name="location" id="location" type="hidden" required>
-          </form>
+        <div class="row">
+          <div class="col-12 col-md-7 formcontainer">
+            <div class="inner">
+              <h1>Contact Us</h1>
+              <table>
+                <tr>
+                  <th
+                    style="mask-image: url(../webicons/navbar-icons/phone-call.png);"
+                  ></th>
+                  <td>
+                    <a
+                      :href="'tel:' + content?.['Phone Number']"
+                      target="_blank"
+                      >{{content?.['Phone Number']}}</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <th 
+                    style="mask-image: url(../webicons/location.png);"
+                  ></th>
+                  <td>
+                    <a :href="content?.['Map']" target="_blank"
+                      >{{content?.['Address']}}</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <th
+                    style="mask-image: url(../webicons/mail.png);"
+                  ></th>
+                  <td>
+                    <a :href="'mailto:' + content?.['Email']" target="_blank"
+                      >{{content?.['Email']}}</a
+                    >
+                  </td>
+                </tr>
+              </table>
+              <div class="row">
+                <div class="col-md-5 d-none d-md-block">
+                  <div class="box1">
+                    Want to work with us? Want more information about classes or
+                    prices? Fill out the form and send it to us!<br /><br />Please
+                    include your email address, a phone number and any questions
+                    you may have to help us help you!<br /><br />We will get
+                    back to you as soon as possible!
+                  </div>
+                  <div class="box2">
+                    The opposite of WAR isn’t PEACE… it’s CREATION!<br /><br />
+                    Jonathan Larson
+                  </div>
+                </div>
+                <div class="col-12 col-md-7">
+                  <form :action="weblink" method="post" id="contactForm">
+                    <label for="name">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="John Doe"
+                    />
+                    <label for="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value="remy.serbinenko@gmail.com"
+                      placeholder="john.doe@domain.com"
+                      required
+                    />
+                    <label for="subject">Subject</label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      placeholder="Legends of Zelda"
+                    />
+                    <label for="phone">Phone Number</label>
+                    <input
+                      type="tel"
+                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      id="phone"
+                      name="phone"
+                      required
+                      placeholder="XXX - XXX - XXXX"
+                    />
+                    <label for="message">Message</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="5"
+                      cols="50"
+                      required
+                      placeholder="Lorem ipsum dolor sit amet consectetur adipiscing elit..."
+                    ></textarea>
+                    <button type="submit">Send</button>
+                    <input
+                      :value="currentLocation"
+                      name="location"
+                      id="location"
+                      type="hidden"
+                      required
+                    />
+                  </form>
+                </div>
+                <div class="col-12 d-block d-md-none">
+                  <div class="box1">
+                    Want to work with us? Want more information about classes or
+                    prices? Fill out the form and send it to us!<br /><br />Please
+                    include your email address, a phone number and any questions
+                    you may have to help us help you!<br /><br />We will get
+                    back to you as soon as possible!
+                  </div>
+                  <div class="box2">
+                    The opposite of WAR isn’t PEACE… it’s CREATION!<br /><br />
+                    Jonathan Larson
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-5 postercontainer">
+            <img alt="Poster for MAAcademy" :src="content?.['teacherImage']" />
+          </div>
         </div>
       </div>
       <page-footer
@@ -163,7 +355,10 @@
         :copyright="content?.['copyright']"
       ></page-footer>
     </main>
-    <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"
+    ></script>
     <script defer src="../javascript/bootstrap.bundle.min.js"></script>
     <script defer src="../javascript/script.js"></script>
   </body>

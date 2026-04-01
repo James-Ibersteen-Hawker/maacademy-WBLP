@@ -57,6 +57,12 @@ body {
   overflow-x: hidden;
 }
 
+img {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
 .searchResult {
   background: rgba(248, 255, 149, 0.3);
   animation-name: loadTarget;
@@ -262,6 +268,132 @@ body {
 #vue_app .content-container.container-fluid .reviews .review.right .text div,
 #vue_app .content-container.container-fluid .reviews .review.right .text span {
   text-align: right;
+}
+#vue_app .contact-form.container-fluid {
+  background: linear-gradient(to bottom, #2e1000, #1c0a00);
+  width: 98%;
+  margin-top: 2%;
+  border: 5px solid rgba(248, 255, 149, 0.5);
+  border-bottom: 0 !important;
+  padding: 0 !important;
+  max-width: 1100px;
+}
+#vue_app .contact-form.container-fluid .row {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer {
+  padding: 20px;
+  margin: 0 !important;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner {
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid rgba(248, 255, 149, 0.5);
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner h1 {
+  font-family: "Times New Roman", serif;
+  color: #f8ff95;
+  text-align: center;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner table {
+  color: white;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner table tr th {
+  border-right: 1px solid white;
+  background: white;
+  -webkit-mask-size: auto 80%;
+          mask-size: auto 80%;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  aspect-ratio: 1/1;
+  width: 50px;
+  height: 40px;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner table tr td {
+  padding-left: 10px;
+  font-style: italic;
+  font-family: "ABeeZee", sans-serif;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner table tr td a {
+  color: white !important;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form label {
+  color: white;
+  font-family: "Times New Roman", serif;
+  margin-top: 8px;
+  font-size: 18px;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form input,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form textarea {
+  display: block;
+  width: 100%;
+  background-color: rgba(80, 80, 80, 0.5);
+  border: 1px solid #f8ff95;
+  transition: 0.5s;
+  padding-left: 8px !important;
+  padding: 3px;
+  color: white;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form input:focus,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form textarea:focus {
+  outline: none;
+  background-color: rgba(120, 120, 120, 0.8);
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form input::-moz-placeholder, #vue_app .contact-form.container-fluid .row .formcontainer .inner form textarea::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form input::placeholder,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner form button[type=submit] {
+  background: #f8ff95;
+  color: black;
+  padding: 2px 20px;
+  margin: 5px 0px 0px -2px !important;
+  border-radius: 5px;
+  font-family: "ABeeZee", sans-serif;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-none,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-block {
+  margin-top: 15px;
+  padding: 15px;
+  padding-right: 5px !important;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-none .box1,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-none .box2,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-block .box1,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-block .box2 {
+  color: black;
+  font-family: "ABeeZee", sans-serif;
+  font-size: 14px;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-none .box1,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-block .box1 {
+  background-color: #ffd477;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-none .box2,
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .d-block .box2 {
+  background-color: rgba(255, 212, 119, 0.7);
+  border: 5px solid #f8ff95;
+  padding: 10%;
+}
+#vue_app .contact-form.container-fluid .row .postercontainer {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#vue_app .contact-form.container-fluid .row .postercontainer img {
+  width: 100%;
+  height: auto;
 }
 
 @media screen and (min-width: 1000px) {
