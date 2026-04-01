@@ -139,6 +139,10 @@
         @query="searchSite" 
         @choose="runSelection"
       ></nav-bar>
+      <page-footer
+        :icons="media"
+        :copyright="content?.['copyright']"
+      ></page-footer>
     </main>
     <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
     <script defer src="../javascript/bootstrap.bundle.min.js"></script>

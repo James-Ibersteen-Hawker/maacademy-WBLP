@@ -686,6 +686,7 @@ $teacher: "teacher";
 $footBase: "footer";
 .#{$footBase}-icons {
   background: $mid;
+  border-top: 5px solid $border;
   .#{$footBase}-icons-container {
     padding: 10px;
     display: flex;

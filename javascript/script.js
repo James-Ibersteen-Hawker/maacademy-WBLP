@@ -80,6 +80,7 @@ const App = createApp({
     const content = ref({});
     const results = reactive({ data: [] });
     const loading = ref(false);
+    const currentLocation = window.location.href;
     loadData()
       .then((data) => {
         content.value = data;
@@ -190,6 +191,8 @@ const App = createApp({
       teachers,
       testInstrument,
       loading,
+      weblink,
+      currentLocation
     };
   },
 });

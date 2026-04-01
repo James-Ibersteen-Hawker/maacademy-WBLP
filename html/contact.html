@@ -142,6 +142,26 @@
         @query="searchSite" 
         @choose="runSelection"
       ></nav-bar>
+      <div class="contact-form container-fluid">
+        <div class="col-12 col-md-6 formcontainer">
+          <form :action="weblink" method="post" id="contactForm">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="remy.serbinenko@gmail.com" required>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" cols="50" required></textarea>
+            <button type="submit">Send</button>
+            <input :value="currentLocation" name="location" id="location" type="hidden" required>
+          </form>
+        </div>
+      </div>
+      <page-footer
+        :icons="media"
+        :copyright="content?.['copyright']"
+      ></page-footer>
     </main>
     <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
     <script defer src="../javascript/bootstrap.bundle.min.js"></script>

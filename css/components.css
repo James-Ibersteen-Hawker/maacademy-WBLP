@@ -716,6 +716,7 @@
 }
 .footer-icons {
   background: #1c0a00;
+  border-top: 5px solid rgba(248, 255, 149, 0.5);
 }
 .footer-icons .footer-icons-container {
   padding: 10px;
