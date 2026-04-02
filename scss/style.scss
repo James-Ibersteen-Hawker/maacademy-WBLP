@@ -298,10 +298,21 @@ img {
       width: calc(100% + 100px);
     }
     .part2 {
+      container-type: inline-size;
+      container-name: part2;
       border-bottom: 5px solid $border;
       margin: 10px -50px;
       width: calc(100% + 100px);
-      font-family: 'ABeeZee', sans-serif;
+      font-family: "ABeeZee", sans-serif;
+      @mixin inter {
+        text-align: center;
+        color: $accent;
+        font: {
+          family: "Jomhuria", sans-serif;
+          size: 40px;
+        }
+        line-height: 25px;
+      }
       table {
         width: calc(100% - 100px);
         margin-left: auto;
@@ -331,13 +342,7 @@ img {
         tr:nth-child(2) {
           td {
             vertical-align: middle;
-            text-align: center;
-            color: $accent;
-            font: {
-              family: "Jomhuria", sans-serif;
-              size: 40px;
-            }
-            line-height: 25px;
+            @include inter();
           }
           td:has(img) {
             vertical-align: bottom;
@@ -353,6 +358,27 @@ img {
           vertical-align: bottom;
         }
       }
+      .img1 {
+        display: none;
+      }
+      .row1,
+      .row2 {
+        padding: 0px 30px;
+        margin: 10px 0px;
+        img {
+          width: 100%;
+          margin-bottom: 10px;
+          margin-top: 10px;
+        }
+      }
+      .inter {
+        @include inter();
+      }
+      .row2 {
+        .text {
+          text-align: right;
+        }
+      }
     }
     .part3 {
       border-bottom: 5px solid $border;
@@ -361,7 +387,7 @@ img {
       padding: 0px 35px;
       h1 {
         font: {
-          family: 'Jomhuria', sans-serif;
+          family: "Jomhuria", sans-serif;
           size: 55px;
         }
         color: $accent;
@@ -370,11 +396,12 @@ img {
         line-height: 40px;
         text-align: center;
       }
-      p, span {
+      p,
+      span {
         margin: 5px;
         text-align: center;
         font: {
-          family: 'ABeeZee', sans-serif;
+          family: "ABeeZee", sans-serif;
           size: 17px;
         }
       }
@@ -383,10 +410,10 @@ img {
         font-size: 16px;
         font-style: italic;
         margin-top: 15px;
-        font-family: 'Times New Roman', serif;
+        font-family: "Times New Roman", serif;
         position: relative;
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           top: -6px;
           left: 50%;
@@ -408,7 +435,7 @@ img {
         text-align: center;
         padding: 2px 10px;
         border-radius: 10px;
-        font-family: 'Cinzel', serif;
+        font-family: "Cinzel", serif;
         font-size: 20px;
         color: $accent;
         cursor: pointer;
@@ -435,14 +462,14 @@ img {
       align-items: center;
       h1 {
         font: {
-          family: 'Jomhuria';
+          family: "Jomhuria";
           size: 60px;
         }
         line-height: 50px;
         margin: 5px;
         padding: 0;
         text-align: center;
-        color: $accent
+        color: $accent;
       }
       .content {
         display: flex;
@@ -456,7 +483,7 @@ img {
         }
         p {
           text-align: left;
-          font-family: 'ABeeZee', sans-serif;
+          font-family: "ABeeZee", sans-serif;
           font-size: 16px;
           padding-left: 10px;
         }
@@ -659,5 +686,38 @@ img {
     p {
       text-align: center !important;
     }
+  }
+}
+@container part2 (max-width: 550px) {
+  .row1,
+  .row2 {
+    display: block !important;
+    .text {
+      width: 100%;
+      text-align: justify !important;
+    }
+  }
+  .row1 {
+    .img2 {
+      display: none;
+    }
+    .img1 {
+      display: block !important;
+      float: right;
+    }
+  }
+  .row2 {
+    .img1 {
+      display: block !important;
+      float: left;
+    }
+    .img2 {
+      display: none;
+    }
+  }
+}
+@container part2 (max-width: 520px) {
+  .row2 .img1 {
+    display: none !important;
   }
 }
