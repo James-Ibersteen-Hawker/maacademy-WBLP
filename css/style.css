@@ -204,11 +204,36 @@ img {
 #vue_app .header .headerOver a div:hover {
   background: rgb(248, 248, 248);
 }
+#vue_app .heading {
+  background: black;
+  margin-bottom: 0 !important;
+  color: #f8ff95;
+  overflow: hidden;
+  border-bottom: 1px solid #f8ff95;
+}
+#vue_app .heading h6 {
+  text-align: center;
+  position: relative;
+  left: -150px;
+  margin-top: 10px;
+  font-family: "Arsenal", sans-serif;
+  font-style: italic;
+  font-variant: small-caps;
+  font-size: 20px;
+  font-weight: 700;
+}
+#vue_app .heading h1 {
+  text-align: center;
+  font-size: 70px;
+  font-family: "Jomhuria", sans-serif;
+  padding: 0 !important;
+  line-height: 50px;
+}
 #vue_app .content-container.container-fluid {
   margin-right: auto;
   margin-left: auto;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   padding: 10px 50px !important;
   color: white;
   max-width: 1100px;
@@ -272,6 +297,207 @@ img {
 #vue_app .content-container.container-fluid .reviews .review.right .text div,
 #vue_app .content-container.container-fluid .reviews .review.right .text span {
   text-align: right;
+}
+#vue_app .content-container.container-fluid .blurb {
+  font-family: "Arsenal", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: italic;
+  color: #f8ff95;
+  padding: 10px 35px;
+  text-align: center;
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  margin-left: -50px;
+  margin-right: -50px;
+  width: calc(100% + 100px);
+}
+#vue_app .content-container.container-fluid .part2 {
+  container-type: inline-size;
+  container-name: part2;
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  margin: 10px -50px;
+  width: calc(100% + 100px);
+  font-family: "ABeeZee", sans-serif;
+}
+#vue_app .content-container.container-fluid .part2 table {
+  width: calc(100% - 100px);
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+#vue_app .content-container.container-fluid .part2 table tr {
+  width: 100%;
+}
+#vue_app .content-container.container-fluid .part2 table tr td {
+  position: relative;
+  vertical-align: top;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#vue_app .content-container.container-fluid .part2 table tr td img {
+  width: 100%;
+  min-width: 150px;
+  max-width: 250px;
+  max-height: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+}
+#vue_app .content-container.container-fluid .part2 table tr:nth-child(1) td img {
+  -o-object-position: right;
+     object-position: right;
+}
+#vue_app .content-container.container-fluid .part2 table tr:nth-child(2) td {
+  vertical-align: middle;
+  text-align: center;
+  color: #f8ff95;
+  font-family: "Jomhuria", sans-serif;
+  font-size: 40px;
+  line-height: 25px;
+}
+#vue_app .content-container.container-fluid .part2 table tr:nth-child(2) td:has(img) {
+  vertical-align: bottom;
+  text-align: left;
+}
+#vue_app .content-container.container-fluid .part2 table tr:nth-child(2) td:has(img) img {
+  margin-right: auto;
+  -o-object-position: left;
+     object-position: left;
+}
+#vue_app .content-container.container-fluid .part2 table tr:nth-child(3) td {
+  text-align: right;
+  vertical-align: bottom;
+}
+#vue_app .content-container.container-fluid .part2 .img1 {
+  display: none;
+}
+#vue_app .content-container.container-fluid .part2 .row1,
+#vue_app .content-container.container-fluid .part2 .row2 {
+  padding: 0px 30px;
+  margin: 10px 0px;
+}
+#vue_app .content-container.container-fluid .part2 .row1 img,
+#vue_app .content-container.container-fluid .part2 .row2 img {
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+#vue_app .content-container.container-fluid .part2 .inter {
+  text-align: center;
+  color: #f8ff95;
+  font-family: "Jomhuria", sans-serif;
+  font-size: 40px;
+  line-height: 25px;
+}
+#vue_app .content-container.container-fluid .part2 .row2 .text {
+  text-align: right;
+}
+#vue_app .content-container.container-fluid .part3 {
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  margin: 10px -50px;
+  width: calc(100% + 100px);
+  padding: 0px 35px;
+}
+#vue_app .content-container.container-fluid .part3 h1 {
+  font-family: "Jomhuria", sans-serif;
+  font-size: 55px;
+  color: #f8ff95;
+  padding: 0 !important;
+  margin-top: 10px !important;
+  line-height: 40px;
+  text-align: center;
+}
+#vue_app .content-container.container-fluid .part3 p,
+#vue_app .content-container.container-fluid .part3 span {
+  margin: 5px;
+  text-align: center;
+  font-family: "ABeeZee", sans-serif;
+  font-size: 17px;
+}
+#vue_app .content-container.container-fluid .part3 span {
+  display: block;
+  font-size: 16px;
+  font-style: italic;
+  margin-top: 15px;
+  font-family: "Times New Roman", serif;
+  position: relative;
+}
+#vue_app .content-container.container-fluid .part3 span::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 30%;
+  height: 1px;
+  background: rgba(248, 255, 149, 0.5);
+  transform: translateX(-50%);
+}
+#vue_app .content-container.container-fluid .part3 a {
+  text-decoration: none;
+}
+#vue_app .content-container.container-fluid .part3 .button {
+  margin: 10px auto 0px auto;
+  border: 1px solid black;
+  box-shadow: 0px 0px 3px #f8ff95;
+  background: #2e1000;
+  width: 230px;
+  text-align: center;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-family: "Cinzel", serif;
+  font-size: 20px;
+  color: #f8ff95;
+  cursor: pointer;
+  transition: 0.5s;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+#vue_app .content-container.container-fluid .part3 .button:hover {
+  background: rgb(97, 33.7391304348, 0);
+}
+#vue_app .content-container.container-fluid .part3 img {
+  width: 100%;
+  margin: 5px;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+}
+#vue_app .content-container.container-fluid .part3 .text {
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+}
+#vue_app .content-container.container-fluid .part4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#vue_app .content-container.container-fluid .part4 h1 {
+  font-family: "Jomhuria";
+  font-size: 60px;
+  line-height: 50px;
+  margin: 5px;
+  padding: 0;
+  text-align: center;
+  color: #f8ff95;
+}
+#vue_app .content-container.container-fluid .part4 .content {
+  display: flex;
+  width: 80%;
+}
+#vue_app .content-container.container-fluid .part4 .content img {
+  width: 50%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: top;
+     object-position: top;
+  height: -moz-fit-content;
+  height: fit-content;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+}
+#vue_app .content-container.container-fluid .part4 .content p {
+  text-align: left;
+  font-family: "ABeeZee", sans-serif;
+  font-size: 16px;
+  padding-left: 10px;
 }
 #vue_app .contact-form.container-fluid {
   background: linear-gradient(to bottom, #2e1000, #1c0a00);
@@ -438,6 +664,23 @@ img {
     border: 1px solid rgba(248, 255, 149, 0.5);
     padding-top: 10px;
   }
+  .part3 .text {
+    border-bottom: 1px solid #f8ff95;
+  }
+}
+@media screen and (max-width: 900px) {
+  .part4 {
+    margin-bottom: 10px;
+  }
+  .part4 .content {
+    display: block !important;
+    width: 90%;
+  }
+  .part4 .content img {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
 }
 @media screen and (max-width: 500px) {
   .formcontainer {
@@ -446,5 +689,42 @@ img {
   .formcontainer .inner {
     padding: 0px !important;
     border: none !important;
+  }
+  .content img {
+    float: none !important;
+    width: 100% !important;
+  }
+  .content p {
+    text-align: center !important;
+  }
+}
+@container part2 (max-width: 550px) {
+  .row1,
+  .row2 {
+    display: block !important;
+  }
+  .row1 .text,
+  .row2 .text {
+    width: 100%;
+    text-align: justify !important;
+  }
+  .row1 .img2 {
+    display: none;
+  }
+  .row1 .img1 {
+    display: block !important;
+    float: right;
+  }
+  .row2 .img1 {
+    display: block !important;
+    float: left;
+  }
+  .row2 .img2 {
+    display: none;
+  }
+}
+@container part2 (max-width: 520px) {
+  .row2 .img1 {
+    display: none !important;
   }
 }/*# sourceMappingURL=style.css.map */

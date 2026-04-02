@@ -322,7 +322,6 @@
   width: 28px;
   margin-top: 10px;
   margin-bottom: 10px;
-  border: 1px solid red;
   transition: 0.3s;
 }
 .landscapeBar .icons .icon:hover {
