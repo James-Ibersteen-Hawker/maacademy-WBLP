@@ -176,7 +176,7 @@ const navBar = {
     </div>
     <div class="icons">
       <div class="icon search-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')" data-bs-toggle="modal" data-bs-target="#search-modal"></div>
-      <a :href="'tel:' + makePhone(props.phone)">
+      <a :href="prefix() + 'html/' + 'contact.html'">
         <div class="icon phone-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/phone-call.png')"></div>
       </a>
       <a :href="props.map" target="_blank">
