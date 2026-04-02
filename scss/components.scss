@@ -243,6 +243,92 @@ $max: 300px;
     display: flex !important;
   }
 }
+.landscapeBar {
+  background: rgb(26, 26, 26);
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 50px;
+  z-index: 10;
+  color: white;
+  flex-direction: column;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  justify-content: space-between;
+  align-items: center;
+  border-right: 1px solid gray;
+  display: none;
+  .menu {
+    position: relative;
+    .buttonContainer {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -5px;
+      .button {
+        background: white;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        transition: $anim-length;
+      }
+    }
+    .items {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: -5px;
+      width: calc(100vw - 50px);
+      flex-wrap: wrap;
+      .item {
+        border: 1px solid gray;
+        font-family: 'Arsenal', sans-serif;
+        font-size: 20px;
+        color: white;
+        white-space: nowrap;
+        padding: 2px 8px;
+        text-decoration: none;
+        display: block;
+        background: rgb(26, 26, 26);
+        transition: $anim-length;
+        &:hover {
+          background: rgb(60, 60, 60);
+          color: $accent;
+        }
+      }
+    }
+    &:hover {
+      .buttonContainer {
+        border-bottom: 1px solid $border;
+      }
+      .button {
+        background: $accent;
+      }
+      .items {
+        display: flex;
+      }
+    }
+  }
+  .icons {
+    .icon {
+      cursor: pointer;
+      display: block;
+      background: white;
+      height: 28px;
+      width: 28px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: 1px solid red;
+      transition: $anim-length;
+      &:hover {
+        background: $accent;
+      }
+    }
+  }
+}
 .search-modal {
   background: rgba($dark, 0.7);
   backdrop-filter: blur(3px);
@@ -326,7 +412,11 @@ $max: 300px;
                 .preamble {
                   font-weight: 100;
                   display: inline-block;
-                  mask-image: linear-gradient(to left, black, rgba(0,0,0,.3))
+                  mask-image: linear-gradient(
+                    to left,
+                    black,
+                    rgba(0, 0, 0, 0.3)
+                  );
                 }
                 .match {
                   font-weight: 800;
@@ -335,7 +425,11 @@ $max: 300px;
                 .postamble {
                   font-weight: 500;
                   display: inline-block;
-                  mask-image: linear-gradient(to right, black, rgba(0,0,0,.3))
+                  mask-image: linear-gradient(
+                    to right,
+                    black,
+                    rgba(0, 0, 0, 0.3)
+                  );
                 }
               }
               p:last-child {
@@ -405,7 +499,7 @@ $max: 300px;
         position: relative;
         overflow: hidden;
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           left: 50%;
           top: 50%;
@@ -414,7 +508,11 @@ $max: 300px;
           height: 95%;
           aspect-ratio: 1/1;
           z-index: 10;
-          mask-image: radial-gradient(transparent 40%, black 40% 55%, transparent 55%);
+          mask-image: radial-gradient(
+            transparent 40%,
+            black 40% 55%,
+            transparent 55%
+          );
           filter: blur(5px);
           animation-name: load;
           animation-iteration-count: infinite;
@@ -448,6 +546,22 @@ $max: 300px;
   padding-left: $inset;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
+}
+@media screen and (max-width: 500px) {
+  #vue_app:has(div.#{$base}-show) {
+    padding-left: 0;
+  }
+}
+@media screen and (max-height: 425px) {
+  #vue_app {
+    padding-left: 50px !important;
+  }
+  .#{$base} {
+    display: none;
+  }
+  .landscapeBar {
+    display: flex;
+  }
 }
 /////teacher//////////teacher//////////teacher//////////teacher/////
 $teacher: "teacher";
@@ -647,7 +761,7 @@ $teacher: "teacher";
       align-items: center;
       .modal-title {
         font-size: 20px;
-        font-family: 'Wittgenstein', serif;
+        font-family: "Wittgenstein", serif;
         font-style: italic;
       }
       .teacher-chips {

@@ -117,6 +117,7 @@ img {
   .header {
     position: relative;
     min-height: 300px;
+    height: 90vh;
     max-height: 700px;
     padding: 0 !important;
     margin: 0 !important;
@@ -124,9 +125,11 @@ img {
       width: 100%;
       object-fit: cover;
       min-height: 300px;
+      height: 90vh;
       max-height: 700px;
       padding: 0 !important;
       margin: 0 !important;
+      pointer-events: none;
     }
     .headerOver {
       position: absolute;
@@ -154,7 +157,8 @@ img {
         font-family: "Amarante", serif;
         font-size: 60px;
         span {
-          font-family: unset;
+          font-family: 'Noto Music', sans-serif;
+          font-size: 55px;
         }
       }
       h2 {
@@ -413,5 +417,14 @@ img {
     }
     border: 1px solid $border;
     padding-top: 10px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .formcontainer {
+    padding: 20px !important;
+    .inner {
+      padding: 0px !important;
+      border: none !important;
+    }
   }
 }

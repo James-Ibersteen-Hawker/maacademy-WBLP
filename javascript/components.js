@@ -165,6 +165,25 @@ const navBar = {
       </div>
     </div>
   </div>
+  <div class="landscapeBar">
+    <div class="menu">
+      <div class="buttonContainer">
+      <div class="button" :style="makeMaskStyle(prefix() + 'webicons/more.png')"></div>
+      </div>
+      <div class="items">
+        <a class="item" v-for="link in props.links" :href="link.url === 'index.html' ? prefix() + link.url : prefix() + 'html/' + link.url">{{link.name}}</a>
+      </div>
+    </div>
+    <div class="icons">
+      <div class="icon search-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')" data-bs-toggle="modal" data-bs-target="#search-modal"></div>
+      <a :href="'tel:' + makePhone(props.phone)">
+        <div class="icon phone-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/phone-call.png')"></div>
+      </a>
+      <a :href="props.map" target="_blank">
+        <div class="icon address-icon" :style="makeMaskStyle(prefix() + 'webicons/location.png')"></div>
+      </a>
+    </div>
+  </div>
   <!--modal-->
   <div class="search-modal modal fade" tabindex="-1" id="search-modal" aria-labelledby="searchModalLabel">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

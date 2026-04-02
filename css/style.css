@@ -126,6 +126,7 @@ img {
 #vue_app .header {
   position: relative;
   min-height: 300px;
+  height: 90vh;
   max-height: 700px;
   padding: 0 !important;
   margin: 0 !important;
@@ -135,9 +136,11 @@ img {
   -o-object-fit: cover;
      object-fit: cover;
   min-height: 300px;
+  height: 90vh;
   max-height: 700px;
   padding: 0 !important;
   margin: 0 !important;
+  pointer-events: none;
 }
 #vue_app .header .headerOver {
   position: absolute;
@@ -169,7 +172,8 @@ img {
   font-size: 60px;
 }
 #vue_app .header .headerOver h1 span {
-  font-family: unset;
+  font-family: "Noto Music", sans-serif;
+  font-size: 55px;
 }
 #vue_app .header .headerOver h2 {
   font-family: "Arsenal", sans-serif;
@@ -433,5 +437,14 @@ img {
   .review {
     border: 1px solid rgba(248, 255, 149, 0.5);
     padding-top: 10px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .formcontainer {
+    padding: 20px !important;
+  }
+  .formcontainer .inner {
+    padding: 0px !important;
+    border: none !important;
   }
 }/*# sourceMappingURL=style.css.map */
