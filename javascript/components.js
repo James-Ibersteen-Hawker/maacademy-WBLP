@@ -245,49 +245,38 @@ const imgCarousel = {
     const setItem = (el, i) => {
       if (el) items.value[i] = el;
     };
-    let current;
-    let index = Math.round(props.images.length / 2);
+    let index = Math.round(props.images.length / 2) - 1;
     let scrollBlock = {
       behavior: "smooth",
       block: "nearest",
       inline: "center",
     };
     Vue.onMounted(async () => {
-      const hash = window.location.hash;
-      if (hash) index = Number(hash.slice(1));
+      await Vue.nextTick();
       const target = items.value[index];
       if (target) {
         target.scrollIntoView(scrollBlock);
-        target.classList.add("activeE")
+        target.classList.add("activeE");
       }
     });
-    function setCurrent(i) {
-      current = document.querySelector(`[id="${i}"]`);
-      index = i;
-    }
     function move(p) {
       if (index <= props.images.length - 1 && index >= 0) index += p;
       index = Math.max(Math.min(props.images.length - 1, index), 0);
       const actives = document.querySelectorAll(".activeE");
-      actives.forEach(e => e.classList.remove("activeE"));
-      window.location.hash = index;
+      actives.forEach((e) => e.classList.remove("activeE"));
+      const target = items.value[index];
+      target.scrollIntoView(scrollBlock);
+      target.classList.add("activeE");
     }
-    return { props, items, setItem, setCurrent, move };
+    return { props, items, setItem, move };
   },
   template: `
   <div class="css-carousel-container">
     <div class="css-carousel">
-      <a 
-        v-for="(image, i) in props.images"
-        :key="i"
-        :href="'#' + i"
-        @click="setCurrent(i)"
-      >
-        <div class="item" :id="i" :ref="el => setItem(el, i)">
+        <div class="item" v-for="(image, i) in props.images"  :id="i" :ref="el => setItem(el, i)" :key="i">
           <img :src="image" loading="lazy" :alt="image" />
         </div>
-      </a>
-    <div>
+    </div>
     <div class="css-control-buttons">
       <div class="forward" @click="move(1)">
         <div class="icon"></div>

@@ -842,16 +842,15 @@ $footBase: "footer";
 .css-carousel-container {
   position: relative;
   width: 100%;
-  overflow: hidden;
   .css-carousel {
     padding-top: 10px;
     padding-bottom: 10px;
     display: flex;
     scroll-snap-type: x mandatory;
-    overflow-x: auto;
-    padding-inline: 50%;
+    overflow-x: hidden;
     scroll-behavior: smooth;
     gap: 10px;
+    position: relative;
     div.item {
       flex: 0 0 auto;
       scroll-snap-align: center;
@@ -860,8 +859,9 @@ $footBase: "footer";
       z-index: 2;
       filter: brightness(80%);
       &:hover {
-        transform: scale(1.05) !important;
+        transform: scale(1.02) !important;
         box-shadow: 0px 0px 5px black;
+        filter: brightness(90%);
         z-index: 3;
       }
       &:target, &.activeE {
