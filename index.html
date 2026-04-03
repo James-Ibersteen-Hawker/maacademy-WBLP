@@ -213,6 +213,11 @@
     <script defer src="javascript/components.js"></script>
     <script defer src="javascript/classes.js"></script>
     <script defer src="javascript/sheet.js" type="module"></script>
+    <script>
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+    </script>
   </head>
   <body>
     <main id="vue_app">
@@ -263,6 +268,9 @@
               <img :src="r.IMAGE" :alt="r['By:']" loading="lazy"/>
             </div>
           </div>
+        </div>
+        <div>
+          <img-carousel :images="['./imgs/no-image.png','./imgs/no-image.png','./imgs/no-image.png','./imgs/no-image.png','./imgs/no-image.png','./imgs/no-image.png']"></img-carousel>
         </div>
       </div>
       <page-footer

@@ -8,7 +8,7 @@ const navBar = {
     phone: { type: String, default: "XXX-XXX-XXXX" },
     address: { type: String, default: "Unlisted" },
     level: { type: Number, default: 0 },
-    loading: { type: Boolean, default: false }
+    loading: { type: Boolean, default: false },
   },
   emits: ["query", "choose"],
   setup(props, { emit }) {
@@ -241,12 +241,64 @@ const imgCarousel = {
     images: { type: Array, default: () => [] },
   },
   setup(props) {
-    return { props };
+    const items = Vue.ref([]);
+    const setItem = (el, i) => {
+      if (el) items.value[i] = el;
+    };
+    let current;
+    let index = Math.round(props.images.length / 2);
+    let scrollBlock = {
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    };
+    Vue.onMounted(async () => {
+      const hash = window.location.hash;
+      if (hash) index = Number(hash.slice(1));
+      const target = items.value[index];
+      if (target) {
+        target.scrollIntoView(scrollBlock);
+        target.classList.add("activeE")
+      }
+    });
+    function setCurrent(i) {
+      current = document.querySelector(`[id="${i}"]`);
+      index = i;
+    }
+    function move(p) {
+      if (index <= props.images.length - 1 && index >= 0) index += p;
+      index = Math.max(Math.min(props.images.length - 1, index), 0);
+      const actives = document.querySelectorAll(".activeE");
+      actives.forEach(e => e.classList.remove("activeE"));
+      window.location.hash = index;
+    }
+    return { props, items, setItem, setCurrent, move };
   },
   template: `
-  <img v-for="image in props.images" :src="image" loading="lazy">
+  <div class="css-carousel-container">
+    <div class="css-carousel">
+      <a 
+        v-for="(image, i) in props.images"
+        :key="i"
+        :href="'#' + i"
+        @click="setCurrent(i)"
+      >
+        <div class="item" :id="i" :ref="el => setItem(el, i)">
+          <img :src="image" loading="lazy" :alt="image" />
+        </div>
+      </a>
+    <div>
+    <div class="css-control-buttons">
+      <div class="forward" @click="move(1)">
+        <div class="icon"></div>
+      </div>
+      <div class="backward" @click="move(-1)">
+        <div class="icon"></div>
+      </div>
+    </div>
+  </div>
   `,
-}; //find something on codepen or smth, or look at CSS carousels
+};
 const teacherCard = {
   props: {
     name: { type: String, default: "" },
