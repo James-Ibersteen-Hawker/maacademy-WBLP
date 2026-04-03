@@ -46,11 +46,20 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/components.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amarante&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Music&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amarante&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Music&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="preload"
       as="font"
@@ -214,8 +223,8 @@
     <script defer src="javascript/classes.js"></script>
     <script defer src="javascript/sheet.js" type="module"></script>
     <script>
-      if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
       }
     </script>
   </head>
@@ -254,23 +263,53 @@
       <div class="content-container container-fluid">
         <div class="reviews">
           <h1>Asbury Park Press</h1>
-          <div v-for="(r, i) in content?.['reviews']" class="review row" :class="{'left': i % 2 === 0, 'right': i % 2 === 1}">
-            <div class="img col-12 col-md-4 top" :class="{'d-none': i % 2 === 0}">
-              <img :src="r.IMAGE" :alt="r['By:']" loading="lazy"/>
+          <div
+            v-for="(r, i) in content?.['reviews']"
+            class="review row"
+            :class="{'left': i % 2 === 0, 'right': i % 2 === 1}"
+          >
+            <div
+              class="img col-12 col-md-4 top"
+              :class="{'d-none': i % 2 === 0}"
+            >
+              <img :src="r.IMAGE" :alt="r['By:']" loading="lazy" />
             </div>
             <div class="text col-12 col-md-8">
               <span>{{r.REVIEWS}}</span>
-              <div class="caption">
-                {{r["By:"]}}
-              </div>
+              <div class="caption">{{r["By:"]}}</div>
             </div>
-            <div class="img col-12 col-md-4 bottom" :class="{'d-none': i % 2 === 1}">
-              <img :src="r.IMAGE" :alt="r['By:']" loading="lazy"/>
+            <div
+              class="img col-12 col-md-4 bottom"
+              :class="{'d-none': i % 2 === 1}"
+            >
+              <img :src="r.IMAGE" :alt="r['By:']" loading="lazy" />
             </div>
           </div>
         </div>
-        <div>
-          <img-carousel :images="['./imgs/no-image.png','./imgs/no-image.png','./imgs/no-image.png','./imgs/no-image.png','./imgs/no-image.png','./imgs/no-image.png']"></img-carousel>
+        <div class="carousel-div">
+          <h1>Image Gallery*</h1>
+          <img-carousel
+            :images="content?.['HOME'] || defaultCarousel"
+            c-name="first"
+          ></img-carousel>
+          <div class="has-btn">
+            <a href="html/about-us.html" target="_self">
+              <div class="button">Read About Us</div>
+            </a>
+          </div>
+          <p>*Click the image to enlarge</p>
+        </div>
+        <div class="carousel-div">
+          <h1>Featured Courses</h1>
+          <img-carousel
+            :images="content?.['COURSES'] || defaultCarousel"
+            c-name="courses"
+          ></img-carousel>
+          <div class="has-btn">
+            <a href="html/classes.html" target="_self">
+              <div class="button">Schedule a Class</div>
+            </a>
+          </div>
         </div>
       </div>
       <page-footer

@@ -239,12 +239,14 @@ const footer = {
 const imgCarousel = {
   props: {
     images: { type: Array, default: () => [] },
+    cName: {type: String, default: ""}
   },
   setup(props) {
     const items = Vue.ref([]);
     const setItem = (el, i) => {
       if (el) items.value[i] = el;
     };
+    const activeImage = ref(null);
     let index = Math.round(props.images.length / 2) - 1;
     let scrollBlock = {
       behavior: "smooth",
@@ -268,12 +270,27 @@ const imgCarousel = {
       target.scrollIntoView(scrollBlock);
       target.classList.add("activeE");
     }
-    return { props, items, setItem, move };
+    function select(e) {
+      const target = e.currentTarget;
+      const img = target.querySelector("img");
+      const src = img?.src;
+      activeImage.value = src;
+    }
+    return { props, items, setItem, move, select, activeImage };
   },
   template: `
   <div class="css-carousel-container">
     <div class="css-carousel">
-        <div class="item" v-for="(image, i) in props.images"  :id="i" :ref="el => setItem(el, i)" :key="i">
+        <div 
+          class="item" 
+          v-for="(image, i) in props.images"
+          :id="i + props.cName"
+          :ref="el => setItem(el, i)"
+          :key="i + props.cName"
+          @click="select"
+          data-bs-toggle="modal"
+          :data-bs-target="'#modal' + props.cName"
+        >
           <img :src="image" loading="lazy" :alt="image" />
         </div>
     </div>
@@ -286,8 +303,18 @@ const imgCarousel = {
       </div>
     </div>
   </div>
+  <!--modal-->
+  <div class="carousel-modal modal fade" tabindex="-1" :id="'modal' + props.cName" aria-labelledby="carouselModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img :src="activeImage"  alt="enlarged image"/>
+        </div>
+      </div>
+    </div>
+  </div>
   `,
-};
+}; //carousel done
 const teacherCard = {
   props: {
     name: { type: String, default: "" },

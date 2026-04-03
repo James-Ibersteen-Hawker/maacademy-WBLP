@@ -16,6 +16,8 @@ const workerName = location.pathname.includes("/html/")
   : "./javascript/worker.js";
 const worker = new Worker(workerName, { type: "module" });
 const REPONAME = "/maacademy-WBLP";
+const root = location.pathname.includes("/html/") ? "../" : "./";
+const defaultCarousel = new Array(6).fill(root + "imgs/no-image.png");
 let searchLUT;
 let engine;
 let engineStart = () => {};
@@ -192,7 +194,8 @@ const App = createApp({
       testInstrument,
       loading,
       weblink,
-      currentLocation
+      currentLocation,
+      defaultCarousel
     };
   },
 });
