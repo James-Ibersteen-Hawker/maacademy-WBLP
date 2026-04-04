@@ -479,7 +479,7 @@ img {
         display: flex;
         width: 80%;
         img {
-          width: 50%;
+          width: 30%;
           object-fit: contain;
           object-position: top;
           height: fit-content;
@@ -735,6 +735,7 @@ img {
         float: left;
         margin-right: 10px;
         margin-bottom: 5px;
+        width: 50% !important;
       }
     }
   }

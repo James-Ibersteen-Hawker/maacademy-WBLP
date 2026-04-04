@@ -488,7 +488,7 @@ img {
   width: 80%;
 }
 #vue_app .content-container.container-fluid .part4 .content img {
-  width: 50%;
+  width: 30%;
   -o-object-fit: contain;
      object-fit: contain;
   -o-object-position: top;
@@ -760,6 +760,7 @@ img {
     float: left;
     margin-right: 10px;
     margin-bottom: 5px;
+    width: 50% !important;
   }
 }
 @media screen and (max-width: 500px) {
