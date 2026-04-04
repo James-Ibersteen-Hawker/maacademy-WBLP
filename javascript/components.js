@@ -247,7 +247,7 @@ const imgCarousel = {
       if (el) items.value[i] = el;
     };
     const activeImage = ref(null);
-    let index = Math.round(props.images.length / 2) - 1;
+    let index = Math.ceil(props.images.length / 2) - 1;
     let scrollBlock = {
       behavior: "smooth",
       block: "nearest",
@@ -255,6 +255,7 @@ const imgCarousel = {
     };
     Vue.onMounted(async () => {
       await Vue.nextTick();
+      index = Math.ceil(props.images.length / 2) - 1;
       const target = items.value[index];
       if (target) {
         target.scrollIntoView(scrollBlock);

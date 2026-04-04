@@ -195,12 +195,12 @@ img {
     margin-bottom: 0 !important;
     color: $accent;
     overflow: hidden;
+    padding-top: 10px;
     border-bottom: 1px solid $accent;
     h6 {
       text-align: center;
       position: relative;
       left: -150px;
-      margin-top: 10px;
       font: {
         family: "Arsenal", sans-serif;
         style: italic;
@@ -486,6 +486,71 @@ img {
           font-family: "ABeeZee", sans-serif;
           font-size: 16px;
           padding-left: 10px;
+        }
+      }
+    }
+    @mixin h2 {
+      font-family: "Times New Roman";
+      color: $accent;
+      font-size: 28px;
+      padding-bottom: 0;
+      margin-bottom: 10px;
+      font-weight: 900;
+      font-style: italic;
+      text-align: center;
+    }
+    .topCarousel h2 {
+      @include h2();
+      margin-bottom: 3px;
+    }
+    .showSection {
+      border-top: 5px solid $border;
+      width: calc(100% + 100px);
+      padding: 10px 0;
+      margin: 15px -50px 0 -50px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      h2 {
+        @include h2();
+      }
+      .shows {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+        .show {
+          border: 1px solid $border;
+          width: 20%;
+          min-width: 150px;
+          max-width: 250px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+    .radioCity {
+      border-top: 5px solid $border;
+      margin: 10px -50px 0 -50px;
+      width: calc(100% + 100px);
+      padding-top: 10px;
+      a {
+        color: $accent;
+        transition: 0.5s;
+        &:hover {
+          color: white;
+        }
+        h2 {
+          @include h2();
+          text-decoration: none;
+          transition: 0.5s;
+          &:hover {
+            color: white;
+          }
         }
       }
     }

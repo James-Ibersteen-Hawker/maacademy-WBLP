@@ -209,13 +209,13 @@ img {
   margin-bottom: 0 !important;
   color: #f8ff95;
   overflow: hidden;
+  padding-top: 10px;
   border-bottom: 1px solid #f8ff95;
 }
 #vue_app .heading h6 {
   text-align: center;
   position: relative;
   left: -150px;
-  margin-top: 10px;
   font-family: "Arsenal", sans-serif;
   font-style: italic;
   font-variant: small-caps;
@@ -498,6 +498,82 @@ img {
   font-family: "ABeeZee", sans-serif;
   font-size: 16px;
   padding-left: 10px;
+}
+#vue_app .content-container.container-fluid .topCarousel h2 {
+  font-family: "Times New Roman";
+  color: #f8ff95;
+  font-size: 28px;
+  padding-bottom: 0;
+  margin-bottom: 10px;
+  font-weight: 900;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 3px;
+}
+#vue_app .content-container.container-fluid .showSection {
+  border-top: 5px solid rgba(248, 255, 149, 0.5);
+  width: calc(100% + 100px);
+  padding: 10px 0;
+  margin: 15px -50px 0 -50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+#vue_app .content-container.container-fluid .showSection h2 {
+  font-family: "Times New Roman";
+  color: #f8ff95;
+  font-size: 28px;
+  padding-bottom: 0;
+  margin-bottom: 10px;
+  font-weight: 900;
+  font-style: italic;
+  text-align: center;
+}
+#vue_app .content-container.container-fluid .showSection .shows {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+#vue_app .content-container.container-fluid .showSection .shows .show {
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  width: 20%;
+  min-width: 150px;
+  max-width: 250px;
+}
+#vue_app .content-container.container-fluid .showSection .shows .show img {
+  width: 100%;
+  height: 100%;
+}
+#vue_app .content-container.container-fluid .radioCity {
+  border-top: 5px solid rgba(248, 255, 149, 0.5);
+  margin: 10px -50px 0 -50px;
+  width: calc(100% + 100px);
+  padding-top: 10px;
+}
+#vue_app .content-container.container-fluid .radioCity a {
+  color: #f8ff95;
+  transition: 0.5s;
+}
+#vue_app .content-container.container-fluid .radioCity a:hover {
+  color: white;
+}
+#vue_app .content-container.container-fluid .radioCity a h2 {
+  font-family: "Times New Roman";
+  color: #f8ff95;
+  font-size: 28px;
+  padding-bottom: 0;
+  margin-bottom: 10px;
+  font-weight: 900;
+  font-style: italic;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.5s;
+}
+#vue_app .content-container.container-fluid .radioCity a h2:hover {
+  color: white;
 }
 #vue_app .contact-form.container-fluid {
   background: linear-gradient(to bottom, #2e1000, #1c0a00);
