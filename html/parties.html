@@ -43,10 +43,40 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/components.css" />
-    <link rel="preload" as="font" href="../fonts/Arsenal-Regular.woff2" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" as="font" href="../fonts/Arsenal-Bold.woff2" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" as="font" href="../fonts/Arsenal-BoldItalic.woff2" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" as="font" href="../fonts/Arsenal-Italic.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ingrid+Darling&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Arsenal-Regular.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Arsenal-Bold.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Arsenal-BoldItalic.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../fonts/Arsenal-Italic.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
     <link
       rel="preload"
       as="font"
@@ -82,21 +112,81 @@
     <!--prefetch-->
     <link rel="prefetch" href="../html/gallery.html" />
     <link rel="prefetch" href="../html/teachers.html" />
-    <link rel="preload" href="../MAINLOGO.png" as="image">
-    <link rel="preload" href="../map.png" as="image">
+    <link rel="preload" href="../MAINLOGO.png" as="image" />
+    <link rel="preload" href="../map.png" as="image" />
     <!--nav icons preload-->
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/close.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/right-arrow.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/home.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/information.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/phone-call.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/music.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/teacher.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/party.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/radio-city.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/images.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/search.png" as="image">
-    <link crossorigin rel="preload" href="../webicons/navbar-icons/next.png" as="image">
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/close.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/right-arrow.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/home.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/information.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/phone-call.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/music.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/teacher.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/party.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/radio-city.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/images.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/search.png"
+      as="image"
+    />
+    <link
+      crossorigin
+      rel="preload"
+      href="../webicons/navbar-icons/next.png"
+      as="image"
+    />
     <!--ld+json-->
     <script type="application/ld+json">
       {
@@ -117,7 +207,10 @@
       defer
       src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"
     ></script> -->
-    <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"
+    ></script>
     <script defer src="../javascript/components.js"></script>
     <script defer src="../javascript/classes.js"></script>
     <script defer src="../javascript/sheet.js" type="module"></script>
@@ -129,7 +222,7 @@
   </head>
   <body>
     <main id="vue_app">
-      <nav-bar 
+      <nav-bar
         :links="pages"
         logo="../MAINLOGO.png"
         :results="results.data"
@@ -138,21 +231,77 @@
         :map="content?.['Map']"
         :level="1"
         :loading="loading"
-        @query="searchSite" 
+        @query="searchSite"
         @choose="runSelection"
       ></nav-bar>
       <div class="heading">
         <h1>Art Parties and Workshops</h1>
       </div>
       <div class="content-container container-fluid">
-        parties
+        <section class="top">
+          <table>
+            <tr>
+              <td>
+                <img
+                  src="../imgs/partiesPoster.png"
+                  alt="Poster of Parties at the Music and Art Academy"
+                  loading="lazy"
+                />
+              </td>
+              <td>
+                <h1>Give the gift of <span>Creativity</span>!</h1>
+                <p>
+                  Celebrate your Birthday, Anniversary, Graduation or any kind
+                  of event with a Painting Party! You can choose your own theme
+                  or one of ours. Treat your friends and family to a party like
+                  none they’ve ever had!
+                </p>
+                <div class="buttonContainer">
+                  <a href="./contact.html" target="_self">
+                    <div class="button">Book a Party</div>
+                  </a>
+                </div>
+              </td>
+              <td>
+                <img
+                  src="../imgs/partiesPoster.png"
+                  alt="Poster of Parties at the Music and Art Academy"
+                  loading="lazy"
+                />
+              </td>
+            </tr>
+          </table>
+        </section>
+        <section class="paint">
+          <h1>Learn to <span>Paint</span>!</h1>
+          <p>
+            Let our excellent teachers help you discover your inner Artist! We
+            present regular workshops on Saturday afternoons.
+          </p>
+          <div class="buttonContainer">
+            <div class="button">Register for a Workshop</div>
+          </div>
+        </section>
+        <section class="party-carousel">
+          <img-carousel
+            :images="content?.['PARTIES'] || defaultCarousel"
+            c-name="partyPics"
+          ></img-carousel>
+        </section>
+        <div class="holiday">
+          <h1>Holiday Parties and More!</h1>
+          <p>Celebrate the Holidays each year with Painting Parties all year long!</p>
+        </div>
       </div>
       <page-footer
         :icons="media"
         :copyright="content?.['copyright']"
       ></page-footer>
     </main>
-    <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"
+    ></script>
     <script defer src="../javascript/bootstrap.bundle.min.js"></script>
     <script defer src="../javascript/script.js"></script>
   </body>

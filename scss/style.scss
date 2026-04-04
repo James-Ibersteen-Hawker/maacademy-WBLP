@@ -3,6 +3,7 @@ $mid: #1c0a00;
 $light: #2e1000;
 $accent: #f8ff95;
 $border: rgba($accent, 0.5);
+$standard: 5px solid $border;
 @font-face {
   font-family: "Arsenal";
   src: url("../fonts/Arsenal-Italic.woff2") format("woff2");
@@ -145,7 +146,7 @@ img {
       max-height: 700px;
       padding: 0 !important;
       margin: 0 !important;
-      border-bottom: 5px solid $border;
+      border-bottom: $standard;
       z-index: 5;
       h1,
       h2 {
@@ -217,7 +218,7 @@ img {
       line-height: 50px;
     }
     .clef {
-      font-family: 'Noto Music', sans-serif;
+      font-family: "Noto Music", sans-serif;
       font-size: 30px;
     }
   }
@@ -296,7 +297,7 @@ img {
       color: $accent;
       padding: 10px 35px;
       text-align: center;
-      border-bottom: 5px solid $border;
+      border-bottom: $standard;
       margin-left: -50px;
       margin-right: -50px;
       width: calc(100% + 100px);
@@ -304,7 +305,7 @@ img {
     .part2 {
       container-type: inline-size;
       container-name: part2;
-      border-bottom: 5px solid $border;
+      border-bottom: $standard;
       margin: 10px -50px;
       width: calc(100% + 100px);
       font-family: "ABeeZee", sans-serif;
@@ -385,7 +386,7 @@ img {
       }
     }
     .part3 {
-      border-bottom: 5px solid $border;
+      border-bottom: $standard;
       margin: 10px -50px;
       width: calc(100% + 100px);
       padding: 0px 35px;
@@ -508,7 +509,7 @@ img {
       margin-bottom: 3px;
     }
     .showSection {
-      border-top: 5px solid $border;
+      border-top: $standard;
       width: calc(100% + 100px);
       padding: 10px 0;
       margin: 15px -50px 0 -50px;
@@ -538,7 +539,7 @@ img {
       }
     }
     .radioCity {
-      border-top: 5px solid $border;
+      border-top: $standard;
       margin: 10px -50px 0 -50px;
       width: calc(100% + 100px);
       padding-top: 10px;
@@ -558,12 +559,177 @@ img {
         }
       }
     }
+    .top:has(table) {
+      container-type: inline-size;
+      container-name: topName;
+      background: $accent;
+      width: calc(100% + 100px);
+      margin: 5px -50px 10px -50px;
+      padding: 2px 35px;
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 10px;
+        td:nth-child(1),
+        td:nth-child(3) {
+          width: 20%;
+          img {
+            width: 100%;
+            border: 1px solid $dark;
+          }
+        }
+        td:nth-child(1) img {
+          transform: rotate(-15.81deg);
+        }
+        td:nth-child(3) img {
+          transform: rotate(15.81deg);
+        }
+        td:nth-child(2) {
+          padding-left: 10px;
+          padding-right: 10px;
+          h1 {
+            text-align: center;
+            color: $light;
+            white-space: nowrap;
+            font-family: "ABeeZee", sans-serif;
+            font-style: italic;
+            font-weight: 900;
+            font-size: 30px;
+            span {
+              font-family: "Ingrid Darling", cursive;
+              font-size: 40px;
+              font-weight: initial !important;
+            }
+          }
+          p {
+            color: black;
+            text-align: center;
+            position: relative;
+            padding-bottom: 8px;
+            font: {
+              family: "ABeeZee", sans-serif;
+              size: 16px;
+            }
+            &::after {
+              content: "";
+              position: absolute;
+              width: 80%;
+              height: 1px;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              background: $dark;
+            }
+          }
+          .buttonContainer {
+            display: flex;
+            justify-content: center;
+            a {
+              color: white;
+            }
+            .button {
+              cursor: pointer;
+              background: $mid;
+              display: inline-block;
+              padding: 7px 14px;
+              border-radius: 10px;
+              margin: -5px 0px 0px 0px;
+              transition: 0.5s;
+              font-family: "ABeeZee", sans-serif;
+              &:hover {
+                transform: scale(1.1);
+                font-weight: 900;
+              }
+            }
+          }
+        }
+      }
+    }
+    .paint {
+      border-top: $standard;
+      border-bottom: $standard;
+      width: calc(100% + 100px);
+      margin: 15px -50px;
+      padding: 10px 35px;
+      h1 {
+        text-align: center;
+        font-family: "ABeeZee", sans-serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 30px;
+        color: $accent;
+        margin: 0;
+        padding: 0;
+        span {
+          font-family: "Ingrid Darling", cursive;
+          font-weight: normal !important;
+          font-size: 45px;
+          padding-right: 5px;
+        }
+      }
+      p {
+        text-align: center;
+        font-size: 16px;
+        font-family: "ABeeZee", sans-serif;
+        position: relative;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          height: 1px;
+          width: 80%;
+          background: $border;
+        }
+      }
+      .buttonContainer {
+        display: flex;
+        justify-content: center;
+        color: $dark;
+        a {
+          color: $dark;
+        }
+        .button {
+          cursor: pointer;
+          background: $accent;
+          display: inline-block;
+          padding: 7px 14px;
+          border-radius: 10px;
+          transition: 0.5s;
+          font-family: "ABeeZee", sans-serif;
+          &:hover {
+            transform: scale(1.1);
+            font-weight: 900;
+          }
+        }
+      }
+    }
+    .holiday {
+      width: calc(100% + 100px);
+      margin: 10px -50px -10px -50px;
+      border-top: $standard;
+      padding: 10px 35px 0px 35px;
+      h1 {
+        text-align: center;
+        font-family: 'ABeeZee', sans-serif;
+        font-size: 30px;
+        font-weight: 600;
+      }
+      p {
+        font-family: 'ABeeZee', sans-serif;
+        text-align: center;
+        font-size: 16px;
+      }
+    }
   }
   .contact-form.container-fluid {
     background: linear-gradient(to bottom, $light, $mid);
     width: 98%;
     margin-top: 2%;
-    border: 5px solid $border;
+    border: $standard;
     border-bottom: 0 !important;
     padding: 0 !important;
     max-width: 1100px;
@@ -578,7 +744,7 @@ img {
           display: flex;
           flex-direction: column;
           align-items: center;
-          border: 5px solid $border;
+          border: $standard;
           h1 {
             font-family: "Times New Roman", serif;
             color: $accent;
@@ -755,6 +921,23 @@ img {
     }
     p {
       text-align: center !important;
+    }
+  }
+}
+@container topName (max-width: 600px) {
+  .top {
+    table {
+      td:has(img) {
+        display: none;
+      }
+      td:has(h1) {
+        h1 {
+          white-space: unset !important;
+          text-align: center;
+        }
+        display: block;
+        width: 100%;
+      }
     }
   }
 }

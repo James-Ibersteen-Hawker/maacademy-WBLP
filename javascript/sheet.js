@@ -5,10 +5,11 @@ function teachersSched(data) {
 }
 const contactOpp = (data) => data;
 function imgGalleries(data) {
-  return Object.entries(data).reduce((payload, [category, images]) => {
+  const obj = Object.entries(data).reduce((payload, [category, images]) => {
     payload[category] = images.filter(Boolean);
     return payload;
   }, {});
+  return Object.entries(obj).length > 0 ? obj : null;
 }
 //----------helpers----------//
 const funcLUT = {

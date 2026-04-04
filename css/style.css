@@ -579,6 +579,170 @@ img {
 #vue_app .content-container.container-fluid .radioCity a h2:hover {
   color: white;
 }
+#vue_app .content-container.container-fluid .top:has(table) {
+  container-type: inline-size;
+  container-name: topName;
+  background: #f8ff95;
+  width: calc(100% + 100px);
+  margin: 5px -50px 10px -50px;
+  padding: 2px 35px;
+}
+#vue_app .content-container.container-fluid .top:has(table) table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(1),
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(3) {
+  width: 20%;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(1) img,
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(3) img {
+  width: 100%;
+  border: 1px solid black;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(1) img {
+  transform: rotate(-15.81deg);
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(3) img {
+  transform: rotate(15.81deg);
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) h1 {
+  text-align: center;
+  color: #2e1000;
+  white-space: nowrap;
+  font-family: "ABeeZee", sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 30px;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) h1 span {
+  font-family: "Ingrid Darling", cursive;
+  font-size: 40px;
+  font-weight: initial !important;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) p {
+  color: black;
+  text-align: center;
+  position: relative;
+  padding-bottom: 8px;
+  font-family: "ABeeZee", sans-serif;
+  font-size: 16px;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) p::after {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 1px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) .buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) .buttonContainer a {
+  color: white;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) .buttonContainer .button {
+  cursor: pointer;
+  background: #1c0a00;
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 10px;
+  margin: -5px 0px 0px 0px;
+  transition: 0.5s;
+  font-family: "ABeeZee", sans-serif;
+}
+#vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) .buttonContainer .button:hover {
+  transform: scale(1.1);
+  font-weight: 900;
+}
+#vue_app .content-container.container-fluid .paint {
+  border-top: 5px solid rgba(248, 255, 149, 0.5);
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  width: calc(100% + 100px);
+  margin: 15px -50px;
+  padding: 10px 35px;
+}
+#vue_app .content-container.container-fluid .paint h1 {
+  text-align: center;
+  font-family: "ABeeZee", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 30px;
+  color: #f8ff95;
+  margin: 0;
+  padding: 0;
+}
+#vue_app .content-container.container-fluid .paint h1 span {
+  font-family: "Ingrid Darling", cursive;
+  font-weight: normal !important;
+  font-size: 45px;
+  padding-right: 5px;
+}
+#vue_app .content-container.container-fluid .paint p {
+  text-align: center;
+  font-size: 16px;
+  font-family: "ABeeZee", sans-serif;
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+#vue_app .content-container.container-fluid .paint p::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 1px;
+  width: 80%;
+  background: rgba(248, 255, 149, 0.5);
+}
+#vue_app .content-container.container-fluid .paint .buttonContainer {
+  display: flex;
+  justify-content: center;
+  color: black;
+}
+#vue_app .content-container.container-fluid .paint .buttonContainer a {
+  color: black;
+}
+#vue_app .content-container.container-fluid .paint .buttonContainer .button {
+  cursor: pointer;
+  background: #f8ff95;
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 10px;
+  transition: 0.5s;
+  font-family: "ABeeZee", sans-serif;
+}
+#vue_app .content-container.container-fluid .paint .buttonContainer .button:hover {
+  transform: scale(1.1);
+  font-weight: 900;
+}
+#vue_app .content-container.container-fluid .holiday {
+  width: calc(100% + 100px);
+  margin: 10px -50px -10px -50px;
+  border-top: 5px solid rgba(248, 255, 149, 0.5);
+  padding: 10px 35px 0px 35px;
+}
+#vue_app .content-container.container-fluid .holiday h1 {
+  text-align: center;
+  font-family: "ABeeZee", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+}
+#vue_app .content-container.container-fluid .holiday p {
+  font-family: "ABeeZee", sans-serif;
+  text-align: center;
+  font-size: 16px;
+}
 #vue_app .contact-form.container-fluid {
   background: linear-gradient(to bottom, #2e1000, #1c0a00);
   width: 98%;
@@ -777,6 +941,19 @@ img {
   }
   .content p {
     text-align: center !important;
+  }
+}
+@container topName (max-width: 600px) {
+  .top table td:has(img) {
+    display: none;
+  }
+  .top table td:has(h1) h1 {
+    white-space: unset !important;
+    text-align: center;
+  }
+  .top table td:has(h1) {
+    display: block;
+    width: 100%;
   }
 }
 @container part2 (max-width: 550px) {
