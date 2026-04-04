@@ -121,6 +121,11 @@
     <script defer src="../javascript/components.js"></script>
     <script defer src="../javascript/classes.js"></script>
     <script defer src="../javascript/sheet.js" type="module"></script>
+    <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+    </script>
   </head>
   <body>
     <main id="vue_app">
@@ -136,6 +141,12 @@
         @query="searchSite" 
         @choose="runSelection"
       ></nav-bar>
+      <div class="heading">
+        <h1>Art Parties and Workshops</h1>
+      </div>
+      <div class="content-container container-fluid">
+        parties
+      </div>
       <page-footer
         :icons="media"
         :copyright="content?.['copyright']"

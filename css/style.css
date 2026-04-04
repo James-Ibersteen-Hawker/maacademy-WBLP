@@ -229,6 +229,10 @@ img {
   padding: 0 !important;
   line-height: 50px;
 }
+#vue_app .heading .clef {
+  font-family: "Noto Music", sans-serif;
+  font-size: 30px;
+}
 #vue_app .content-container.container-fluid {
   margin-right: auto;
   margin-left: auto;
