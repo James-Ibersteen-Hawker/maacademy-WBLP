@@ -140,6 +140,12 @@ const App = createApp({
     function testEmit(e) {
       alert("emit");
     }
+    function seeSchedule(e) {
+      const name = e;
+      const inRepo = window.location.pathname.includes(REPONAME);
+      const repoBase = inRepo ? REPONAME : "";
+      window.location.href = `${window.location.origin}${repoBase}/html/classes.html?q=${encodeURIComponent(name.trim())}`;
+    }
     onMounted(() => {
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
@@ -195,7 +201,8 @@ const App = createApp({
       loading,
       weblink,
       currentLocation,
-      defaultCarousel
+      defaultCarousel,
+      seeSchedule
     };
   },
 });

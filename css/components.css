@@ -617,8 +617,8 @@
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
+  -o-object-position: top center;
+     object-position: top center;
   border-right: 2px solid rgba(248, 255, 149, 0.5);
 }
 .teacher-container .teacher-card .teacher-section.teacher-body {
@@ -660,6 +660,7 @@
   padding: 3px 5px;
   border-radius: 8px;
   margin: 0 5px;
+  white-space: nowrap;
 }
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-main {
   height: calc(100% - 60px);
@@ -808,6 +809,7 @@
   padding: 3px 5px;
   border-radius: 8px;
   margin: 0 5px;
+  white-space: nowrap;
 }
 .teacher-modal .modal-content .modal-body {
   color: white;
