@@ -9,7 +9,7 @@ const keys = {
   searchKey: "searchData",
 };
 const hourInMillis = 60 * 60 * 1000;
-const dataTimeout = 6;
+const dataTimeout = 0;
 const workerTimeout = 30000;
 const workerName = location.pathname.includes("/html/")
   ? "../javascript/worker.js"

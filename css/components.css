@@ -683,7 +683,7 @@
 }
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-blurb .see-more {
   position: absolute;
-  height: 50%;
+  height: 55px;
   width: 100%;
   bottom: 0;
   left: 0;
@@ -703,7 +703,7 @@
   background: #1c0a00;
   border: 2px solid rgba(248, 255, 149, 0.5);
   left: 50%;
-  bottom: 10%;
+  bottom: 20%;
   transform: translateX(-50%);
   box-shadow: 0px 0px 5px black;
   transition: 0.3s;
@@ -713,12 +713,9 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  will-change: backdrop-filter;
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 80%);
-          mask-image: linear-gradient(to bottom, transparent, black 80%);
+  background: transparent;
+  background: #2e1000;
+  border-top: 1px solid rgba(248, 255, 149, 0.5);
 }
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-blurb .see-more:hover::after {
   color: #f8ff95;
@@ -779,6 +776,7 @@
   background: black !important;
   border: 1px solid rgba(248, 255, 149, 0.5);
   border-radius: 0;
+  max-height: 90vh;
 }
 .teacher-modal .modal-content .modal-header {
   color: #f8ff95;
@@ -1090,6 +1088,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 .loading .spinner {
   width: 65px;
