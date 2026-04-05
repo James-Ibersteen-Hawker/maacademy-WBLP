@@ -219,14 +219,15 @@ const footer = {
     copyright: { type: String, default: "" },
   },
   setup(props) {
+    console.log(props.icons)
     return { props };
   },
   template: `
   <footer class="footer-icons">
       <div class="footer-icons-container">
        <div class="footer-icons-icon" v-for="icon in props.icons">
-         <a :href="icon.url" target="_blank">
-           <img :src="icon.icon" :alt="icon.alt" loading="lazy">
+         <a :href="icon.Link" target="_blank">
+           <img :src="icon.Icon" :alt="icon.Name" loading="lazy">
          </a>
        </div>
       </div>

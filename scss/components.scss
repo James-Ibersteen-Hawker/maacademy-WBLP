@@ -831,10 +831,28 @@ $footBase: "footer";
     display: flex;
     justify-content: center;
     width: 100%;
-    a {
-      margin-left: 10px;
-      margin-right: 10px;
-      background: white;
+    .#{$footBase}-icons-icon {
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: $anim-length;
+      &:hover {
+        filter: drop-shadow(0px 0px 3px $accent);
+      }
+      a {
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 100%;
+          height: 100%;
+          object-position: center;
+          object-fit: contain;
+        }
+      }
     }
   }
 }
@@ -1068,7 +1086,7 @@ $footBase: "footer";
   border-bottom: 5px solid $border;
   gap: 5px;
   padding: 5px 35px;
-  font-family: 'Wittgenstein', serif;
+  font-family: "Wittgenstein", serif;
   font-size: 18px;
   .filters {
     display: flex;

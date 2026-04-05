@@ -257,10 +257,11 @@
             :specs="t.specs"
             @search-class="seeSchedule"
           ></teacher>
+          <loading v-if="!content?.['teachers']"></loading>
         </div>
       </div>
       <page-footer
-        :icons="media"
+        :icons="content?.['contacts']"
         :copyright="content?.['copyright']"
       ></page-footer>
     </main>

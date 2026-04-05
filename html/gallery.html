@@ -242,6 +242,7 @@
             <div class="show" v-for="img in content?.['GALLERY']">
               <img :src="img" alt="A show poster" loading="lazy"/>
             </div>
+            <loading v-if="!content?.['GALLERY']"></loading>
           </div>
         </section>
         <section class="radioCity">
@@ -251,7 +252,7 @@
         </section>
       </div>
       <page-footer
-        :icons="media"
+        :icons="content?.['contacts']"
         :copyright="content?.['copyright']"
       ></page-footer>
     </main>

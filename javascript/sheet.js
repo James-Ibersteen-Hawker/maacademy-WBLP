@@ -7,6 +7,13 @@ class Teacher {
     this.blurb = blurb;
   }
 }
+class MediaIcon {
+  constructor(icon, url, alt) {
+    this.icon = icon;
+    this.url = url;
+    this.alt = alt;
+  }
+}
 const frontpage = (data) => data;
 function teachersSched(data) {
   const teachers = data.teachers;
