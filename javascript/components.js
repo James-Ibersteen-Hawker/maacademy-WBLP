@@ -258,7 +258,6 @@ const imgCarousel = {
       index = Math.ceil(props.images.length / 2) - 1;
       const target = items.value[index];
       if (target) {
-        target.scrollIntoView(scrollBlock);
         target.classList.add("activeE");
       }
     });
@@ -446,7 +445,7 @@ const classFilter = {
   },
   template: `
   <div class="class-filters">
-    <div class="fitler-name">Filters:</div>
+    <div class="fitler-name">Filter by Specialization —</div>
     <div class="filters">
       <div class="filter" v-for="value in props.values">
         <input type="checkbox" v-model="filters[value]" :name="safe(value)" :id="safe(value)+'filter'" :value="safe(value)" @click="select">
@@ -487,3 +486,22 @@ const specialClass = {
   </div>
   `,
 }; //specialClass done
+const loader = {
+  props: {},
+  setup(props) {
+    return props;
+  },
+  template: `
+  <div class="loading">
+  <svg class="spinner" viewBox="0 0 50 50">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#f8ff95" stop-opacity="1" />
+        <stop offset="95%" stop-color="#f8ff95" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <circle cx="25" cy="25" r="20"></circle>
+  </svg>
+  </div>
+  `
+}

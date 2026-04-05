@@ -9,6 +9,10 @@ $navWidth: 17vw;
 $min: 200px;
 $max: 300px;
 /////navbar//////////navbar//////////navbar//////////navbar/////
+.container-fluid {
+  container-type: inline-size;
+  container-name: overlord;
+}
 @mixin centerFlex {
   display: flex;
   justify-content: center;
@@ -568,9 +572,10 @@ $teacher: "teacher";
   width: 100%;
 }
 .teachers {
-  width: fit-content;
   margin-right: auto;
   margin-left: auto;
+  padding: 0px 35px;
+  margin-bottom: -10px;
 }
 @mixin teacherChips {
   ul {
@@ -591,6 +596,9 @@ $teacher: "teacher";
 }
 .#{$teacher}-container {
   $universal: 2px solid $border;
+  width: calc(100% + 100px);
+  margin: 0px -50px;
+  overflow-x: hidden;
   border-left: 3px solid $border;
   padding-left: 40px;
   padding-top: 15px;
@@ -612,6 +620,7 @@ $teacher: "teacher";
     align-items: start;
     border: 3px solid $border;
     height: 230px;
+    width: 100%;
     max-width: 1200px;
     background: linear-gradient(110deg, #682800, #090400);
     overflow: hidden;
@@ -664,6 +673,7 @@ $teacher: "teacher";
             width: 60%;
             height: 100%;
             overflow-y: hidden;
+            overflow-x: hidden;
             position: relative;
             text-align: justify;
             font-size: 16px;
@@ -742,6 +752,21 @@ $teacher: "teacher";
             }
           }
         }
+      }
+    }
+  }
+}
+@container overlord (max-width: 368px) {
+  .#{$teacher}-container {
+    padding-left: 0;
+    border-left: none;
+    &::after {
+      width: 0;
+    }
+    .#{$teacher}-card {
+      max-width: 100%;
+      .#{$teacher}-blurb {
+        font-size: 14px !important;
       }
     }
   }
@@ -1005,6 +1030,56 @@ $footBase: "footer";
       max-width: calc(80vw - 20px);
       object-fit: contain;
       object-position: center;
+    }
+  }
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  .spinner {
+    width: 65px;
+    height: 65px;
+    animation: rotate 1.2s linear infinite;
+    circle {
+      fill: none;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 95;
+      stroke-dashoffset: 0;
+      stroke: url(#grad);
+    }
+  }
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.class-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: calc(100% + 100px);
+  margin: 0px -50px;
+  border-bottom: 5px solid $border;
+  gap: 5px;
+  padding: 5px 35px;
+  font-family: 'Wittgenstein', serif;
+  font-size: 18px;
+  .filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    .filter {
+      label {
+        padding-left: 2px;
+        font-style: italic;
+        color: rgb(205, 205, 205);
+      }
     }
   }
 }

@@ -206,6 +206,7 @@ App.component("teacher", teacherCard);
 App.component("instrument-accordion", instrumentComponent);
 App.component("class-filter", classFilter);
 App.component("special-class", specialClass);
+App.component("loading", loader);
 
 App.mount("#vue_app");
 

@@ -1,3 +1,8 @@
+.container-fluid {
+  container-type: inline-size;
+  container-name: overlord;
+}
+
 .nav-bar {
   position: fixed;
   top: 0;
@@ -559,13 +564,16 @@
 }
 
 .teachers {
-  width: -moz-fit-content;
-  width: fit-content;
   margin-right: auto;
   margin-left: auto;
+  padding: 0px 35px;
+  margin-bottom: -10px;
 }
 
 .teacher-container {
+  width: calc(100% + 100px);
+  margin: 0px -50px;
+  overflow-x: hidden;
   border-left: 3px solid rgba(248, 255, 149, 0.5);
   padding-left: 40px;
   padding-top: 15px;
@@ -588,6 +596,7 @@
   align-items: start;
   border: 3px solid rgba(248, 255, 149, 0.5);
   height: 230px;
+  width: 100%;
   max-width: 1200px;
   background: linear-gradient(110deg, #682800, #090400);
   overflow: hidden;
@@ -664,6 +673,7 @@
   width: 60%;
   height: 100%;
   overflow-y: hidden;
+  overflow-x: hidden;
   position: relative;
   text-align: justify;
   font-size: 16px;
@@ -745,6 +755,21 @@
   color: #f8ff95;
 }
 
+@container overlord (max-width: 368px) {
+  .teacher-container {
+    padding-left: 0;
+    border-left: none;
+  }
+  .teacher-container::after {
+    width: 0;
+  }
+  .teacher-container .teacher-card {
+    max-width: 100%;
+  }
+  .teacher-container .teacher-card .teacher-blurb {
+    font-size: 14px !important;
+  }
+}
 .teacher-modal {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(3px);
@@ -1037,4 +1062,53 @@
      object-fit: contain;
   -o-object-position: center;
      object-position: center;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.loading .spinner {
+  width: 65px;
+  height: 65px;
+  animation: rotate 1.2s linear infinite;
+}
+.loading .spinner circle {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 95;
+  stroke-dashoffset: 0;
+  stroke: url(#grad);
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.class-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: calc(100% + 100px);
+  margin: 0px -50px;
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  gap: 5px;
+  padding: 5px 35px;
+  font-family: "Wittgenstein", serif;
+  font-size: 18px;
+}
+.class-filters .filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.class-filters .filters .filter label {
+  padding-left: 2px;
+  font-style: italic;
+  color: rgb(205, 205, 205);
 }/*# sourceMappingURL=components.css.map */

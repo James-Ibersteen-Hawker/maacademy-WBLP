@@ -1,7 +1,23 @@
 "use strict";
+class Teacher {
+  constructor(name, image, specs, blurb) {
+    this.name = name;
+    this.image = image;
+    this.specs = specs;
+    this.blurb = blurb;
+  }
+}
 const frontpage = (data) => data;
 function teachersSched(data) {
-  return "bacon";
+  const teachers = data.teachers;
+  const arr = teachers.map(({TEACHERS: t, SCHEDULES}) => {
+    const {Name, Specialization, Photo, About} = t;
+    const specs = Specialization.split(" / ")
+    return {
+      TEACHERS: new Teacher(Name, Photo, specs, About)
+    }
+  })
+  return {teachers: arr};
 }
 const contactOpp = (data) => data;
 function imgGalleries(data) {

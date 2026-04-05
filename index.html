@@ -255,7 +255,6 @@
           class="headerVid"
           loop
           muted
-          autoplay
         >
           Your browser does not support this video element
         </video>
@@ -285,6 +284,7 @@
               <img :src="r.IMAGE" :alt="r['By:']" loading="lazy" />
             </div>
           </div>
+          <loading v-if="!content?.['reviews']"></loading>
         </div>
         <div class="carousel-div">
           <h1>Image Gallery*</h1>

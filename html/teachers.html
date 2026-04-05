@@ -204,7 +204,10 @@
       defer
       src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"
     ></script> -->
-    <script defer src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"
+    ></script>
     <script defer src="../javascript/components.js"></script>
     <script defer src="../javascript/classes.js"></script>
     <script defer src="../javascript/sheet.js" type="module"></script>
@@ -226,10 +229,28 @@
       <div class="heading">
         <h1>Meet Our Teachers!</h1>
       </div>
-      <div class="container-fluid content-main content-container">
+      <div class="container-fluid content-container">
+        <section class="heading-top row">
+          <img class="col-12 col-lg-6" src="../imgs/teachers.png" alt="Lana with several of her teachers"/>
+          <p class="col-12 col-lg-6" >
+            Our Teaching Artists are dedicated professionals, who love their
+            respective art, and, love to pass it on to the next generation of
+            Artists. Or teachers hold Masters degrees from some of the most
+            prestigious musical institutions and universities around the world,
+            and/or have extensive performing experience in the skills they
+            teach. Many of our teachers are members of the National Music
+            Teachers Association. Our Teaching Artists work well with students
+            at any level of training and ability and offer individual
+            instruction tailored to each student so that they meet their fullest
+            potential with an emphasis on helping students obtain the
+            fundamental skills needed to play their instrument in a short period
+            of time.
+          </p>
+        </section>
+        <class-filter :values="['Piano', 'Voice']" @select="testEmit"></class-filter>
         <div class="teachers">
           <teacher
-            v-for="t in teachers"
+            v-for="{TEACHERS: t} in content?.['teachers']"
             :name="t.name"
             :blurb="t.blurb"
             :photo="t.image"
@@ -243,7 +264,10 @@
         :copyright="content?.['copyright']"
       ></page-footer>
     </main>
-    <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"
+    ></script>
     <script defer src="../javascript/bootstrap.bundle.min.js"></script>
     <script defer src="../javascript/script.js"></script>
   </body>

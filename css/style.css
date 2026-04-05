@@ -743,6 +743,32 @@ img {
   text-align: center;
   font-size: 16px;
 }
+#vue_app .content-container.container-fluid .heading-top.row {
+  margin: -10px -50px 0px -50px !important;
+  padding: 0 !important;
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+  width: calc(100% + 100px);
+}
+#vue_app .content-container.container-fluid .heading-top.row .col-12.col-lg-6 {
+  padding: 0;
+  margin: 0;
+}
+#vue_app .content-container.container-fluid .heading-top.row img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 33%;
+     object-position: 33%;
+}
+#vue_app .content-container.container-fluid .heading-top.row p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px 20px !important;
+  background: rgba(23, 82, 210, 0.8);
+  font-family: "Wittgenstein", serif;
+  text-shadow: 0px 1px 5px black;
+}
 #vue_app .contact-form.container-fluid {
   background: linear-gradient(to bottom, #2e1000, #1c0a00);
   width: 98%;
