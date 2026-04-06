@@ -1127,6 +1127,11 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+.class-filters .filters .filter {
+  white-space: nowrap;
 }
 .class-filters .filters .filter label {
   padding-left: 2px;

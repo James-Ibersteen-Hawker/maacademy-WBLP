@@ -1093,7 +1093,10 @@ $footBase: "footer";
     justify-content: center;
     align-items: center;
     gap: 8px;
+    max-width: 100%;
+    flex-wrap: wrap;
     .filter {
+      white-space: nowrap;
       label {
         padding-left: 2px;
         font-style: italic;

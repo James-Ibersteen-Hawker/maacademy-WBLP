@@ -219,7 +219,6 @@ const footer = {
     copyright: { type: String, default: "" },
   },
   setup(props) {
-    console.log(props.icons);
     return { props };
   },
   template: `
@@ -333,7 +332,7 @@ const teacherCard = {
     return { props, searchClass, photo, name };
   },
   template: `
-  <div class="teacher-container">
+  <div class="teacher-container" :data-specs="props.specs">
   <div class="teacher-card">
     <div class="teacher-img teacher-section">
       <img :src="photo(props.photo)" :alt="props.name" loading="lazy">

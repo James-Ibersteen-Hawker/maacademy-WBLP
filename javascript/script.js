@@ -19,8 +19,8 @@ const root = location.pathname.includes("/html/") ? "../" : "./";
 const defaultCarousel = new Array(6).fill(root + "imgs/no-image.png");
 let searchLUT;
 let engine;
-let engineStart = () => {};
-let engineReject = () => {};
+let engineStart = () => { };
+let engineReject = () => { };
 const pages = [
   new Page("Home", "index.html", "webicons/navbar-icons/home.png"),
   new Page(
@@ -67,7 +67,6 @@ const App = createApp({
         initSearch().then((data) => {
           searchLUT = Object.entries(data).map(([page, text]) => ({
             page,
-            text,
           }));
           engine = new Fuse(searchLUT, {
             keys: ["text"],
@@ -120,7 +119,7 @@ const App = createApp({
           engineReject = reject;
         }).then(() => {
           searchSite(input);
-          engineStart = () => {};
+          engineStart = () => { };
         });
       } else {
         const output = engine.search(input.trim());
@@ -158,12 +157,17 @@ const App = createApp({
       const repoBase = inRepo ? REPONAME : "";
       window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(exact.trim())}`;
     }
-    function filterTeachers(e) {
-      const filters = e.data;
-      const applied = Object.entries(filters).filter(([k,v]) => Boolean(v));
-      const used = {};
-      applied.forEach(([k,v]) => used[k] = v);
-      alert(JSON.stringify(used))
+    function filterTeachers({data: filters}) {
+      const elems = Array.from(document.querySelectorAll(".teacher-container"));
+      elems.forEach(el => el.classList.remove("d-none"))
+      const applied = Object.entries(filters).filter(([_, v]) => Boolean(v)).map(([k]) => k);
+      if (applied.length === 0) return;
+      const out = elems.filter(el => {
+        const specs = el.getAttribute("data-specs")?.split(",")?.map(q => q.trim().toLowerCase());
+        if (!specs) return true;
+        return !applied.every(fil => specs.includes(fil.toLowerCase()))
+      })
+      out.forEach(el => el.classList.add("d-none"))
     }
     function seeSchedule(e) {
       const name = e;
