@@ -1061,14 +1061,28 @@ img {
     margin-bottom: 10px;
   }
   .part4 .content {
-    display: block !important;
+    display: flex !important;
     width: 90%;
   }
   .part4 .content img {
     float: left;
     margin-right: 10px;
     margin-bottom: 5px;
+    height: -moz-fit-content;
+    height: fit-content;
     width: 50% !important;
+  }
+}
+@media screen and (max-width: 576px) {
+  .part4 .content {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
+  .part4 .content img {
+    float: none !important;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 @media screen and (max-width: 500px) {
@@ -1134,17 +1148,20 @@ img {
   .radio-item {
     display: block !important;
   }
-  .radio-item .img:nth-child(2), .radio-item .img:nth-child(3) {
+  .radio-item .img:nth-child(2),
+  .radio-item .img:nth-child(3) {
     display: none;
   }
   .radio-item .img:nth-child(1) {
     border-bottom: 3px solid rgba(248, 255, 149, 0.5);
     display: block !important;
   }
-  .radio-item .img, .radio-item .text {
+  .radio-item .img,
+  .radio-item .text {
     width: 100% !important;
   }
-  .radio-item .text.left, .radio-item .text.right {
+  .radio-item .text.left,
+  .radio-item .text.right {
     background: rgba(248, 255, 149, 0.8) !important;
   }
 }/*# sourceMappingURL=style.css.map */

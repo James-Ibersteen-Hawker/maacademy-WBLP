@@ -11,6 +11,7 @@ $min: 200px;
 $max: 300px;
 $nav-slide: 0.5s;
 $arsenal: "Arsenal", sans-serif;
+$nav-Z: 10;
 @mixin centerFlex {
   display: flex;
   justify-content: center;
@@ -47,7 +48,7 @@ $arsenal: "Arsenal", sans-serif;
   width: $navWidth;
   max-width: $max;
   min-width: $min;
-  z-index: 10;
+  z-index: $nav-Z;
   background: $dark;
   transition: $nav-slide;
   transition-timing-function: ease-out;
@@ -206,7 +207,7 @@ $arsenal: "Arsenal", sans-serif;
       }
     }
     .#{$base}-extras {
-      height: $extrasHeight;
+      min-height: $extrasHeight;
       overflow: hidden;
       display: flex;
       .extras-text {
@@ -247,51 +248,49 @@ $arsenal: "Arsenal", sans-serif;
 }
 .#{$base}-show {
   .#{$base}-close {
-    display: flex !important;
+    display: flex;
   }
   .#{$base}-open {
-    display: none !important;
+    display: none;
   }
 }
 .#{$base}-away {
   transform: translateX(-100%);
   .#{$base}-close {
-    display: none !important;
+    display: none;
   }
   .#{$base}-open {
-    display: flex !important;
+    display: flex;
   }
 }
 .landscapeBar {
+  $gray-border: 1px solid gray;
   background: rgb(26, 26, 26);
   position: fixed;
   left: 0;
   top: 0;
   height: 100vh;
   width: 50px;
-  z-index: 10;
-  color: white;
+  z-index: $nav-Z;
+  color: $top;
+  display: none;
   flex-direction: column;
-  padding-top: 5px;
-  padding-bottom: 5px;
   justify-content: space-between;
   align-items: center;
-  border-right: 1px solid gray;
-  display: none;
+  padding: 5px 0 0 5px;
+  border-right: $gray-border;
   .menu {
     position: relative;
     .buttonContainer {
       width: 50px;
       height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       margin-top: -5px;
+      @include centerFlex();
       .button {
-        background: white;
+        cursor: pointer;
+        background: $top;
         width: 30px;
         height: 30px;
-        cursor: pointer;
         transition: $anim-length;
       }
     }
@@ -303,10 +302,10 @@ $arsenal: "Arsenal", sans-serif;
       width: calc(100vw - 50px);
       flex-wrap: wrap;
       .item {
-        border: 1px solid gray;
-        font-family: "Arsenal", sans-serif;
+        border: $gray-border;
+        font-family: $arsenal;
         font-size: 20px;
-        color: white;
+        color: $top;
         white-space: nowrap;
         padding: 2px 8px;
         text-decoration: none;
@@ -335,11 +334,10 @@ $arsenal: "Arsenal", sans-serif;
     .icon {
       cursor: pointer;
       display: block;
-      background: white;
+      background: $top;
       height: 28px;
       width: 28px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+      margin: 10px 0;
       transition: $anim-length;
       &:hover {
         background: $accent;
@@ -348,10 +346,10 @@ $arsenal: "Arsenal", sans-serif;
   }
 }
 .search-modal {
-  background: rgba($dark, 0.7);
+  background: rgba($dark, 0.6);
   backdrop-filter: blur(3px);
   .modal-content {
-    background: $dark !important;
+    background: $dark;
     border: 1px solid $border;
     border-radius: 0;
     .modal-body {
@@ -360,18 +358,21 @@ $arsenal: "Arsenal", sans-serif;
         display: flex;
         align-items: center;
         input {
+          $trans: 0px solid transparent;
           width: calc(100% - 40px);
           height: 35px;
           background: transparent;
-          border-top: 0px solid transparent;
-          border-right: 0px solid transparent;
-          border-left: 0px solid transparent;
-          border-bottom: 5px solid $border;
+          border: {
+            top: $trans;
+            right: $trans;
+            left: $trans;
+            bottom: 5px solid $border;
+          }
           transition: $anim-length;
-          color: white;
+          color: $top;
           font-size: 22px;
-          font-family: "Arsenal", sans-serif;
-          padding: 0 !important;
+          font-family: $arsenal;
+          padding: 0;
           &:focus {
             outline: none;
             border-bottom: 5px solid $accent;
@@ -384,7 +385,7 @@ $arsenal: "Arsenal", sans-serif;
           margin-left: 10px;
           background: $accent;
           height: 30px;
-          aspect-ratio: 1/1;
+          width: 30px;
         }
       }
       .search-results {
@@ -413,13 +414,14 @@ $arsenal: "Arsenal", sans-serif;
               align-items: center;
               text-decoration: none;
               font-size: 22px;
-              font-family: "Arsenal", sans-serif;
+              font-family: $arsenal;
               p {
                 display: block;
                 margin: 0 !important;
                 padding: 0 !important;
               }
               p:first-child {
+                $midColor: rgba(0, 0, 0, 0.3);
                 width: 60%;
                 font-weight: 700;
                 mask-image: linear-gradient(
@@ -427,27 +429,20 @@ $arsenal: "Arsenal", sans-serif;
                   black 50%,
                   transparent 98%
                 );
-                .preamble {
-                  font-weight: 100;
-                  display: inline-block;
-                  mask-image: linear-gradient(
-                    to left,
-                    black,
-                    rgba(0, 0, 0, 0.3)
-                  );
-                }
-                .match {
-                  font-weight: 800;
-                  color: white;
-                }
+                .preamble,
                 .postamble {
                   font-weight: 500;
                   display: inline-block;
-                  mask-image: linear-gradient(
-                    to right,
-                    black,
-                    rgba(0, 0, 0, 0.3)
-                  );
+                }
+                .preamble {
+                  mask-image: linear-gradient(to left, black, $midColor);
+                }
+                .postamble {
+                  mask-image: linear-gradient(to right, black, $midColor);
+                }
+                .match {
+                  font-weight: 800;
+                  color: $top;
                 }
               }
               p:last-child {
@@ -497,9 +492,9 @@ $arsenal: "Arsenal", sans-serif;
           width: calc(100% - 38px);
           height: 40px;
           opacity: 1;
-          color: black;
+          color: $dark;
           font-weight: 900;
-          font-family: "Arsenal", sans-serif;
+          font-family: $arsenal;
           font-size: 20px;
           background: linear-gradient(to bottom, transparent, $border, $accent);
           animation-name: fadein;

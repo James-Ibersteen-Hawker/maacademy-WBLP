@@ -204,7 +204,7 @@
   margin-left: 10px;
 }
 .nav-bar .nav-bar-body .nav-bar-extras {
-  height: 100px;
+  min-height: 100px;
   overflow: hidden;
   display: flex;
 }
@@ -246,20 +246,20 @@
 }
 
 .nav-bar-show .nav-bar-close {
-  display: flex !important;
+  display: flex;
 }
 .nav-bar-show .nav-bar-open {
-  display: none !important;
+  display: none;
 }
 
 .nav-bar-away {
   transform: translateX(-100%);
 }
 .nav-bar-away .nav-bar-close {
-  display: none !important;
+  display: none;
 }
 .nav-bar-away .nav-bar-open {
-  display: flex !important;
+  display: flex;
 }
 
 .landscapeBar {
@@ -271,13 +271,12 @@
   width: 50px;
   z-index: 10;
   color: white;
+  display: none;
   flex-direction: column;
-  padding-top: 5px;
-  padding-bottom: 5px;
   justify-content: space-between;
   align-items: center;
+  padding: 5px 0 0 5px;
   border-right: 1px solid gray;
-  display: none;
 }
 .landscapeBar .menu {
   position: relative;
@@ -285,16 +284,16 @@
 .landscapeBar .menu .buttonContainer {
   width: 50px;
   height: 50px;
+  margin-top: -5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -5px;
 }
 .landscapeBar .menu .buttonContainer .button {
+  cursor: pointer;
   background: white;
   width: 30px;
   height: 30px;
-  cursor: pointer;
   transition: 0.3s;
 }
 .landscapeBar .menu .items {
@@ -336,8 +335,7 @@
   background: white;
   height: 28px;
   width: 28px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   transition: 0.3s;
 }
 .landscapeBar .icons .icon:hover {
@@ -345,11 +343,11 @@
 }
 
 .search-modal {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
 }
 .search-modal .modal-content {
-  background: black !important;
+  background: black;
   border: 1px solid rgba(248, 255, 149, 0.5);
   border-radius: 0;
 }
@@ -372,7 +370,7 @@
   color: white;
   font-size: 22px;
   font-family: "Arsenal", sans-serif;
-  padding: 0 !important;
+  padding: 0;
 }
 .search-modal .modal-content .modal-body form input:focus {
   outline: none;
@@ -388,7 +386,7 @@
   margin-left: 10px;
   background: #f8ff95;
   height: 30px;
-  aspect-ratio: 1/1;
+  width: 30px;
 }
 .search-modal .modal-content .modal-body .search-results {
   margin-top: 10px;
@@ -432,21 +430,22 @@
   -webkit-mask-image: linear-gradient(to right, black 50%, transparent 98%);
           mask-image: linear-gradient(to right, black 50%, transparent 98%);
 }
-.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .preamble {
-  font-weight: 100;
+.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .preamble,
+.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .postamble {
+  font-weight: 500;
   display: inline-block;
+}
+.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .preamble {
   -webkit-mask-image: linear-gradient(to left, black, rgba(0, 0, 0, 0.3));
           mask-image: linear-gradient(to left, black, rgba(0, 0, 0, 0.3));
+}
+.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .postamble {
+  -webkit-mask-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.3));
+          mask-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.3));
 }
 .search-modal .modal-content .modal-body .search-results ul .result a p:first-child .match {
   font-weight: 800;
   color: white;
-}
-.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .postamble {
-  font-weight: 500;
-  display: inline-block;
-  -webkit-mask-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.3));
-          mask-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.3));
 }
 .search-modal .modal-content .modal-body .search-results ul .result a p:last-child {
   width: 40%;

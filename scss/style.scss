@@ -622,7 +622,7 @@ img {
               size: 16px;
             }
             &::after {
-              @include underline($dark)
+              @include underline($dark);
             }
           }
           .buttonContainer {
@@ -679,7 +679,7 @@ img {
         padding-bottom: 10px;
         margin-bottom: 10px;
         &::after {
-          @include underline($border)
+          @include underline($border);
         }
       }
       .buttonContainer {
@@ -763,7 +763,7 @@ img {
           line-height: 50px;
           position: relative;
           &::after {
-            @include underline($border)
+            @include underline($border);
           }
         }
         p,
@@ -822,7 +822,7 @@ img {
             padding-bottom: 15px;
             padding-top: 10px;
             &::after {
-              @include underline($dark)
+              @include underline($dark);
             }
           }
           p {
@@ -1017,13 +1017,28 @@ img {
   .part4 {
     margin-bottom: 10px;
     .content {
-      display: block !important;
+      display: flex !important;
       width: 90%;
       img {
         float: left;
         margin-right: 10px;
         margin-bottom: 5px;
+        height: fit-content;
         width: 50% !important;
+      }
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .part4 {
+    .content {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      img {
+        float: none !important;
+        margin-right: auto;
+        margin-left: auto;
       }
     }
   }
@@ -1099,17 +1114,20 @@ img {
 @container radio (max-width: 650px) {
   .radio-item {
     display: block !important;
-    .img:nth-child(2), .img:nth-child(3) {
+    .img:nth-child(2),
+    .img:nth-child(3) {
       display: none;
     }
     .img:nth-child(1) {
       border-bottom: 3px solid $border;
       display: block !important;
     }
-    .img, .text {
+    .img,
+    .text {
       width: 100% !important;
     }
-    .text.left, .text.right {
+    .text.left,
+    .text.right {
       background: rgba($accent, 0.8) !important;
     }
   }
