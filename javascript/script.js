@@ -46,7 +46,6 @@ const App = createApp({
     const results = reactive({ data: [] });
     const loading = ref(false);
     const currentLocation = window.location.href;
-
     function setupSearch() {
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
@@ -56,6 +55,7 @@ const App = createApp({
         initSearch().then((data) => {
           searchLUT = Object.entries(data).map(([page, text]) => ({
             page,
+            text
           }));
           engine = new Fuse(searchLUT, {
             keys: ["text"],
