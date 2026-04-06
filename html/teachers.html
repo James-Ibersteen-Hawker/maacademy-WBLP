@@ -247,7 +247,7 @@
             of time.
           </p>
         </section>
-        <class-filter :values="['Piano', 'Voice']" @select="testEmit"></class-filter>
+        <class-filter :values="content?.['filters']" @select="filterTeachers"></class-filter>
         <div class="teachers">
           <teacher
             v-for="{TEACHERS: t} in content?.['teachers']"

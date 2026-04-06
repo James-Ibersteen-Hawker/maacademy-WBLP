@@ -158,8 +158,12 @@ const App = createApp({
       const repoBase = inRepo ? REPONAME : "";
       window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(exact.trim())}`;
     }
-    function testEmit(e) {
-      alert("emit");
+    function filterTeachers(e) {
+      const filters = e.data;
+      const applied = Object.entries(filters).filter(([k,v]) => Boolean(v));
+      const used = {};
+      applied.forEach(([k,v]) => used[k] = v);
+      alert(JSON.stringify(used))
     }
     function seeSchedule(e) {
       const name = e;
@@ -175,7 +179,7 @@ const App = createApp({
       results,
       runSelection,
       copyright,
-      testEmit,
+      filterTeachers,
       // testInstrument,
       loading,
       weblink,

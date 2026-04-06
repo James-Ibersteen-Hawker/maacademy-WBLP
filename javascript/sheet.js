@@ -10,15 +10,20 @@ class Teacher {
 const frontpage = (data) => data;
 function teachersSched(data) {
   const teachers = data.teachers;
-  const arr = teachers.map(({TEACHERS: t, SCHEDULES}) => {
-    const {Name, Specialization, Photo, About} = t;
-    const specs = Specialization.split(" / ")
-    return {
-      TEACHERS: new Teacher(Name, Photo, specs, About),
-      SCHEDULES
-    }
-  })
-  return {teachers: arr};
+  const filters = new Set();
+  const arr = teachers.filter(({ TEACHERS: t, SCHEDULES }) => {
+    const schedFilter = Object.values(SCHEDULES).some(Boolean);
+    return schedFilter;
+  }).map(({TEACHERS: t, SCHEDULES}) => {
+    const { Name, Specialization, Photo, About } = t;
+    const specs = Specialization.split(" / ");
+    specs.forEach(e => filters.add(e));
+     return {
+        TEACHERS: new Teacher(Name, Photo, specs, About),
+        SCHEDULES,
+      };
+  });
+  return { teachers: arr, filters: Array.from(filters) };
 }
 const contactOpp = (data) => data;
 function imgGalleries(data) {
@@ -46,7 +51,7 @@ export async function sheet(fetchlink, abortTimeout) {
     const sheets = (await data.json())?.sheets ?? {};
     return Object.entries(sheets).reduce((obj, [name, sheetData]) => {
       const func = funcLUT[name.trim().toLowerCase()];
-      if (func) Object.assign(obj, func(sheetData))
+      if (func) Object.assign(obj, func(sheetData));
       return obj;
     }, {});
   } catch (err) {
