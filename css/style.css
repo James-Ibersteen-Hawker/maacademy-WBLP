@@ -638,10 +638,10 @@ img {
   position: absolute;
   width: 80%;
   height: 1px;
+  background: black;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background: black;
 }
 #vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) .buttonContainer {
   display: flex;
@@ -698,12 +698,12 @@ img {
 #vue_app .content-container.container-fluid .paint p::after {
   content: "";
   position: absolute;
+  width: 80%;
+  height: 1px;
+  background: rgba(248, 255, 149, 0.5);
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  height: 1px;
-  width: 80%;
-  background: rgba(248, 255, 149, 0.5);
 }
 #vue_app .content-container.container-fluid .paint .buttonContainer {
   display: flex;
@@ -768,6 +768,117 @@ img {
   background: rgba(23, 82, 210, 0.8);
   font-family: "Wittgenstein", serif;
   text-shadow: 0px 1px 5px black;
+}
+#vue_app .content-container.container-fluid .radio-top.row {
+  width: calc(100% + 100px);
+  margin: 0px -50px;
+  padding: 10px 35px;
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
+}
+#vue_app .content-container.container-fluid .radio-top.row .col-12 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+#vue_app .content-container.container-fluid .radio-top.row .col-12 h1 {
+  text-align: center;
+  font-size: 60px;
+  font-family: "Jomhuria", sans-serif;
+  line-height: 50px;
+  position: relative;
+}
+#vue_app .content-container.container-fluid .radio-top.row .col-12 h1::after {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 1px;
+  background: rgba(248, 255, 149, 0.5);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#vue_app .content-container.container-fluid .radio-top.row .col-12 p,
+#vue_app .content-container.container-fluid .radio-top.row .col-12 a {
+  color: white;
+  font-size: 20px;
+  font-family: "ABeeZee", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+#vue_app .content-container.container-fluid .radio-top.row .col-12 p:has(a) {
+  font-style: italic;
+}
+#vue_app .content-container.container-fluid .radio-top.row .col-12 img {
+  width: 100%;
+}
+#vue_app .content-container.container-fluid .radio-gallery {
+  width: calc(100% + 100px);
+  margin: 0px -50px;
+  padding: 10px 35px;
+  container-type: inline-size;
+  container-name: radio;
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item {
+  border: 3px solid rgba(248, 255, 149, 0.5);
+  background: rgba(248, 255, 149, 0.5);
+  margin-bottom: 20px;
+  display: flex;
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .img {
+  width: 40%;
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .img:nth-child(1) {
+  display: none;
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .text {
+  color: black;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .text h2 {
+  font-family: "Ingrid Darling", cursive;
+  font-size: 50px;
+  position: relative;
+  text-align: center;
+  line-height: 40px;
+  padding-bottom: 15px;
+  padding-top: 10px;
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .text h2::after {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 1px;
+  background: black;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .text p {
+  font-family: "ABeeZee", sans-serif;
+  font-style: italic;
+  font-size: 20px;
+  text-align: center;
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .text.right {
+  background: linear-gradient(to left, #f8ff95, rgba(248, 255, 149, 0.5));
+}
+#vue_app .content-container.container-fluid .radio-gallery .radio-item .text.left {
+  background: linear-gradient(to right, #f8ff95, rgba(248, 255, 149, 0.5));
 }
 #vue_app .contact-form.container-fluid {
   background: linear-gradient(to bottom, #2e1000, #1c0a00);
@@ -1010,5 +1121,23 @@ img {
 @container part2 (max-width: 520px) {
   .row2 .img1 {
     display: none !important;
+  }
+}
+@container radio (max-width: 650px) {
+  .radio-item {
+    display: block !important;
+  }
+  .radio-item .img:nth-child(2), .radio-item .img:nth-child(3) {
+    display: none;
+  }
+  .radio-item .img:nth-child(1) {
+    border-bottom: 3px solid rgba(248, 255, 149, 0.5);
+    display: block !important;
+  }
+  .radio-item .img, .radio-item .text {
+    width: 100% !important;
+  }
+  .radio-item .text.left, .radio-item .text.right {
+    background: rgba(248, 255, 149, 0.8) !important;
   }
 }/*# sourceMappingURL=style.css.map */

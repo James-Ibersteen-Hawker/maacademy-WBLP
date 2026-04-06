@@ -100,6 +100,16 @@ img {
     mask-size: 750px;
     filter: drop-shadow(0px 0px 1px $accent);
   }
+  @mixin underline($color) {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 1px;
+    background: $color;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   &::before {
     @include music();
     z-index: -2;
@@ -611,14 +621,7 @@ img {
               size: 16px;
             }
             &::after {
-              content: "";
-              position: absolute;
-              width: 80%;
-              height: 1px;
-              bottom: 0;
-              left: 50%;
-              transform: translateX(-50%);
-              background: $dark;
+              @include underline($dark)
             }
           }
           .buttonContainer {
@@ -675,14 +678,7 @@ img {
         padding-bottom: 10px;
         margin-bottom: 10px;
         &::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          height: 1px;
-          width: 80%;
-          background: $border;
+          @include underline($border)
         }
       }
       .buttonContainer {
@@ -744,8 +740,103 @@ img {
         text-align: center;
         padding: 10px 20px !important;
         background: rgba(23, 82, 210, 0.8);
-        font-family: 'Wittgenstein', serif;
+        font-family: "Wittgenstein", serif;
         text-shadow: 0px 1px 5px black;
+      }
+    }
+    .radio-top.row {
+      width: calc(100% + 100px);
+      margin: 0px -50px;
+      padding: 10px 35px;
+      border-bottom: $standard;
+      .col-12 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 20px;
+        h1 {
+          text-align: center;
+          font-size: 60px;
+          font-family: "Jomhuria", sans-serif;
+          line-height: 50px;
+          position: relative;
+          &::after {
+            @include underline($border)
+          }
+        }
+        p,
+        a {
+          color: white;
+          font-size: 20px;
+          font-family: "ABeeZee", sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+        p:has(a) {
+          font-style: italic;
+        }
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .radio-gallery {
+      width: calc(100% + 100px);
+      margin: 0px -50px;
+      padding: 10px 35px;
+      container-type: inline-size;
+      container-name: radio;
+      .radio-item {
+        border: 3px solid $border;
+        background: $border;
+        margin-bottom: 20px;
+        display: flex;
+        .img {
+          width: 40%;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+        .img:nth-child(1) {
+          display: none;
+        }
+        .text {
+          color: black;
+          width: 60%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 5px 10px;
+          h2 {
+            font-family: "Ingrid Darling", cursive;
+            font-size: 50px;
+            position: relative;
+            text-align: center;
+            line-height: 40px;
+            padding-bottom: 15px;
+            padding-top: 10px;
+            &::after {
+              @include underline($dark)
+            }
+          }
+          p {
+            font-family: "ABeeZee", sans-serif;
+            font-style: italic;
+            font-size: 20px;
+            text-align: center;
+          }
+        }
+        .text.right {
+          background: linear-gradient(to left, $accent, $border);
+        }
+        .text.left {
+          background: linear-gradient(to right, $accent, $border);
+        }
       }
     }
   }
@@ -996,5 +1087,23 @@ img {
 @container part2 (max-width: 520px) {
   .row2 .img1 {
     display: none !important;
+  }
+}
+@container radio (max-width: 650px) {
+  .radio-item {
+    display: block !important;
+    .img:nth-child(2), .img:nth-child(3) {
+      display: none;
+    }
+    .img:nth-child(1) {
+      border-bottom: 3px solid $border;
+      display: block !important;
+    }
+    .img, .text {
+      width: 100% !important;
+    }
+    .text.left, .text.right {
+      background: rgba($accent, 0.8) !important;
+    }
   }
 }
