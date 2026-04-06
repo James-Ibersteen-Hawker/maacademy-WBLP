@@ -39,17 +39,6 @@ const pages = [
   ),
   new Page("Gallery", "gallery.html", "webicons/navbar-icons/images.png"),
 ];
-// const testInstrument = new Instrument("Piano", [
-//   {
-//     TEACHERS: { ...teachers[0] },
-//     SCHEDULES: {
-//       SUN: "",
-//       MON: "P: 3pm-9pm",
-//       TUES: "5:30pm-7pm",
-//       WED: "10am-3pm",
-//     },
-//   },
-// ]);
 const App = createApp({
   setup() {
     const copyright = "Copyright 2026 Music and Art Academy";

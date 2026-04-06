@@ -14,17 +14,63 @@ function teachersSched(data) {
   const arr = teachers.filter(({ TEACHERS: t, SCHEDULES }) => {
     const schedFilter = Object.values(SCHEDULES).some(Boolean);
     return schedFilter;
-  }).map(({TEACHERS: t, SCHEDULES}) => {
+  }).map(({ TEACHERS: t, SCHEDULES }) => {
     const { Name, Specialization, Photo, About } = t;
     const specs = Specialization.split(" / ");
     specs.forEach(e => filters.add(e));
-     return {
-        TEACHERS: new Teacher(Name, Photo, specs, About),
-        SCHEDULES,
-      };
+    return {
+      TEACHERS: new Teacher(Name, Photo, specs, About),
+      SCHEDULES,
+    };
   });
-  return { teachers: arr, filters: Array.from(filters) };
+  const classes = Array.from(filters).reduce((acc, val) => {
+    acc[val] = [];
+    return acc;
+  }, {})
+  arr.forEach(({ TEACHERS: t, SCHEDULES: s }) => {
+    if (t.specs.length === 1) {
+      classes[t.specs[0]].push({
+        TEACHERS: t,
+        SCHEDULES: s
+      })
+    }
+    else if (t.specs.length > 1) {
+      t.specs.forEach(spec => {
+        const id = spec[0];
+        const newSchedule = Object.entries(s).reduce((accu, [k, v]) => {
+          const splitted = v.split("\n")
+          const match = splitted.filter(e => e.toLowerCase().includes(`${id.toLowerCase()}:`));
+          if (match.length > 0) accu[k] = match[0].slice(2).trim();
+          else if (match.length === 0) accu[k] = "";
+          return accu;
+        }, {});
+        if (Object.values(newSchedule).every(e => e === "")) return;
+        classes[spec].push({
+          TEACHERS: t,
+          SCHEDULES: newSchedule
+        })
+      })
+    }
+  })
+  const schedules = [];
+  Object.entries(classes).forEach(([k, teachers]) => {
+    const obj = {
+      name: k,
+      teachers: teachers.map(({TEACHERS, SCHEDULES}) => {
+        const item = { name: TEACHERS.name, times: [] }
+        Object.entries(SCHEDULES).forEach(([day, time]) => {
+          if (!time) return;
+          item.times.push(`${day} - ${time}`)
+        })
+        return item;
+      })
+    }
+    schedules.push(obj)
+  })
+  console.log(JSON.stringify(schedules))
+  return { teachers: arr, filters: Array.from(filters), schedules: schedules };
 }
+//item in classes = instrument, instrument.teachers, -> {name, days, times}
 const contactOpp = (data) => data;
 function imgGalleries(data) {
   const obj = Object.entries(data).reduce((payload, [category, images]) => {
@@ -45,9 +91,10 @@ const funcLUT = {
 export async function sheet(fetchlink, abortTimeout) {
   const controller = new AbortController();
   const signal = controller.signal;
-  const timeout = setTimeout(() => controller.abort(), abortTimeout);
+  const timeout = setTimeout(() => controller.abort(new Error("Timeout Exceeded")), abortTimeout);
   try {
     const data = await fetch(fetchlink, { signal });
+    // const data = await fetch("../test.json", { signal });
     const sheets = (await data.json())?.sheets ?? {};
     return Object.entries(sheets).reduce((obj, [name, sheetData]) => {
       const func = funcLUT[name.trim().toLowerCase()];

@@ -1075,7 +1075,6 @@ $footBase: "footer";
     transform: rotate(360deg);
   }
 }
-
 .class-filters {
   display: flex;
   justify-content: center;
@@ -1101,6 +1100,83 @@ $footBase: "footer";
         padding-left: 2px;
         font-style: italic;
         color: rgb(205, 205, 205);
+      }
+    }
+  }
+}
+.accordion {
+  margin-bottom: 15px;
+  border-top: 3px solid $border;
+  .accordion-item {
+    border-radius: 0;
+    background: rgba(105, 59, 34, 0.8);
+    border: none;
+    .accordion-header {
+      border-right: none !important;
+      border-left: none !important;
+      border-top: none !important;
+      border-bottom: 2px solid $border !important;
+      .accordion-button {
+        background: transparent !important;
+        box-shadow: none;
+        border-radius: 0 !important;
+        font-family: "Jomhuria", sans-serif;
+        font-size: 50px;
+        line-height: 40px;
+        padding: 8px 20px 0px 20px;
+        margin: 0;
+        color: white;
+        &::after {
+          filter: invert(100%);
+        }
+      }
+    }
+    .accordion-collapse {
+      border: none !important;
+      background: rgba(66, 37, 21, 0.8);
+      .accordion-body {
+        color: white;
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          font-family: 'Arial', sans-serif;
+          tr {
+            td,
+            th {
+              text-align: center;
+              border: 1px solid $border;
+              font-size: 16px;
+              vertical-align: middle;
+              border-bottom: 0 !important;
+              width: 50%;
+              .time {
+                margin: 5px !important;
+                font-family: 'ABeeZee', sans-serif;
+                font-style: italic;
+              }
+            }
+            th {
+              font-style: italic;
+              color: $accent;
+            }
+            td:nth-child(1), th:nth-child(1) {
+              border-left: 0 !important;
+            }
+            td:nth-child(2), th:nth-child(2) {
+              border-right: 0 !important;
+            }
+          }
+          thead {
+            th {
+              font-size: 30px;
+              border-top: 0 !important;
+              padding: 5px 0px;
+              color: white;
+              font-style: normal;
+              font-family: 'Arsenal', sans-serif;
+            }
+          }
+        }
       }
     }
   }

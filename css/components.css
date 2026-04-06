@@ -1137,4 +1137,79 @@
   padding-left: 2px;
   font-style: italic;
   color: rgb(205, 205, 205);
+}
+
+.accordion {
+  margin-bottom: 15px;
+  border-top: 3px solid rgba(248, 255, 149, 0.5);
+}
+.accordion .accordion-item {
+  border-radius: 0;
+  background: rgba(105, 59, 34, 0.8);
+  border: none;
+}
+.accordion .accordion-item .accordion-header {
+  border-right: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: 2px solid rgba(248, 255, 149, 0.5) !important;
+}
+.accordion .accordion-item .accordion-header .accordion-button {
+  background: transparent !important;
+  box-shadow: none;
+  border-radius: 0 !important;
+  font-family: "Jomhuria", sans-serif;
+  font-size: 50px;
+  line-height: 40px;
+  padding: 8px 20px 0px 20px;
+  margin: 0;
+  color: white;
+}
+.accordion .accordion-item .accordion-header .accordion-button::after {
+  filter: invert(100%);
+}
+.accordion .accordion-item .accordion-collapse {
+  border: none !important;
+  background: rgba(66, 37, 21, 0.8);
+}
+.accordion .accordion-item .accordion-collapse .accordion-body {
+  color: white;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table tr td,
+.accordion .accordion-item .accordion-collapse .accordion-body table tr th {
+  text-align: center;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  font-size: 16px;
+  vertical-align: middle;
+  border-bottom: 0 !important;
+  width: 50%;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table tr td .time,
+.accordion .accordion-item .accordion-collapse .accordion-body table tr th .time {
+  margin: 5px !important;
+  font-family: "ABeeZee", sans-serif;
+  font-style: italic;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table tr th {
+  font-style: italic;
+  color: #f8ff95;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table tr td:nth-child(1), .accordion .accordion-item .accordion-collapse .accordion-body table tr th:nth-child(1) {
+  border-left: 0 !important;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table tr td:nth-child(2), .accordion .accordion-item .accordion-collapse .accordion-body table tr th:nth-child(2) {
+  border-right: 0 !important;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table thead th {
+  font-size: 30px;
+  border-top: 0 !important;
+  padding: 5px 0px;
+  color: white;
+  font-style: normal;
+  font-family: "Arsenal", sans-serif;
 }/*# sourceMappingURL=components.css.map */

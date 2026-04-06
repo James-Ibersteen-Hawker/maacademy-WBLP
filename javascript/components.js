@@ -386,25 +386,26 @@ const teacherCard = {
 const instrumentComponent = {
   props: {
     instrument: { type: Object, default: null },
+    name: { type: String, default: "" },
+    number: {type: Number, default: 1}
   },
   setup(props) {
     return { props };
   },
   template: `
-  <div class="accordion" :id="props.name + 'accordionID'" v-if="props.instrument">
+  <div class="accordion" :id="'accordionID' + props.number" v-if="props.instrument">
     <div class="accordion-item">
       <h2 class="accordion-header">
-       <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+       <button class="accordion-button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="true" :aria-controls="'collapse' + props.number">
           {{props.instrument.name}}
        </button>
      </h2>
-     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+     <div :id="'collapse' + props.number" class="accordion-collapse collapse show" :data-bs-parent="'#' + 'accordionID' + props.number">
        <div class="accordion-body">
          <table>
          <thead>
            <tr>
               <th scope="col">Teachers</th>
-              <th scope="col">Days</th>
               <th scope="col">Times</th>
            </tr>
           </thead>
@@ -412,10 +413,7 @@ const instrumentComponent = {
             <tr v-for="teacher in props.instrument.teachers">
               <th scope="row">{{teacher.name}}</th>
               <td>
-                <p v-for="day in teacher.days">{{day}}</p>
-              </td>
-              <td>
-                <p v-for="time in teacher.times">{{time}}</p>
+                <p class="time" v-for="time in teacher.times">{{time}}</p>
               </td>
             </tr>
           </tbody>
@@ -509,4 +507,4 @@ const loader = {
   </svg>
   </div>
   `,
-};
+}; //loader done
