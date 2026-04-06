@@ -364,7 +364,7 @@ const teacherCard = {
   </div>
   <!--modal-->
   <div class="teacher-modal modal fade" tabindex="-1" :id="name(props.name) + 'about-modal'" aria-labelledby="aboutModalLabel">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" data-bs-dismiss="modal">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">{{props.name}}</h5>

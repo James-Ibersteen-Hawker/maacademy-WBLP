@@ -1,6 +1,5 @@
 "use strict";
 const { createApp, ref, reactive, onMounted } = Vue;
-// console.log("JS working");
 const weblink =
   "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
 const signalTimeout = 10000;
@@ -40,42 +39,17 @@ const pages = [
   ),
   new Page("Gallery", "gallery.html", "webicons/navbar-icons/images.png"),
 ];
-const media = [
-  new MediaIcon("youtubeIcon", "https://youtube.com", "YouTube Link"),
-  new MediaIcon("instagramIcon", "https://instagram.com", "Instagram Link"),
-  new MediaIcon("facebookIcon", "https://facebook.com", "Facebook Link"),
-];
-const teachers = [
-  new Teacher(
-    "Jefferey Pantelas",
-    "/MAINLOGO.png",
-    ["Piano", "Voice"],
-    "Jeffrey Pantelas: Music Teacher.Instruments: Piano,Accordion and Electronic keyboards , Vocal training and Chorus.Band leader ,Adonis Orchestra 1981-1992. Music teacher NYC.Bd.of  Education 1985-2016, Project Arts Coordinator P.S.132 Manhattan (9 years).Teacher of piano,accordion and vocal training/chorus Music and Art Academy 2016-present.Education:Accordion and piano 7 years training, Bachelor’s Degree, Baruch college in...",
-  ),
-  new Teacher(
-    "Jefferey Pantelas",
-    "/MAINLOGO.png",
-    ["Piano", "Voice"],
-    "About Jeff",
-  ),
-  new Teacher(
-    "Jefferey Pantelas",
-    "/MAINLOGO.png",
-    ["Piano", "Voice"],
-    "About Jeff",
-  ),
-];
-const testInstrument = new Instrument("Piano", [
-  {
-    TEACHERS: { ...teachers[0] },
-    SCHEDULES: {
-      SUN: "",
-      MON: "P: 3pm-9pm",
-      TUES: "5:30pm-7pm",
-      WED: "10am-3pm",
-    },
-  },
-]);
+// const testInstrument = new Instrument("Piano", [
+//   {
+//     TEACHERS: { ...teachers[0] },
+//     SCHEDULES: {
+//       SUN: "",
+//       MON: "P: 3pm-9pm",
+//       TUES: "5:30pm-7pm",
+//       WED: "10am-3pm",
+//     },
+//   },
+// ]);
 const App = createApp({
   setup() {
     const copyright = "Copyright 2026 Music and Art Academy";
@@ -83,10 +57,57 @@ const App = createApp({
     const results = reactive({ data: [] });
     const loading = ref(false);
     const currentLocation = window.location.href;
+
+    function setupSearch() {
+      const searchString = window.location.search;
+      const urlParams = new URLSearchParams(searchString);
+      const query = urlParams.get("q");
+      const iframe = urlParams.get("iframe");
+      if (!iframe) {
+        initSearch().then((data) => {
+          searchLUT = Object.entries(data).map(([page, text]) => ({
+            page,
+            text,
+          }));
+          engine = new Fuse(searchLUT, {
+            keys: ["text"],
+            ignoreDiacritics: true,
+            includeMatches: true,
+            threshold: 0.4,
+            ignoreLocation: true,
+          });
+          engineStart();
+        });
+      } else if (iframe) {
+        document
+          .querySelectorAll(
+            'img, link[rel="stylesheet"]:not([href*="vue"]), link[rel="preload"]:not([as="script"]), meta[name]:not([name="viewport"])',
+          )
+          .forEach((e) => e.remove());
+      }
+      Vue.nextTick(() => {
+        try {
+          if (query) goToSearch(query);
+          if (iframe) {
+            window.parent.postMessage(
+              { loaded: true, pageName: window.location.pathname },
+              window.location.origin,
+            );
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    }
     loadData()
       .then((data) => {
         content.value = data;
         console.log(data);
+        try {
+          setupSearch();
+        } catch {
+          throw new Error("Setting up the search iframes failed")
+        }
       })
       .catch((err) => alert(err.message));
     async function searchSite(input) {
@@ -146,58 +167,16 @@ const App = createApp({
       const repoBase = inRepo ? REPONAME : "";
       window.location.href = `${window.location.origin}${repoBase}/html/classes.html?q=${encodeURIComponent(name.trim())}`;
     }
-    onMounted(() => {
-      const searchString = window.location.search;
-      const urlParams = new URLSearchParams(searchString);
-      const query = urlParams.get("q");
-      const iframe = urlParams.get("iframe");
-      if (!iframe) {
-        initSearch().then((data) => {
-          searchLUT = Object.entries(data).map(([page, text]) => ({
-            page,
-            text,
-          }));
-          engine = new Fuse(searchLUT, {
-            keys: ["text"],
-            ignoreDiacritics: true,
-            includeMatches: true,
-            threshold: 0.4,
-            ignoreLocation: true,
-          });
-          engineStart();
-        });
-      } else if (iframe) {
-        document
-          .querySelectorAll(
-            'img, link[rel="stylesheet"]:not([href*="vue"]), link[rel="preload"]:not([as="script"]), meta[name]:not([name="viewport"])',
-          )
-          .forEach((e) => e.remove());
-      }
-      Vue.nextTick(() => {
-        try {
-          if (query) goToSearch(query);
-          if (iframe) {
-            window.parent.postMessage(
-              { loaded: true, pageName: window.location.pathname },
-              window.location.origin,
-            );
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      });
-    });
+    // onMounted(() => setupSearch());
     return {
       searchSite,
       content,
       pages,
-      media,
       results,
       runSelection,
       copyright,
       testEmit,
-      teachers,
-      testInstrument,
+      // testInstrument,
       loading,
       weblink,
       currentLocation,
