@@ -157,6 +157,7 @@
             :instrument="item"
             :number="i"
             ></instrument-accordion>
+            <loading v-if="!content?.['schedules']"></loading>
         </section>
       </div>
       <page-footer

@@ -2,7 +2,7 @@
 const { createApp, ref, reactive, onMounted } = Vue;
 const weblink =
   "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
-const signalTimeout = 10000;
+const signalTimeout = 20000;
 const keys = {
   dataKey: "sheetData",
   searchKey: "searchData",
