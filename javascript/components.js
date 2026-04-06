@@ -24,6 +24,9 @@ const navBar = {
     const resultsCont = Vue.ref(null);
     const scrollMore = Vue.ref(true);
     const resultItem = Vue.ref(null);
+    const total = Vue.ref(null);
+    const extras = Vue.ref(null);
+    const header = Vue.ref(null);
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -53,10 +56,12 @@ const navBar = {
       };
     }
     function checkFit() {
-      const boxHeight = navBody.value.offsetHeight;
+      const navHeight = total.value.offsetHeight;
+      const bodyHeight = navHeight - header.value.offsetHeight - extras.value.offsetHeight;
       const itemHeight = itemOffsetHeight + 2;
-      const totalHeight = itemHeight * props.links.length;
-      const diff = boxHeight - totalHeight;
+      let totalHeight = itemHeight * props.links.length;
+      if (overflow.value.length > 0) totalHeight += itemHeight
+      const diff = bodyHeight - totalHeight;
       if (diff > 0) {
         links.value = props.links;
         overflow.value = [];
@@ -87,7 +92,7 @@ const navBar = {
     Vue.onMounted(() => {
       checkFit();
       const observer = new ResizeObserver(() => checkFit());
-      observer.observe(navBody.value);
+      observer.observe(total.value);
     });
     return {
       formSubmit,
@@ -112,17 +117,20 @@ const navBar = {
       resultsCont,
       scrollMore,
       resultItem,
+      total,
+      extras,
+      header
     };
   },
   template: `
-  <div class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
+  <div ref="total" class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
     <div class="nav-bar-close" @click.stop="instClose">
       <div class="control-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/close.png')"></div>
     </div>
     <div class="nav-bar-open" @click.stop="instOpen">
       <div class="control-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/right-arrow.png')"></div>
     </div>
-    <div class="nav-bar-header">
+    <div class="nav-bar-header" ref="header">
       <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo" loading="lazy">
     </div>
     <div class="nav-bar-body">
@@ -146,6 +154,7 @@ const navBar = {
           </div>
         </div>
       </div>
+      <div class="nav-bar-nonlist" ref="extras">
       <div class="nav-bar-section nav-bar-search" data-bs-toggle="modal" data-bs-target="#search-modal">
         <div class="fake-search" id="sham-input">Search...</div>
         <div class="search-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')"></div>
@@ -159,9 +168,10 @@ const navBar = {
         </div>
         <div class="extras-map extras-section">
           <a :href="props.map" target="_blank">
-            <img :src="prefix() + 'map.png'" loading="lazy" class="img-fluid">
+            <img :src="prefix() + 'map.png'" loading="lazy">
           </a>
         </div>
+      </div>
       </div>
     </div>
   </div>

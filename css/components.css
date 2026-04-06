@@ -7,6 +7,8 @@
   position: fixed;
   top: 0;
   left: 0;
+  padding: 0;
+  margin: 0;
   height: 100vh;
   width: 17vw;
   max-width: 300px;
@@ -15,8 +17,6 @@
   background: black;
   transition: 0.5s;
   transition-timing-function: ease-out;
-  padding: 0 !important;
-  margin: 0 !important;
   filter: drop-shadow(0px 0px 1px #f8ff95);
 }
 .nav-bar .nav-bar-close {
@@ -26,13 +26,13 @@
   cursor: pointer;
   position: absolute;
   height: 50px;
-  aspect-ratio: 1/1;
+  width: 50px;
   right: 0;
-  color: #f8ff95;
+  top: 0;
+  transition: 0.3s;
   background: rgba(0, 0, 0, 0.5);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  transition: 0.3s;
 }
 .nav-bar .nav-bar-close:hover {
   background: rgba(0, 0, 0, 0.8);
@@ -44,14 +44,18 @@
   cursor: pointer;
   position: absolute;
   height: 50px;
-  aspect-ratio: 1/1;
+  width: 50px;
   right: 0;
-  color: #f8ff95;
+  top: 0;
+  transition: 0.3s;
   transform: translateX(100%);
   background: black;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 0px 0px 2px rgba(248, 255, 149, 0.5);
+}
+.nav-bar .nav-bar-open:hover {
+  box-shadow: 0px 0px 5px rgba(248, 255, 149, 0.5);
 }
 .nav-bar .control-icon {
   height: 50%;
@@ -61,44 +65,25 @@
 .nav-bar .nav-bar-header img {
   width: 100%;
   height: auto;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
 }
-.nav-bar .nav-bar-body .nav-bar-list {
-  border-bottom: 1px solid rgba(248, 255, 149, 0.5);
-  height: calc(100vh - max(200px, min(17vw, 300px)) - 50px - 100px);
+.nav-bar .nav-bar-body {
+  height: calc(100vh - max(200px, min(17vw, 300px)));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-item {
-  cursor: pointer;
-  position: relative;
-  font-family: "Arsenal", sans-serif;
   font-size: 25px;
   height: 34px;
+  font-family: "Arsenal", sans-serif;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
-  margin-top: 1px;
-  margin-bottom: 1px;
-  text-align: right;
+  cursor: pointer;
+  position: relative;
+  margin: 1px auto;
   padding-right: 10px;
-  transition: background 0.3s;
-}
-.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover {
-  background: #f8ff95;
-  transition: background 0.3s;
-}
-.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover a {
-  color: black;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-}
-.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover .nav-bar-item-icon {
-  background: #f8ff95;
-}
-.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover .nav-bar-item-icon .nav-bar-item-icon-mask {
-  background: black;
+  transition: 0.3s;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-item a {
   display: flex;
@@ -118,16 +103,36 @@
   top: 0;
   right: 0;
   transform: translateX(100%);
-  transition: background 0.3s;
+  transition: 0.3s;
 }
-.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon .nav-bar-item-icon-mask {
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item .nav-bar-item-icon-mask {
   height: 70%;
   width: 70%;
   background: #f8ff95;
-  transition: background 0.3s;
+  transition: 0.3s;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover {
+  background: #f8ff95;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover a {
+  color: black;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover .nav-bar-item-icon {
+  background: #f8ff95;
+}
+.nav-bar .nav-bar-body .nav-bar-list .nav-bar-item:hover .nav-bar-item-icon-mask {
+  background: black;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown {
-  position: relative;
+  font-size: 25px;
+  height: 34px;
+  font-family: "Arsenal", sans-serif;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  display: flex;
+  justify-content: end;
+  align-content: center;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown a {
   font-size: 20px;
@@ -139,22 +144,27 @@
   position: absolute;
   bottom: 0;
   left: 100%;
-  padding: 0 !important;
+  padding: 0;
   min-width: 140px;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown .dropdown-body .nav-dropdown-item a {
+  font-size: 25px;
+  height: 34px;
+  font-family: "Arsenal", sans-serif;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   display: flex;
   align-items: center;
+  justify-content: end;
   padding: 0px 5px;
-  margin: 0 !important;
-  height: 34px;
-  font-size: 25px;
+  margin: 0;
   color: #f8ff95;
   transition: 0.3s;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown .dropdown-body .nav-dropdown-item a:hover {
   background: #f8ff95;
-  color: black !important;
+  color: black;
 }
 .nav-bar .nav-bar-body .nav-bar-list .nav-bar-dropdown:hover .dropdown-body {
   display: block;
@@ -164,11 +174,12 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  height: 50px;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  height: 50px;
   border-bottom: 1px solid rgba(248, 255, 149, 0.5);
+  border-top: 1px solid rgba(248, 255, 149, 0.5);
   padding: 5px;
 }
 .nav-bar .nav-bar-body .nav-bar-search #sham-input {
@@ -176,33 +187,32 @@
   background: rgba(128, 128, 128, 0.5);
   border: 2px solid rgba(248, 255, 149, 0.5);
   width: calc(100% - 40px);
-  font-size: 25px;
   line-height: 30px;
   padding-left: 5px;
   color: rgba(248, 255, 149, 0.5);
+  transition: 0.1s;
+  font-size: 25px;
   font-family: "Arsenal", sans-serif;
-  transition: box-shadow 0.1s;
 }
 .nav-bar .nav-bar-body .nav-bar-search #sham-input:hover {
   color: #f8ff95;
 }
 .nav-bar .nav-bar-body .nav-bar-search .search-icon {
-  height: 31.5px;
+  height: calc(0.9 * 35px);
   aspect-ratio: 1/1;
   background: #f8ff95;
   margin-left: 10px;
 }
 .nav-bar .nav-bar-body .nav-bar-extras {
   height: 100px;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
 }
 .nav-bar .nav-bar-body .nav-bar-extras .extras-text {
   border-right: 1px solid rgba(248, 255, 149, 0.5);
   height: 100%;
   width: 70%;
-  padding-top: 5px;
-  padding-left: 5px;
+  padding: 5px 0px 0px 5px;
 }
 .nav-bar .nav-bar-body .nav-bar-extras .extras-text p,
 .nav-bar .nav-bar-body .nav-bar-extras .extras-text a {
@@ -210,28 +220,29 @@
   color: white;
   font-size: 15px;
   position: relative;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Arial", sans-serif;
 }
 .nav-bar .nav-bar-body .nav-bar-extras .extras-map {
-  width: 30%;
-  padding: 0 !important;
-  margin: 0 !important;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 30%;
   text-align: center;
+  height: 100%;
+}
+.nav-bar .nav-bar-body .nav-bar-extras .extras-map a {
+  display: block;
+  height: 100%;
+  padding: 2px;
 }
 .nav-bar .nav-bar-body .nav-bar-extras .extras-map a img {
-  height: 90px;
-  width: 90%;
+  height: 100%;
+  width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 2px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
 }
 
 .nav-bar-show .nav-bar-close {
@@ -1199,10 +1210,12 @@
   font-style: italic;
   color: #f8ff95;
 }
-.accordion .accordion-item .accordion-collapse .accordion-body table tr td:nth-child(1), .accordion .accordion-item .accordion-collapse .accordion-body table tr th:nth-child(1) {
+.accordion .accordion-item .accordion-collapse .accordion-body table tr td:nth-child(1),
+.accordion .accordion-item .accordion-collapse .accordion-body table tr th:nth-child(1) {
   border-left: 0 !important;
 }
-.accordion .accordion-item .accordion-collapse .accordion-body table tr td:nth-child(2), .accordion .accordion-item .accordion-collapse .accordion-body table tr th:nth-child(2) {
+.accordion .accordion-item .accordion-collapse .accordion-body table tr td:nth-child(2),
+.accordion .accordion-item .accordion-collapse .accordion-body table tr th:nth-child(2) {
   border-right: 0 !important;
 }
 .accordion .accordion-item .accordion-collapse .accordion-body table thead th {

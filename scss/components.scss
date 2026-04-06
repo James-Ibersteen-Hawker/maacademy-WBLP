@@ -4,50 +4,59 @@ $border: rgba($accent, 0.5);
 $dark: black;
 $mid: #1c0a00;
 $light: #2e1000;
+$top: white;
 $anim-length: 0.3s;
 $navWidth: 17vw;
 $min: 200px;
 $max: 300px;
-/////navbar//////////navbar//////////navbar//////////navbar/////
-.container-fluid {
-  container-type: inline-size;
-  container-name: overlord;
-}
+$nav-slide: 0.5s;
+$arsenal: "Arsenal", sans-serif;
 @mixin centerFlex {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+@mixin toggle {
+  @include centerFlex();
+  cursor: pointer;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  right: 0;
+  top: 0;
+  transition: $anim-length;
+}
+@mixin item {
+  font-size: 25px;
+  height: 34px;
+  font-family: $arsenal;
+  user-select: none;
+}
+.container-fluid {
+  container-type: inline-size;
+  container-name: overlord;
+}
+/////navbar//////////navbar//////////navbar//////////navbar/////
 .#{$base} {
-  @mixin toggle {
-    @include centerFlex();
-    cursor: pointer;
-    position: absolute;
-    height: 50px;
-    aspect-ratio: 1/1;
-    right: 0;
-    color: $accent;
-  }
   position: fixed;
   top: 0;
   left: 0;
+  padding: 0;
+  margin: 0;
   height: 100vh;
   width: $navWidth;
   max-width: $max;
   min-width: $min;
   z-index: 10;
   background: $dark;
-  transition: 0.5s;
+  transition: $nav-slide;
   transition-timing-function: ease-out;
-  padding: 0 !important;
-  margin: 0 !important;
   filter: drop-shadow(0px 0px 1px $accent);
   .#{$base}-close {
     @include toggle();
     background: rgba($dark, 0.5);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    transition: $anim-length;
     &:hover {
       background: rgba($dark, 0.8);
     }
@@ -59,6 +68,9 @@ $max: 300px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     box-shadow: 0px 0px 2px $border;
+    &:hover {
+      box-shadow: 0px 0px 5px $border;
+    }
   }
   .control-icon {
     height: 50%;
@@ -68,42 +80,24 @@ $max: 300px;
   .#{$base}-header img {
     width: 100%;
     height: auto;
-    user-select: none;
   }
   .#{$base}-body {
     $headHeight: max($min, min($navWidth, $max));
     $searchHeight: 50px;
     $extrasHeight: 100px;
-    $listHeight: calc(100vh - $headHeight - $searchHeight - $extrasHeight);
+    $thin: 1px solid $border;
+    height: calc(100vh - #{$headHeight});
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .#{$base}-list {
-      border-bottom: 1px solid $border;
-      height: $listHeight;
       .#{$base}-item {
+        @include item();
         cursor: pointer;
         position: relative;
-        font-family: "Arsenal", sans-serif;
-        font-size: 25px;
-        height: 34px;
-        user-select: none;
-        margin-top: 1px;
-        margin-bottom: 1px;
-        text-align: right;
+        margin: 1px auto;
         padding-right: 10px;
-        transition: background $anim-length;
-        &:hover {
-          background: $accent;
-          transition: background $anim-length;
-          a {
-            color: $dark;
-            user-select: none;
-          }
-          .#{$base}-item-icon {
-            background: $accent;
-            .#{$base}-item-icon-mask {
-              background: $dark;
-            }
-          }
-        }
+        transition: $anim-length;
         a {
           display: flex;
           justify-content: end;
@@ -120,17 +114,32 @@ $max: 300px;
           top: 0;
           right: 0;
           transform: translateX(100%);
-          transition: background $anim-length;
-          .#{$base}-item-icon-mask {
-            height: 70%;
-            width: 70%;
+          transition: $anim-length;
+        }
+        .#{$base}-item-icon-mask {
+          height: 70%;
+          width: 70%;
+          background: $accent;
+          transition: $anim-length;
+        }
+        &:hover {
+          background: $accent;
+          a {
+            color: $dark;
+          }
+          .#{$base}-item-icon {
             background: $accent;
-            transition: background $anim-length;
+          }
+          .#{$base}-item-icon-mask {
+            background: $dark;
           }
         }
       }
       .#{$base}-dropdown {
-        position: relative;
+        @include item();
+        display: flex;
+        justify-content: end;
+        align-content: center;
         a {
           font-size: 20px;
         }
@@ -141,20 +150,20 @@ $max: 300px;
           position: absolute;
           bottom: 0;
           left: 100%;
-          padding: 0 !important;
+          padding: 0;
           min-width: 140px;
           .nav-dropdown-item a {
+            @include item();
             display: flex;
             align-items: center;
+            justify-content: end;
             padding: 0px 5px;
-            margin: 0 !important;
-            height: 34px;
-            font-size: 25px;
+            margin: 0;
             color: $accent;
             transition: $anim-length;
             &:hover {
               background: $accent;
-              color: $dark !important;
+              color: $dark;
             }
           }
         }
@@ -165,28 +174,32 @@ $max: 300px;
     }
     .#{$base}-search {
       @include centerFlex();
+      $in: 35px;
       cursor: pointer;
-      height: $searchHeight;
       user-select: none;
-      border-bottom: 1px solid $border;
+      height: $searchHeight;
+      border-bottom: $thin;
+      border-top: $thin;
       padding: 5px;
       #sham-input {
-        height: 35px;
+        height: $in;
         background: rgba(128, 128, 128, 0.5);
         border: 2px solid $border;
         width: calc(100% - 40px);
-        font-size: 25px;
         line-height: 30px;
         padding-left: 5px;
         color: $border;
-        font-family: "Arsenal", sans-serif;
-        transition: box-shadow 0.1s;
+        transition: 0.1s;
+        font: {
+          size: 25px;
+          family: $arsenal;
+        }
         &:hover {
           color: $accent;
         }
       }
       .search-icon {
-        height: calc(0.9 * 35px);
+        height: calc(0.9 * #{$in});
         aspect-ratio: 1/1;
         background: $accent;
         margin-left: 10px;
@@ -194,37 +207,39 @@ $max: 300px;
     }
     .#{$base}-extras {
       height: $extrasHeight;
-      overflow: auto;
+      overflow: hidden;
       display: flex;
       .extras-text {
-        border-right: 1px solid $border;
+        border-right: $thin;
         height: 100%;
         width: 70%;
-        padding-top: 5px;
-        padding-left: 5px;
+        padding: 5px 0px 0px 5px;
         p,
         a {
           display: block;
-          color: white;
+          color: $top;
           font-size: 15px;
           position: relative;
-          padding: 0 !important;
-          margin: 0 !important;
-          box-sizing: border-box;
+          padding: 0;
+          margin: 0;
+          font-family: "Arial", sans-serif;
         }
       }
       .extras-map {
-        width: 30%;
-        padding: 0 !important;
-        margin: 0 !important;
         @include centerFlex();
+        width: 30%;
         text-align: center;
-        a img {
-          height: calc(0.9 * $extrasHeight);
-          width: calc(0.9 * 100%);
-          object-fit: cover;
-          border-radius: 2px;
-          user-select: none;
+        height: 100%;
+        a {
+          display: block;
+          height: 100%;
+          padding: 2px;
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 2px;
+          }
         }
       }
     }
@@ -1135,11 +1150,11 @@ $footBase: "footer";
       border: none !important;
       background: rgba(66, 37, 21, 0.8);
       .accordion-body {
-        color: white;
+        color: $top;
         table {
           width: 100%;
           border-collapse: collapse;
-          font-family: 'Arial', sans-serif;
+          font-family: "Arial", sans-serif;
           tr {
             td,
             th {
@@ -1151,7 +1166,7 @@ $footBase: "footer";
               width: 50%;
               .time {
                 margin: 5px !important;
-                font-family: 'ABeeZee', sans-serif;
+                font-family: "ABeeZee", sans-serif;
                 font-style: italic;
               }
             }
@@ -1159,10 +1174,12 @@ $footBase: "footer";
               font-style: italic;
               color: $accent;
             }
-            td:nth-child(1), th:nth-child(1) {
+            td:nth-child(1),
+            th:nth-child(1) {
               border-left: 0 !important;
             }
-            td:nth-child(2), th:nth-child(2) {
+            td:nth-child(2),
+            th:nth-child(2) {
               border-right: 0 !important;
             }
           }
@@ -1173,7 +1190,7 @@ $footBase: "footer";
               padding: 5px 0px;
               color: white;
               font-style: normal;
-              font-family: 'Arsenal', sans-serif;
+              font-family: "Arsenal", sans-serif;
             }
           }
         }
