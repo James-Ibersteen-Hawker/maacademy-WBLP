@@ -1028,6 +1028,10 @@ $footBase: "footer";
         font-family: "ABeeZee", sans-serif;
         text-align: center;
         font-size: 18px;
+        transition: $anim-length;
+        &:hover {
+          background: rgb(243, 243, 243);
+        }
       }
     }
     .css-carousel-container {
