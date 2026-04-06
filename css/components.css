@@ -936,7 +936,7 @@
   position: relative;
   z-index: 2;
   width: 220px;
-  filter: brightness(70%);
+  filter: brightness(100%);
   border: 1px solid rgba(248, 255, 149, 0.5);
   cursor: pointer;
 }
@@ -953,8 +953,11 @@
   z-index: 3;
 }
 .css-carousel-container .css-carousel div.item:target, .css-carousel-container .css-carousel div.item.activeE {
-  filter: brightness(100%);
-  transform: scale(1.03);
+  transform: scale(1.05);
+  border: 2px solid #f8ff95;
+}
+.css-carousel-container .css-carousel div.item:target:hover, .css-carousel-container .css-carousel div.item.activeE:hover {
+  transform: scale(1.05) !important;
 }
 .css-carousel-container .css-control-buttons {
   -webkit-mask-image: unset;

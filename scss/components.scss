@@ -918,7 +918,7 @@ $footBase: "footer";
       position: relative;
       z-index: 2;
       width: 220px;
-      filter: brightness(70%);
+      filter: brightness(100%);
       border: 1px solid $border;
       cursor: pointer;
       img {
@@ -934,8 +934,11 @@ $footBase: "footer";
       }
       &:target,
       &.activeE {
-        filter: brightness(100%);
-        transform: scale(1.03);
+        transform: scale(1.05);
+        border: 2px solid $accent;
+        &:hover {
+          transform: scale(1.05) !important;
+        }
       }
     }
   }
