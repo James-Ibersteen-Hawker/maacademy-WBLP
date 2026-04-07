@@ -52,6 +52,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Ingrid+Darling&display=swap"
+      rel="stylesheet"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Noto+Music&display=swap"
       rel="stylesheet"
     />
@@ -250,15 +254,18 @@
           <loading v-if="!content?.['schedules']"></loading>
         </section>
         <section class="special">
-          <special-class
-            v-for="(c, i) in content?.['special']"
-            :title="c.Name"
-            :teacher="c.Teacher"
-            :date-time="c.Times"
-            :text="c.About"
-            :when="c.When"
-            :key="i"
-          ></special-class>
+          <div class="inner row justify-content-center">
+            <h1>Special Classes</h1>
+            <special-class
+              v-for="(c, i) in content?.['special']"
+              :title="c.Name"
+              :teacher="c.Teacher"
+              :date-time="c.Times"
+              :text="c.About"
+              :when="c.When"
+              :key="i"
+            ></special-class>
+          </div>
         </section>
       </div>
       <page-footer

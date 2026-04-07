@@ -1231,4 +1231,75 @@
   color: white;
   font-style: normal;
   font-family: "Arsenal", sans-serif;
+}
+
+.special-class {
+  margin: 0;
+  padding-bottom: 25px;
+}
+.special-class .special-class-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #87d1ff;
+  margin: 0px;
+  border: 2px solid black;
+  text-align: center;
+  color: black;
+  border-radius: 10px;
+  padding: 15px;
+  height: 100%;
+}
+.special-class .special-class-card .special-class-header {
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  font-family: "Jomhuria", sans-serif;
+  font-size: 60px;
+  line-height: 50px;
+  border-bottom: 2px solid black;
+}
+.special-class .special-class-card .special-class-info {
+  font-family: "ABeeZee", sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  border-bottom: 2px solid black;
+  padding: 5px 0;
+}
+.special-class .special-class-card .special-class-info p {
+  margin: 0;
+}
+.special-class .special-class-card .special-class-body {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  font-family: "ABeeZee", sans-serif;
+  font-size: 15px;
+}
+.special-class .special-class-card .special-class-foot {
+  border-top: 2px solid black;
+}
+.special-class .special-class-card .special-class-foot a {
+  text-decoration: none;
+}
+.special-class .special-class-card .special-class-foot .special-button {
+  background: #234F72;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10px;
+  font-family: "ABeeZee", sans-serif;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: white;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.special-class .special-class-card .special-class-foot .special-button:hover {
+  background: #4788bd;
+  color: black;
 }/*# sourceMappingURL=components.css.map */

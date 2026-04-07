@@ -480,8 +480,9 @@ const specialClass = {
     return { props };
   },
   template: `
-  <div class="special-class">
+  <div class="special-class col-12 col-lg-6 col-xlg-4">
     <div class="special-class-card">
+      <div>
       <div class="special-class-header">
         {{props.title}}
       </div>
@@ -492,8 +493,11 @@ const specialClass = {
       <div class="special-class-body">
         {{props.text}}
       </div>
+      </div>
+      <div>
       <div class="special-class-foot">
-        <div class="special-button">{{props.when}}</div>
+        <a href="../html/contact.html"><div class="special-button">{{props.when}}</div></a>
+      </div>
       </div>
     </div>
   </div>
