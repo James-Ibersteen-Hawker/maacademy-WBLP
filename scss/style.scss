@@ -846,6 +846,26 @@ img {
       padding: 10px 35px;
       border-bottom: $standard;
     }
+    .special {
+      width: calc(100% + 100px);
+      margin: 0px -50px -10px -50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, $light, $dark 10% 90%, $light);
+      .inner {
+        h1 {
+          text-align: center;
+          font-size: 50px;
+          font-family: 'Ingrid Darling', cursive;
+        }
+        width: 80%;
+        background: $mid;
+        border-right: 3px solid $border;
+        border-left: 3px solid $border;
+        padding: 10px;
+      }
+    }
   }
   .contact-form.container-fluid {
     background: linear-gradient(to bottom, $light, $mid);

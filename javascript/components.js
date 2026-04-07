@@ -406,11 +406,11 @@ const instrumentComponent = {
   <div class="accordion" :id="'accordionID' + props.number" v-if="props.instrument">
     <div class="accordion-item">
       <h2 class="accordion-header">
-       <button class="accordion-button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="true" :aria-controls="'collapse' + props.number">
+       <button class="accordion-button collapsed" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="false" :aria-controls="'collapse' + props.number">
           {{props.instrument.name}}
        </button>
      </h2>
-     <div :id="'collapse' + props.number" class="accordion-collapse collapse show" :data-bs-parent="'#' + 'accordionID' + props.number">
+     <div :id="'collapse' + props.number" class="accordion-collapse collapse" :data-bs-parent="'#' + 'accordionID' + props.number">
        <div class="accordion-body">
          <table>
          <thead>
@@ -480,8 +480,9 @@ const specialClass = {
     return { props };
   },
   template: `
-  <div class="special-class">
+  <div class="special-class col-12 col-lg-6 col-xlg-4">
     <div class="special-class-card">
+      <div>
       <div class="special-class-header">
         {{props.title}}
       </div>
@@ -492,8 +493,11 @@ const specialClass = {
       <div class="special-class-body">
         {{props.text}}
       </div>
+      </div>
+      <div>
       <div class="special-class-foot">
-        <div class="special-button">{{props.when}}</div>
+        <a href="../html/contact.html"><div class="special-button">{{props.when}}</div></a>
+      </div>
       </div>
     </div>
   </div>

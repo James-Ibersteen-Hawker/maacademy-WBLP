@@ -887,6 +887,26 @@ img {
   padding: 10px 35px;
   border-bottom: 5px solid rgba(248, 255, 149, 0.5);
 }
+#vue_app .content-container.container-fluid .special {
+  width: calc(100% + 100px);
+  margin: 0px -50px -10px -50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #2e1000, black 10% 90%, #2e1000);
+}
+#vue_app .content-container.container-fluid .special .inner h1 {
+  text-align: center;
+  font-size: 50px;
+  font-family: "Ingrid Darling", cursive;
+}
+#vue_app .content-container.container-fluid .special .inner {
+  width: 80%;
+  background: #1c0a00;
+  border-right: 3px solid rgba(248, 255, 149, 0.5);
+  border-left: 3px solid rgba(248, 255, 149, 0.5);
+  padding: 10px;
+}
 #vue_app .contact-form.container-fluid {
   background: linear-gradient(to bottom, #2e1000, #1c0a00);
   width: 98%;

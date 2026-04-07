@@ -80,6 +80,7 @@ function imgGalleries(data) {
   return Object.entries(obj).length > 0 ? obj : null;
 }
 const radioCity = (data) => data;
+const special = (data) => ({special: data});
 //----------helpers----------//
 const funcLUT = {
   "front page": frontpage,
@@ -87,6 +88,7 @@ const funcLUT = {
   "contact info + opportunities": contactOpp,
   "image galleries": imgGalleries,
   "radio city gallery": radioCity,
+  "special classes": special,
 };
 export async function sheet(fetchlink, abortTimeout) {
   const controller = new AbortController();
