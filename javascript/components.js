@@ -336,7 +336,7 @@ const teacherCard = {
   emits: ["search-class"],
   setup(props, { emit }) {
     const searchClass = () => emit("search-class", props.name);
-    const photo = (url) => (!url ? "/imgs/no-image.png" : url.trim());
+    const photo = (url) => (!url ? "../imgs/no-image.png" : url.trim());
     function name(input) {
       return input.trim().toLowerCase().split(/\s+/g).join("");
     }
