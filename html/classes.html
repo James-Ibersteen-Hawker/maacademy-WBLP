@@ -265,6 +265,7 @@
               :when="c.When"
               :key="i"
             ></special-class>
+            <loading v-if="!content?.['special']"></loading>
           </div>
         </section>
       </div>
