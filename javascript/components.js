@@ -406,11 +406,11 @@ const instrumentComponent = {
   <div class="accordion" :id="'accordionID' + props.number" v-if="props.instrument">
     <div class="accordion-item">
       <h2 class="accordion-header">
-       <button class="accordion-button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="true" :aria-controls="'collapse' + props.number">
+       <button class="accordion-button collapsed" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="false" :aria-controls="'collapse' + props.number">
           {{props.instrument.name}}
        </button>
      </h2>
-     <div :id="'collapse' + props.number" class="accordion-collapse collapse show" :data-bs-parent="'#' + 'accordionID' + props.number">
+     <div :id="'collapse' + props.number" class="accordion-collapse collapse" :data-bs-parent="'#' + 'accordionID' + props.number">
        <div class="accordion-body">
          <table>
          <thead>
