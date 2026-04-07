@@ -340,10 +340,13 @@ const teacherCard = {
     function name(input) {
       return input.trim().toLowerCase().split(/\s+/g).join("");
     }
-    return { props, searchClass, photo, name };
+    function id(input) {
+      return CSS.escape(input);
+    }
+    return { props, searchClass, photo, name, id };
   },
   template: `
-  <div class="teacher-container" :data-specs="props.specs">
+  <div class="teacher-container" :data-specs="props.specs" :id="id(props.name)">
   <div class="teacher-card">
     <div class="teacher-img teacher-section">
       <img :src="photo(props.photo)" :alt="props.name" loading="lazy">
@@ -401,7 +404,10 @@ const instrumentComponent = {
     number: {type: Number, default: 1}
   },
   setup(props) {
-    return { props };
+    function reverse(name) {
+      return `../html/teachers.html#${encodeURIComponent(CSS.escape(name))}`
+    }
+    return { props, reverse };
   },
   template: `
   <div class="accordion" :id="'accordionID' + props.number" v-if="props.instrument">
@@ -422,7 +428,7 @@ const instrumentComponent = {
           </thead>
           <tbody>
             <tr v-for="teacher in props.instrument.teachers">
-              <th scope="row">{{teacher.name}}</th>
+              <th scope="row"><a :href="reverse(teacher.name)" target="_self">{{teacher.name}}</a></th>
               <td>
                 <p class="time" v-for="time in teacher.times">{{time}}</p>
               </td>
@@ -478,11 +484,15 @@ const specialClass = {
     when: { type: String, default: "" },
   },
   setup(props) {
-    return { props };
+    const colors = ref(["#87d1ff", "#a9ff87", "#ffe787"]);
+    const random = () => {
+      return Math.floor(Math.random() * colors.value.length);
+    }
+    return { props, colors, random };
   },
   template: `
   <div class="special-class col-12 col-lg-6 col-xlg-4">
-    <div class="special-class-card">
+    <div class="special-class-card" :style="{'background': colors[random()]}">
       <div>
       <div class="special-class-header">
         {{props.title}}

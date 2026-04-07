@@ -766,7 +766,25 @@
   transform: scale(105%);
   color: #f8ff95;
 }
+.teacher-container:target .teacher-card {
+  background: linear-gradient(110deg, #b94903, #090400) !important;
+}
+.teacher-container:target {
+  animation-name: out;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+}
 
+@keyframes out {
+  from {
+    filter: drop-shadow(0px 0px 10px rgba(23, 82, 210, 0.8));
+  }
+  to {
+    filter: drop-shadow(0 0 0 transparent);
+  }
+}
 @container overlord (max-width: 368px) {
   .teacher-container {
     padding-left: 0;
@@ -1209,6 +1227,15 @@
   vertical-align: middle;
   border-bottom: 0 !important;
   width: 50%;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table tr td a,
+.accordion .accordion-item .accordion-collapse .accordion-body table tr th a {
+  color: #f8ff95;
+  transition: 0.3s;
+}
+.accordion .accordion-item .accordion-collapse .accordion-body table tr td a:hover,
+.accordion .accordion-item .accordion-collapse .accordion-body table tr th a:hover {
+  color: white;
 }
 .accordion .accordion-item .accordion-collapse .accordion-body table tr td .time,
 .accordion .accordion-item .accordion-collapse .accordion-body table tr th .time {
