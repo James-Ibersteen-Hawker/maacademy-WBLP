@@ -811,7 +811,7 @@ img {
 #vue_app .content-container.container-fluid .radio-top.row .col-12 p:has(a) {
   font-style: italic;
 }
-#vue_app .content-container.container-fluid .radio-top.row .col-12 img {
+#vue_app .content-container.container-fluid .radio-top.row .col-12 video {
   width: 100%;
 }
 #vue_app .content-container.container-fluid .radio-gallery {
