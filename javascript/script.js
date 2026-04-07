@@ -164,7 +164,21 @@ const App = createApp({
       const repoBase = inRepo ? REPONAME : "";
       window.location.href = `${window.location.origin}${repoBase}/html/classes.html?q=${encodeURIComponent(name.trim())}`;
     }
-    // onMounted(() => setupSearch());
+    onMounted(async () => {
+      const searchString = window.location.search;
+      const urlParams = new URLSearchParams(searchString);
+      const accordion = urlParams.get("accordion");
+      if (accordion) {
+        await Vue.nextTick()
+        const elems = Array.from(document.querySelectorAll(".accordion"));
+        console.log(elems, accordion)
+        if (elems.length > 0) {
+          const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === accordion.toLowerCase());
+          console.log(match)
+          
+        }
+      }
+    })
     return {
       searchSite,
       content,

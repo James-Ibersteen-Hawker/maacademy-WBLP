@@ -335,7 +335,7 @@ const teacherCard = {
   },
   emits: ["search-class"],
   setup(props, { emit }) {
-    const searchClass = () => emit("search-class", props.name);
+    const searchClass = (spec) => emit("search-class", [props.name, spec]);
     const photo = (url) => (!url ? "../imgs/no-image.png" : url.trim());
     function name(input) {
       return input.trim().toLowerCase().split(/\s+/g).join("");
@@ -354,13 +354,6 @@ const teacherCard = {
     <div class="teacher-section teacher-body">
       <div class="teacher-header">
         <div>{{props.name}}</div>
-        <div class="teacher-chips">
-          <ul>
-            <li v-for="spec in props.specs" class="chip">
-              {{spec}}
-            </li>
-          </ul>
-        </div>
       </div>
       <div class="teacher-main">
         <div class="teacher-blurb">
@@ -368,8 +361,15 @@ const teacherCard = {
           <div class="see-more" data-bs-toggle="modal" :data-bs-target="'#' + name(props.name) + 'about-modal'"></div>
         </div>
         <div class="teacher-actions">
-          <p class="action-button" @click="searchClass">See the Schedule</p>
-          <a class="action-button" href="/html/contact.html">Schedule a Class</a>
+          <div class="teacher-chips">
+          Class Schedule: 
+          <ul>
+            <li v-for="spec in props.specs" class="chip" @click="searchClass(spec)">
+              {{spec}}
+            </li>
+          </ul>
+          </div>
+          <a class="action-button" href="./contact.html">Schedule a Class</a>
         </div>
       </div>
     </div>
@@ -407,17 +407,25 @@ const instrumentComponent = {
     function reverse(name) {
       return `../html/teachers.html#${encodeURIComponent(CSS.escape(name))}`
     }
-    return { props, reverse };
+    function safe(name) {
+      return CSS.escape(name);
+    }
+    return { props, reverse, safe };
   },
   template: `
-  <div class="accordion" :id="'accordionID' + props.number" v-if="props.instrument">
+  <div 
+    class="accordion" 
+    :id="'accordionID' + props.number" 
+    v-if="props.instrument" 
+    :data-instrument="safe(props.instrument.name)"
+  >
     <div class="accordion-item">
       <h2 class="accordion-header">
-       <button class="accordion-button collapsed" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="false" :aria-controls="'collapse' + props.number">
+       <button class="accordion-button" :class="{'collapsed': true}" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="false" :aria-controls="'collapse' + props.number">
           {{props.instrument.name}}
        </button>
      </h2>
-     <div :id="'collapse' + props.number" class="accordion-collapse collapse" :data-bs-parent="'#' + 'accordionID' + props.number">
+     <div :id="'collapse' + props.number" class="accordion-collapse collapse" :class="{'show': false}" :data-bs-parent="'#' + 'accordionID' + props.number">
        <div class="accordion-body">
          <table>
          <thead>
@@ -427,8 +435,10 @@ const instrumentComponent = {
            </tr>
           </thead>
           <tbody>
-            <tr v-for="teacher in props.instrument.teachers">
-              <th scope="row"><a :href="reverse(teacher.name)" target="_self">{{teacher.name}}</a></th>
+            <tr v-for="teacher in props.instrument.teachers" :id="safe(teacher.name)">
+              <th scope="row">
+                <a :href="reverse(teacher.name)" target="_self">{{teacher.name}}</a>
+              </th>
               <td>
                 <p class="time" v-for="time in teacher.times">{{time}}</p>
               </td>
