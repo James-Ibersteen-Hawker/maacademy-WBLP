@@ -213,6 +213,7 @@
   height: 100%;
   width: 70%;
   padding: 5px 0px 0px 5px;
+  min-height: 100px;
 }
 .nav-bar .nav-bar-body .nav-bar-extras .extras-text p,
 .nav-bar .nav-bar-body .nav-bar-extras .extras-text a {
@@ -228,6 +229,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  display: block;
   width: 30%;
   text-align: center;
   height: 100%;
@@ -236,9 +238,11 @@
   display: block;
   height: 100%;
   padding: 2px;
+  min-height: 100px;
 }
 .nav-bar .nav-bar-body .nav-bar-extras .extras-map a img {
-  height: 100%;
+  display: block;
+  min-height: calc(100px - 4px);
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;

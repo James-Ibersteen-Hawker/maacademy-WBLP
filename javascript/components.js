@@ -89,10 +89,11 @@ const navBar = {
       },
       { deep: true },
     );
-    Vue.onMounted(() => {
-      checkFit();
+    Vue.onMounted(async() => {
       const observer = new ResizeObserver(() => checkFit());
       observer.observe(total.value);
+      await Vue.nextTick();
+      checkFit();
     });
     return {
       formSubmit,
