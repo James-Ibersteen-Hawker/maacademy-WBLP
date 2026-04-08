@@ -1268,6 +1268,14 @@
   font-family: "ABeeZee", sans-serif;
   font-style: italic;
 }
+.accordion .accordion-item .accordion-collapse .accordion-body table tr.activeRow {
+  background: rgb(237, 108, 39);
+  animation-name: fadeOut;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+}
 .accordion .accordion-item .accordion-collapse .accordion-body table tr th {
   font-style: italic;
   color: #f8ff95;
@@ -1357,4 +1365,13 @@
 .special-class .special-class-card .special-class-foot .special-button:hover {
   background: #4788bd;
   color: black;
+}
+
+@keyframes fadeOut {
+  from {
+    background: rgb(237, 108, 39);
+  }
+  to {
+    background: transparent;
+  }
 }/*# sourceMappingURL=components.css.map */

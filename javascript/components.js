@@ -333,7 +333,7 @@ const teacherCard = {
     blurb: { type: String, default: "" },
     specs: { type: Array, default: () => [] },
   },
-  emits: ["search-class"],
+  emits: ["search-class", "prefill"],
   setup(props, { emit }) {
     const searchClass = (spec) => emit("search-class", [props.name, spec]);
     const photo = (url) => (!url ? "../imgs/no-image.png" : url.trim());
@@ -343,7 +343,10 @@ const teacherCard = {
     function id(input) {
       return CSS.escape(input);
     }
-    return { props, searchClass, photo, name, id };
+    function prefill(name) {
+      emit("prefill", name)
+    }
+    return { props, searchClass, photo, name, id, prefill };
   },
   template: `
   <div class="teacher-container" :data-specs="props.specs" :id="id(props.name)">
@@ -369,7 +372,7 @@ const teacherCard = {
             </li>
           </ul>
           </div>
-          <a class="action-button" href="./contact.html">Schedule a Class</a>
+          <a class="action-button" href="./contact.html" @click="prefill(props.name)">Contact</a>
         </div>
       </div>
     </div>
@@ -421,11 +424,11 @@ const instrumentComponent = {
   >
     <div class="accordion-item">
       <h2 class="accordion-header">
-       <button class="accordion-button" :class="{'collapsed': true}" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="false" :aria-controls="'collapse' + props.number">
+       <button :id="'button' + props.number" class="accordion-button collapsed" data-bs-toggle="collapse" :data-bs-target="'#collapse' + props.number" aria-expanded="false" :aria-controls="'collapse' + props.number">
           {{props.instrument.name}}
        </button>
      </h2>
-     <div :id="'collapse' + props.number" class="accordion-collapse collapse" :class="{'show': false}" :data-bs-parent="'#' + 'accordionID' + props.number">
+     <div :id="'collapse' + props.number" class="accordion-collapse collapse" :data-bs-parent="'#' + 'accordionID' + props.number">
        <div class="accordion-body">
          <table>
          <thead>

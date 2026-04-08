@@ -146,7 +146,7 @@ const App = createApp({
       const repoBase = inRepo ? REPONAME : "";
       window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(exact.trim())}`;
     }
-    function filterTeachers({data: filters}) {
+    function filterTeachers({ data: filters }) {
       const elems = Array.from(document.querySelectorAll(".teacher-container"));
       elems.forEach(el => el.classList.remove("d-none"))
       const applied = Object.entries(filters).filter(([_, v]) => Boolean(v)).map(([k]) => k);
@@ -159,25 +159,38 @@ const App = createApp({
       out.forEach(el => el.classList.add("d-none"))
     }
     function seeSchedule(e) {
-      const name = e;
+      const [name, spec] = e;
       const inRepo = window.location.pathname.includes(REPONAME);
       const repoBase = inRepo ? REPONAME : "";
-      window.location.href = `${window.location.origin}${repoBase}/html/classes.html?q=${encodeURIComponent(name.trim())}`;
+      const encodedName = encodeURIComponent(name.trim());
+      const encodedSpec = encodeURIComponent(spec.trim())
+      window.location.href = `${window.location.origin}${repoBase}/html/classes.html?teacher=${encodedName}&accordion=${encodedSpec}`;
     }
     onMounted(async () => {
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
       const accordion = urlParams.get("accordion");
-      if (accordion) {
-        await Vue.nextTick()
-        const elems = Array.from(document.querySelectorAll(".accordion"));
-        console.log(elems, accordion)
-        if (elems.length > 0) {
-          const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === accordion.toLowerCase());
-          console.log(match)
-          
-        }
-      }
+      const teacher = urlParams.get('teacher');
+      if (!accordion) return
+      await Vue.nextTick()
+      const elems = Array.from(document.querySelectorAll(".accordion"));
+      if (elems.length === 0) return;
+      const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === accordion.toLowerCase());
+      const number = match.id.slice(11);
+      const collapse = match.querySelector(`#collapse${number}`);
+      const button = match.querySelector(`#button${number}`);
+      collapse.classList.add("show")
+      button.classList.remove("collapsed")
+      button.setAttribute("aria-expanded", true);
+      if (!teacher) return;
+      const rows = [...collapse.querySelectorAll("tr")];
+      const row = rows.find(el => el.id.toLowerCase().includes(CSS.escape(teacher.toLowerCase())));
+      if (!row) return;
+      row.classList.add("activeRow");
+      row.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      })
     })
     return {
       searchSite,

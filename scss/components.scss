@@ -1224,6 +1224,14 @@ $footBase: "footer";
                 font-style: italic;
               }
             }
+            &.activeRow {
+              background: rgb(237, 108, 39);
+              animation-name: fadeOut;
+              animation-duration: 5s;
+              animation-fill-mode: forwards;
+              animation-iteration-count: 1;
+              animation-timing-function: ease-out;
+            }
             th {
               font-style: italic;
               color: $accent;
@@ -1322,5 +1330,14 @@ $footBase: "footer";
         }
       }
     }
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    background: rgb(237, 108, 39);
+  }
+  to {
+    background: transparent;
   }
 }
