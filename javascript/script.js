@@ -46,6 +46,7 @@ const App = createApp({
     const results = reactive({ data: [] });
     const loading = ref(false);
     const currentLocation = window.location.href;
+    const blank = ref("")
     function setupSearch() {
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
@@ -157,6 +158,8 @@ const App = createApp({
         return !applied.every(fil => specs.includes(fil.toLowerCase()))
       })
       out.forEach(el => el.classList.add("d-none"))
+      if (out.length === elems.length) blank.value = "No Results."
+      else blank.value = ""
     }
     function seeSchedule(e) {
       const [name, spec] = e;
@@ -200,12 +203,12 @@ const App = createApp({
       runSelection,
       copyright,
       filterTeachers,
-      // testInstrument,
       loading,
       weblink,
       currentLocation,
       defaultCarousel,
-      seeSchedule
+      seeSchedule,
+      blank
     };
   },
 });

@@ -908,6 +908,12 @@ img {
   border-left: 3px solid rgba(248, 255, 149, 0.5);
   padding: 10px;
 }
+#vue_app .content-container.container-fluid .blank {
+  text-align: center;
+  padding: 10px;
+  font-family: "Wittgenstein", serif;
+  font-size: 20px;
+}
 #vue_app .contact-form.container-fluid {
   background: linear-gradient(to bottom, #2e1000, #1c0a00);
   width: 98%;

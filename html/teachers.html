@@ -232,8 +232,12 @@
       </div>
       <div class="container-fluid content-container">
         <section class="heading-top row">
-          <img class="col-12 col-lg-6" src="../imgs/teachers.png" alt="Lana with several of her teachers"/>
-          <p class="col-12 col-lg-6" >
+          <img
+            class="col-12 col-lg-6"
+            src="../imgs/teachers.png"
+            alt="Lana with several of her teachers"
+          />
+          <p class="col-12 col-lg-6">
             Our Teaching Artists are dedicated professionals, who love their
             respective art, and, love to pass it on to the next generation of
             Artists. Or teachers hold Masters degrees from some of the most
@@ -248,7 +252,14 @@
             of time.
           </p>
         </section>
-        <class-filter :values="content?.['filters']" @select="filterTeachers"></class-filter>
+        <div class="class-filters">
+          <div class="filter-name">Filters</div>
+          <class-filter
+          :values="content?.['filters']"
+          @select="filterTeachers"
+        ></class-filter>
+          <loading v-if="!content?.['filters']"></loading>
+        </div>
         <div class="teachers">
           <teacher
             v-for="{TEACHERS: t} in content?.['teachers']"
@@ -258,6 +269,7 @@
             :specs="t.specs"
             @search-class="seeSchedule"
           ></teacher>
+          <div class="blank" v-if="blank !== ''">{{blank}}</div>
           <loading v-if="!content?.['teachers']"></loading>
         </div>
       </div>

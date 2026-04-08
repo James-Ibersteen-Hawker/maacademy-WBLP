@@ -1230,7 +1230,8 @@
           appearance: none;
 }
 .class-filters .filters .filter input:checked + label {
-  color: #f8ff95;
+  color: white;
+  font-weight: 900;
   background: #2e1000;
   box-shadow: 0px 0px 5px black;
 }

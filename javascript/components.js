@@ -478,15 +478,12 @@ const classFilter = {
     return { props, safe, select, filters };
   },
   template: `
-  <div class="class-filters">
-    <div class="filter-name">Filters</div>
     <div class="filters">
       <div class="filter" v-for="(value, i) in props.values" :key="i">
         <input type="checkbox" v-model="filters.data[value]" name="safe(value)" :id="safe(value)+'filter'" :value="safe(value)" @change="select">
         <label :for="safe(value) + 'filter'">{{value}}</label>
       </div>
     </div>
-  </div>
   `,
 }; //classFilter done
 const specialClass = {
