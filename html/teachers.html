@@ -252,8 +252,15 @@
             of time.
           </p>
         </section>
+        <section class="contact-blurb">
+          Call us at
+          <a href="'tel:' + content?.['Phone Number']" target="_blank">{{content?.['Phone Number'] || "XXX-XXX-XXXX"}}</a>
+          or
+          <a href="./contact.html">Contact Us</a>
+          to schedule a class
+        </section>
         <div class="class-filters">
-          <div class="filter-name">Filters</div>
+          <div class="filter-name">Select Filters:</div>
           <class-filter
           :values="content?.['filters']"
           @select="filterTeachers"

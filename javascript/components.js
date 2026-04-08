@@ -373,7 +373,6 @@ const teacherCard = {
             </li>
           </ul>
           </div>
-          <a class="action-button" href="./contact.html" @click="prefill(props.name)">Contact</a>
         </div>
       </div>
     </div>
@@ -503,7 +502,7 @@ const specialClass = {
   },
   template: `
   <div class="special-class col-12 col-lg-6 col-xlg-4">
-    <div class="special-class-card" :style="{'background': colors[random()]}">
+    <div class="special-class-card">
       <div>
       <div class="special-class-header">
         {{props.title}}

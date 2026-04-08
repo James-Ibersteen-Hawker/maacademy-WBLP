@@ -174,9 +174,11 @@ const App = createApp({
       const urlParams = new URLSearchParams(searchString);
       const accordion = urlParams.get("accordion");
       const teacher = urlParams.get('teacher');
+      // const q = urlParams.get("q");
       if (!accordion) return
       await Vue.nextTick()
       const elems = Array.from(document.querySelectorAll(".accordion"));
+
       if (elems.length === 0) return;
       const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === accordion.toLowerCase());
       const number = match.id.slice(11);

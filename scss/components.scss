@@ -747,7 +747,6 @@ $teacher: "teacher";
               font-family: "Wittgenstein", serif;
               font-style: italic;
               padding-bottom: 5px;
-              border-bottom: 1px solid $border;
               width: calc(100% + 20px);
               margin: 5px -10px;
               ul {
@@ -1150,10 +1149,8 @@ $footBase: "footer";
   font-family: "Wittgenstein", serif;
   font-size: 18px;
   .filter-name {
-    font-weight: 900;
-    font-variant: small-caps;
-    font-size: 25px;
-    padding-right: 20px;
+    font-size: 16px;
+    padding-right: 10px;
   }
   .filters {
     display: flex;
@@ -1306,12 +1303,19 @@ $footBase: "footer";
   $black: 2px solid $dark;
   margin: 0;
   padding-bottom: 25px;
+  &:nth-of-type(3n - 2) .special-class-card {
+    background: #87d1ff;
+  }
+  &:nth-of-type(3n - 1) .special-class-card {
+    background: #a9ff87;
+  }
+  &:nth-of-type(3n) .special-class-card {
+    background: #ffe787;
+  }
   .special-class-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    // background: #87d1ff;
-    // background: rgb(random(255), random(255), random(255));
     margin: 0px;
     border: $black;
     text-align: center;
