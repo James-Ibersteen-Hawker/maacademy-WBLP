@@ -90,6 +90,7 @@ const navBar = {
       { deep: true },
     );
     Vue.onMounted(async() => {
+      checkFit();
       const observer = new ResizeObserver(() => checkFit());
       observer.observe(total.value);
       await Vue.nextTick();
@@ -365,7 +366,7 @@ const teacherCard = {
         </div>
         <div class="teacher-actions">
           <div class="teacher-chips">
-          Class Schedule: 
+          Class Schedule{{props.specs.length > 1 ? "s" : ""}}: 
           <ul>
             <li v-for="spec in props.specs" class="chip" @click="searchClass(spec)">
               {{spec}}
@@ -478,7 +479,7 @@ const classFilter = {
   },
   template: `
   <div class="class-filters">
-    <div class="filter-name">Filters —</div>
+    <div class="filter-name">Filters</div>
     <div class="filters">
       <div class="filter" v-for="(value, i) in props.values" :key="i">
         <input type="checkbox" v-model="filters.data[value]" name="safe(value)" :id="safe(value)+'filter'" :value="safe(value)" @change="select">

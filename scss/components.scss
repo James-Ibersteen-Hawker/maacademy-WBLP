@@ -1152,6 +1152,8 @@ $footBase: "footer";
   .filter-name {
     font-weight: 900;
     font-variant: small-caps;
+    font-size: 25px;
+    padding-right: 20px;
   }
   .filters {
     display: flex;
@@ -1164,17 +1166,30 @@ $footBase: "footer";
       white-space: nowrap;
       label {
         padding-left: 2px;
-        font-style: italic;
+        font-style: normal;
+        font-variant: small-caps;
         color: rgb(205, 205, 205);
         user-select: none;
+        background: $dark;
+        padding: 5px 8px;
+        transition: $anim-length;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid $border;
+        &:hover {
+          color: $accent;
+          background: $mid;
+          box-shadow: 0px 0px 5px $dark;
+        }
       }
       input {
         accent-color: rgba(23, 82, 210, 0.8);
+        appearance: none;
       }
       input:checked + label {
-        font-weight: 900;
-        color: white;
-        margin-left: 3px;
+        color: $accent;
+        background: $light;
+        box-shadow: 0px 0px 5px $dark;
       }
     }
   }

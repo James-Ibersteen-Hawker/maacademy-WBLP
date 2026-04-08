@@ -1189,6 +1189,8 @@
 .class-filters .filter-name {
   font-weight: 900;
   font-variant: small-caps;
+  font-size: 25px;
+  padding-right: 20px;
 }
 .class-filters .filters {
   display: flex;
@@ -1203,19 +1205,34 @@
 }
 .class-filters .filters .filter label {
   padding-left: 2px;
-  font-style: italic;
+  font-style: normal;
+  font-variant: small-caps;
   color: rgb(205, 205, 205);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  background: black;
+  padding: 5px 8px;
+  transition: 0.3s;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+}
+.class-filters .filters .filter label:hover {
+  color: #f8ff95;
+  background: #1c0a00;
+  box-shadow: 0px 0px 5px black;
 }
 .class-filters .filters .filter input {
   accent-color: rgba(23, 82, 210, 0.8);
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 .class-filters .filters .filter input:checked + label {
-  font-weight: 900;
-  color: white;
-  margin-left: 3px;
+  color: #f8ff95;
+  background: #2e1000;
+  box-shadow: 0px 0px 5px black;
 }
 
 .accordion {
