@@ -760,7 +760,7 @@ $teacher: "teacher";
                   cursor: pointer;
                   transition: $anim-length;
                   &:hover {
-                    background: #b94903
+                    background: #b94903;
                   }
                 }
               }
@@ -1119,8 +1119,8 @@ $footBase: "footer";
   margin-bottom: 10px;
   margin-top: 10px;
   .spinner {
-    width: 65px;
     height: 65px;
+    width: 65px;
     animation: rotate 1.2s linear infinite;
     circle {
       fill: none;
@@ -1192,6 +1192,13 @@ $footBase: "footer";
         background: $light;
         box-shadow: 0px 0px 5px $dark;
       }
+    }
+  }
+  .loading {
+    margin: 2px;
+    .spinner {
+      height: 40px;
+      width: 40px;
     }
   }
 }

@@ -1155,8 +1155,8 @@
   margin-top: 10px;
 }
 .loading .spinner {
-  width: 65px;
   height: 65px;
+  width: 65px;
   animation: rotate 1.2s linear infinite;
 }
 .loading .spinner circle {
@@ -1234,6 +1234,13 @@
   font-weight: 900;
   background: #2e1000;
   box-shadow: 0px 0px 5px black;
+}
+.class-filters .loading {
+  margin: 2px;
+}
+.class-filters .loading .spinner {
+  height: 40px;
+  width: 40px;
 }
 
 .accordion {
