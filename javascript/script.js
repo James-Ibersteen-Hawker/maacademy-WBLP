@@ -17,6 +17,7 @@ const worker = new Worker(workerName, { type: "module" });
 const REPONAME = "/maacademy-WBLP";
 const root = location.pathname.includes("/html/") ? "../" : "./";
 const defaultCarousel = new Array(6).fill(root + "imgs/no-image.png");
+const SEP = " \u001f ";
 let searchLUT;
 let engine;
 let engineStart = () => { };
@@ -366,7 +367,7 @@ function handleMessage({ data }, list) {
   const iframes = document.querySelectorAll("iframe.utilIframeJS");
   return Array.from(iframes).reduce((acc, iframe) => {
     const doc = iframe.contentDocument || iframe.contentWindow.document;
-    doc.querySelectorAll("script, style").forEach((e) => e.remove());
+    doc.querySelectorAll("script, style, *[data-searchable='false']").forEach((e) => e.remove());
     const walker = document.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
     const text = [];
     let node;
@@ -375,7 +376,7 @@ function handleMessage({ data }, list) {
       if (trimmed) text.push(trimmed);
     }
     const src = iframe.src.split("/").pop().split("?")[0];
-    acc[src] = text.join(" ");
+    acc[src] = text.join(SEP);
     iframe.remove();
     return acc;
   }, {});
