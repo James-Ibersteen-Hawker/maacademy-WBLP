@@ -1186,6 +1186,10 @@
   font-family: "Wittgenstein", serif;
   font-size: 18px;
 }
+.class-filters .filter-name {
+  font-weight: 900;
+  font-variant: small-caps;
+}
 .class-filters .filters {
   display: flex;
   justify-content: center;
@@ -1201,6 +1205,17 @@
   padding-left: 2px;
   font-style: italic;
   color: rgb(205, 205, 205);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.class-filters .filters .filter input {
+  accent-color: rgba(23, 82, 210, 0.8);
+}
+.class-filters .filters .filter input:checked + label {
+  font-weight: 900;
+  color: white;
+  margin-left: 3px;
 }
 
 .accordion {

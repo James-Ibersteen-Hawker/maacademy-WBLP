@@ -1149,6 +1149,10 @@ $footBase: "footer";
   padding: 5px 35px;
   font-family: "Wittgenstein", serif;
   font-size: 18px;
+  .filter-name {
+    font-weight: 900;
+    font-variant: small-caps;
+  }
   .filters {
     display: flex;
     justify-content: center;
@@ -1162,6 +1166,15 @@ $footBase: "footer";
         padding-left: 2px;
         font-style: italic;
         color: rgb(205, 205, 205);
+        user-select: none;
+      }
+      input {
+        accent-color: rgba(23, 82, 210, 0.8);
+      }
+      input:checked + label {
+        font-weight: 900;
+        color: white;
+        margin-left: 3px;
       }
     }
   }
