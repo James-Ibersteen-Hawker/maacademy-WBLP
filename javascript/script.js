@@ -66,6 +66,7 @@ const App = createApp({
             threshold: 0.4,
             ignoreLocation: true,
           });
+
           engineStart();
         });
       } else if (iframe) {
@@ -170,16 +171,20 @@ const App = createApp({
       const encodedSpec = encodeURIComponent(spec.trim())
       window.location.href = `${window.location.origin}${repoBase}/html/classes.html?teacher=${encodedName}&accordion=${encodedSpec}`;
     }
+    function clearSearch() {
+// const url = new URL(window.location.href);
+      // url.searchParams.delete('q');
+      // url.searchParams.delete("iframe")
+      // window.history.replaceState(null, '', url.toString());
+    }
     onMounted(async () => {
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
       const accordion = urlParams.get("accordion");
       const teacher = urlParams.get('teacher');
-      // const q = urlParams.get("q");
-      if (!accordion) return
+      if (!accordion) return;
       await Vue.nextTick()
       const elems = Array.from(document.querySelectorAll(".accordion"));
-
       if (elems.length === 0) return;
       const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === accordion.toLowerCase());
       const number = match.id.slice(11);
