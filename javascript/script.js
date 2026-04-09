@@ -17,6 +17,7 @@ const worker = new Worker(workerName, { type: "module" });
 const REPONAME = "/maacademy-WBLP";
 const root = location.pathname.includes("/html/") ? "../" : "./";
 const defaultCarousel = new Array(6).fill(root + "imgs/no-image.png");
+const SEP = " \u001f ";
 let searchLUT;
 let engine;
 let engineStart = () => { };
@@ -46,6 +47,7 @@ const App = createApp({
     const results = reactive({ data: [] });
     const loading = ref(false);
     const currentLocation = window.location.href;
+    const blank = ref("")
     function setupSearch() {
       const searchString = window.location.search;
       const urlParams = new URLSearchParams(searchString);
@@ -157,6 +159,8 @@ const App = createApp({
         return !applied.every(fil => specs.includes(fil.toLowerCase()))
       })
       out.forEach(el => el.classList.add("d-none"))
+      if (out.length === elems.length) blank.value = "No Results."
+      else blank.value = ""
     }
     function seeSchedule(e) {
       const [name, spec] = e;
@@ -171,9 +175,11 @@ const App = createApp({
       const urlParams = new URLSearchParams(searchString);
       const accordion = urlParams.get("accordion");
       const teacher = urlParams.get('teacher');
+      // const q = urlParams.get("q");
       if (!accordion) return
       await Vue.nextTick()
       const elems = Array.from(document.querySelectorAll(".accordion"));
+
       if (elems.length === 0) return;
       const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === accordion.toLowerCase());
       const number = match.id.slice(11);
@@ -200,12 +206,12 @@ const App = createApp({
       runSelection,
       copyright,
       filterTeachers,
-      // testInstrument,
       loading,
       weblink,
       currentLocation,
       defaultCarousel,
-      seeSchedule
+      seeSchedule,
+      blank
     };
   },
 });
@@ -361,7 +367,7 @@ function handleMessage({ data }, list) {
   const iframes = document.querySelectorAll("iframe.utilIframeJS");
   return Array.from(iframes).reduce((acc, iframe) => {
     const doc = iframe.contentDocument || iframe.contentWindow.document;
-    doc.querySelectorAll("script, style").forEach((e) => e.remove());
+    doc.querySelectorAll("script, style, *[data-searchable='false']").forEach((e) => e.remove());
     const walker = document.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
     const text = [];
     let node;
@@ -370,7 +376,7 @@ function handleMessage({ data }, list) {
       if (trimmed) text.push(trimmed);
     }
     const src = iframe.src.split("/").pop().split("?")[0];
-    acc[src] = text.join(" ");
+    acc[src] = text.join(SEP);
     iframe.remove();
     return acc;
   }, {});

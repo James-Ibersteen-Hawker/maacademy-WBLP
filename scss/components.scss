@@ -12,6 +12,7 @@ $max: 300px;
 $nav-slide: 0.5s;
 $arsenal: "Arsenal", sans-serif;
 $nav-Z: 10;
+@use "sass:color";
 @mixin centerFlex {
   display: flex;
   justify-content: center;
@@ -747,7 +748,6 @@ $teacher: "teacher";
               font-family: "Wittgenstein", serif;
               font-style: italic;
               padding-bottom: 5px;
-              border-bottom: 1px solid $border;
               width: calc(100% + 20px);
               margin: 5px -10px;
               ul {
@@ -760,7 +760,7 @@ $teacher: "teacher";
                   cursor: pointer;
                   transition: $anim-length;
                   &:hover {
-                    background: #b94903
+                    background: #b94903;
                   }
                 }
               }
@@ -793,6 +793,12 @@ $teacher: "teacher";
   }
   &:target {
     .#{$teacher}-card {
+      background: linear-gradient(110deg, #cf5407, #090400);
+      animation-name: targetFade;
+      animation-timing-function: ease-out;
+      animation-fill-mode: forwards;
+      animation-duration: 5s;
+      animation-iteration-count: 1;
     }
     animation-name: out;
     animation-timing-function: ease-out;
@@ -1118,8 +1124,8 @@ $footBase: "footer";
   margin-bottom: 10px;
   margin-top: 10px;
   .spinner {
-    width: 65px;
     height: 65px;
+    width: 65px;
     animation: rotate 1.2s linear infinite;
     circle {
       fill: none;
@@ -1149,8 +1155,8 @@ $footBase: "footer";
   font-family: "Wittgenstein", serif;
   font-size: 18px;
   .filter-name {
-    font-weight: 900;
-    font-variant: small-caps;
+    font-size: 16px;
+    padding-right: 10px;
   }
   .filters {
     display: flex;
@@ -1163,18 +1169,39 @@ $footBase: "footer";
       white-space: nowrap;
       label {
         padding-left: 2px;
-        font-style: italic;
+        font-style: normal;
+        font-variant: small-caps;
         color: rgb(205, 205, 205);
         user-select: none;
+        background: $dark;
+        padding: 5px 8px;
+        transition: $anim-length;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid $border;
+        &:hover {
+          color: $accent;
+          background: $mid;
+          box-shadow: 0px 0px 5px $dark;
+        }
       }
       input {
         accent-color: rgba(23, 82, 210, 0.8);
+        appearance: none;
       }
       input:checked + label {
+        color: $top;
         font-weight: 900;
-        color: white;
-        margin-left: 3px;
+        background: $light;
+        box-shadow: 0px 0px 5px $dark;
       }
+    }
+  }
+  .loading {
+    margin: 2px;
+    .spinner {
+      height: 40px;
+      width: 40px;
     }
   }
 }
@@ -1282,12 +1309,19 @@ $footBase: "footer";
   $black: 2px solid $dark;
   margin: 0;
   padding-bottom: 25px;
+  &:nth-of-type(3n - 2) .special-class-card {
+    background: #87d1ff;
+  }
+  &:nth-of-type(3n - 1) .special-class-card {
+    background: #a9ff87;
+  }
+  &:nth-of-type(3n) .special-class-card {
+    background: #ffe787;
+  }
   .special-class-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    // background: #87d1ff;
-    // background: rgb(random(255), random(255), random(255));
     margin: 0px;
     border: $black;
     text-align: center;
@@ -1351,5 +1385,16 @@ $footBase: "footer";
   }
   to {
     background: transparent;
+  }
+}
+
+@function blend-color($color1, $color2, $percent) {
+  @return color.mix($color2, $color1, $percent);
+}
+@keyframes targetFade {
+  @for $i from 0 through 100 {
+    #{$i}% {
+      background: linear-gradient(110deg, blend-color(#682800, #cf5407, 100% - $i), #090400);
+    }
   }
 }

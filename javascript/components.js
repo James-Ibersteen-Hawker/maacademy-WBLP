@@ -89,7 +89,8 @@ const navBar = {
       },
       { deep: true },
     );
-    Vue.onMounted(async() => {
+    Vue.onMounted(async () => {
+      checkFit();
       const observer = new ResizeObserver(() => checkFit());
       observer.observe(total.value);
       await Vue.nextTick();
@@ -124,7 +125,7 @@ const navBar = {
     };
   },
   template: `
-  <div ref="total" class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
+  <div ref="total" data-searchable="false" class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
     <div class="nav-bar-close" @click.stop="instClose">
       <div class="control-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/close.png')"></div>
     </div>
@@ -176,7 +177,7 @@ const navBar = {
       </div>
     </div>
   </div>
-  <div class="landscapeBar">
+  <div class="landscapeBar" data-searchable="false">
     <div class="menu">
       <div class="buttonContainer">
       <div class="button" :style="makeMaskStyle(prefix() + 'webicons/more.png')"></div>
@@ -196,7 +197,7 @@ const navBar = {
     </div>
   </div>
   <!--modal-->
-  <div class="search-modal modal fade" tabindex="-1" id="search-modal" aria-labelledby="searchModalLabel">
+  <div class="search-modal modal fade" tabindex="-1" data-searchable="false" id="search-modal" aria-labelledby="searchModalLabel">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-body">
@@ -233,7 +234,7 @@ const footer = {
     return { props };
   },
   template: `
-  <footer class="footer-icons">
+  <footer class="footer-icons" data-searchable="false">
       <div class="footer-icons-container">
        <div class="footer-icons-icon" v-for="icon in props.icons">
          <a :href="icon.Link" target="_blank">
@@ -365,14 +366,13 @@ const teacherCard = {
         </div>
         <div class="teacher-actions">
           <div class="teacher-chips">
-          Class Schedule: 
+          Class Schedule{{props.specs.length > 1 ? "s" : ""}}: 
           <ul>
             <li v-for="spec in props.specs" class="chip" @click="searchClass(spec)">
               {{spec}}
             </li>
           </ul>
           </div>
-          <a class="action-button" href="./contact.html" @click="prefill(props.name)">Contact</a>
         </div>
       </div>
     </div>
@@ -477,15 +477,12 @@ const classFilter = {
     return { props, safe, select, filters };
   },
   template: `
-  <div class="class-filters">
-    <div class="filter-name">Filters —</div>
-    <div class="filters">
+    <div class="filters" data-searchable="false">
       <div class="filter" v-for="(value, i) in props.values" :key="i">
         <input type="checkbox" v-model="filters.data[value]" name="safe(value)" :id="safe(value)+'filter'" :value="safe(value)" @change="select">
         <label :for="safe(value) + 'filter'">{{value}}</label>
       </div>
     </div>
-  </div>
   `,
 }; //classFilter done
 const specialClass = {
@@ -505,7 +502,7 @@ const specialClass = {
   },
   template: `
   <div class="special-class col-12 col-lg-6 col-xlg-4">
-    <div class="special-class-card" :style="{'background': colors[random()]}">
+    <div class="special-class-card">
       <div>
       <div class="special-class-header">
         {{props.title}}
