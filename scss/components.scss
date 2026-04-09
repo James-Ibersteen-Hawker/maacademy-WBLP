@@ -12,6 +12,7 @@ $max: 300px;
 $nav-slide: 0.5s;
 $arsenal: "Arsenal", sans-serif;
 $nav-Z: 10;
+@use "sass:color";
 @mixin centerFlex {
   display: flex;
   justify-content: center;
@@ -792,7 +793,12 @@ $teacher: "teacher";
   }
   &:target {
     .#{$teacher}-card {
-      background: linear-gradient(110deg, #b94903, #090400) !important;
+      background: linear-gradient(110deg, #cf5407, #090400);
+      animation-name: targetFade;
+      animation-timing-function: ease-out;
+      animation-fill-mode: forwards;
+      animation-duration: 5s;
+      animation-iteration-count: 1;
     }
     animation-name: out;
     animation-timing-function: ease-out;
@@ -1379,5 +1385,16 @@ $footBase: "footer";
   }
   to {
     background: transparent;
+  }
+}
+
+@function blend-color($color1, $color2, $percent) {
+  @return color.mix($color2, $color1, $percent);
+}
+@keyframes targetFade {
+  @for $i from 0 through 100 {
+    #{$i}% {
+      background: linear-gradient(110deg, blend-color(#682800, #cf5407, 100% - $i), #090400);
+    }
   }
 }
