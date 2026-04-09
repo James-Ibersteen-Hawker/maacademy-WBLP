@@ -2,98 +2,65 @@
 const { createApp, ref, reactive, onMounted } = Vue;
 const weblink =
   "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
-const signalTimeout = 20000;
-const keys = {
-  dataKey: "sheetData",
-  searchKey: "searchData",
-};
-const hourInMillis = 60 * 60 * 1000;
-const dataTimeout = 6;
-const workerTimeout = 30000;
-const workerName = location.pathname.includes("/html/")
-  ? "../javascript/worker.js"
-  : "./javascript/worker.js";
-const worker = new Worker(workerName, { type: "module" });
 const REPONAME = "/maacademy-WBLP";
-const root = location.pathname.includes("/html/") ? "../" : "./";
-const defaultCarousel = new Array(6).fill(root + "imgs/no-image.png");
+const [signalTimeout, workerTimeout, dataTimeout] = [20000, 30000, 6];
+const hourInMillis = 60 * 60 * 1000;
+const keys = { dataKey: "sheetData", searchKey: "searchData" };
+const nested = location.pathname.includes("/html/") ? "../" : "./";
+const workerName = `${nested}javascript/worker.js`;
+const worker = new Worker(workerName, { type: "module" });
 const SEP = " \u001f ";
-let searchLUT;
-let engine;
+const fuseOptions = {
+  keys: ["text"],
+  ignoreDiacritics: true,
+  includeMatches: true,
+  threshold: 0.4,
+  ignoreLocation: true,
+}
+let searchLUT, engine;
 let engineStart = () => { };
 let engineReject = () => { };
 const pages = [
   new Page("Home", "index.html", "webicons/navbar-icons/home.png"),
-  new Page(
-    "About Us",
-    "about-us.html",
-    "webicons/navbar-icons/information.png",
-  ),
+  new Page("About Us", "about-us.html", "webicons/navbar-icons/information.png"),
   new Page("Contact", "contact.html", "webicons/navbar-icons/phone-call.png"),
   new Page("Classes", "classes.html", "webicons/navbar-icons/music.png"),
   new Page("Teachers", "teachers.html", "webicons/navbar-icons/teacher.png"),
   new Page("Parties", "parties.html", "webicons/navbar-icons/party.png"),
-  new Page(
-    "Radio City",
-    "radio-city.html",
-    "webicons/navbar-icons/radio-city.png",
-  ),
+  new Page("Radio City", "radio-city.html", "webicons/navbar-icons/radio-city.png"),
   new Page("Gallery", "gallery.html", "webicons/navbar-icons/images.png"),
 ];
 const App = createApp({
   setup() {
-    const copyright = "Copyright 2026 Music and Art Academy";
-    const content = ref({});
-    const results = reactive({ data: [] });
-    const loading = ref(false);
+    const searchString = window.location.search;
     const currentLocation = window.location.href;
-    const blank = ref("")
-    function setupSearch() {
-      const searchString = window.location.search;
-      const urlParams = new URLSearchParams(searchString);
-      const query = urlParams.get("q");
-      const iframe = urlParams.get("iframe");
-      if (!iframe) {
-        initSearch().then((data) => {
-          searchLUT = Object.entries(data).map(([page, text]) => ({
-            page,
-            text
-          }));
-          engine = new Fuse(searchLUT, {
-            keys: ["text"],
-            ignoreDiacritics: true,
-            includeMatches: true,
-            threshold: 0.4,
-            ignoreLocation: true,
-          });
-
-          engineStart();
-        });
-      } else if (iframe) {
-        document
-          .querySelectorAll(
-            'img, link[rel="stylesheet"]:not([href*="vue"]), link[rel="preload"]:not([as="script"]), meta[name]:not([name="viewport"])',
-          )
-          .forEach((e) => e.remove());
+    const uPrms = new URLSearchParams(searchString);
+    const content = ref({});
+    const blank = ref("");
+    const loading = ref(false);
+    const results = reactive({ data: [] });
+    const defaultCarousel = new Array(6).fill(`${nested}imgs/no-image.png"`);
+    async function setupSearch() {
+      const [query, iframe] = [uPrms.get("q"), uPrms.get("iframe")];
+      const path = window.location.pathname;
+      const origin = window.location.origin;
+      if (iframe) {
+        const meta = "meta[name]:not([name='viewport'])";
+        const link = "link[rel='stylesheet']:not([href*='vue'])"
+        const preload = "link[rel='preload']:not([as='script'])"
+        document.querySelectorAll(`img, ${link}, ${preload}, ${meta}`).forEach((e) => e.remove());
       }
-      Vue.nextTick(() => {
-        try {
-          if (query) goToSearch(query);
-          if (iframe) {
-            window.parent.postMessage(
-              { loaded: true, pageName: window.location.pathname },
-              window.location.origin,
-            );
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      });
+      const data = await initSearch();
+      searchLUT = Object.entries(data).map(([page, text]) => ({ page, text }));
+      engine = new Fuse(searchLUT, fuseOptions);
+      engineStart();
+      await Vue.nextTick();
+      if (query) goToSearch(query);
+      if (iframe) window.parent.postMessage({ loaded: true, pageName: path }, origin);
     }
     loadData()
       .then((data) => {
         content.value = data;
-        console.log(data);
         try {
           setupSearch();
         } catch {
@@ -172,16 +139,13 @@ const App = createApp({
       window.location.href = `${window.location.origin}${repoBase}/html/classes.html?teacher=${encodedName}&accordion=${encodedSpec}`;
     }
     function clearSearch() {
-// const url = new URL(window.location.href);
-      // url.searchParams.delete('q');
-      // url.searchParams.delete("iframe")
-      // window.history.replaceState(null, '', url.toString());
+      const url = new URL(window.location.href);
+      url.searchParams.delete('q');
+      url.searchParams.delete("iframe")
+      window.history.replaceState(null, '', url.toString());
     }
     onMounted(async () => {
-      const searchString = window.location.search;
-      const urlParams = new URLSearchParams(searchString);
-      const accordion = urlParams.get("accordion");
-      const teacher = urlParams.get('teacher');
+      const [accordion, teacher] = [uPrms.get("accordion"), uPrms.get('teacher')];
       if (!accordion) return;
       await Vue.nextTick()
       const elems = Array.from(document.querySelectorAll(".accordion"));
@@ -205,17 +169,16 @@ const App = createApp({
     })
     return {
       searchSite,
+      runSelection,
+      filterTeachers,
+      seeSchedule,
       content,
       pages,
       results,
-      runSelection,
-      copyright,
-      filterTeachers,
       loading,
       weblink,
       currentLocation,
       defaultCarousel,
-      seeSchedule,
       blank
     };
   },
@@ -228,7 +191,6 @@ App.component("instrument-accordion", instrumentComponent);
 App.component("class-filter", classFilter);
 App.component("special-class", specialClass);
 App.component("loading", loader);
-
 App.mount("#vue_app");
 
 //////////////////////////////
