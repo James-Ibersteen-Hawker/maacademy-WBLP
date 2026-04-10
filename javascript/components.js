@@ -316,7 +316,7 @@ const imgCarousel = {
     </div>
   </div>
   <!--modal-->
-  <div class="carousel-modal modal fade" tabindex="-1" :id="'modal' + props.cName" aria-labelledby="carouselModalLabel">
+  <div data-searchable="false" class="carousel-modal modal fade" tabindex="-1" :id="'modal' + props.cName" aria-labelledby="carouselModalLabel">
     <div class="modal-dialog modal-dialog-centered modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -365,7 +365,7 @@ const teacherCard = {
           <div class="see-more" data-bs-toggle="modal" :data-bs-target="'#' + name(props.name) + 'about-modal'"></div>
         </div>
         <div class="teacher-actions">
-          <div class="teacher-chips">
+          <div class="teacher-chips" data-searchable="false">
           Class Schedule{{props.specs.length > 1 ? "s" : ""}}: 
           <ul>
             <li v-for="spec in props.specs" class="chip" @click="searchClass(spec)">
@@ -379,7 +379,7 @@ const teacherCard = {
   </div>
   </div>
   <!--modal-->
-  <div class="teacher-modal modal fade" tabindex="-1" :id="name(props.name) + 'about-modal'" aria-labelledby="aboutModalLabel">
+  <div data-searchable="false" class="teacher-modal modal fade" tabindex="-1" :id="name(props.name) + 'about-modal'" aria-labelledby="aboutModalLabel">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" data-bs-dismiss="modal">
       <div class="modal-content">
         <div class="modal-header">

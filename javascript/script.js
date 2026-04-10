@@ -44,19 +44,18 @@ const App = createApp({
       const [query, iframe] = [uPrms.get("q"), uPrms.get("iframe")];
       const path = window.location.pathname;
       const origin = window.location.origin;
-      if (iframe) {
-        const meta = "meta[name]:not([name='viewport'])";
-        const link = "link[rel='stylesheet']:not([href*='vue'])"
-        const preload = "link[rel='preload']:not([as='script'])"
-        document.querySelectorAll(`img, ${link}, ${preload}, ${meta}`).forEach((e) => e.remove());
+      if (!iframe) {
+        const data = await initSearch();
+        searchLUT = Object.entries(data).map(([page, text]) => ({ page, text }));
+        engine = new Fuse(searchLUT, fuseOptions);
+        engineStart();
       }
-      const data = await initSearch();
-      searchLUT = Object.entries(data).map(([page, text]) => ({ page, text }));
-      engine = new Fuse(searchLUT, fuseOptions);
-      engineStart();
       await Vue.nextTick();
       if (query) goToSearch(query);
-      if (iframe) window.parent.postMessage({ loaded: true, pageName: path }, origin);
+      if (iframe) {
+        console.log("message")
+        window.parent.postMessage({ loaded: true, pageName: path }, origin)
+      };
     }
     loadData()
       .then((data) => {
@@ -252,42 +251,65 @@ async function loadData() {
       console.log(err);
     }
   }
+  console.log("here")
   const data = await getSheetData();
   if (!data) throw new Error("No Data Fetched!");
   const storage = JSON.stringify([data, new Date()]);
   localStorage.setItem(keys.dataKey, storage);
   return data;
 }
-async function initSearch() {
+function initSearch() {
   return new Promise((resolve, reject) => {
     try {
       const savedLUT = sessionStorage.getItem(keys.searchKey);
       if (savedLUT) return resolve(JSON.parse(savedLUT));
-      else {
-        const path = window.location.pathname;
-        const inRepo = path.includes(REPONAME);
-        const repoBase = inRepo ? REPONAME : "";
-        const links = pages.map(({ url }) =>
-          url === "index.html" ? url : `html/${url}`,
-        );
-        const loadedPages = new Set();
-        window.addEventListener("message", (e) => {
-          const data = handleMessage(e, loadedPages);
-          if (data) {
-            sessionStorage.setItem(keys.searchKey, JSON.stringify(data));
-            resolve(data);
-          }
-        });
-        links.forEach((link) => {
+      const path = window.location.pathname;
+      const inRepo = path.includes(REPONAME);
+      const repoBase = inRepo ? REPONAME : "";
+      const max = 4;
+      let activeFrames = 0;
+      const loadedPages = new Set();
+      const iframes = [];
+      function* iframe() {
+        for (const { url } of pages) {
+          const link = url === "index.html" ? url : `html/${url}`;
           const iframe = document.createElement("iframe");
           iframe.src = `${window.location.origin}${repoBase}/${link}?iframe=true`;
-          iframe.width = "0";
-          iframe.height = "0";
-          iframe.style.display = "none";
+          iframe.style.cssText = "width:0; height:0; visibility:hidden; position:absolute;";
           iframe.classList.add("utilIframeJS");
-          document.body.appendChild(iframe);
-        });
+          yield iframe;
+        }
       }
+      const generator = iframe();
+      function newFrame() {
+        if (activeFrames >= max) return;
+        const { value: frame, done } = generator.next();
+        if (!done) {
+          document.body.appendChild(frame);
+          activeFrames++;
+        }
+      }
+      function doMessage(e) {
+        if (!e.data || !e.data.pageName) return;
+        const page = e.data.pageName.split("/").at(-1);
+        if (loadedPages.has(page)) return;
+        loadedPages.add(page);
+        activeFrames--;
+        const finished = Array.from(document.querySelectorAll(".utilIframeJS"))
+          .find(f => f.contentWindow === e.source);
+        if (finished) {
+          iframes.push([finished.contentDocument, page]);
+          finished.remove()
+        };
+        if (loadedPages.size === pages.length) {
+          const data = assembleLUT(iframes);
+          sessionStorage.setItem(keys.searchKey, JSON.stringify(data));
+          window.removeEventListener("message", doMessage)
+          resolve(data);
+        } else newFrame();
+      }
+      window.addEventListener("message", doMessage);
+      for (let i = 0; i < max; i++) newFrame();
     } catch (err) {
       reject(err);
     }
@@ -328,23 +350,29 @@ function goToSearch(q) {
   match.parentNode.replaceChild(fragment, match);
   span.scrollIntoView({ behavior: "smooth", block: "center" });
 }
-function handleMessage({ data }, list) {
-  list.add(data.pageName.split("/").at(-1));
-  if (list.size < pages.length) return;
-  const iframes = document.querySelectorAll("iframe.utilIframeJS");
-  return Array.from(iframes).reduce((acc, iframe) => {
-    const doc = iframe.contentDocument || iframe.contentWindow.document;
-    doc.querySelectorAll("script, style, *[data-searchable='false']").forEach((e) => e.remove());
-    const walker = document.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
-    const text = [];
-    let node;
-    while ((node = walker.nextNode())) {
-      const trimmed = node.nodeValue?.trim();
-      if (trimmed) text.push(trimmed);
-    }
-    const src = iframe.src.split("/").pop().split("?")[0];
-    acc[src] = text.join(SEP);
-    iframe.remove();
-    return acc;
-  }, {});
+function assembleLUT(iframes) {
+  console.log(iframes)
+  function getDirectText(el) {
+    return Array.from(el.childNodes)
+        .filter(n => n.nodeType === Node.TEXT_NODE)
+        .map(n => n.nodeValue)
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim();
+  }
+  const output = iframes.reduce((ACC, [iframe, page]) => {
+    const doc = iframe;
+    doc.querySelectorAll("script, style, *[data-searchable='false'], img")
+      .forEach((e) => e.remove());
+    const walker = document.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT);
+    let current;
+    while ((current = walker.nextNode())) {
+      const textContent = getDirectText(current);
+      if (!textContent) continue;
+      const obj = { page, text: textContent}
+      ACC.push(obj)
+    };
+    return ACC;
+  }, []);
+  return output;
 }
