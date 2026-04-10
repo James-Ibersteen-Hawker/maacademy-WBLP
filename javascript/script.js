@@ -14,7 +14,7 @@ const fuseOptions = {
   keys: ["text"],
   ignoreDiacritics: true,
   includeMatches: true,
-  threshold: 0.4,
+  threshold: 0.3,
   ignoreLocation: true,
 }
 let searchLUT, engine;
@@ -45,8 +45,7 @@ const App = createApp({
       const path = window.location.pathname;
       const origin = window.location.origin;
       if (!iframe) {
-        const data = await initSearch();
-        searchLUT = Object.entries(data).map(([page, text]) => ({ page, text }));
+        searchLUT = await initSearch();
         engine = new Fuse(searchLUT, fuseOptions);
         engineStart();
       }
@@ -91,9 +90,8 @@ const App = createApp({
           });
           const [start, end] = sortedArr[0];
           const string = value.slice(start, end + 1);
-          let preamble = "";
-          let postamble = "";
-          const threshold = 8;
+          let [preamble, postamble] = ["", ""];
+          const threshold = 5;
           if (start > 0) {
             const begin = Math.max(0, start - threshold);
             preamble = value.slice(begin, start);
@@ -178,7 +176,8 @@ const App = createApp({
       weblink,
       currentLocation,
       defaultCarousel,
-      blank
+      blank,
+      searchLUT
     };
   },
 });
@@ -369,7 +368,7 @@ function assembleLUT(iframes) {
     while ((current = walker.nextNode())) {
       const textContent = getDirectText(current);
       if (!textContent) continue;
-      const obj = { page, text: textContent}
+      const obj = { page: page, text: textContent}
       ACC.push(obj)
     };
     return ACC;
