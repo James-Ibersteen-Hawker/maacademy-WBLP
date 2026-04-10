@@ -391,6 +391,11 @@
   background: #f8ff95;
   height: 30px;
   width: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.search-modal .modal-content .modal-body form label:hover {
+  background: white;
 }
 .search-modal .modal-content .modal-body .search-results {
   margin-top: 10px;
@@ -431,6 +436,8 @@
 .search-modal .modal-content .modal-body .search-results ul .result a p:first-child {
   width: 60%;
   font-weight: 700;
+  white-space: pre;
+  text-overflow: ellipsis;
   -webkit-mask-image: linear-gradient(to right, black 50%, transparent 98%);
           mask-image: linear-gradient(to right, black 50%, transparent 98%);
 }

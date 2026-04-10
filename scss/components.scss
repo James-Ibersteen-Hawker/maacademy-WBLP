@@ -391,6 +391,11 @@ $nav-Z: 10;
           background: $accent;
           height: 30px;
           width: 30px;
+          cursor: pointer;
+          transition: $anim-length;
+          &:hover {
+            background: white;
+          }
         }
       }
       .search-results {
@@ -429,6 +434,8 @@ $nav-Z: 10;
                 $midColor: rgba(0, 0, 0, 0.3);
                 width: 60%;
                 font-weight: 700;
+                white-space: pre;
+                text-overflow: ellipsis;
                 mask-image: linear-gradient(
                   to right,
                   black 50%,

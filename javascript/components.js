@@ -203,16 +203,16 @@ const navBar = {
         <div class="modal-body">
           <form @submit.prevent="formSubmit">
             <input v-model="query" id="search-input" name="search-input" placeholder="Search..." maxlength="30">
-            <label for="search-input" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')"></label>
+            <label for="search-input" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')" @click="formSubmit"></label>
           </form>
           <div class="search-results" :class="{'scrollMore': scrollMore, 'loading': props.loading, 'hasResults': props.results.length > 0}" ref="resultsCont" @scroll="resultScroll">
             <ul>
               <li v-for="result in props.results" @click="choose(result)" class="result" ref="resultItem">
                 <a target="_blank">
                   <p>
-                    <span class="preamble">...{{result.preamble}}&nbsp;</span>
+                    <span class="preamble">...{{result.preamble}}</span>
                     <span class="match">{{result.exact}}</span>
-                    <span class="postamble">&nbsp;{{result.postamble}}...</span>
+                    <span class="postamble">{{result.postamble}}...</span>
                   </p>
                   <p>{{result.url}}</p>
                 </a>

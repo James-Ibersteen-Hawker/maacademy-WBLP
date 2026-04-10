@@ -9,7 +9,7 @@ const keys = { dataKey: "sheetData", searchKey: "searchData" };
 const nested = location.pathname.includes("/html/") ? "../" : "./";
 const workerName = `${nested}javascript/worker.js`;
 const worker = new Worker(workerName, { type: "module" });
-// const SEP = " \u001f ";
+const SEP = " \u001f ";
 const fuseOptions = {
   keys: ["text"],
   ignoreDiacritics: true,
@@ -68,25 +68,23 @@ const App = createApp({
           const { value, indices } = matches[0];
           const properIndexes = indices.filter(([start, end]) => end > start);
           const sortedArr = properIndexes.sort((a, b) => {
-            const aDistance = a[1] - a[0] + 1;
-            const bDisance = b[1] - b[0] + 1;
-            return bDisance - aDistance;
+            const aDist = a[1] - a[0] + 1;
+            const bDis = b[1] - b[0] + 1;
+            return bDis - aDist;
           });
           const [start, end] = sortedArr[0];
           const string = value.slice(start, end + 1);
+          if (string.includes(SEP)) return;
           let [preamble, postamble] = ["", ""];
           const threshold = 5;
           if (start > 0) {
             const begin = Math.max(0, start - threshold);
             preamble = value.slice(begin, start);
           }
-          if (end < value.length) {
-            const stop = Math.min(value.length, end + threshold);
-            postamble = value.slice(end + 1, stop + 1);
-          }
+          postamble = value.slice(start + string.length);
           const { page: link } = item;
           return new Hit(string, preamble, postamble, link);
-        });
+        }).filter(Boolean);
         loading.value = false;
         results.data = convertArray;
       }
@@ -340,12 +338,11 @@ function goToSearch(q) {
   span.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 function assembleLUT(iframes) {
-  console.log(iframes)
   function getDirectText(el) {
     return Array.from(el.childNodes)
       .filter(n => n.nodeType === Node.TEXT_NODE)
       .map(n => n.nodeValue)
-      .join(" ")
+      .join(SEP)
       .replace(/\s+/g, " ")
       .trim();
   }
