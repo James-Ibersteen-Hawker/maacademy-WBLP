@@ -437,22 +437,19 @@
   width: 60%;
   font-weight: 700;
   white-space: pre;
-  text-overflow: ellipsis;
+  overflow: hidden;
   -webkit-mask-image: linear-gradient(to right, black 50%, transparent 98%);
           mask-image: linear-gradient(to right, black 50%, transparent 98%);
 }
 .search-modal .modal-content .modal-body .search-results ul .result a p:first-child .preamble,
-.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .postamble {
+.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .postamble,
+.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .ellipsis {
   font-weight: 500;
   display: inline-block;
 }
 .search-modal .modal-content .modal-body .search-results ul .result a p:first-child .preamble {
   -webkit-mask-image: linear-gradient(to left, black, rgba(0, 0, 0, 0.3));
           mask-image: linear-gradient(to left, black, rgba(0, 0, 0, 0.3));
-}
-.search-modal .modal-content .modal-body .search-results ul .result a p:first-child .postamble {
-  -webkit-mask-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.3));
-          mask-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.3));
 }
 .search-modal .modal-content .modal-body .search-results ul .result a p:first-child .match {
   font-weight: 800;

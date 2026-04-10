@@ -212,7 +212,8 @@ const navBar = {
                   <p>
                     <span class="preamble">...{{result.preamble}}</span>
                     <span class="match">{{result.exact}}</span>
-                    <span class="postamble">{{result.postamble}}...</span>
+                    <span class="postamble">{{result.postamble}}</span>
+                    <span class="ellipsis">...</span>
                   </p>
                   <p>{{result.url}}</p>
                 </a>
@@ -543,3 +544,19 @@ const loader = {
   </div>
   `,
 }; //loader done
+const classSearch = {
+  props: {},
+  emits: ["search"],
+  setup(props, { emit }) {
+    function search() {
+      alert("here")
+      emit("search", "searching")
+    }
+    return { props };
+  },
+  template: `
+  <form @submit.prevent="search">
+    <input type="submit">
+  </form>
+  `
+}

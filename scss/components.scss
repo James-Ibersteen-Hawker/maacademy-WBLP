@@ -435,22 +435,20 @@ $nav-Z: 10;
                 width: 60%;
                 font-weight: 700;
                 white-space: pre;
-                text-overflow: ellipsis;
+                overflow: hidden;
                 mask-image: linear-gradient(
                   to right,
                   black 50%,
                   transparent 98%
                 );
                 .preamble,
-                .postamble {
+                .postamble,
+                .ellipsis {
                   font-weight: 500;
                   display: inline-block;
                 }
                 .preamble {
                   mask-image: linear-gradient(to left, black, $midColor);
-                }
-                .postamble {
-                  mask-image: linear-gradient(to right, black, $midColor);
                 }
                 .match {
                   font-weight: 800;

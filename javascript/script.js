@@ -137,12 +137,9 @@ const App = createApp({
       row.classList.add("activeRow");
       row.scrollIntoView({ behavior: "smooth", block: "center" })
     }
-    // function clearSearch() {
-    //   const url = new URL(window.location.href);
-    //   url.searchParams.delete('q');
-    //   url.searchParams.delete("iframe")
-    //   window.history.replaceState(null, '', url.toString());
-    // }
+    function searchClasses(e) {
+      alert("here")
+    }
     loadData()
       .then((data) => {
         content.value = data;
@@ -157,6 +154,7 @@ const App = createApp({
       runSelection,
       filterTeachers,
       seeSchedule,
+      searchClasses,
       content,
       pages,
       results,
@@ -176,6 +174,7 @@ App.component("instrument-accordion", instrumentComponent);
 App.component("class-filter", classFilter);
 App.component("special-class", specialClass);
 App.component("loading", loader);
+App.component("class-search", classSearch);
 App.mount("#vue_app");
 
 //////////////////////////////

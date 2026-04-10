@@ -471,6 +471,8 @@ img {
   margin-bottom: 5px;
 }
 #vue_app .content-container.container-fluid .part4 {
+  container-type: inline-size;
+  container-name: part4;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1114,18 +1116,6 @@ img {
     width: 50% !important;
   }
 }
-@media screen and (max-width: 576px) {
-  .part4 .content {
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
-  }
-  .part4 .content img {
-    float: none !important;
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
 @media screen and (max-width: 500px) {
   .formcontainer {
     padding: 20px !important;
@@ -1133,13 +1123,6 @@ img {
   .formcontainer .inner {
     padding: 0px !important;
     border: none !important;
-  }
-  .content img {
-    float: none !important;
-    width: 100% !important;
-  }
-  .content p {
-    text-align: center !important;
   }
 }
 @container topName (max-width: 600px) {
@@ -1204,5 +1187,26 @@ img {
   .radio-item .text.left,
   .radio-item .text.right {
     background: rgba(248, 255, 149, 0.8) !important;
+  }
+}
+@container part4 (max-width: 500px) {
+  .content img {
+    float: none !important;
+    width: 100% !important;
+  }
+  .content p {
+    text-align: center !important;
+  }
+}
+@container part4 (max-width: 576px) {
+  .part4 .content {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
+  .part4 .content img {
+    float: none !important;
+    margin-right: auto;
+    margin-left: auto;
   }
 }/*# sourceMappingURL=style.css.map */
