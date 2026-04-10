@@ -548,15 +548,16 @@ const classSearch = {
   props: {},
   emits: ["search"],
   setup(props, { emit }) {
+    const data = ref("");
     function search() {
-      alert("here")
-      emit("search", "searching")
+      emit("search", data.value)
     }
-    return { props };
+    return { props, data, search };
   },
   template: `
   <form @submit.prevent="search">
-    <input type="submit">
+    <input v-model="data" type="text" placeholder="Search classes and teachers..." name="search" id="search">
+    <label for="search">Search</label>
   </form>
   `
 }
