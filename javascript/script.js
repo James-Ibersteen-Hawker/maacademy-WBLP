@@ -9,7 +9,7 @@ const keys = { dataKey: "sheetData", searchKey: "searchData" };
 const nested = location.pathname.includes("/html/") ? "../" : "./";
 const workerName = `${nested}javascript/worker.js`;
 const worker = new Worker(workerName, { type: "module" });
-const SEP = " \u001f ";
+// const SEP = " \u001f ";
 const fuseOptions = {
   keys: ["text"],
   ignoreDiacritics: true,
@@ -39,11 +39,10 @@ const App = createApp({
     const blank = ref("");
     const loading = ref(false);
     const results = reactive({ data: [] });
-    const defaultCarousel = new Array(6).fill(`${nested}imgs/no-image.png"`);
+    const defaultCarousel = new Array(6).fill(`${nested}imgs/no-image.png`);
     async function setupSearch() {
       const [query, iframe] = [uPrms.get("q"), uPrms.get("iframe")];
-      const path = window.location.pathname;
-      const origin = window.location.origin;
+      const { pathname, origin } = window.location;
       if (!iframe) {
         searchLUT = await initSearch();
         engine = new Fuse(searchLUT, fuseOptions);
@@ -51,33 +50,18 @@ const App = createApp({
       }
       await Vue.nextTick();
       if (query) goToSearch(query);
-      if (iframe) {
-        console.log("message")
-        window.parent.postMessage({ loaded: true, pageName: path }, origin)
-      };
+      if (iframe) window.parent.postMessage({ loaded: true, pageName: pathname }, origin);
     }
-    loadData()
-      .then((data) => {
-        content.value = data;
-        try {
-          setupSearch();
-        } catch {
-          throw new Error("Setting up the search iframes failed")
-        }
-      })
-      .catch((err) => alert(err.message));
     async function searchSite(input) {
       loading.value = true;
       engineReject();
       if (!engine) {
         results.data = [];
-        new Promise((resolve, reject) => {
-          engineStart = resolve;
-          engineReject = reject;
-        }).then(() => {
-          searchSite(input);
-          engineStart = () => { };
-        });
+        await new Promise((resolve, reject) => {
+          [engineStart, engineReject] = [resolve, reject];
+        })
+        searchSite(input);
+        engineStart = () => { };
       } else {
         const output = engine.search(input.trim());
         const convertArray = output.map(({ item, matches }) => {
@@ -135,13 +119,7 @@ const App = createApp({
       const encodedSpec = encodeURIComponent(spec.trim())
       window.location.href = `${window.location.origin}${repoBase}/html/classes.html?teacher=${encodedName}&accordion=${encodedSpec}`;
     }
-    function clearSearch() {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('q');
-      url.searchParams.delete("iframe")
-      window.history.replaceState(null, '', url.toString());
-    }
-    onMounted(async () => {
+    async function accordion() {
       const [accordion, teacher] = [uPrms.get("accordion"), uPrms.get('teacher')];
       if (!accordion) return;
       await Vue.nextTick()
@@ -159,10 +137,22 @@ const App = createApp({
       const row = rows.find(el => el.id.toLowerCase().includes(CSS.escape(teacher.toLowerCase())));
       if (!row) return;
       row.classList.add("activeRow");
-      row.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
+      row.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
+    // function clearSearch() {
+    //   const url = new URL(window.location.href);
+    //   url.searchParams.delete('q');
+    //   url.searchParams.delete("iframe")
+    //   window.history.replaceState(null, '', url.toString());
+    // }
+    loadData()
+      .then((data) => {
+        content.value = data;
+        setupSearch();
       })
+      .catch((err) => alert(err.message));
+    onMounted(async () => {
+      await accordion();
     })
     return {
       searchSite,
@@ -176,8 +166,7 @@ const App = createApp({
       weblink,
       currentLocation,
       defaultCarousel,
-      blank,
-      searchLUT
+      blank
     };
   },
 });
@@ -250,7 +239,6 @@ async function loadData() {
       console.log(err);
     }
   }
-  console.log("here")
   const data = await getSheetData();
   if (!data) throw new Error("No Data Fetched!");
   const storage = JSON.stringify([data, new Date()]);
@@ -315,12 +303,7 @@ function initSearch() {
   });
 }
 function goToSearch(q) {
-  const walker = document.createTreeWalker(
-    document.body,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false,
-  );
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const lower = q.toLowerCase();
   let node, match;
   while ((node = walker.nextNode())) {
@@ -336,28 +319,35 @@ function goToSearch(q) {
   const end = start + lower.length;
   const matchedText = words.slice(start, end).trim();
   if (start === -1) throw new Error("No Match!");
-  if (start > 0) {
-    fragment.appendChild(document.createTextNode(words.slice(0, start)));
-  }
+  if (start > 0) fragment.appendChild(document.createTextNode(words.slice(0, start)));
   const span = document.createElement("span");
   span.classList.add("searchResult");
   span.textContent = matchedText;
   fragment.appendChild(span);
-  if (start < words.length - 1) {
-    fragment.appendChild(document.createTextNode(words.slice(end)));
-  }
+  if (start < words.length - 1) fragment.appendChild(document.createTextNode(words.slice(end)));
+  const accordion = match.parentNode?.closest(".accordion");
   match.parentNode.replaceChild(fragment, match);
+  //if accordion
+  if (accordion) {
+    const number = accordion.id.slice(11);
+    const collapse = accordion.querySelector(`#collapse${number}`);
+    const button = accordion.querySelector(`#button${number}`);
+    collapse.classList.add("show")
+    button.classList.remove("collapsed")
+    button.setAttribute("aria-expanded", true);
+  }
+  ///////////
   span.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 function assembleLUT(iframes) {
   console.log(iframes)
   function getDirectText(el) {
     return Array.from(el.childNodes)
-        .filter(n => n.nodeType === Node.TEXT_NODE)
-        .map(n => n.nodeValue)
-        .join(" ")
-        .replace(/\s+/g, " ")
-        .trim();
+      .filter(n => n.nodeType === Node.TEXT_NODE)
+      .map(n => n.nodeValue)
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
   }
   const output = iframes.reduce((ACC, [iframe, page]) => {
     const doc = iframe;
@@ -368,7 +358,7 @@ function assembleLUT(iframes) {
     while ((current = walker.nextNode())) {
       const textContent = getDirectText(current);
       if (!textContent) continue;
-      const obj = { page: page, text: textContent}
+      const obj = { page: page, text: textContent }
       ACC.push(obj)
     };
     return ACC;
