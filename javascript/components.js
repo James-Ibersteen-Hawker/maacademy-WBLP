@@ -571,7 +571,7 @@ const classSearch = {
     </select>
     </div>
     <div>
-    <input v-model="form.query" type="text" :placeholder="placeholder()" name="search" id="search" required>
+    <input v-model="form.query" type="text" :placeholder="placeholder()" name="search" id="search">
     <input type="submit" value="Search">
     </div>
   </form>
