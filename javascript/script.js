@@ -73,15 +73,15 @@ const App = createApp({
             return bDis - aDist;
           });
           const [start, end] = sortedArr[0];
-          const string = value.slice(start, end + 1);
+          const string = value.slice(start, end + 1).replace(/\r?\n/g, "");
           if (string.includes(SEP)) return;
           let [preamble, postamble] = ["", ""];
           const threshold = 5;
           if (start > 0) {
             const begin = Math.max(0, start - threshold);
-            preamble = value.slice(begin, start);
+            preamble = value.slice(begin, start).replace(/\r?\n/g, "");
           }
-          postamble = value.slice(start + string.length);
+          postamble = value.slice(start + string.length).replace(/\r?\n/g, "");
           const { page: link } = item;
           return new Hit(string, preamble, postamble, link);
         }).filter(Boolean);
@@ -337,27 +337,23 @@ function goToSearch(q) {
   span.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 function assembleLUT(iframes) {
+  const removed = ["script", "style", "[data-searchable='false']", "img"]
   function getDirectText(el) {
     return Array.from(el.childNodes)
       .filter(n => n.nodeType === Node.TEXT_NODE)
-      .map(n => n.nodeValue)
+      .map(n => n.nodeValue.trim())
+      .filter(Boolean)
       .join(SEP)
-      .replace(/\s+/g, " ")
-      .trim();
   }
-  const output = iframes.reduce((ACC, [iframe, page]) => {
-    const doc = iframe;
-    doc.querySelectorAll("script, style, *[data-searchable='false'], img")
-      .forEach((e) => e.remove());
+  return iframes.flatMap(([doc, page]) => {
+    doc.querySelectorAll(removed.join(",")).forEach((e) => e.remove());
     const walker = document.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT);
+    const results = [];
     let current;
     while ((current = walker.nextNode())) {
       const textContent = getDirectText(current);
-      if (!textContent) continue;
-      const obj = { page: page, text: textContent }
-      ACC.push(obj)
+      if (textContent) results.push({ page, text: textContent });
     };
-    return ACC;
-  }, []);
-  return output;
+    return results;
+  });
 }
