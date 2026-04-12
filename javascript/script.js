@@ -162,16 +162,16 @@ const App = createApp({
       const { query, option } = e;
       instStop();
       teachStop();
+      const accordions = Array.from(document.querySelectorAll(".accordion"));
+      if (query === "") return accordions.forEach(e => e.classList.remove("d-none"));
       if (option === "Instrument") {
         if (!instrumentFuse) {
           await new Promise((resolve, reject) => {
             [instStart, instStop] = [resolve, reject];
           })
           searchClasses({ query, option });
-          instStart = () => {};
+          instStart = () => { };
         } else if (instrumentFuse) {
-          const accordions = Array.from(document.querySelectorAll(".accordion"));
-          if (query === "") return accordions.forEach(e => e.classList.remove("d-none"));
           const results = instrumentFuse.search(query).map(e => e.item);
           const accs = accordions.filter(e => {
             const instrument = e.getAttribute("data-instrument");
@@ -195,13 +195,32 @@ const App = createApp({
             })
             return;
           };
-          const accordion = accs[0];
-          const number = accordion.id.slice(11);
-          const collapse = accordion.querySelector(`#collapse${number}`);
-          const button = accordion.querySelector(`#button${number}`);
-          collapse.classList.add("show")
-          button.classList.remove("collapsed")
-          button.setAttribute("aria-expanded", true);
+          openAcc(accs[0])
+        }
+      } else if (option === "Teacher") {
+        if (!teacherFuse) {
+          await new Promise((resolve, reject) => {
+            [teachStart, teachStop] = [resolve, reject];
+          })
+          searchClasses({ query, option });
+          teachStart = () => { };
+        } else if (teacherFuse) {
+          const results = teacherFuse.search(query).map(e => e.item);
+          const instruments = Array.from(new Set(results.map(e => e.inst)))
+          const accs = accordions.filter(e => {
+            const instrument = e.getAttribute("data-instrument");
+            if (!instruments.includes(instrument)) {
+              e.classList.add("d-none");
+              return false;
+            }
+            else {
+              e.classList.remove("d-none");
+              return true;
+            }
+          })
+          accs.forEach(accordion =>
+            openAcc(accordion)
+          )
         }
       }
     }
@@ -436,4 +455,12 @@ function assembleLUT(iframes) {
     return ACC;
   }, []);
   return output;
+}
+function openAcc(accordion) {
+  const number = accordion.id.slice(11);
+  const collapse = accordion.querySelector(`#collapse${number}`);
+  const button = accordion.querySelector(`#button${number}`);
+  collapse.classList.add("show")
+  button.classList.remove("collapsed")
+  button.setAttribute("aria-expanded", true);
 }
