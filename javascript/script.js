@@ -138,7 +138,7 @@ const App = createApp({
       row.scrollIntoView({ behavior: "smooth", block: "center" })
     }
     function searchClasses(e) {
-      alert(e)
+      alert(JSON.stringify(e))
     }
     loadData()
       .then((data) => {

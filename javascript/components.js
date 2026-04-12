@@ -548,16 +548,32 @@ const classSearch = {
   props: {},
   emits: ["search"],
   setup(props, { emit }) {
-    const data = ref("");
+    const form = reactive({
+      query: "",
+      option: ""
+    });
     function search() {
-      emit("search", data.value)
+      emit("search", { query: form.query, option: form.option })
     }
-    return { props, data, search };
+    function placeholder() {
+      const d = form.option;
+      return `Search${d ? ` ${d}s` : ""}...`
+    }
+    return { props, form, search, placeholder };
   },
   template: `
-  <form @submit.prevent="search">
-    <input v-model="data" type="text" placeholder="Search classes and teachers..." name="search" id="search">
-    <label for="search">Search</label>
+  <form @submit.prevent="search" class="class-search">
+    <div>
+    <select v-model="form.option" name="mode" id="mode" required>
+      <option value="">Select a Category</option>
+      <option value="Instrument">Instrument</option>
+      <option value="Teacher">Teacher</option>
+    </select>
+    </div>
+    <div>
+    <input v-model="form.query" type="text" :placeholder="placeholder()" name="search" id="search" required>
+    <input type="submit" value="Search">
+    </div>
   </form>
   `
 }

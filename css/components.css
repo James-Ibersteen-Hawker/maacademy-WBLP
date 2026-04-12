@@ -1734,4 +1734,106 @@
   100% {
     background: linear-gradient(110deg, #682800, #090400);
   }
+}
+.class-search {
+  width: calc(100% + 100px);
+  margin: -10px -50px 0 -50px;
+  padding: 10px 35px;
+  border-bottom: 2px solid rgba(248, 255, 149, 0.5);
+  display: flex;
+  justify-content: stretch;
+}
+.class-search div {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.class-search div label,
+.class-search div input,
+.class-search div select {
+  cursor: pointer;
+  height: 100%;
+  margin: 0px 1px;
+  border: 0;
+  background: none;
+  font-family: "ABeeZee", sans-serif;
+}
+.class-search div input[type=text] {
+  background: rgba(128, 128, 128, 0.492);
+  color: white;
+  transition: 0.3s;
+  padding: 2px 5px;
+  font-family: "Arsenal", sans-serif;
+  font-size: 20px;
+  border-bottom: 4px solid rgba(248, 255, 149, 0.5);
+  margin-right: 5px;
+  width: calc(100% - 105px);
+}
+.class-search div input[type=text]::-moz-placeholder {
+  color: #f8ff95;
+  -moz-transition: 0.3s;
+  transition: 0.3s;
+}
+.class-search div input[type=text]::placeholder {
+  color: #f8ff95;
+  transition: 0.3s;
+}
+.class-search div input[type=text]:focus {
+  cursor: text;
+}
+.class-search div input[type=text]:focus::-moz-placeholder {
+  color: white;
+}
+.class-search div input[type=text]:focus::placeholder {
+  color: white;
+}
+.class-search div input[type=text]:focus {
+  border-bottom: 4px solid #f8ff95;
+  outline: none;
+}
+.class-search div input[type=submit] {
+  width: 95px;
+  background: rgba(248, 255, 149, 0.5);
+  border-radius: 5px;
+  border: 1px solid #f8ff95;
+  box-shadow: 0px 0px 5px black;
+  transition: 0.3s;
+}
+.class-search div input[type=submit]:hover {
+  background: #f8ff95;
+}
+.class-search div select {
+  color: #f8ff95;
+  border-bottom: 4px solid rgba(248, 255, 149, 0.5);
+  transition: 0.3s;
+  width: 100%;
+}
+.class-search div select option {
+  color: black;
+}
+.class-search div select:focus {
+  outline: none;
+  border-bottom: 4px solid #f8ff95;
+  color: white;
+}
+.class-search div:first-child {
+  margin-right: 2px;
+}
+.class-search div:last-child {
+  margin-left: 2px;
+}
+
+@container overlord (max-width: 380px) {
+  .class-search {
+    display: block;
+  }
+  .class-search div {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .class-search div:first-child {
+    padding-left: 2px;
+  }
 }/*# sourceMappingURL=components.css.map */
