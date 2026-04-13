@@ -423,8 +423,8 @@ function goToSearch(q) {
       }
     }
   );
-  const lower = JSON.parse(q);
-  const searchNodes = lower[0].split(SEP).map(e => e.toLowerCase().trim());
+  const [blurb, lower] = JSON.parse(q);
+  const searchNodes = blurb.split(SEP).map(e => e.toLowerCase().trim());
   let node, match;
   while ((node = walker.nextNode())) {
     const value = node.nodeValue.toLowerCase().trim();
@@ -433,12 +433,10 @@ function goToSearch(q) {
     match = node;
     break;
   }
-  console.log(match)
-  console.log(Boolean(match))
   if (Boolean(match) === false) throw new Error("No match!");
   const fragment = document.createDocumentFragment();
   const words = match.nodeValue;
-  const start = words.toLowerCase().indexOf(lower);
+  const start = words.toLowerCase().indexOf(lower.toLowerCase());
   const end = start + lower.length;
   const matchedText = words.slice(start, end).trim();
   if (start === -1) throw new Error("No Match 2!");
