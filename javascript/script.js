@@ -441,7 +441,7 @@ function goToSearch(q) {
   const start = words.toLowerCase().indexOf(lower);
   const end = start + lower.length;
   const matchedText = words.slice(start, end).trim();
-  if (start === -1) throw new Error("No Match!");
+  if (start === -1) throw new Error("No Match 2!");
   if (start > 0) fragment.appendChild(document.createTextNode(words.slice(0, start)));
   const span = document.createElement("span");
   span.classList.add("searchResult");
