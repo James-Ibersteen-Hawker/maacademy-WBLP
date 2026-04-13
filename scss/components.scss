@@ -12,6 +12,8 @@ $max: 300px;
 $nav-slide: 0.5s;
 $arsenal: "Arsenal", sans-serif;
 $nav-Z: 10;
+@use "vars";
+$thin: 1px solid vars.$border;
 @use "sass:color";
 @mixin centerFlex {
   display: flex;
@@ -26,7 +28,7 @@ $nav-Z: 10;
   width: 50px;
   right: 0;
   top: 0;
-  transition: $anim-length;
+  transition: vars.$anim-length;
 }
 @mixin item {
   font-size: 25px;
@@ -38,8 +40,7 @@ $nav-Z: 10;
   container-type: inline-size;
   container-name: overlord;
 }
-/////navbar//////////navbar//////////navbar//////////navbar/////
-.#{$base} {
+.nav-bar {
   position: fixed;
   top: 0;
   left: 0;
@@ -50,94 +51,93 @@ $nav-Z: 10;
   max-width: $max;
   min-width: $min;
   z-index: $nav-Z;
-  background: $dark;
+  background: vars.$dark;
   transition: $nav-slide;
   transition-timing-function: ease-out;
-  filter: drop-shadow(0px 0px 1px $accent);
-  .#{$base}-close {
+  filter: drop-shadow(0px 0px 1px vars.$accent);
+  .close {
     @include toggle();
-    background: rgba($dark, 0.5);
+    background: color.adjust(vars.$dark, $alpha: -0.5);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     &:hover {
-      background: rgba($dark, 0.8);
+      background: color.adjust(vars.$dark, $alpha: -0.2);
     }
   }
-  .#{$base}-open {
+  .open {
     @include toggle();
     transform: translateX(100%);
-    background: $dark;
+    background: vars.$dark;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    box-shadow: 0px 0px 2px $border;
+    box-shadow: 0px 0px 2px vars.$border;
     &:hover {
-      box-shadow: 0px 0px 5px $border;
+      box-shadow: 0px 0px 5px vars.$border;
     }
   }
   .control-icon {
     height: 50%;
     width: 50%;
-    background: $accent;
+    background: vars.$accent;
   }
-  .#{$base}-header img {
+  .nav-header img {
     width: 100%;
     height: auto;
   }
-  .#{$base}-body {
+  .nav-body {
     $headHeight: max($min, min($navWidth, $max));
     $searchHeight: 50px;
     $extrasHeight: 100px;
-    $thin: 1px solid $border;
     height: calc(100vh - #{$headHeight});
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    .#{$base}-list {
-      .#{$base}-item {
+    .nav-list {
+      .item {
         @include item();
         cursor: pointer;
         position: relative;
         margin: 1px auto;
         padding-right: 10px;
-        transition: $anim-length;
+        transition: vars.$anim-length;
         a {
           display: flex;
           justify-content: end;
           align-items: center;
-          color: $accent;
+          color: vars.$accent;
           text-decoration: none;
         }
-        .#{$base}-item-icon {
+        .item-icon {
           @include centerFlex();
           position: absolute;
           height: 100%;
           aspect-ratio: 1/1;
-          background: $dark;
+          background: vars.$dark;
           top: 0;
           right: 0;
           transform: translateX(100%);
-          transition: $anim-length;
+          transition: vars.$anim-length;
         }
-        .#{$base}-item-icon-mask {
+        .icon-mask {
           height: 70%;
           width: 70%;
-          background: $accent;
-          transition: $anim-length;
+          background: vars.$accent;
+          transition: vars.$anim-length;
         }
         &:hover {
-          background: $accent;
+          background: vars.$accent;
           a {
-            color: $dark;
+            color: vars.$dark;
           }
-          .#{$base}-item-icon {
-            background: $accent;
+          .item-icon {
+            background: vars.$accent;
           }
-          .#{$base}-item-icon-mask {
-            background: $dark;
+          .icon-mask {
+            background: vars.$dark;
           }
         }
       }
-      .#{$base}-dropdown {
+      .nav-dropdown {
         @include item();
         display: flex;
         justify-content: end;
@@ -147,8 +147,8 @@ $nav-Z: 10;
         }
         .dropdown-body {
           display: none;
-          background: $dark;
-          border-top: 1px solid $accent;
+          background: vars.$dark;
+          border-top: 1px solid vars.$accent;
           position: absolute;
           bottom: 0;
           left: 100%;
@@ -161,11 +161,11 @@ $nav-Z: 10;
             justify-content: end;
             padding: 0px 5px;
             margin: 0;
-            color: $accent;
-            transition: $anim-length;
+            color: vars.$accent;
+            transition: vars.$anim-length;
             &:hover {
-              background: $accent;
-              color: $dark;
+              background: vars.$accent;
+              color: vars.$dark;
             }
           }
         }
@@ -174,7 +174,7 @@ $nav-Z: 10;
         }
       }
     }
-    .#{$base}-search {
+    .nav-search {
       @include centerFlex();
       $in: 35px;
       cursor: pointer;
@@ -186,28 +186,28 @@ $nav-Z: 10;
       #sham-input {
         height: $in;
         background: rgba(128, 128, 128, 0.5);
-        border: 2px solid $border;
+        border: 2px solid vars.$border;
         width: calc(100% - 40px);
         line-height: 30px;
         padding-left: 5px;
-        color: $border;
+        color: vars.$border;
         transition: 0.1s;
         font: {
           size: 25px;
           family: $arsenal;
         }
         &:hover {
-          color: $accent;
+          color: vars.$accent;
         }
       }
       .search-icon {
         height: calc(0.9 * #{$in});
         aspect-ratio: 1/1;
-        background: $accent;
+        background: vars.$accent;
         margin-left: 10px;
       }
     }
-    .#{$base}-extras {
+    .nav-extras {
       min-height: $extrasHeight;
       overflow: hidden;
       display: flex;
@@ -250,22 +250,22 @@ $nav-Z: 10;
       }
     }
   }
-}
-.#{$base}-show {
-  .#{$base}-close {
-    display: flex;
+  &.nav-bar-show {
+    .close {
+      display: flex;
+    }
+    .open {
+      display: none;
+    }
   }
-  .#{$base}-open {
-    display: none;
-  }
-}
-.#{$base}-away {
-  transform: translateX(-100%);
-  .#{$base}-close {
-    display: none;
-  }
-  .#{$base}-open {
-    display: flex;
+  &.nav-bar-away {
+    transform: translateX(-100%);
+    .close {
+      display: none;
+    }
+    .open {
+      display: flex;
+    }
   }
 }
 .landscapeBar {
@@ -277,7 +277,7 @@ $nav-Z: 10;
   height: 100vh;
   width: 50px;
   z-index: $nav-Z;
-  color: $top;
+  color: vars.$top;
   display: none;
   flex-direction: column;
   justify-content: space-between;
@@ -293,10 +293,10 @@ $nav-Z: 10;
       @include centerFlex();
       .button {
         cursor: pointer;
-        background: $top;
+        background: vars.$top;
         width: 30px;
         height: 30px;
-        transition: $anim-length;
+        transition: vars.$anim-length;
       }
     }
     .items {
@@ -316,19 +316,19 @@ $nav-Z: 10;
         text-decoration: none;
         display: block;
         background: rgb(26, 26, 26);
-        transition: $anim-length;
+        transition: vars.$anim-length;
         &:hover {
           background: rgb(60, 60, 60);
-          color: $accent;
+          color: vars.$accent;
         }
       }
     }
     &:hover {
       .buttonContainer {
-        border-bottom: 1px solid $border;
+        border-bottom: 1px solid vars.$border;
       }
       .button {
-        background: $accent;
+        background: vars.$accent;
       }
       .items {
         display: flex;
@@ -339,23 +339,23 @@ $nav-Z: 10;
     .icon {
       cursor: pointer;
       display: block;
-      background: $top;
+      background: vars.$top;
       height: 28px;
       width: 28px;
       margin: 10px 0;
-      transition: $anim-length;
+      transition: vars.$anim-length;
       &:hover {
-        background: $accent;
+        background: vars.$accent;
       }
     }
   }
 }
 .search-modal {
-  background: rgba($dark, 0.6);
+  background: color.adjust(vars.$dark, $alpha: -0.5);
   backdrop-filter: blur(3px);
   .modal-content {
-    background: $dark;
-    border: 1px solid $border;
+    background: vars.$dark;
+    border: 1px solid vars.$border;
     border-radius: 0;
     .modal-body {
       position: relative;
@@ -363,24 +363,23 @@ $nav-Z: 10;
         display: flex;
         align-items: center;
         input {
-          $trans: 0px solid transparent;
           width: calc(100% - 40px);
           height: 35px;
           background: transparent;
           border: {
-            top: $trans;
-            right: $trans;
-            left: $trans;
-            bottom: 5px solid $border;
+            top: none;
+            right: none;
+            left: none;
+            bottom: 5px solid vars.$border;
           }
-          transition: $anim-length;
-          color: $top;
+          transition: vars.$anim-length;
+          color: vars.$top;
           font-size: 22px;
           font-family: $arsenal;
           padding: 0;
           &:focus {
             outline: none;
-            border-bottom: 5px solid $accent;
+            border-bottom: 5px solid vars.$accent;
           }
           &::placeholder {
             color: rgb(158, 158, 158);
@@ -388,165 +387,158 @@ $nav-Z: 10;
         }
         label {
           margin-left: 10px;
-          background: $accent;
+          background: vars.$accent;
           height: 30px;
           width: 30px;
           cursor: pointer;
-          transition: $anim-length;
+          transition: vars.$anim-length;
           &:hover {
-            background: white;
+            background: vars.$top;
           }
         }
       }
-      .search-results {
-        margin-top: 10px;
-        max-height: 300px;
-        padding-bottom: 0 !important;
-        padding-right: 2px;
-        overflow-y: auto;
-        &::after {
-          pointer-events: none;
-          opacity: 0;
-        }
-        ul {
-          list-style-type: none;
-          padding: 0;
-          .result {
-            cursor: pointer;
-            border-bottom: 1px solid $border;
-            border-top: 1px solid $border;
-            padding: 2px 8px;
-            transition: $anim-length;
-            a {
-              color: $accent;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              text-decoration: none;
-              font-size: 22px;
-              font-family: $arsenal;
-              p {
-                display: block;
-                margin: 0 !important;
-                padding: 0 !important;
-              }
-              p:first-child {
-                $midColor: rgba(0, 0, 0, 0.3);
-                width: 60%;
-                font-weight: 700;
-                white-space: pre;
-                overflow: hidden;
-                mask-image: linear-gradient(
-                  to right,
-                  black 50%,
-                  transparent 98%
-                );
-                .preamble,
-                .postamble,
-                .ellipsis {
-                  font-weight: 500;
-                  display: inline-block;
-                }
-                .preamble {
-                  mask-image: linear-gradient(to left, black, $midColor);
-                }
-                .match {
-                  font-weight: 800;
-                  color: $top;
-                }
-              }
-              p:last-child {
-                width: 40%;
-                font-size: 18px;
-                font-style: italic;
-                text-align: right;
-              }
-            }
-            &:hover {
-              background-color: $border;
-              a {
-                color: $dark !important;
-              }
-            }
-          }
-          .result:first-child {
-            border-top: none;
-          }
-        }
-        &::-webkit-scrollbar {
-          width: 5px;
-          cursor: pointer;
-        }
-        &::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        &::-webkit-scrollbar-thumb {
-          background: rgba($accent, 0.8);
-          border-radius: 2px;
-          transition: 0.1s;
-          cursor: pointer;
-        }
-        &::-webkit-scrollbar-thumb:hover {
-          background: $accent;
-          border-radius: 2px;
-        }
+    }
+    .search-results {
+      margin-top: 10px;
+      max-height: 300px;
+      padding-bottom: 0;
+      padding-right: 2px;
+      overflow-y: auto;
+      &::after {
+        pointer-events: none;
+        opacity: 0;
       }
-      .search-results.scrollMore.hasResults {
-        transition: $anim-length;
-        &::after {
-          content: "Scroll to see more";
-          @include centerFlex();
-          position: absolute;
-          bottom: 15px;
-          left: 16px;
-          width: calc(100% - 38px);
-          height: 40px;
-          opacity: 1;
-          color: $dark;
-          font-weight: 900;
-          font-family: $arsenal;
-          font-size: 20px;
-          background: linear-gradient(to bottom, transparent, $border, $accent);
-          animation-name: fadein;
-          animation-timing-function: ease-out;
-          animation-fill-mode: forwards;
-          animation-iteration-count: 1;
-          animation-duration: $anim-length;
-        }
+      ul {
+        list-style-type: none;
+        padding: 0;
       }
-      .search-results:not(.loading):not(.hasResults) {
-        display: none;
-      }
-      .search-results.loading {
-        height: 60px;
-        position: relative;
+      .result {
+        cursor: pointer;
+        border-bottom: $thin;
+        border-top: $thin;
+        padding: 2px 8px;
+        transition: vars.$anim-length;
         overflow: hidden;
-        &::before {
-          content: "";
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          background: conic-gradient($accent, transparent 60%);
-          height: 95%;
-          aspect-ratio: 1/1;
-          z-index: 10;
-          mask-image: radial-gradient(
-            transparent 40%,
-            black 40% 55%,
-            transparent 55%
-          );
-          filter: blur(5px);
-          animation-name: load;
-          animation-iteration-count: infinite;
-          animation-timing-function: linear;
-          animation-duration: 1s;
-          animation-fill-mode: forwards;
+        &:first-child {
+          border-top: none;
         }
+        &:hover {
+          background-color: vars.$border;
+          a {
+            color: vars.$dark !important;
+          }
+        }
+      }
+      .result a {
+        color: vars.$accent;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        font-size: 22px;
+        font-family: $arsenal;
+        $midColor: rgba(0, 0, 0, 0.3);
+        p {
+          display: block;
+          margin: 0;
+          padding: 0;
+        }
+        p:first-child {
+          width: 60%;
+          font-weight: 700;
+          white-space: pre;
+          overflow: hidden;
+          mask-image: linear-gradient(to right, black 50%, transparent 98%);
+          padding-top: 5px;
+        }
+        .preamble,
+        .postamble,
+        .ellipsis {
+          font-weight: 500;
+          display: inline-block;
+        }
+        .preamble {
+          mask-image: linear-gradient(to left, black, $midColor);
+        }
+        .match {
+          font-weight: 800;
+          color: $top;
+        }
+        p:last-child {
+          width: 40%;
+          font-size: 18px;
+          font-style: italic;
+          text-align: right;
+        }
+      }
+      &::-webkit-scrollbar {
+        width: 5px;
+        cursor: pointer;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: color.adjust(vars.$accent, $alpha: -0.2);
+        border-radius: 2px;
+        transition: 0.1s;
+        cursor: pointer;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: vars.$accent;
+        border-radius: 2px;
+      }
+    }
+    .scrollMore.hasResults {
+      transition: vars.$anim-length;
+      &::after {
+        content: "Scroll to see more";
+        @include centerFlex();
+        position: absolute;
+        bottom: 15px;
+        left: 16px;
+        width: calc(100% - 38px);
+        height: 40px;
+        opacity: 1;
+        color: $dark;
+        font-weight: 900;
+        font-family: $arsenal;
+        font-size: 20px;
+        background: linear-gradient(to bottom, transparent, vars.$border, vars.$accent);
+        animation: fadein vars.$anim-length ease-out 1 forwards;
+      }
+    }
+    .search-results:not(.loading):not(.hasResults) {
+      display: none;
+    }
+    .search-results.loading {
+      height: 60px;
+      position: relative;
+      overflow: hidden;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: conic-gradient(vars.$accent, transparent 60%);
+        height: 95%;
+        aspect-ratio: 1/1;
+        z-index: 10;
+        mask-image: radial-gradient(
+          transparent 40%,
+          black 40% 55%,
+          transparent 55%
+        );
+        filter: blur(5px);
+        animation: load 1s linear infinite forwards;
       }
     }
   }
 }
+
+
+
 @media screen and (min-height: 800px) {
   .#{$base}-body {
     .#{$base}-list {

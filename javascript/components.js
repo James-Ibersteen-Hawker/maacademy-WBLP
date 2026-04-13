@@ -2,7 +2,7 @@
 const navBar = {
   props: {
     logo: { type: String, default: `/imgs/no-image.png` },
-    links: { type: Array, default: () => [] },
+    links: { type: Array, required: true },
     results: { type: Array, default: () => [] },
     map: { type: String, default: "#" },
     phone: { type: String, default: "XXX-XXX-XXXX" },
@@ -16,17 +16,17 @@ const navBar = {
     const query = Vue.ref("");
     const open = Vue.ref(true);
     const opening = Vue.ref(false);
-    const navBody = Vue.ref(null);
-    const navItem = Vue.ref(null);
     const links = Vue.ref(props.links);
     const overflow = Vue.ref([]);
     const permaOpen = Vue.ref(true);
     const resultsCont = Vue.ref(null);
     const scrollMore = Vue.ref(true);
-    const resultItem = Vue.ref(null);
-    const total = Vue.ref(null);
-    const extras = Vue.ref(null);
+    const nav = Vue.ref(null);
     const header = Vue.ref(null);
+    const body = Vue.ref(null);
+    const item = Vue.ref(null);
+    const extras = Vue.ref(null);
+    const result = Vue.ref(null);
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -56,7 +56,7 @@ const navBar = {
       };
     }
     function checkFit() {
-      const navHeight = total.value.offsetHeight;
+      const navHeight = nav.value.offsetHeight;
       const bodyHeight = navHeight - header.value.offsetHeight - extras.value.offsetHeight;
       const itemHeight = itemOffsetHeight + 2;
       let totalHeight = itemHeight * props.links.length;
@@ -80,11 +80,12 @@ const navBar = {
       else scrollMore.value = true;
     }
     const prefix = () => "../".repeat(props.level);
+    const fixLink = (link) => link.url === 'index.html' ? prefix() + link.url : prefix() + 'html/' + link.url;
     Vue.watch(
       () => props.results,
       () => {
         Vue.nextTick(() => {
-          if (resultItem.value) resultScroll();
+          if (result.value) resultScroll();
         });
       },
       { deep: true },
@@ -92,7 +93,7 @@ const navBar = {
     Vue.onMounted(async () => {
       checkFit();
       const observer = new ResizeObserver(() => checkFit());
-      observer.observe(total.value);
+      observer.observe(nav.value);
       await Vue.nextTick();
       checkFit();
     });
@@ -107,68 +108,75 @@ const navBar = {
       makeMaskStyle,
       resultScroll,
       prefix,
+      fixLink,
       open,
       opening,
       query,
       props,
-      navBody,
-      navItem,
+      body,
+      item,
       links,
       overflow,
       permaOpen,
       resultsCont,
       scrollMore,
-      resultItem,
-      total,
+      result,
+      nav,
       extras,
       header,
       page
     };
   },
   template: `
-  <div ref="total" data-searchable="false" class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
-    <div class="nav-bar-close" @click.stop="instClose">
+  <div ref="nav" data-searchable="false" class="nav-bar" @click="instOpen" :class="{ 'nav-bar-show': permaOpen || open, 'nav-bar-away': !permaOpen && !open}">
+    <div class="close" @click.stop="instClose">
       <div class="control-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/close.png')"></div>
     </div>
-    <div class="nav-bar-open" @click.stop="instOpen">
+    <div class="open" @click.stop="instOpen">
       <div class="control-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/right-arrow.png')"></div>
     </div>
-    <div class="nav-bar-header" ref="header">
+    <div class="nav-header" ref="header">
       <img :src="props.logo" alt="Music and Art Academy Logo" class="nav-bar-logo" loading="lazy">
     </div>
-    <div class="nav-bar-body">
-      <div class="nav-bar-section nav-bar-list" ref="navBody">
-        <div 
-          class="nav-bar-item"
-          ref="navItem"
+    <div class="nav-body">
+      <div class="nav-bar-section nav-list" ref="body">
+        <div
+          class="item"
+          ref="item"
           v-for="link in links"
           :key="link.url"
           @mouseenter="animOpen"
-          @mouseleave="animClose">
-          <a :href="link.url === 'index.html' ? prefix() + link.url : prefix() + 'html/' + link.url">{{link.name}}
-          <div class="nav-bar-item-icon">
-            <div :style="makeMaskStyle(prefix() + link.icon)" class="nav-bar-item-icon-mask"></div>
-          </div>
+          @mouseleave="animClose"
+        >
+          <a :href="fixLink(link)">{{link.name}}
+            <div class="item-icon">
+              <div :style="makeMaskStyle(prefix() + link.icon)" class="icon-mask"></div>
+            </div>
           </a>
         </div>
-        <div class="nav-bar-dropdown nav-bar-item" v-if="overflow.length > 0" @mouseenter="animOpen" @mouseleave="animClose">
+        <div 
+          class="nav-dropdown item" 
+          v-if="overflow.length > 0" 
+          @mouseenter="animOpen" 
+          @mouseleave="animClose"
+        >
           <a>More ➤</a>
-          <div class="nav-bar-item-icon">
-            <div :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/next.png')" class="nav-bar-item-icon-mask"></div>
+          <div class="item-icon">
+            <div :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/next.png')" class="icon-mask"></div>
           </div>
           <div class="dropdown-body">
               <div class="nav-dropdown-item" v-for="link in overflow" :key="link.url">
-                <a :href="link.url === 'index.html' ? prefix() + link.url : prefix() + 'html/' + link.url">{{link.name}}</a>
+                <a :href="fixLink(link)">{{link.name}}</a>
               </div>
           </div>
         </div>
       </div>
-      <div class="nav-bar-nonlist" ref="extras">
-      <div class="nav-bar-section nav-bar-search" data-bs-toggle="modal" data-bs-target="#search-modal">
+      <div class="nonlist" ref="extras">
+      <div class="section nav-search" data-bs-toggle="modal" data-bs-target="#search-modal">
         <div class="fake-search" id="sham-input">Search...</div>
         <div class="search-icon" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')"></div>
       </div>
-      <div class="nav-bar-section nav-bar-extras">
+      <div class="section nav-extras">
         <div class="extras-text extras-section">
           <a :href="'tel:' + makePhone(props.phone)">{{props.phone}}</a>
           <p>
@@ -214,7 +222,7 @@ const navBar = {
           </form>
           <div class="search-results" :class="{'scrollMore': scrollMore, 'loading': props.loading, 'hasResults': props.results.length > 0}" ref="resultsCont" @scroll="resultScroll">
             <ul>
-              <li v-for="result in props.results" @click="choose(result)" class="result" ref="resultItem">
+              <li v-for="result in props.results" @click="choose(result)" class="result" ref="result">
                 <a target="_blank">
                   <p>
                     <span class="preamble">...{{result.preamble}}</span>
@@ -222,7 +230,7 @@ const navBar = {
                     <span class="postamble">{{result.postamble}}</span>
                     <span class="ellipsis">...</span>
                   </p>
-                  <p>{{result.url}}</p>
+                  <p>{{result.url.slice(0, -5).split("-").join(" ")}}</p>
                 </a>
               </li>
             </ul>
