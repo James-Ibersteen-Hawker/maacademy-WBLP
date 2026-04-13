@@ -545,7 +545,9 @@ const loader = {
   `,
 }; //loader done
 const classSearch = {
-  props: {},
+  props: {
+    results: { type: Number, default: 0.1 }
+  },
   emits: ["search"],
   setup(props, { emit }) {
     const form = reactive({
@@ -575,5 +577,6 @@ const classSearch = {
     <input type="submit" value="Search">
     </div>
   </form>
+  <div v-if="props.results !== 0.1" class="classResults">Results: {{props.results}}</div>
   `
 }

@@ -1409,10 +1409,7 @@ $footBase: "footer";
 }
 
 .class-search {
-  width: calc(100% + 100px);
-  margin: -10px -50px 0 -50px;
-  padding: 10px 35px;
-  border-bottom: 2px solid $border;
+  width: 100%;
   display: flex;
   justify-content: stretch;
   div {
@@ -1482,6 +1479,20 @@ $footBase: "footer";
     &:last-child {
       margin-left: 2px;
     }
+  }
+}
+.searcher {
+  width: calc(100% + 100px);
+  margin: -10px -50px 0 -50px;
+  padding: 10px 35px;
+  border-bottom: 2px solid $border;
+  .classResults {
+    font-family: $arsenal;
+    font-style: italic;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 20px;
   }
 }
 @container overlord (max-width: 380px) {

@@ -61,6 +61,7 @@ const App = createApp({
     const loading = ref(false);
     const results = reactive({ data: [] });
     const defaultCarousel = new Array(6).fill(`${nested}imgs/no-image.png`);
+    const classResults = Vue.ref(0.1);
     async function setupSearch() {
       const [query, iframe] = [uPrms.get("q"), uPrms.get("iframe")];
       const { pathname, origin } = window.location;
@@ -163,7 +164,16 @@ const App = createApp({
       instStop();
       teachStop();
       const accordions = Array.from(document.querySelectorAll(".accordion"));
-      if (query === "") return accordions.forEach(e => e.classList.remove("d-none"));
+      if (query === "") {
+        classResults.value = 0.1;
+        accordions.forEach(e => {
+          e.classList.remove("d-none");
+          closeAcc(e);
+          const rows = e.querySelectorAll("tbody tr");
+          rows.forEach(e => e.classList.remove("d-none"))
+        });
+        return;
+      }
       if (option === "Instrument") {
         if (!instrumentFuse) {
           await new Promise((resolve, reject) => {
@@ -171,8 +181,9 @@ const App = createApp({
           })
           searchClasses({ query, option });
           instStart = () => { };
-        } else if (instrumentFuse) {
+        } else {
           const results = instrumentFuse.search(query).map(e => e.item);
+          classResults.value = results.length;
           const accs = accordions.filter(e => {
             const instrument = e.getAttribute("data-instrument");
             if (!results.includes(instrument)) {
@@ -184,17 +195,7 @@ const App = createApp({
               return true;
             }
           })
-          if (accs.length > 1) {
-            accs.forEach(accordion => {
-              const number = accordion.id.slice(11);
-              const collapse = accordion.querySelector(`#collapse${number}`);
-              const button = accordion.querySelector(`#button${number}`);
-              collapse.classList.remove("show")
-              button.classList.add("collapsed")
-              button.setAttribute("aria-expanded", false);
-            })
-            return;
-          };
+          if (accs.length > 1) return accs.forEach(accordion => closeAcc(accordion))
           openAcc(accs[0])
         }
       } else if (option === "Teacher") {
@@ -204,9 +205,11 @@ const App = createApp({
           })
           searchClasses({ query, option });
           teachStart = () => { };
-        } else if (teacherFuse) {
+        } else {
           const results = teacherFuse.search(query).map(e => e.item);
+          classResults.value = results.length;
           const instruments = Array.from(new Set(results.map(e => e.inst)))
+          const teachers = Array.from(new Set(results.map(e => e.name.toLowerCase())))
           const accs = accordions.filter(e => {
             const instrument = e.getAttribute("data-instrument");
             if (!instruments.includes(instrument)) {
@@ -218,9 +221,17 @@ const App = createApp({
               return true;
             }
           })
-          accs.forEach(accordion =>
-            openAcc(accordion)
-          )
+          accs.forEach(accordion => {
+            openAcc(accordion);
+            const rows = Array.from(accordion.querySelectorAll("tbody tr"));
+            rows.forEach(e => e.classList.remove("d-none"));
+            rows.forEach(r => {
+              const td = r.querySelector("th");
+              if (!teachers.includes(td.textContent.toLowerCase())) {
+                r.classList.add("d-none")
+              }
+            })
+          })
         }
       }
     }
@@ -257,7 +268,8 @@ const App = createApp({
       weblink,
       currentLocation,
       defaultCarousel,
-      blank
+      blank,
+      classResults
     };
   },
 });
@@ -463,4 +475,12 @@ function openAcc(accordion) {
   collapse.classList.add("show")
   button.classList.remove("collapsed")
   button.setAttribute("aria-expanded", true);
+}
+function closeAcc(accordion) {
+  const number = accordion.id.slice(11);
+  const collapse = accordion.querySelector(`#collapse${number}`);
+  const button = accordion.querySelector(`#button${number}`);
+  collapse.classList.remove("show")
+  button.classList.add("collapsed")
+  button.setAttribute("aria-expanded", false);
 }
