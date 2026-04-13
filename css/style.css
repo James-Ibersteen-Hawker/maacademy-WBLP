@@ -65,6 +65,8 @@ img {
 
 .searchResult {
   background: rgba(248, 255, 149, 0.3);
+  font-family: inherit !important;
+  font-size: inherit !important;
   animation-name: loadTarget;
   animation-fill-mode: forwards;
   animation-duration: 10s;
@@ -763,14 +765,17 @@ img {
      object-position: 33%;
 }
 #vue_app .content-container.container-fluid .heading-top.row p {
+  background: rgba(23, 82, 210, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 10px 35px !important;
-  background: rgba(23, 82, 210, 0.8);
   font-family: "Wittgenstein", serif;
   text-shadow: 0px 1px 5px black;
+}
+#vue_app .content-container.container-fluid .heading-top.row p div {
+  background: red;
 }
 #vue_app .content-container.container-fluid .contact-blurb {
   border-bottom: 2px solid rgba(248, 255, 149, 0.5);

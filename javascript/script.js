@@ -104,18 +104,21 @@ const App = createApp({
             preamble = value.slice(begin, start).replace(/\r?\n/g, "");
           }
           postamble = value.slice(start + string.length).replace(/\r?\n/g, "");
+          postamble = postamble.split(SEP).join(" ");
           const { page: link } = item;
-          return new Hit(string, preamble, postamble, link);
+          return new Hit(string, preamble, postamble, link, value);
         }).filter(Boolean);
         loading.value = false;
         results.data = convertArray;
       }
     }
-    function runSelection({ exact, url }) {
+    function runSelection(e) {
+      const {exact, url, value} = e;
       const path = url === "index.html" ? "" : "/html";
       const inRepo = window.location.pathname.includes(REPONAME);
       const repoBase = inRepo ? REPONAME : "";
-      window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(exact.trim())}`;
+      const query = JSON.stringify([value, exact.trim()])
+      window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(query)}`;
     }
     function filterTeachers({ data: filters }) {
       const elems = Array.from(document.querySelectorAll(".teacher-container"));
@@ -407,16 +410,32 @@ function initSearch() {
   });
 }
 function goToSearch(q) {
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-  const lower = q.toLowerCase();
+  const walker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode(node) {
+        const parent = node.parentNode?.closest("[data-searchable='false']");
+        const script = node.parentNode?.closest("script");
+        if (Boolean(parent)) return NodeFilter.FILTER_REJECT;
+        if (Boolean(script)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }
+  );
+  const lower = JSON.parse(q);
+  const searchNodes = lower[0].split(SEP).map(e => e.toLowerCase().trim());
   let node, match;
   while ((node = walker.nextNode())) {
-    const value = node.nodeValue.toLowerCase();
-    if (!value.includes(lower)) continue;
+    const value = node.nodeValue.toLowerCase().trim();
+    if (!value) continue;
+    if (!searchNodes.includes(value)) continue;
     match = node;
     break;
   }
-  if (!match) throw new Error("No match!");
+  console.log(match)
+  console.log(Boolean(match))
+  if (Boolean(match) === false) throw new Error("No match!");
   const fragment = document.createDocumentFragment();
   const words = match.nodeValue;
   const start = words.toLowerCase().indexOf(lower);

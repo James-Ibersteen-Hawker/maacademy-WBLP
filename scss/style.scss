@@ -4,6 +4,7 @@ $light: #2e1000;
 $accent: #f8ff95;
 $border: rgba($accent, 0.5);
 $standard: 5px solid $border;
+@use "sass:color";
 @font-face {
   font-family: "Arsenal";
   src: url("../fonts/Arsenal-Italic.woff2") format("woff2");
@@ -66,7 +67,9 @@ img {
   user-select: none;
 }
 .searchResult {
-  background: rgba($accent, 0.3);
+  background: color.adjust($accent, $alpha: -0.7);
+  font-family: inherit !important;
+  font-size: inherit !important;
   animation-name: loadTarget;
   animation-fill-mode: forwards;
   animation-duration: 10s;
@@ -737,14 +740,17 @@ img {
         object-position: 33%;
       }
       p {
+        background: rgba(23, 82, 210, 0.8);
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
         padding: 10px 35px !important;
-        background: rgba(23, 82, 210, 0.8);
         font-family: "Wittgenstein", serif;
         text-shadow: 0px 1px 5px black;
+        div {
+          background: red;
+        }
       }
     }
     .contact-blurb {

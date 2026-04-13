@@ -1,9 +1,10 @@
 class Hit {
-  constructor(exact, preamble, postamble, url) {
+  constructor(exact, preamble, postamble, url, value) {
     this.exact = exact;
     this.preamble = preamble;
     this.postamble = postamble;
     this.url = url;
+    this.value = value;
   }
 }
 class Page {

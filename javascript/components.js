@@ -599,4 +599,4 @@ const classSearch = {
   </form>
   <div v-if="props.results !== 0.1" class="classResults">Results: {{props.results}}</div>
   `
-}
+} //class loader done

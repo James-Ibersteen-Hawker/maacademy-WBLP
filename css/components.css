@@ -669,8 +669,8 @@
   color: white;
   width: 60%;
   height: 100%;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow-y: clip;
+  overflow-x: clip;
   position: relative;
   text-align: justify;
   font-size: 16px;
