@@ -96,6 +96,7 @@ const navBar = {
       { deep: true },
     );
     Vue.onMounted(async () => {
+      await Vue.nextTick();
       const observer = new ResizeObserver(() => checkFit());
       observer.observe(nav.value);
       await Vue.nextTick();

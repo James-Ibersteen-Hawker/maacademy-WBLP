@@ -67,7 +67,6 @@ function teachersSched(data) {
     }
     schedules.push(obj)
   })
-  console.log(JSON.stringify(schedules))
   return { teachers: arr, filters: Array.from(filters), schedules: schedules };
 }
 //item in classes = instrument, instrument.teachers, -> {name, days, times}
@@ -96,7 +95,6 @@ export async function sheet(fetchlink, abortTimeout) {
   const timeout = setTimeout(() => controller.abort(new Error("Timeout Exceeded")), abortTimeout);
   try {
     const data = await fetch(fetchlink, { signal });
-    // const data = await fetch("../test.json", { signal });
     const sheets = (await data.json())?.sheets ?? {};
     return Object.entries(sheets).reduce((obj, [name, sheetData]) => {
       const func = funcLUT[name.trim().toLowerCase()];
