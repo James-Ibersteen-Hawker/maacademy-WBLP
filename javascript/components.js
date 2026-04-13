@@ -121,7 +121,8 @@ const navBar = {
       resultItem,
       total,
       extras,
-      header
+      header,
+      page
     };
   },
   template: `
@@ -137,7 +138,13 @@ const navBar = {
     </div>
     <div class="nav-bar-body">
       <div class="nav-bar-section nav-bar-list" ref="navBody">
-        <div class="nav-bar-item" ref="navItem" v-for="link in links" :key="link.url" @mouseenter="animOpen" @mouseleave="animClose">
+        <div 
+          class="nav-bar-item"
+          ref="navItem"
+          v-for="link in links"
+          :key="link.url"
+          @mouseenter="animOpen"
+          @mouseleave="animClose">
           <a :href="link.url === 'index.html' ? prefix() + link.url : prefix() + 'html/' + link.url">{{link.name}}
           <div class="nav-bar-item-icon">
             <div :style="makeMaskStyle(prefix() + link.icon)" class="nav-bar-item-icon-mask"></div>
