@@ -861,9 +861,9 @@ img {
       width: calc(100% + 100px);
       margin: 0px -50px;
       padding: 10px 35px;
-      border-bottom: $standard;
     }
     .special {
+      border-top: $standard;
       width: calc(100% + 100px);
       margin: 0px -50px -10px -50px;
       display: flex;
@@ -1007,6 +1007,11 @@ img {
         }
       }
     }
+  }
+  .classes-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 

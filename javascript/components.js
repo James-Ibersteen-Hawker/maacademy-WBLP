@@ -27,6 +27,8 @@ const navBar = {
     const item = Vue.ref(null);
     const extras = Vue.ref(null);
     const result = Vue.ref(null);
+    const link = window.location.pathname.split("/").at(-1);
+    const page = link ? link : "index.html";
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -123,7 +125,8 @@ const navBar = {
       result,
       nav,
       extras,
-      header
+      header,
+      page
     };
   },
   template: `
@@ -146,6 +149,7 @@ const navBar = {
           :key="link.url"
           @mouseenter="animOpen"
           @mouseleave="animClose"
+          :class="{ 'active-item': page === link.url.toLowerCase()}"
         >
           <a :href="fixLink(link)">{{link.name}}
             <div class="item-icon">
@@ -164,7 +168,9 @@ const navBar = {
             <div :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/next.png')" class="icon-mask"></div>
           </div>
           <div class="dropdown-body">
-              <div class="nav-dropdown-item" v-for="link in overflow" :key="link.url">
+              <div class="nav-dropdown-item" v-for="link in overflow" :key="link.url" 
+              :class="{ 'active-item': page === link.url.toLowerCase()}"
+              >
                 <a :href="fixLink(link)">{{link.name}}</a>
               </div>
           </div>
@@ -559,18 +565,38 @@ const loader = {
   `,
 }; //loader done
 const classSearch = {
-  props: {},
+  props: {
+    results: { type: Number, default: 0.1 }
+  },
   emits: ["search"],
   setup(props, { emit }) {
+    const form = reactive({
+      query: "",
+      option: ""
+    });
     function search() {
-      alert("here")
-      emit("search", "searching")
+      emit("search", { query: form.query, option: form.option })
     }
-    return { props };
+    function placeholder() {
+      const d = form.option;
+      return `Search${d ? ` ${d}s` : ""}...`
+    }
+    return { props, form, search, placeholder };
   },
   template: `
-  <form @submit.prevent="search">
-    <input type="submit">
+  <form @submit.prevent="search" class="class-search">
+    <div>
+    <select v-model="form.option" name="mode" id="mode" required>
+      <option value="">Select a Category</option>
+      <option value="Instrument">Instrument</option>
+      <option value="Teacher">Teacher</option>
+    </select>
+    </div>
+    <div>
+    <input v-model="form.query" type="text" :placeholder="placeholder()" name="search" id="search">
+    <input type="submit" value="Search">
+    </div>
   </form>
+  <div v-if="props.results !== 0.1" class="classResults">Results: {{props.results}}</div>
   `
 }

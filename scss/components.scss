@@ -137,6 +137,12 @@ $thin: 1px solid vars.$border;
           }
         }
       }
+      .active-item {
+        background: rgb(29, 29, 29);
+        .item-icon {
+          background: rgb(29,29,29);
+        }
+      }
       .nav-dropdown {
         @include item();
         display: flex;
@@ -536,9 +542,6 @@ $thin: 1px solid vars.$border;
     }
   }
 }
-
-
-
 @media screen and (min-height: 800px) {
   .#{$base}-body {
     .#{$base}-list {
@@ -1396,6 +1399,107 @@ $footBase: "footer";
         blend-color(#682800, #cf5407, 100% - $i),
         #090400
       );
+    }
+  }
+}
+
+.class-search {
+  width: 100%;
+  display: flex;
+  justify-content: stretch;
+  div {
+    flex: 1 1 auto;
+    @include centerFlex();
+    label,
+    input,
+    select {
+      cursor: pointer;
+      height: 100%;
+      margin: 0px 1px;
+      border: 0;
+      background: none;
+      font-family: "ABeeZee", sans-serif;
+    }
+    input[type="text"] {
+      background: rgba(128, 128, 128, 0.492);
+      color: $top;
+      transition: $anim-length;
+      padding: 2px 5px;
+      font-family: $arsenal;
+      font-size: 20px;
+      border-bottom: 4px solid $border;
+      margin-right: 5px;
+      width: calc(100% - 105px);
+      &::placeholder {
+        color: $accent;
+        transition: $anim-length;
+      }
+      &:focus {
+        cursor: text;
+        &::placeholder {
+          color: $top;
+        }
+        border-bottom: 4px solid $accent;
+        outline: none;
+      }
+    }
+    input[type="submit"] {
+      width: 95px;
+      background: $border;
+      border-radius: 5px;
+      border: 1px solid $accent;
+      box-shadow: 0px 0px 5px $dark;
+      transition: $anim-length;
+      &:hover {
+        background: $accent;
+      }
+    }
+    select {
+      color: $accent;
+      border-bottom: 4px solid $border;
+      transition: $anim-length;
+      width: 100%;
+      option {
+        color: black;
+      }
+      &:focus {
+        outline: none;
+        border-bottom: 4px solid $accent;
+        color: $top;
+      }
+    }
+    &:first-child {
+      margin-right: 2px;
+    }
+    &:last-child {
+      margin-left: 2px;
+    }
+  }
+}
+.searcher {
+  width: calc(100% + 100px);
+  margin: -10px -50px 0 -50px;
+  padding: 10px 35px;
+  border-bottom: 2px solid $border;
+  .classResults {
+    font-family: $arsenal;
+    font-style: italic;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 20px;
+  }
+}
+@container overlord (max-width: 380px) {
+  .class-search {
+    display: block;
+    div {
+      width: 100%;
+      display: block;
+      margin-bottom: 10px;
+      &:first-child {
+        padding-left: 2px;
+      }
     }
   }
 }

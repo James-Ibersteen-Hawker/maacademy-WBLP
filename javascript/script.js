@@ -20,6 +20,24 @@ const fuseOptions = {
 let searchLUT, engine;
 let engineStart = () => { };
 let engineReject = () => { };
+let instrumentFuse, teacherFuse;
+const instFuseOp = {
+  ignoreDiacritics: true,
+  includeMatches: true,
+  threshold: 0.3,
+  ignoreLocation: true
+}
+const teachFuseOp = {
+  keys: ["name"],
+  ignoreDiacritics: true,
+  includeMatches: true,
+  threshold: 0.3,
+  ignoreLocation: true
+}
+let instStart = () => { };
+let instStop = () => { };
+let teachStart = () => { };
+let teachStop = () => { };
 const pages = [
   new Page("Home", "index.html", "webicons/navbar-icons/home.png"),
   new Page("About Us", "about-us.html", "webicons/navbar-icons/information.png"),
@@ -30,6 +48,9 @@ const pages = [
   new Page("Radio City", "radio-city.html", "webicons/navbar-icons/radio-city.png"),
   new Page("Gallery", "gallery.html", "webicons/navbar-icons/images.png"),
 ];
+
+//////////////////////////////
+
 const App = createApp({
   setup() {
     const searchString = window.location.search;
@@ -40,6 +61,7 @@ const App = createApp({
     const loading = ref(false);
     const results = reactive({ data: [] });
     const defaultCarousel = new Array(6).fill(`${nested}imgs/no-image.png`);
+    const classResults = Vue.ref(0.1);
     async function setupSearch() {
       const [query, iframe] = [uPrms.get("q"), uPrms.get("iframe")];
       const { pathname, origin } = window.location;
@@ -137,13 +159,97 @@ const App = createApp({
       row.classList.add("activeRow");
       row.scrollIntoView({ behavior: "smooth", block: "center" })
     }
-    function searchClasses(e) {
-      alert("here")
+    async function searchClasses(e) {
+      const { query, option } = e;
+      instStop();
+      teachStop();
+      const accordions = Array.from(document.querySelectorAll(".accordion"));
+      if (query === "") {
+        classResults.value = 0.1;
+        accordions.forEach(e => {
+          e.classList.remove("d-none");
+          closeAcc(e);
+          const rows = e.querySelectorAll("tbody tr");
+          rows.forEach(e => e.classList.remove("d-none"))
+        });
+        return;
+      }
+      if (option === "Instrument") {
+        if (!instrumentFuse) {
+          await new Promise((resolve, reject) => {
+            [instStart, instStop] = [resolve, reject];
+          })
+          searchClasses({ query, option });
+          instStart = () => { };
+        } else {
+          const results = instrumentFuse.search(query).map(e => e.item);
+          classResults.value = results.length;
+          const accs = accordions.filter(e => {
+            const instrument = e.getAttribute("data-instrument");
+            if (!results.includes(instrument)) {
+              e.classList.add("d-none");
+              return false;
+            }
+            else {
+              e.classList.remove("d-none");
+              return true;
+            }
+          })
+          if (accs.length > 1) return accs.forEach(accordion => closeAcc(accordion))
+          openAcc(accs[0])
+        }
+      } else if (option === "Teacher") {
+        if (!teacherFuse) {
+          await new Promise((resolve, reject) => {
+            [teachStart, teachStop] = [resolve, reject];
+          })
+          searchClasses({ query, option });
+          teachStart = () => { };
+        } else {
+          const results = teacherFuse.search(query).map(e => e.item);
+          classResults.value = results.length;
+          const instruments = Array.from(new Set(results.map(e => e.inst)))
+          const teachers = Array.from(new Set(results.map(e => e.name.toLowerCase())))
+          const accs = accordions.filter(e => {
+            const instrument = e.getAttribute("data-instrument");
+            if (!instruments.includes(instrument)) {
+              e.classList.add("d-none");
+              return false;
+            }
+            else {
+              e.classList.remove("d-none");
+              return true;
+            }
+          })
+          accs.forEach(accordion => {
+            openAcc(accordion);
+            const rows = Array.from(accordion.querySelectorAll("tbody tr"));
+            rows.forEach(e => e.classList.remove("d-none"));
+            rows.forEach(r => {
+              const td = r.querySelector("th");
+              if (!teachers.includes(td.textContent.toLowerCase())) {
+                r.classList.add("d-none")
+              }
+            })
+          })
+        }
+      }
+    }
+    function classFuse() {
+      const page = window.location.pathname.split("/").at(-1);
+      if (page !== "classes.html") return;
+      instrumentFuse = new Fuse(content.value.filters, instFuseOp);
+      const schedules = content.value.schedules;
+      const data = schedules.flatMap(item => item.teachers.map(t => ({ inst: item.name, name: t.name })))
+      teacherFuse = new Fuse(data, teachFuseOp);
+      instStart();
+      teachStart();
     }
     loadData()
       .then((data) => {
         content.value = data;
         setupSearch();
+        classFuse();
       })
       .catch((err) => alert(err.message));
     onMounted(async () => {
@@ -162,7 +268,8 @@ const App = createApp({
       weblink,
       currentLocation,
       defaultCarousel,
-      blank
+      blank,
+      classResults
     };
   },
 });
@@ -356,4 +463,20 @@ function assembleLUT(iframes) {
     };
     return results;
   });
+}
+function openAcc(accordion) {
+  const number = accordion.id.slice(11);
+  const collapse = accordion.querySelector(`#collapse${number}`);
+  const button = accordion.querySelector(`#button${number}`);
+  collapse.classList.add("show")
+  button.classList.remove("collapsed")
+  button.setAttribute("aria-expanded", true);
+}
+function closeAcc(accordion) {
+  const number = accordion.id.slice(11);
+  const collapse = accordion.querySelector(`#collapse${number}`);
+  const button = accordion.querySelector(`#button${number}`);
+  collapse.classList.remove("show")
+  button.classList.add("collapsed")
+  button.setAttribute("aria-expanded", false);
 }

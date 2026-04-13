@@ -902,9 +902,9 @@ img {
   width: calc(100% + 100px);
   margin: 0px -50px;
   padding: 10px 35px;
-  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
 }
 #vue_app .content-container.container-fluid .special {
+  border-top: 5px solid rgba(248, 255, 149, 0.5);
   width: calc(100% + 100px);
   margin: 0px -50px -10px -50px;
   display: flex;
@@ -1055,6 +1055,11 @@ img {
 #vue_app .contact-form.container-fluid .row .postercontainer img {
   width: 100%;
   height: auto;
+}
+#vue_app .classes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 @media screen and (min-width: 1000px) {
