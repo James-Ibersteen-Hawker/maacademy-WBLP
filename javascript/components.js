@@ -96,11 +96,13 @@ const navBar = {
       { deep: true },
     );
     Vue.onMounted(async () => {
-      checkFit();
       const observer = new ResizeObserver(() => checkFit());
       observer.observe(nav.value);
       await Vue.nextTick();
-      checkFit();
+      const headerImage = header.value.querySelector("img");
+      if (headerImage) {
+        headerImage.addEventListener("onload", checkFit)
+      } else checkFit();
       modal.value.addEventListener("shown.bs.modal", focusInput)
     });
     return {
