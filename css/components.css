@@ -123,6 +123,12 @@
 .nav-bar .nav-body .nav-list .item:hover .icon-mask {
   background: black;
 }
+.nav-bar .nav-body .nav-list .active-item {
+  background: rgb(29, 29, 29);
+}
+.nav-bar .nav-body .nav-list .active-item .item-icon {
+  background: rgb(29, 29, 29);
+}
 .nav-bar .nav-body .nav-list .nav-dropdown {
   font-size: 25px;
   height: 34px;

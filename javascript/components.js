@@ -27,6 +27,8 @@ const navBar = {
     const item = Vue.ref(null);
     const extras = Vue.ref(null);
     const result = Vue.ref(null);
+    const link = window.location.pathname.split("/").at(-1);
+    const page = link ? link : "index.html";
     const formSubmit = () => emit("query", query.value);
     const choose = (result) => emit("choose", result);
     const makePhone = (number) => {
@@ -147,6 +149,7 @@ const navBar = {
           :key="link.url"
           @mouseenter="animOpen"
           @mouseleave="animClose"
+          :class="{ 'active-item': page === link.url.toLowerCase()}"
         >
           <a :href="fixLink(link)">{{link.name}}
             <div class="item-icon">
@@ -165,7 +168,9 @@ const navBar = {
             <div :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/next.png')" class="icon-mask"></div>
           </div>
           <div class="dropdown-body">
-              <div class="nav-dropdown-item" v-for="link in overflow" :key="link.url">
+              <div class="nav-dropdown-item" v-for="link in overflow" :key="link.url" 
+              :class="{ 'active-item': page === link.url.toLowerCase()}"
+              >
                 <a :href="fixLink(link)">{{link.name}}</a>
               </div>
           </div>

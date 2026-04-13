@@ -137,6 +137,12 @@ $thin: 1px solid vars.$border;
           }
         }
       }
+      .active-item {
+        background: rgb(29, 29, 29);
+        .item-icon {
+          background: rgb(29,29,29);
+        }
+      }
       .nav-dropdown {
         @include item();
         display: flex;
@@ -536,9 +542,6 @@ $thin: 1px solid vars.$border;
     }
   }
 }
-
-
-
 @media screen and (min-height: 800px) {
   .#{$base}-body {
     .#{$base}-list {
