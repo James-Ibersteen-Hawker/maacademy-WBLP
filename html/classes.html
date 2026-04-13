@@ -242,7 +242,8 @@
       <div class="heading">
         <h1>Classes&nbsp;<span class="clef">&#x1D11E;</span>&nbsp;Schedules</h1>
       </div>
-      <div class="content-container container-fluid">
+      <div class="content-container container-fluid classes-container">
+        <div>
         <section class="searcher" data-searchable="false">
           <class-search @search="searchClasses" :results="classResults"></class-search>
         </section>
@@ -256,6 +257,8 @@
           ></instrument-accordion>
           <loading v-if="!content?.['schedules']"></loading>
         </section>
+        </div>
+        <div>
         <section class="special">
           <div class="inner row justify-content-center">
             <h1>Special Classes</h1>
@@ -271,6 +274,7 @@
             <loading v-if="!content?.['special']"></loading>
           </div>
         </section>
+        </div>
       </div>
       <page-footer
         :icons="content?.['contacts']"
