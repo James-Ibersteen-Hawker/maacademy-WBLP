@@ -27,6 +27,8 @@ const navBar = {
     const item = Vue.ref(null);
     const extras = Vue.ref(null);
     const result = Vue.ref(null);
+    const modal = Vue.ref(null);
+    const input = Vue.ref(null)
     const link = window.location.pathname.split("/").at(-1);
     const page = link ? link : "index.html";
     const formSubmit = () => emit("query", query.value);
@@ -58,7 +60,7 @@ const navBar = {
       };
     }
     function checkFit() {
-      const navHeight = nav.value.offsetHeight;
+      const navHeight = Math.min(window.innerHeight, nav.value.offsetHeight);
       const bodyHeight = navHeight - header.value.offsetHeight - extras.value.offsetHeight;
       const itemHeight = itemOffsetHeight + 2;
       let totalHeight = itemHeight * props.links.length;
@@ -81,6 +83,7 @@ const navBar = {
       if (scrollBottom <= 1) scrollMore.value = false;
       else scrollMore.value = true;
     }
+    const focusInput = () => input.value?.focus();
     const prefix = () => "../".repeat(props.level);
     const fixLink = (link) => link.url === 'index.html' ? prefix() + link.url : prefix() + 'html/' + link.url;
     Vue.watch(
@@ -98,6 +101,7 @@ const navBar = {
       observer.observe(nav.value);
       await Vue.nextTick();
       checkFit();
+      modal.value.addEventListener("shown.bs.modal", focusInput)
     });
     return {
       formSubmit,
@@ -126,7 +130,9 @@ const navBar = {
       nav,
       extras,
       header,
-      page
+      page,
+      modal,
+      input
     };
   },
   template: `
@@ -217,12 +223,12 @@ const navBar = {
     </div>
   </div>
   <!--modal-->
-  <div class="search-modal modal fade" tabindex="-1" data-searchable="false" id="search-modal" aria-labelledby="searchModalLabel">
+  <div class="search-modal modal fade" tabindex="-1" data-searchable="false" id="search-modal" aria-labelledby="searchModalLabel" ref="modal">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-body">
           <form @submit.prevent="formSubmit">
-            <input v-model="query" id="search-input" name="search-input" placeholder="Search..." maxlength="30">
+            <input v-model="query" id="search-input" name="search-input" placeholder="Search..." maxlength="30" ref="input">
             <label for="search-input" :style="makeMaskStyle(prefix() + 'webicons/navbar-icons/search.png')" @click="formSubmit"></label>
           </form>
           <div class="search-results" :class="{'scrollMore': scrollMore, 'loading': props.loading, 'hasResults': props.results.length > 0}" ref="resultsCont" @scroll="resultScroll">
@@ -282,7 +288,7 @@ const imgCarousel = {
     const activeImage = ref(null);
     let index = Math.ceil(props.images.length / 2) - 1;
     let scrollBlock = {
-      behavior: "smooth",
+      behavior: "instant",
       block: "nearest",
       inline: "center",
     };
@@ -292,7 +298,23 @@ const imgCarousel = {
       const target = items.value[index];
       if (target) {
         target.classList.add("activeE");
-      }
+        target.scrollIntoView(scrollBlock);
+        window.scrollTo(0,0)
+      };
+      await Vue.nextTick()
+      const promises = items.value.map(item => {
+        const img = item.querySelector("img");
+        if (!img) return Promise.resolve();
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      })
+      await Promise.all(promises);
+      const heights = Array.from(new Set(items.value.map(item => item.offsetHeight))).sort();
+      const largest = heights.at(-1);
+      items.value.forEach(item => item.setAttribute("style", `height: ${largest}px;`))
     });
     function move(p) {
       if (index <= props.images.length - 1 && index >= 0) index += p;
@@ -425,7 +447,7 @@ const instrumentComponent = {
   props: {
     instrument: { type: Object, default: null },
     name: { type: String, default: "" },
-    number: {type: Number, default: 1}
+    number: { type: Number, default: 1 }
   },
   setup(props) {
     function reverse(name) {
