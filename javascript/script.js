@@ -3,7 +3,7 @@ const { createApp, ref, reactive, onMounted } = Vue;
 const weblink =
   "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
 const REPONAME = "/maacademy-WBLP";
-const [signalTimeout, workerTimeout, dataTimeout] = [20000, 30000, 6];
+const [signalTimeout, workerTimeout, dataTimeout] = [20000, 30000, 0];
 const hourInMillis = 60 * 60 * 1000;
 const keys = { dataKey: "sheetData", searchKey: "searchData" };
 const nested = location.pathname.includes("/html/") ? "../" : "./";

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Arsenal";
   src: url("../fonts/Arsenal-Italic.woff2") format("woff2");
@@ -935,14 +936,33 @@ img {
   font-family: "Wittgenstein", serif;
   font-size: 20px;
 }
+#vue_app .content-container.container-fluid .policy {
+  font-family: "Times New Roman", serif;
+  font-size: 20px;
+  width: calc(100% + 100px);
+  margin: -10px -50px 10px -50px;
+  padding: 5px 35px;
+  border-bottom: 2px solid rgba(248, 255, 149, 0.5);
+  text-decoration: underline;
+  font-style: italic;
+}
+#vue_app .content-container.container-fluid .policy a {
+  cursor: pointer;
+  transition: 0.5s;
+}
+#vue_app .content-container.container-fluid .policy a:hover {
+  color: #f8ff95;
+}
 #vue_app .contact-form.container-fluid {
   background: linear-gradient(to bottom, #2e1000, #1c0a00);
   width: 98%;
   margin-top: 2%;
+  margin-bottom: 80px;
   border: 5px solid rgba(248, 255, 149, 0.5);
-  border-bottom: 0 !important;
   padding: 0 !important;
   max-width: 1100px;
+  min-height: calc(100vh - 200px);
+  border-bottom: 5px solid rgba(248, 255, 149, 0.5);
 }
 #vue_app .contact-form.container-fluid .row {
   padding: 0 !important;
@@ -958,6 +978,19 @@ img {
   flex-direction: column;
   align-items: center;
   border: 5px solid rgba(248, 255, 149, 0.5);
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .jobs {
+  color: white;
+  transition: 0.5s;
+  font-family: "Times New Roman", serif;
+  font-style: italic;
+  font-size: 20px;
+  margin-top: -10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+#vue_app .contact-form.container-fluid .row .formcontainer .inner .jobs:hover {
+  color: #f8ff95;
 }
 #vue_app .contact-form.container-fluid .row .formcontainer .inner h1 {
   font-family: "Times New Roman", serif;
@@ -1060,6 +1093,54 @@ img {
 #vue_app .contact-form.container-fluid .row .postercontainer img {
   width: 100%;
   height: auto;
+}
+#vue_app #policyModal,
+#vue_app #jobModal {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+#vue_app #policyModal .modal-content,
+#vue_app #jobModal .modal-content {
+  background: black !important;
+  border: 1px solid rgba(248, 255, 149, 0.5);
+  border-radius: 0;
+  max-height: 90vh;
+}
+#vue_app #policyModal .modal-content .modal-header,
+#vue_app #jobModal .modal-content .modal-header {
+  color: #f8ff95;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#vue_app #policyModal .modal-content .modal-header .modal-title,
+#vue_app #jobModal .modal-content .modal-header .modal-title {
+  font-size: 20px;
+  font-style: italic;
+}
+#vue_app #policyModal .modal-content .modal-body,
+#vue_app #jobModal .modal-content .modal-body {
+  color: white;
+  font-family: "Arsenal", sans-serif;
+}
+#vue_app #policyModal .modal-content .modal-body ul,
+#vue_app #jobModal .modal-content .modal-body ul {
+  list-style-type: "—   ";
+}
+#vue_app #jobModal ul li {
+  font-size: 20px;
+  font-style: normal;
+}
+#vue_app #jobModal div:has(a) {
+  font-size: 20px;
+  font-style: italic;
+}
+#vue_app #jobModal div:has(a) a {
+  color: white;
+  transition: 0.5s;
+}
+#vue_app #jobModal div:has(a) a:hover {
+  color: #f8ff95;
 }
 #vue_app .classes-container {
   display: flex;

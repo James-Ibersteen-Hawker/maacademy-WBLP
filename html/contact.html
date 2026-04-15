@@ -228,6 +228,7 @@
           <div class="col-12 col-md-7 formcontainer">
             <div class="inner">
               <h1>Contact Us</h1>
+              <div class="jobs" data-bs-toggle="modal" data-bs-target="#jobModal">Job Opportunities</div>
               <table>
                 <tr>
                   <th
@@ -353,6 +354,39 @@
         :icons="content?.['contacts']"
         :copyright="content?.['copyright']"
       ></page-footer>
+      <div
+        class="modal fade"
+        id="jobModal"
+        tabindex="-1"
+        aria-labelledby="jobModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="jobModalLabel">
+                Job Opportunities
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul>
+                <li v-for="job in content?.['jobs']">{{job}}</li>
+              </ul>
+              <loading v-if="!content?.['jobs']"></loading>
+              <div>
+                <a href="./contact.html" target="_self">Contact Us</a>
+                to apply!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <script
       defer

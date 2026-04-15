@@ -70,7 +70,12 @@ function teachersSched(data) {
   return { teachers: arr, filters: Array.from(filters), schedules: schedules };
 }
 //item in classes = instrument, instrument.teachers, -> {name, days, times}
-const contactOpp = (data) => data;
+const contactOpp = (data) => {
+  data.contacts = data.contacts.filter(({Name, Link, Icon}) => {
+    return Name && Link && Icon;
+  })
+  return data
+};
 function imgGalleries(data) {
   const obj = Object.entries(data).reduce((payload, [category, images]) => {
     payload[category] = images.filter(Boolean);

@@ -244,42 +244,80 @@
       </div>
       <div class="content-container container-fluid classes-container">
         <div>
-        <section class="searcher" data-searchable="false">
-          <class-search @search="searchClasses" :results="classResults"></class-search>
-        </section>
-        <section class="classes">
-          <instrument-accordion
-            v-for="(item, i) in content?.['schedules']"
-            :key="i"
-            :name="item.name"
-            :instrument="item"
-            :number="i"
-          ></instrument-accordion>
-          <loading v-if="!content?.['schedules']"></loading>
-        </section>
+          <section class="policy">
+            <a data-bs-toggle="modal" data-bs-target="#policyModal">See the Class Policy</a>
+          </section>
+          <section class="searcher" data-searchable="false">
+            <class-search
+              @search="searchClasses"
+              :results="classResults"
+            ></class-search>
+          </section>
+          <section class="classes">
+            <instrument-accordion
+              v-for="(item, i) in content?.['schedules']"
+              :key="i"
+              :name="item.name"
+              :instrument="item"
+              :number="i"
+            ></instrument-accordion>
+            <loading v-if="!content?.['schedules']"></loading>
+          </section>
         </div>
         <div>
-        <section class="special">
-          <div class="inner row justify-content-center">
-            <h1>Special Classes</h1>
-            <special-class
-              v-for="(c, i) in content?.['special']"
-              :title="c.Name"
-              :teacher="c.Teacher"
-              :date-time="c.Times"
-              :text="c.About"
-              :when="c.When"
-              :key="i"
-            ></special-class>
-            <loading v-if="!content?.['special']"></loading>
-          </div>
-        </section>
+          <section class="special">
+            <div class="inner row justify-content-center">
+              <h1>Special Classes</h1>
+              <special-class
+                v-for="(c, i) in content?.['special']"
+                :title="c.Name"
+                :teacher="c.Teacher"
+                :date-time="c.Times"
+                :text="c.About"
+                :when="c.When"
+                :key="i"
+              ></special-class>
+              <loading v-if="!content?.['special']"></loading>
+            </div>
+          </section>
         </div>
       </div>
       <page-footer
         :icons="content?.['contacts']"
         :copyright="content?.['copyright']"
       ></page-footer>
+      <div
+        class="modal fade"
+        id="policyModal"
+        tabindex="-1"
+        aria-labelledby="policyModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="policyModalLabel">
+                Class Policy
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <h1>Payments</h1>
+              <p>Classes are paid by the month. Payment is due at the beginning of each month. (We prefer auto-payments)</p>
+            <h1>Makeups</h1>
+            <ul>
+              <li>IF A TEACHER CANCELS A CLASS FOR ANY REASON – you get a makeup</li>
+              <li>IF YOU CANCEL A CLASS IN LESS THAN 24 HOURS – there will be no makeups</li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <script
       defer

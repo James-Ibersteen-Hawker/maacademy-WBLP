@@ -895,15 +895,34 @@ img {
       font-family: "Wittgenstein", serif;
       font-size: 20px;
     }
+    .policy {
+      font-family: "Times New Roman", serif;
+      font-size: 20px;
+      width: calc(100% + 100px);
+      margin: -10px -50px 10px -50px;
+      padding: 5px 35px;
+      border-bottom: 2px solid $border;
+      text-decoration: underline;
+      font-style: italic;
+      a {
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover {
+          color: $accent;
+        }
+      }
+    }
   }
   .contact-form.container-fluid {
     background: linear-gradient(to bottom, $light, $mid);
     width: 98%;
     margin-top: 2%;
+    margin-bottom: 80px;
     border: $standard;
-    border-bottom: 0 !important;
     padding: 0 !important;
     max-width: 1100px;
+    min-height: calc(100vh - 200px);
+    border-bottom: $standard;
     .row {
       padding: 0 !important;
       margin: 0 !important;
@@ -916,6 +935,19 @@ img {
           flex-direction: column;
           align-items: center;
           border: $standard;
+          .jobs {
+            color: white;
+            transition: 0.5s;
+            font-family: "Times New Roman", serif;
+            font-style: italic;
+            font-size: 20px;
+            margin-top: -10px;
+            text-decoration: underline;
+            cursor: pointer;
+            &:hover {
+              color: $accent;
+            }
+          }
           h1 {
             font-family: "Times New Roman", serif;
             color: $accent;
@@ -1010,6 +1042,52 @@ img {
         img {
           width: 100%;
           height: auto;
+        }
+      }
+    }
+  }
+  #policyModal,
+  #jobModal {
+    background: rgba($dark, 0.7);
+    backdrop-filter: blur(3px);
+    .modal-content {
+      background: $dark !important;
+      border: 1px solid $border;
+      border-radius: 0;
+      max-height: 90vh;
+      .modal-header {
+        color: $accent;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .modal-title {
+          font-size: 20px;
+          font-style: italic;
+        }
+      }
+      .modal-body {
+        color: white;
+        font-family: "Arsenal", sans-serif;
+        ul {
+          list-style-type: "—   ";
+        }
+      }
+    }
+  }
+  #jobModal {
+    ul li {
+      font-size: 20px;
+      font-style: normal;
+    }
+
+    div:has(a) {
+      font-size: 20px;
+      font-style: italic;
+      a {
+        color: white;
+        transition: 0.5s;
+        &:hover {
+          color: $accent;
         }
       }
     }
