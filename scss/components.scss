@@ -33,7 +33,7 @@ $thin: 1px solid vars.$border;
 @mixin item {
   font-size: 25px;
   height: 34px;
-  font-family: $arsenal;
+  font-family: vars.$arsenal;
   user-select: none;
 }
 .container-fluid {
@@ -140,7 +140,7 @@ $thin: 1px solid vars.$border;
       .active-item {
         background: rgb(29, 29, 29);
         .item-icon {
-          background: rgb(29,29,29);
+          background: rgb(29, 29, 29);
         }
       }
       .nav-dropdown {
@@ -200,7 +200,7 @@ $thin: 1px solid vars.$border;
         transition: 0.1s;
         font: {
           size: 25px;
-          family: $arsenal;
+          family: vars.$arsenal;
         }
         &:hover {
           color: vars.$accent;
@@ -381,7 +381,7 @@ $thin: 1px solid vars.$border;
           transition: vars.$anim-length;
           color: vars.$top;
           font-size: 22px;
-          font-family: $arsenal;
+          font-family: vars.$arsenal;
           padding: 0;
           &:focus {
             outline: none;
@@ -442,7 +442,7 @@ $thin: 1px solid vars.$border;
         align-items: center;
         text-decoration: none;
         font-size: 22px;
-        font-family: $arsenal;
+        font-family: vars.$arsenal;
         $midColor: rgba(0, 0, 0, 0.3);
         p {
           display: block;
@@ -468,7 +468,7 @@ $thin: 1px solid vars.$border;
         }
         .match {
           font-weight: 800;
-          color: $top;
+          color: vars.$top;
         }
         p:last-child {
           width: 40%;
@@ -506,11 +506,16 @@ $thin: 1px solid vars.$border;
         width: calc(100% - 38px);
         height: 40px;
         opacity: 1;
-        color: $dark;
+        color: vars.$dark;
         font-weight: 900;
-        font-family: $arsenal;
+        font-family: vars.$arsenal;
         font-size: 20px;
-        background: linear-gradient(to bottom, transparent, vars.$border, vars.$accent);
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          vars.$border,
+          vars.$accent
+        );
         animation: fadein vars.$anim-length ease-out 1 forwards;
       }
     }
@@ -542,16 +547,6 @@ $thin: 1px solid vars.$border;
     }
   }
 }
-@media screen and (min-height: 800px) {
-  .#{$base}-body {
-    .#{$base}-list {
-      .#{$base}-item {
-        height: 40px !important;
-        font-size: 30px !important;
-      }
-    }
-  }
-}
 #vue_app {
   transition: padding 0.5s;
   transition-timing-function: ease-out;
@@ -565,8 +560,14 @@ $thin: 1px solid vars.$border;
   transition: padding 0.5s;
   transition-timing-function: ease-out;
 }
+@media screen and (min-height: 800px) {
+  .nav-bar-body .nav-list .item {
+    height: 40px !important;
+    font-size: 30px !important;
+  }
+}
 @media screen and (max-width: 500px) {
-  #vue_app:has(div.#{$base}-show) {
+  #vue_app:has(div.nav-bar-show) {
     padding-left: 0;
   }
 }
@@ -574,7 +575,7 @@ $thin: 1px solid vars.$border;
   #vue_app {
     padding-left: 50px !important;
   }
-  .#{$base} {
+  .nav-bar {
     display: none;
   }
   .landscapeBar {
@@ -587,22 +588,20 @@ $teacher: "teacher";
   width: 100%;
 }
 .teachers {
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto -10px auto;
   padding: 0px 35px;
-  margin-bottom: -10px;
 }
 @mixin teacherChips {
   ul {
-    user-select: none;
     @include centerFlex();
+    user-select: none;
     list-style-type: none;
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0;
+    padding: 0;
     li {
       font-family: "Cinzel", serif;
-      border: 1px solid $border;
-      background: $light;
+      border: 1px solid vars.$border;
+      background: vars.$light;
       padding: 3px 5px;
       border-radius: 8px;
       margin: 5px 5px;
@@ -610,41 +609,38 @@ $teacher: "teacher";
     }
   }
 }
-.#{$teacher}-container {
-  $universal: 2px solid $border;
+.teacher-container {
+  $universal: 2px solid vars.$border;
   width: calc(100% + 100px);
   margin: 0px -50px;
   overflow-x: hidden;
-  border-left: 3px solid $border;
-  padding-left: 40px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  border-left: 3px solid vars.$border;
+  padding: 15px 0 15px 40px;
   position: relative;
   &::after {
     content: "";
     position: absolute;
     width: 40px;
     height: 2px;
-    background: $border;
+    background: vars.$border;
     top: 50%;
     left: 0;
   }
-  .#{$teacher}-card {
+  .teacher-card {
     display: flex;
     border-radius: 10px;
     justify-content: space-between;
     align-items: start;
-    border: 3px solid $border;
+    border: 3px solid vars.$border;
     height: 230px;
     width: 100%;
     max-width: 1200px;
     background: linear-gradient(110deg, #682800, #090400);
     overflow: hidden;
-    .#{$teacher}-section {
+    .teacher-section {
       height: 100%;
-      &.#{$teacher}-img {
+      &.teacher-img {
         width: 30%;
-        user-select: none;
         img {
           border-top-left-radius: 3px;
           border-bottom-left-radius: 3px;
@@ -655,32 +651,34 @@ $teacher: "teacher";
           border-right: $universal;
         }
       }
-      &.#{$teacher}-body {
+      &.teacher-body {
         width: 70%;
-        .#{$teacher}-header {
+        .teacher-header {
           border-bottom: $universal;
           padding: 10px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          color: $accent;
+          color: vars.$accent;
           height: 60px;
-          div:not(.#{$teacher}-chips) {
+          div {
+            font: {
+              size: 22px;
+              family: "Wittgenstein", serif;
+              style: italic;
+            }
             width: 100%;
-            font-size: 22px;
-            font-family: "Wittgenstein", serif;
-            font-style: italic;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
           }
         }
-        .#{$teacher}-main {
+        .teacher-main {
           height: calc(100% - 60px);
           display: flex;
           justify-content: space-between;
           align-items: start;
-          .#{$teacher}-blurb {
+          .teacher-blurb {
             padding: 5px 10px;
             color: white;
             width: 60%;
@@ -691,7 +689,7 @@ $teacher: "teacher";
             text-align: justify;
             font-size: 16px;
             font-family: "Wittgenstein", serif;
-            border-right: 1px solid $border;
+            border-right: 1px solid vars.$border;
             .see-more {
               position: absolute;
               height: 55px;
@@ -703,20 +701,20 @@ $teacher: "teacher";
                 content: "See More";
                 text-align: center;
                 font-weight: 900;
-                font-family: "Arsenal", sans-serif;
+                font-family: vars.$arsenal;
                 font-size: 18px;
                 border-radius: 10px;
                 position: absolute;
                 width: 80%;
                 min-width: 100px;
                 max-width: 120px;
-                background: $mid;
+                background: vars.$mid;
                 border: $universal;
                 left: 50%;
                 bottom: 20%;
                 transform: translateX(-50%);
-                box-shadow: 0px 0px 5px $dark;
-                transition: $anim-length;
+                box-shadow: 0px 0px 5px vars.$dark;
+                transition: vars.$anim-length;
               }
               &::before {
                 content: "";
@@ -724,27 +722,27 @@ $teacher: "teacher";
                 width: 100%;
                 height: 100%;
                 background: transparent;
-                background: $light;
-                border-top: 1px solid $border;
+                background: vars.$light;
+                border-top: 1px solid vars.$border;
               }
               &:hover {
                 &::after {
-                  color: $accent;
+                  color: vars.$accent;
                   transform: translateX(-50%) scale(105%);
                 }
               }
             }
           }
-          .#{$teacher}-actions {
+          .teacher-actions {
             height: 100%;
             width: 40%;
             text-align: center;
             padding: 0 10px;
-            border-left: 1px solid $border;
+            border-left: 1px solid vars.$border;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            .#{$teacher}-chips {
+            .teacher-chips {
               font-family: "Wittgenstein", serif;
               font-style: italic;
               padding-bottom: 5px;
@@ -755,10 +753,10 @@ $teacher: "teacher";
                 display: flex;
                 flex-wrap: wrap;
                 li {
-                  color: $accent;
+                  color: vars.$accent;
                   font-style: normal;
                   cursor: pointer;
-                  transition: $anim-length;
+                  transition: vars.$anim-length;
                   &:hover {
                     background: #b94903;
                   }
@@ -767,23 +765,23 @@ $teacher: "teacher";
               @include teacherChips();
             }
             .action-button {
-              color: white;
+              color: vars.$top;
               user-select: none;
               font-family: "Wittgenstein", serif;
               font-style: italic;
               padding: 2px;
               background: $mid;
-              border: 1px solid $border;
-              box-shadow: 0px 0px 3px $dark;
+              border: 1px solid vars.$border;
+              box-shadow: 0px 0px 3px vars.$dark;
               border-radius: 5px;
               @include centerFlex;
               margin-bottom: 7px;
               text-decoration: none;
               cursor: pointer;
-              transition: $anim-length;
+              transition: vars.$anim-length;
               &:hover {
                 transform: scale(105%);
-                color: $accent;
+                color: vars.$accent;
               }
             }
           }
@@ -792,19 +790,11 @@ $teacher: "teacher";
     }
   }
   &:target {
-    .#{$teacher}-card {
+    .teacher-card {
       background: linear-gradient(110deg, #cf5407, #090400);
-      animation-name: targetFade;
-      animation-timing-function: ease-out;
-      animation-fill-mode: forwards;
-      animation-duration: 5s;
-      animation-iteration-count: 1;
+      animation: targetFade 5s ease-out 1 forwards;
     }
-    animation-name: out;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-    animation-duration: 5s;
-    animation-iteration-count: 1;
+    animation: out 5s ease-out 1 forwards;
   }
 }
 @keyframes out {
@@ -816,30 +806,30 @@ $teacher: "teacher";
   }
 }
 @container overlord (max-width: 368px) {
-  .#{$teacher}-container {
+  .teacher-container {
     padding-left: 0;
     border-left: none;
     &::after {
       width: 0;
     }
-    .#{$teacher}-card {
+    .teacher-card {
       max-width: 100%;
-      .#{$teacher}-blurb {
+      .teacher-blurb {
         font-size: 14px !important;
       }
     }
   }
 }
-.#{$teacher}-modal {
-  background: rgba($dark, 0.7);
+.teacher-modal {
+  background: color.adjust(vars.$dark, $alpha: -0.3);
   backdrop-filter: blur(3px);
   .modal-content {
-    background: $dark !important;
-    border: 1px solid $border;
+    background: vars.$dark !important;
+    border: 1px solid vars.$border;
     border-radius: 0;
     max-height: 90vh;
     .modal-header {
-      color: $accent;
+      color: vars.$accent;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -853,33 +843,35 @@ $teacher: "teacher";
       }
     }
     .modal-body {
-      color: white;
+      color: vars.$top;
       font-family: "Wittgenstein", serif;
     }
   }
 }
 @media screen and (max-width: 800px) {
-  .#{$teacher}-container .#{$teacher}-card {
+  .teacher-container .teacher-card {
     display: block !important;
     height: 400px;
-    .#{$teacher}-img {
+    .teacher-img {
       width: 100% !important;
       border-right: none;
-      border-bottom: 2px solid $border;
+      border-bottom: 2px solid vars.$border;
       height: 50% !important;
       img {
         object-position: top center !important;
       }
     }
-    .#{$teacher}-body {
+    .teacher-body {
       width: 100% !important;
       height: 50%;
-      .#{$teacher}-header {
+      .teacher-header {
         width: 100% !important;
       }
     }
   }
 }
+
+//cleaned to here
 /////footer//////////footer//////////footer//////////footer/////
 $footBase: "footer";
 .#{$footBase}-icons {

@@ -539,12 +539,6 @@
   animation: load 1s linear infinite forwards;
 }
 
-@media screen and (min-height: 800px) {
-  .nav-bar-body .nav-bar-list .nav-bar-item {
-    height: 40px !important;
-    font-size: 30px !important;
-  }
-}
 #vue_app {
   transition: padding 0.5s;
   transition-timing-function: ease-out;
@@ -559,6 +553,12 @@
   transition-timing-function: ease-out;
 }
 
+@media screen and (min-height: 800px) {
+  .nav-bar-body .nav-list .item {
+    height: 40px !important;
+    font-size: 30px !important;
+  }
+}
 @media screen and (max-width: 500px) {
   #vue_app:has(div.nav-bar-show) {
     padding-left: 0;
@@ -580,10 +580,8 @@
 }
 
 .teachers {
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto -10px auto;
   padding: 0px 35px;
-  margin-bottom: -10px;
 }
 
 .teacher-container {
@@ -591,9 +589,7 @@
   margin: 0px -50px;
   overflow-x: hidden;
   border-left: 3px solid rgba(248, 255, 149, 0.5);
-  padding-left: 40px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding: 15px 0 15px 40px;
   position: relative;
 }
 .teacher-container::after {
@@ -622,9 +618,6 @@
 }
 .teacher-container .teacher-card .teacher-section.teacher-img {
   width: 30%;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
 }
 .teacher-container .teacher-card .teacher-section.teacher-img img {
   border-top-left-radius: 3px;
@@ -649,11 +642,11 @@
   color: #f8ff95;
   height: 60px;
 }
-.teacher-container .teacher-card .teacher-section.teacher-body .teacher-header div:not(.teacher-chips) {
-  width: 100%;
+.teacher-container .teacher-card .teacher-section.teacher-body .teacher-header div {
   font-size: 22px;
   font-family: "Wittgenstein", serif;
   font-style: italic;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -749,15 +742,15 @@
   background: #b94903;
 }
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-actions .teacher-chips ul {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   list-style-type: none;
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+  padding: 0;
 }
 .teacher-container .teacher-card .teacher-section.teacher-body .teacher-main .teacher-actions .teacher-chips ul li {
   font-family: "Cinzel", serif;
@@ -794,18 +787,10 @@
 }
 .teacher-container:target .teacher-card {
   background: linear-gradient(110deg, #cf5407, #090400);
-  animation-name: targetFade;
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
-  animation-duration: 5s;
-  animation-iteration-count: 1;
+  animation: targetFade 5s ease-out 1 forwards;
 }
 .teacher-container:target {
-  animation-name: out;
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
-  animation-duration: 5s;
-  animation-iteration-count: 1;
+  animation: out 5s ease-out 1 forwards;
 }
 
 @keyframes out {
@@ -853,15 +838,15 @@
   font-style: italic;
 }
 .teacher-modal .modal-content .modal-header .teacher-chips ul {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   list-style-type: none;
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+  padding: 0;
 }
 .teacher-modal .modal-content .modal-header .teacher-chips ul li {
   font-family: "Cinzel", serif;
