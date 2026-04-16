@@ -1,16 +1,7 @@
-$base: "nav-bar";
-$accent: #f8ff95;
-$border: rgba($accent, 0.5);
-$dark: black;
-$mid: #1c0a00;
-$light: #2e1000;
-$top: white;
-$anim-length: 0.3s;
 $navWidth: 17vw;
 $min: 200px;
 $max: 300px;
 $nav-slide: 0.5s;
-$arsenal: "Arsenal", sans-serif;
 $nav-Z: 10;
 @use "vars";
 $thin: 1px solid vars.$border;
@@ -226,7 +217,7 @@ $thin: 1px solid vars.$border;
         p,
         a {
           display: block;
-          color: $top;
+          color: vars.$top;
           font-size: 15px;
           position: relative;
           padding: 0;
@@ -314,9 +305,9 @@ $thin: 1px solid vars.$border;
       flex-wrap: wrap;
       .item {
         border: $gray-border;
-        font-family: $arsenal;
+        font-family: vars.$arsenal;
         font-size: 20px;
-        color: $top;
+        color: vars.$top;
         white-space: nowrap;
         padding: 2px 8px;
         text-decoration: none;
@@ -554,7 +545,7 @@ $thin: 1px solid vars.$border;
     padding: 35px;
   }
 }
-#vue_app:has(div.#{$base}-show) {
+#vue_app:has(div.nav-bar-show) {
   $inset: calc(max($min, min($navWidth, $max)));
   padding-left: $inset;
   transition: padding 0.5s;
@@ -770,7 +761,7 @@ $teacher: "teacher";
               font-family: "Wittgenstein", serif;
               font-style: italic;
               padding: 2px;
-              background: $mid;
+              background: vars.$mid;
               border: 1px solid vars.$border;
               box-shadow: 0px 0px 3px vars.$dark;
               border-radius: 5px;
@@ -870,33 +861,25 @@ $teacher: "teacher";
     }
   }
 }
-
-//cleaned to here
 /////footer//////////footer//////////footer//////////footer/////
-$footBase: "footer";
-.#{$footBase}-icons {
-  background: $mid;
-  border-top: 5px solid $border;
-  .#{$footBase}-icons-container {
+.footer-icons {
+  background: vars.$mid;
+  border-top: 5px solid vars.$border;
+  .footer-icons-container {
     padding: 10px;
     display: flex;
     justify-content: center;
     width: 100%;
-    .#{$footBase}-icons-icon {
+    .footer-icons-icon {
+      @include centerFlex();
       width: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: $anim-length;
+      transition: vars.$anim-length;
       &:hover {
-        filter: drop-shadow(0px 0px 3px $accent);
+        filter: drop-shadow(0px 0px 3px vars.$accent);
       }
       a {
-        margin-left: 10px;
-        margin-right: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        margin: 0 10px;
+        @include centerFlex();
         img {
           width: 100%;
           height: 100%;
@@ -907,16 +890,13 @@ $footBase: "footer";
     }
   }
 }
-.#{$footBase}-copyright {
-  p {
-    text-align: center;
-    font-style: italic;
-    color: white;
-    padding: 4px 0px 6px 0px;
-    font-family: "Times New Roman", serif;
-  }
+.footer-copyright p {
+  text-align: center;
+  font-style: italic;
+  color: vars.$top;
+  padding: 4px 0px 6px 0px;
+  font-family: "Times New Roman", serif;
 }
-
 @keyframes fadein {
   from {
     opacity: 0;
@@ -933,14 +913,20 @@ $footBase: "footer";
     transform: translate(-50%, -50%) rotate(0);
   }
 }
+@mixin controlArrow($img) {
+  mask-image: url($img);
+  mask-size: 60%;
+  mask-position: center;
+  mask-repeat: no-repeat;
+}
+/////carousel//////////carousel//////////carousel//////////carousel/////
 .css-carousel-container {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   .css-carousel {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 0;
     display: flex;
     justify-content: flex-start;
     scroll-snap-type: x mandatory;
@@ -961,7 +947,7 @@ $footBase: "footer";
       z-index: 2;
       width: 220px;
       filter: brightness(100%);
-      border: 1px solid $border;
+      border: 1px solid vars.$border;
       cursor: pointer;
       img {
         height: 100%;
@@ -970,14 +956,14 @@ $footBase: "footer";
       }
       &:hover {
         transform: scale(1.02) !important;
-        box-shadow: 0px 0px 5px black;
+        box-shadow: 0px 0px 5px vars.$dark;
         filter: brightness(90%);
         z-index: 3;
       }
       &:target,
       &.activeE {
         transform: scale(1.05);
-        border: 2px solid $accent;
+        border: 2px solid vars.$accent;
         &:hover {
           transform: scale(1.05) !important;
         }
@@ -997,63 +983,55 @@ $footBase: "footer";
       position: absolute;
       width: 50px;
       height: 50px;
-      background: $light;
+      background: vars.$light;
       border-radius: 100%;
-      border: 1px solid black;
-      box-shadow: 0px 0px 2px $accent;
+      border: 1px solid vars.$dark;
+      box-shadow: 0px 0px 2px vars.$accent;
       overflow: hidden;
       top: 50%;
       transform: translateY(-50%);
       transition: 0.5s;
       cursor: pointer;
       .icon {
-        background: $border;
+        background: vars.$border;
         width: 100%;
         height: 100%;
-        transition: 0.5s;
+        transition: vars.$anim-length;
       }
       &:hover {
         transform: translateY(-50%) scale(1.05);
         .icon {
-          background: $accent;
+          background: vars.$accent;
         }
       }
     }
     .forward {
       right: 10px;
       .icon {
-        mask-image: url(../webicons/navbar-icons/right-arrow.png);
-        mask-size: 60%;
-        mask-position: center;
-        mask-repeat: no-repeat;
+        @include controlArrow("../webicons/navbar-icons/right-arrow.png")
       }
     }
     .backward {
       left: 10px;
       .icon {
-        mask-image: url(../webicons/left-arrow.png);
-        mask-size: 60%;
-        mask-position: center;
-        mask-repeat: no-repeat;
+        @include controlArrow("../webicons/left-arrow.png")
       }
     }
   }
 }
 .carousel-div {
-  border-top: 5px solid $border;
+  border-top: 5px solid vars.$border;
   padding: 10px 40px;
   margin: 0 -50px;
   width: calc(100% + 100px);
   h1 {
     font-family: "Times New Roman", serif;
     text-align: center;
-    color: $accent;
+    color: vars.$accent;
     font-size: 40px;
   }
   .has-btn {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+    @include centerFlex();
     margin-top: 5px;
     a {
       text-decoration: none;
@@ -1064,13 +1042,13 @@ $footBase: "footer";
         background: rgb(198, 198, 198);
         display: inline-block;
         padding: 3px 7px;
-        color: black;
+        color: vars.$dark;
         border-radius: 5px;
-        border: 1px solid black;
+        border: 1px solid vars.$dark;
         font-family: "ABeeZee", sans-serif;
         text-align: center;
         font-size: 18px;
-        transition: $anim-length;
+        transition: vars.$anim-length;
         &:hover {
           background: rgb(243, 243, 243);
         }
@@ -1083,7 +1061,7 @@ $footBase: "footer";
     }
   }
   p {
-    color: $accent;
+    color: vars.$accent;
     font-size: 16px;
     margin-top: 10px;
     font-family: "ABeeZee", sans-serif;
@@ -1093,11 +1071,11 @@ $footBase: "footer";
   }
 }
 .carousel-modal {
-  background: rgba($dark, 0.7);
+  background: color.adjust(vars.$dark, $alpha: -0.3);
   backdrop-filter: blur(3px);
   .modal-content {
-    background: $dark !important;
-    border: 1px solid $border;
+    background: vars.$dark;
+    border: 1px solid vars.$border;
     border-radius: 0;
     padding: 10px;
     img {
@@ -1110,6 +1088,7 @@ $footBase: "footer";
     }
   }
 }
+/////loading//////////loading//////////loading//////////loading/////
 .loading {
   display: flex;
   justify-content: center;
@@ -1134,14 +1113,13 @@ $footBase: "footer";
     transform: rotate(360deg);
   }
 }
+/////filters//////////filters//////////filters//////////filters/////
 .class-filters {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include centerFlex();
   flex-wrap: wrap;
   width: calc(100% + 100px);
   margin: 0px -50px;
-  border-bottom: 5px solid $border;
+  border-bottom: 5px solid vars.$border;
   gap: 5px;
   padding: 5px 35px;
   font-family: "Wittgenstein", serif;
@@ -1151,9 +1129,7 @@ $footBase: "footer";
     padding-right: 10px;
   }
   .filters {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include centerFlex();
     gap: 8px;
     max-width: 100%;
     flex-wrap: wrap;
@@ -1165,27 +1141,26 @@ $footBase: "footer";
         font-variant: small-caps;
         color: rgb(205, 205, 205);
         user-select: none;
-        background: $dark;
+        background: vars.$dark;
         padding: 5px 8px;
-        transition: $anim-length;
+        transition: vars.$anim-length;
         cursor: pointer;
         border-radius: 10px;
-        border: 1px solid $border;
+        border: 1px solid vars.$border;
         &:hover {
-          color: $accent;
-          background: $mid;
-          box-shadow: 0px 0px 5px $dark;
+          color: vars.$accent;
+          background: vars.$mid;
+          box-shadow: 0px 0px 5px vars.$dark;
         }
       }
       input {
-        accent-color: rgba(23, 82, 210, 0.8);
         appearance: none;
       }
       input:checked + label {
-        color: $top;
+        color: vars.$top;
         font-weight: 900;
-        background: $light;
-        box-shadow: 0px 0px 5px $dark;
+        background: vars.$light;
+        box-shadow: 0px 0px 5px vars.$dark;
       }
     }
   }
@@ -1197,38 +1172,41 @@ $footBase: "footer";
     }
   }
 }
+/////accordion//////////accordion//////////accordion//////////accordion/////
 .accordion {
   margin-bottom: 15px;
-  border-top: 3px solid $border;
+  border-top: 3px solid vars.$border;
   .accordion-item {
     border-radius: 0;
     background: rgba(105, 59, 34, 0.8);
     border: none;
     .accordion-header {
-      border-right: none !important;
-      border-left: none !important;
-      border-top: none !important;
-      border-bottom: 2px solid $border !important;
+      border: {
+        right: none;
+        left: none;
+        top: none;
+        bottom: 2px solid vars.$border;
+      }
       .accordion-button {
-        background: transparent !important;
+        background: transparent;
         box-shadow: none;
-        border-radius: 0 !important;
+        border-radius: 0;
         font-family: "Jomhuria", sans-serif;
         font-size: 50px;
         line-height: 40px;
         padding: 8px 20px 0px 20px;
         margin: 0;
-        color: white;
+        color: vars.$top;
         &::after {
           filter: invert(100%);
         }
       }
     }
     .accordion-collapse {
-      border: none !important;
+      border: none;
       background: rgba(66, 37, 21, 0.8);
       .accordion-body {
-        color: $top;
+        color: vars.$top;
         table {
           width: 100%;
           border-collapse: collapse;
@@ -1237,16 +1215,16 @@ $footBase: "footer";
             td,
             th {
               text-align: center;
-              border: 1px solid $border;
+              border: $thin;
               font-size: 16px;
               vertical-align: middle;
               border-bottom: 0 !important;
               width: 50%;
               a {
-                color: $accent;
-                transition: $anim-length;
+                color: vars.$accent;
+                transition: vars.$anim-length;
                 &:hover {
-                  color: $top;
+                  color: vars.$top;
                 }
               }
               .time {
@@ -1257,15 +1235,11 @@ $footBase: "footer";
             }
             &.activeRow {
               background: rgb(237, 108, 39);
-              animation-name: fadeOut;
-              animation-duration: 5s;
-              animation-fill-mode: forwards;
-              animation-iteration-count: 1;
-              animation-timing-function: ease-out;
+              animation: fadeOut 5s ease-out 1 forwards;
             }
             th {
               font-style: italic;
-              color: $accent;
+              color: vars.$accent;
             }
             td:nth-child(1),
             th:nth-child(1) {
@@ -1279,11 +1253,11 @@ $footBase: "footer";
           thead {
             th {
               font-size: 30px;
-              border-top: 0 !important;
+              border-top: 0;
               padding: 5px 0px;
-              color: white;
+              color: vars.$top;
               font-style: normal;
-              font-family: "Arsenal", sans-serif;
+              font-family: vars.$arsenal;
             }
           }
         }
@@ -1291,14 +1265,14 @@ $footBase: "footer";
     }
   }
 }
-
+/////special-class//////////special-class//////////special-class//////////special-class/////
 @mixin size {
   margin-left: auto;
   margin-right: auto;
   width: 95%;
 }
 .special-class {
-  $black: 2px solid $dark;
+  $black: 2px solid vars.$dark;
   margin: 0;
   padding-bottom: 25px;
   &:nth-of-type(3n - 2) .special-class-card {
@@ -1317,7 +1291,7 @@ $footBase: "footer";
     margin: 0px;
     border: $black;
     text-align: center;
-    color: black;
+    color: vars.$dark;
     border-radius: 10px;
     padding: 15px;
     height: 100%;
@@ -1353,24 +1327,21 @@ $footBase: "footer";
       .special-button {
         background: #234f72;
         width: 80%;
-        margin-right: auto;
-        margin-left: auto;
-        margin-top: 10px;
+        margin: 10px auto 0px auto;
         font-family: "ABeeZee", sans-serif;
         padding: 5px 10px;
         border-radius: 10px;
-        color: white;
-        transition: $anim-length;
+        color: vars.$top;
+        transition: vars.$anim-length;
         cursor: pointer;
         &:hover {
           background: #4788bd;
-          color: black;
+          color: vars.$dark;
         }
       }
     }
   }
 }
-
 @keyframes fadeOut {
   from {
     background: rgb(237, 108, 39);
@@ -1379,7 +1350,6 @@ $footBase: "footer";
     background: transparent;
   }
 }
-
 @function blend-color($color1, $color2, $percent) {
   @return color.mix($color2, $color1, $percent);
 }
@@ -1394,7 +1364,7 @@ $footBase: "footer";
     }
   }
 }
-
+/////class-search//////////class-search//////////class-search//////////class-search/////
 .class-search {
   width: 100%;
   display: flex;
@@ -1414,50 +1384,50 @@ $footBase: "footer";
     }
     input[type="text"] {
       background: rgba(128, 128, 128, 0.492);
-      color: $top;
-      transition: $anim-length;
+      color: vars.$top;
+      transition: vars.$anim-length;
       padding: 2px 5px;
-      font-family: $arsenal;
+      font-family: vars.$arsenal;
       font-size: 20px;
-      border-bottom: 4px solid $border;
+      border-bottom: 4px solid vars.$border;
       margin-right: 5px;
       width: calc(100% - 105px);
       &::placeholder {
-        color: $accent;
-        transition: $anim-length;
+        color: vars.$accent;
+        transition: vars.$anim-length;
       }
       &:focus {
         cursor: text;
         &::placeholder {
-          color: $top;
+          color: vars.$top;
         }
-        border-bottom: 4px solid $accent;
+        border-bottom: 4px solid vars.$accent;
         outline: none;
       }
     }
     input[type="submit"] {
       width: 95px;
-      background: $border;
+      background: vars.$border;
       border-radius: 5px;
-      border: 1px solid $accent;
-      box-shadow: 0px 0px 5px $dark;
-      transition: $anim-length;
+      border: 1px solid vars.$accent;
+      box-shadow: 0px 0px 5px vars.$dark;
+      transition: vars.$anim-length;
       &:hover {
-        background: $accent;
+        background: vars.$accent;
       }
     }
     select {
-      color: $accent;
-      border-bottom: 4px solid $border;
-      transition: $anim-length;
+      color: vars.$accent;
+      border-bottom: 4px solid vars.$border;
+      transition: vars.$anim-length;
       width: 100%;
       option {
-        color: black;
+        color: vars.$dark;
       }
       &:focus {
         outline: none;
-        border-bottom: 4px solid $accent;
-        color: $top;
+        border-bottom: 4px solid vars.$accent;
+        color: vars.$top;
       }
     }
     &:first-child {
@@ -1472,13 +1442,11 @@ $footBase: "footer";
   width: calc(100% + 100px);
   margin: -10px -50px 0 -50px;
   padding: 10px 35px;
-  border-bottom: 2px solid $border;
+  border-bottom: 2px solid vars.$border;
   .classResults {
-    font-family: $arsenal;
+    font-family: vars.$arsenal;
     font-style: italic;
-    margin-top: 5px;
-    margin-bottom: 0;
-    padding-bottom: 0;
+    margin: 0 5px 0 0;
     font-size: 20px;
   }
 }
