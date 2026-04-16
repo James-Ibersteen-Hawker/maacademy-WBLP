@@ -3,33 +3,13 @@ $mid: #1c0a00;
 $light: #2e1000;
 $accent: #f8ff95;
 $border: rgba($accent, 0.5);
-$standard: 5px solid $border;
+@use "vars";
+$standard: 5px solid vars.$border;
 @use "sass:color";
 @font-face {
-  font-family: "Arsenal";
-  src: url("../fonts/Arsenal-Italic.woff2") format("woff2");
+  font-family: "ABeeZee";
+  src: url("../fonts/ABeeZee-Italic.woff2") format("woff2");
   font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Arsenal";
-  src: url("../fonts/Arsenal-Bold.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Arsenal";
-  src: url("../fonts/Arsenal-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Arsenal";
-  src: url("../fonts/Arsenal-BoldItalic.woff2") format("woff2");
-  font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
@@ -54,65 +34,59 @@ $standard: 5px solid $border;
   font-style: normal;
   font-display: swap;
 }
-
 html {
   height: 100%;
   width: 100%;
 }
 body {
-  background: black;
+  background: vars.$dark;
   overflow-x: hidden;
 }
 img {
   user-select: none;
 }
 .searchResult {
-  background: color.adjust($accent, $alpha: -0.7);
+  background: color.adjust(vars.$accent, $alpha: -0.7);
   font-family: inherit !important;
   font-size: inherit !important;
-  animation-name: loadTarget;
-  animation-fill-mode: forwards;
-  animation-duration: 10s;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in-out;
-  animation-delay: 1.5s;
+  animation: loadTarget 10s ease-in-out 1 1.5s forwards;
 }
 @keyframes loadTarget {
   0% {
-    background: rgba($accent, 0.3);
+    background: color.adjust(vars.$accent, $alpha: -0.7);
   }
   10% {
-    background: rgba($accent, 0.8);
+    background: color.adjust(vars.$accent, $alpha: -0.2);
   }
   30% {
-    background: rgba($accent, 0.3);
+    background: color.adjust(vars.$accent, $alpha: -0.7);
   }
   100% {
-    background: rgba($accent, 0);
+    background: color.adjust(vars.$accent, $alpha: -1);
   }
 }
+@mixin music {
+  content: "";
+  background: linear-gradient(to bottom, rgb(114, 65, 42) 50%, vars.$dark);
+  position: fixed;
+  width: 120%;
+  height: 120%;
+  top: 0;
+  left: 50%;
+  mask-size: 750px;
+  filter: drop-shadow(0px 0px 1px vars.$accent);
+}
+@mixin underline($color) {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 1px;
+  background: $color;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
 #vue_app {
-  @mixin music {
-    content: "";
-    background: linear-gradient(to bottom, rgb(114, 65, 42) 50%, $dark);
-    position: fixed;
-    width: 120%;
-    height: 120%;
-    top: 0;
-    left: 50%;
-    mask-size: 750px;
-    filter: drop-shadow(0px 0px 1px $accent);
-  }
-  @mixin underline($color) {
-    content: "";
-    position: absolute;
-    width: 80%;
-    height: 1px;
-    background: $color;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
   &::before {
     @include music();
     z-index: -2;
@@ -163,7 +137,7 @@ img {
       z-index: 5;
       h1,
       h2 {
-        color: white;
+        color: vars.$top;
         text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         user-select: none;
       }
@@ -176,7 +150,7 @@ img {
         }
       }
       h2 {
-        font-family: "Arsenal", sans-serif;
+        font-family: vars.$arsenal;
         font-weight: 600;
         width: 80%;
       }
@@ -188,16 +162,16 @@ img {
         backdrop-filter: blur(10px);
         padding: 6px 15px;
         border-radius: 15px;
-        border: 2px solid black;
-        font-family: "Arsenal", sans-serif;
+        border: 2px solid vars.$dark;
+        font-family: vars.$arsenal;
         font-size: 20px;
         font-weight: 700;
-        text-shadow: 0px 0px 5px white;
+        text-shadow: 0px 0px 5px vars.$top;
         z-index: 10;
         transition: 0.5s;
         user-select: none;
         cursor: pointer;
-        color: black !important;
+        color: vars.$dark !important;
       }
       a div:hover {
         background: rgba(248, 248, 248, 1);
@@ -205,18 +179,18 @@ img {
     }
   }
   .heading {
-    background: black;
+    background: vars.$top;
     margin-bottom: 0 !important;
-    color: $accent;
+    color: vars.$accent;
     overflow: hidden;
     padding-top: 10px;
-    border-bottom: 1px solid $accent;
+    border-bottom: 1px solid vars.$accent;
     h6 {
       text-align: center;
       position: relative;
       left: -150px;
       font: {
-        family: "Arsenal", sans-serif;
+        family: vars.$arsenal;
         style: italic;
         variant: small-caps;
         size: 20px;
@@ -242,12 +216,13 @@ img {
     margin-top: 0;
     margin-bottom: 0 !important;
     padding: 10px 50px !important;
-    color: white;
+    color: vars.$top;
     max-width: 1100px;
     width: 95%;
-    border-right: 1px solid $border;
-    border-left: 1px solid $border;
-    background: linear-gradient(to bottom, $light, $mid);
+    border-right: 1px solid vars.$border;
+    border-left: 1px solid vars.$border;
+    background: linear-gradient(to bottom, vars.$light, vars.$mid);
+    //cleaned to here
     .reviews {
       padding: 0px 10px;
       max-width: 900px;
@@ -462,7 +437,7 @@ img {
         text-decoration: none;
         text-transform: uppercase;
         &:hover {
-          background: lighten($light, 10%);
+          background: color.adjust(vars.$light, $lightness: 10%);
         }
       }
       img {
@@ -914,15 +889,14 @@ img {
     }
   }
   .contact-form.container-fluid {
-    background: linear-gradient(to bottom, $light, $mid);
+    background: linear-gradient(to bottom, vars.$light, vars.$mid);
     width: 98%;
     margin-top: 2%;
     margin-bottom: 80px;
-    border: $standard;
-    padding: 0 !important;
     max-width: 1100px;
+    border: $standard;
+    padding: 0;
     min-height: calc(100vh - 200px);
-    border-bottom: $standard;
     .row {
       padding: 0 !important;
       margin: 0 !important;
@@ -1098,7 +1072,7 @@ img {
     justify-content: space-between;
   }
 }
-
+//cleaned from bottom
 @media screen and (min-width: 1000px) {
   .headerOver {
     h1 {
@@ -1136,7 +1110,7 @@ img {
         display: none !important;
       }
     }
-    border: 1px solid $border;
+    border: 1px solid vars.$border;
     padding-top: 10px;
   }
   .part3 {
@@ -1171,19 +1145,17 @@ img {
   }
 }
 @container topName (max-width: 600px) {
-  .top {
-    table {
-      td:has(img) {
-        display: none;
+  .top table {
+    td:has(img) {
+      display: none;
+    }
+    td:has(h1) {
+      h1 {
+        white-space: unset !important;
+        text-align: center;
       }
-      td:has(h1) {
-        h1 {
-          white-space: unset !important;
-          text-align: center;
-        }
-        display: block;
-        width: 100%;
-      }
+      display: block;
+      width: 100%;
     }
   }
 }
@@ -1228,7 +1200,7 @@ img {
       display: none;
     }
     .img:nth-child(1) {
-      border-bottom: 3px solid $border;
+      border-bottom: 3px solid vars.$border;
       display: block !important;
     }
     .img,
@@ -1237,7 +1209,7 @@ img {
     }
     .text.left,
     .text.right {
-      background: rgba($accent, 0.8) !important;
+      background: color.adjust(vars.$accent, $alpha: -0.2) !important;
     }
   }
 }
@@ -1253,16 +1225,14 @@ img {
   }
 }
 @container part4 (max-width: 576px) {
-  .part4 {
-    .content {
-      display: flex !important;
-      flex-direction: column;
-      align-items: center;
-      img {
-        float: none !important;
-        margin-right: auto;
-        margin-left: auto;
-      }
+  .part4 .content {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    img {
+      float: none !important;
+      margin-right: auto;
+      margin-left: auto;
     }
   }
 }
