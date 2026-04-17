@@ -1,34 +1,6 @@
 @use "vars";
 $standard: 5px solid vars.$border;
 @use "sass:color";
-@font-face {
-  font-family: "ABeeZee";
-  src: url("../fonts/ABeeZee-Italic.woff2") format("woff2");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "ABeeZee";
-  src: url("../fonts/ABeeZee-Italic.woff2") format("woff2");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "ABeeZee";
-  src: url("../fonts/ABeeZee-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Jomhuria";
-  src: url("../fonts/Jomhuria-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
 html {
   height: 100%;
   width: 100%;
@@ -119,9 +91,7 @@ img {
       width: 100%;
       height: 100%;
       background: rgba(175, 40, 40, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include vars.centerFlex();
       flex-direction: column;
       text-align: center;
       min-height: 300px;
@@ -195,7 +165,7 @@ img {
     h1 {
       text-align: center;
       font-size: 70px;
-      font-family: "Jomhuria", sans-serif;
+      font-family: vars.$jomhuria;
       padding: 0 !important;
       line-height: 50px;
     }
@@ -236,7 +206,7 @@ img {
         .text {
           height: fit-content !important;
           box-sizing: border-box;
-          font-family: "ABeeZee", sans-serif;
+          font-family: vars.$abeezee;
           .caption {
             font-family: "Times New Roman", serif;
             font-style: italic;
@@ -291,12 +261,12 @@ img {
       border-bottom: $standard;
       margin: 10px -50px;
       width: $width;
-      font-family: "ABeeZee", sans-serif;
+      font-family: vars.$abeezee;
       @mixin inter {
         text-align: center;
         color: vars.$accent;
         font: {
-          family: "Jomhuria", sans-serif;
+          family: vars.$jomhuria;
           size: 40px;
         }
         line-height: 25px;
@@ -375,7 +345,7 @@ img {
       padding: 0px 35px;
       h1 {
         font: {
-          family: "Jomhuria", sans-serif;
+          family: vars.$jomhuria;
           size: 55px;
         }
         color: vars.$accent;
@@ -389,7 +359,7 @@ img {
         margin: 5px;
         text-align: center;
         font: {
-          family: "ABeeZee", sans-serif;
+          family: vars.$abeezee;
           size: 17px;
         }
       }
@@ -452,7 +422,7 @@ img {
       align-items: center;
       h1 {
         font: {
-          family: "Jomhuria";
+          family: vars.$jomhuria;
           size: 60px;
         }
         line-height: 50px;
@@ -473,7 +443,7 @@ img {
         }
         p {
           text-align: left;
-          font-family: "ABeeZee", sans-serif;
+          font-family: vars.$abeezee;
           font-size: 16px;
           padding-left: 10px;
         }
@@ -498,10 +468,8 @@ img {
       width: $width;
       padding: 10px 0;
       margin: 15px -50px 0 -50px;
-      display: flex;
-      justify-content: center;
+      @include vars.centerFlex();
       flex-direction: column;
-      align-items: center;
       h2 {
         @include h2();
       }
@@ -576,7 +544,7 @@ img {
             text-align: center;
             color: vars.$light;
             white-space: nowrap;
-            font-family: "ABeeZee", sans-serif;
+            font-family: vars.$abeezee;
             font-style: italic;
             font-weight: 900;
             font-size: 30px;
@@ -592,7 +560,7 @@ img {
             position: relative;
             padding-bottom: 8px;
             font: {
-              family: "ABeeZee", sans-serif;
+              family: vars.$abeezee;
               size: 16px;
             }
             &::after {
@@ -613,7 +581,7 @@ img {
               border-radius: 10px;
               margin: -5px 0px 0px 0px;
               transition: 0.5s;
-              font-family: "ABeeZee", sans-serif;
+              font-family: vars.$abeezee;
               &:hover {
                 transform: scale(1.1);
                 font-weight: 900;
@@ -631,7 +599,7 @@ img {
       padding: 10px 35px;
       h1 {
         text-align: center;
-        font-family: "ABeeZee", sans-serif;
+        font-family: vars.$abeezee;
         font-weight: 900;
         font-style: italic;
         font-size: 30px;
@@ -648,7 +616,7 @@ img {
       p {
         text-align: center;
         font-size: 16px;
-        font-family: "ABeeZee", sans-serif;
+        font-family: vars.$abeezee;
         position: relative;
         padding-bottom: 10px;
         margin-bottom: 10px;
@@ -670,7 +638,7 @@ img {
           padding: 7px 14px;
           border-radius: 10px;
           transition: 0.5s;
-          font-family: "ABeeZee", sans-serif;
+          font-family: vars.$abeezee;
           &:hover {
             transform: scale(1.1);
             font-weight: 900;
@@ -685,12 +653,12 @@ img {
       padding: 10px 35px 0px 35px;
       h1 {
         text-align: center;
-        font-family: "ABeeZee", sans-serif;
+        font-family: vars.$abeezee;
         font-size: 30px;
         font-weight: 600;
       }
       p {
-        font-family: "ABeeZee", sans-serif;
+        font-family: vars.$abeezee;
         text-align: center;
         font-size: 16px;
       }
@@ -710,9 +678,7 @@ img {
       }
       p {
         background: rgba(23, 82, 210, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include vars.centerFlex();
         text-align: center;
         padding: 10px 35px !important;
         font-family: "Wittgenstein", serif;
@@ -739,15 +705,13 @@ img {
       padding: 10px 35px;
       border-bottom: $standard;
       .col-12 {
-        display: flex;
+        @include vars.centerFlex();
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
         padding-bottom: 20px;
         h1 {
           text-align: center;
           font-size: 60px;
-          font-family: "Jomhuria", sans-serif;
+          font-family: vars.$jomhuria;
           line-height: 50px;
           position: relative;
           &::after {
@@ -758,7 +722,7 @@ img {
         a {
           color: vars.$top;
           font-size: 20px;
-          font-family: "ABeeZee", sans-serif;
+          font-family: vars.$abeezee;
           margin: 0;
           padding: 0;
         }
@@ -797,10 +761,8 @@ img {
         .text {
           color: vars.$dark;
           width: 60%;
-          display: flex;
+          @include vars.centerFlex();
           flex-direction: column;
-          justify-content: center;
-          align-items: center;
           padding: 5px 10px;
           h2 {
             font-family: "Ingrid Darling", cursive;
@@ -815,7 +777,7 @@ img {
             }
           }
           p {
-            font-family: "ABeeZee", sans-serif;
+            font-family: vars.$abeezee;
             font-style: italic;
             font-size: 20px;
             text-align: center;
@@ -838,9 +800,7 @@ img {
       border-top: $standard;
       width: $width;
       margin: 0px -50px -10px -50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include vars.centerFlex();
       background: linear-gradient(to right, vars.$light, vars.$dark 10% 90%, vars.$light);
       .inner {
         h1 {
@@ -934,7 +894,7 @@ img {
               td {
                 padding-left: 10px;
                 font-style: italic;
-                font-family: "ABeeZee", sans-serif;
+                font-family: vars.$abeezee;
                 a {
                   color: vars.$top !important;
                 }
@@ -972,7 +932,7 @@ img {
               padding: 2px 20px;
               margin: 5px 0px 0px -2px !important;
               border-radius: 5px;
-              font-family: "ABeeZee", sans-serif;
+              font-family: vars.$abeezee;
             }
           }
           .d-none,
@@ -983,7 +943,7 @@ img {
             .box1,
             .box2 {
               color: vars.$dark;
-              font-family: "ABeeZee", sans-serif;
+              font-family: vars.$abeezee;
               font-size: 14px;
             }
             .box1 {
@@ -1001,9 +961,7 @@ img {
       }
       .postercontainer {
         padding: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include vars.centerFlex();
         img {
           width: 100%;
           height: auto;
@@ -1092,9 +1050,7 @@ img {
       }
     }
     .img {
-      display: flex !important;
-      justify-content: center;
-      align-items: center;
+      @include vars.centerFlex();
       &.top {
         display: none !important;
       }

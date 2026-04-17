@@ -33,4 +33,39 @@ $anim-length: 0.3s;
   font-style: italic;
   font-display: swap;
 }
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../fonts/ABeeZee-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../fonts/ABeeZee-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../fonts/ABeeZee-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Jomhuria";
+  src: url("../fonts/Jomhuria-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@mixin centerFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 $arsenal: "Arsenal", sans-serif;
+$jomhuria: "Jomhuria", sans-serif;
+$abeezee: "ABeeZee", sans-serif;

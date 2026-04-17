@@ -482,7 +482,7 @@ img {
   align-items: center;
 }
 #vue_app .content-container.container-fluid .part4 h1 {
-  font-family: "Jomhuria";
+  font-family: "Jomhuria", sans-serif;
   font-size: 60px;
   line-height: 50px;
   margin: 5px;
@@ -528,8 +528,8 @@ img {
   margin: 15px -50px 0 -50px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
 }
 #vue_app .content-container.container-fluid .showSection h2 {
   font-family: "Times New Roman";
@@ -798,9 +798,9 @@ img {
 }
 #vue_app .content-container.container-fluid .radio-top.row .col-12 {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding-bottom: 20px;
 }
 #vue_app .content-container.container-fluid .radio-top.row .col-12 h1 {
@@ -866,9 +866,9 @@ img {
   color: black;
   width: 60%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: 5px 10px;
 }
 #vue_app .content-container.container-fluid .radio-gallery .radio-item .text h2 {
@@ -1172,7 +1172,7 @@ img {
     margin-top: 20px !important;
   }
   .review .img {
-    display: flex !important;
+    display: flex;
     justify-content: center;
     align-items: center;
   }
