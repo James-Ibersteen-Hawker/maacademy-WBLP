@@ -1,8 +1,3 @@
-$dark: black;
-$mid: #1c0a00;
-$light: #2e1000;
-$accent: #f8ff95;
-$border: rgba($accent, 0.5);
 @use "vars";
 $standard: 5px solid vars.$border;
 @use "sass:color";
@@ -179,7 +174,7 @@ img {
     }
   }
   .heading {
-    background: vars.$top;
+    background: vars.$dark;
     margin-bottom: 0 !important;
     color: vars.$accent;
     overflow: hidden;
@@ -210,6 +205,7 @@ img {
     }
   }
   .content-container.container-fluid {
+    $width: calc(100% + 100px);
     min-height: calc(100vh - 180px);
     margin-right: auto;
     margin-left: auto;
@@ -222,7 +218,6 @@ img {
     border-right: 1px solid vars.$border;
     border-left: 1px solid vars.$border;
     background: linear-gradient(to bottom, vars.$light, vars.$mid);
-    //cleaned to here
     .reviews {
       padding: 0px 10px;
       max-width: 900px;
@@ -231,11 +226,11 @@ img {
       h1:first-child {
         font-family: "Abril Fatface", serif;
         font-size: 40px;
-        color: $accent;
+        color: vars.$accent;
         margin-bottom: 10px;
       }
       .review {
-        $border: 8px solid $accent;
+        $r-border: 8px solid vars.$accent;
         margin-top: 20px;
         margin-bottom: 30px;
         .text {
@@ -260,7 +255,7 @@ img {
         &.left {
           padding-left: 8px;
           .text {
-            border-left: $border;
+            border-left: $r-border;
             box-sizing: border-box !important;
           }
         }
@@ -268,7 +263,7 @@ img {
           padding-right: 8px;
           .text {
             text-align: right;
-            border-right: $border;
+            border-right: $r-border;
             box-sizing: border-box !important;
             div,
             span {
@@ -279,28 +274,27 @@ img {
       }
     }
     .blurb {
-      font-family: "Arsenal", sans-serif;
+      font-family: vars.$arsenal;
       font-size: 18px;
       font-weight: 600;
       font-style: italic;
-      color: $accent;
-      padding: 10px 35px;
+      color: vars.$accent;
+      padding: 10px 35px 15px 35px;
       text-align: center;
       border-bottom: $standard;
-      margin-left: -50px;
-      margin-right: -50px;
-      width: calc(100% + 100px);
+      margin: 0 -50px;
+      width: $width;
     }
     .part2 {
       container-type: inline-size;
       container-name: part2;
       border-bottom: $standard;
       margin: 10px -50px;
-      width: calc(100% + 100px);
+      width: $width;
       font-family: "ABeeZee", sans-serif;
       @mixin inter {
         text-align: center;
-        color: $accent;
+        color: vars.$accent;
         font: {
           family: "Jomhuria", sans-serif;
           size: 40px;
@@ -318,15 +312,15 @@ img {
           td {
             position: relative;
             vertical-align: top;
-            padding: 0 !important;
-            margin: 0 !important;
+            padding: 0;
+            margin: 0;
             img {
               width: 100%;
               min-width: 150px;
               max-width: 250px;
               max-height: 250px;
               object-fit: cover;
-              border: 1px solid $border;
+              border: 1px solid vars.$border;
             }
           }
         }
@@ -377,16 +371,16 @@ img {
     .part3 {
       border-bottom: $standard;
       margin: 10px -50px;
-      width: calc(100% + 100px);
+      width: $width;
       padding: 0px 35px;
       h1 {
         font: {
           family: "Jomhuria", sans-serif;
           size: 55px;
         }
-        color: $accent;
-        padding: 0 !important;
-        margin-top: 10px !important;
+        color: vars.$accent;
+        padding: 0;
+        margin-top: 10px;
         line-height: 40px;
         text-align: center;
       }
@@ -413,7 +407,7 @@ img {
           left: 50%;
           width: 30%;
           height: 1px;
-          background: $border;
+          background: vars.$border;
           transform: translateX(-50%);
         }
       }
@@ -422,16 +416,16 @@ img {
       }
       .button {
         margin: 10px auto 0px auto;
-        border: 1px solid black;
-        box-shadow: 0px 0px 3px $accent;
-        background: $light;
+        border: 1px solid vars.$dark;
+        box-shadow: 0px 0px 3px vars.$accent;
+        background: vars.$light;
         width: 230px;
         text-align: center;
         padding: 2px 10px;
         border-radius: 10px;
         font-family: "Cinzel", serif;
         font-size: 20px;
-        color: $accent;
+        color: vars.$accent;
         cursor: pointer;
         transition: 0.5s;
         text-decoration: none;
@@ -443,7 +437,7 @@ img {
       img {
         width: 100%;
         margin: 5px;
-        border: 1px solid $border;
+        border: 1px solid vars.$border;
       }
       .text {
         padding-bottom: 10px;
@@ -465,7 +459,7 @@ img {
         margin: 5px;
         padding: 0;
         text-align: center;
-        color: $accent;
+        color: vars.$accent;
       }
       .content {
         display: flex;
@@ -475,7 +469,7 @@ img {
           object-fit: contain;
           object-position: top;
           height: fit-content;
-          border: 1px solid $border;
+          border: 1px solid vars.$border;
         }
         p {
           text-align: left;
@@ -487,7 +481,7 @@ img {
     }
     @mixin h2 {
       font-family: "Times New Roman";
-      color: $accent;
+      color: vars.$accent;
       font-size: 28px;
       padding-bottom: 0;
       margin-bottom: 10px;
@@ -501,7 +495,7 @@ img {
     }
     .showSection {
       border-top: $standard;
-      width: calc(100% + 100px);
+      width: $width;
       padding: 10px 0;
       margin: 15px -50px 0 -50px;
       display: flex;
@@ -518,7 +512,7 @@ img {
         gap: 10px;
         width: 100%;
         .show {
-          border: 1px solid $border;
+          border: 1px solid vars.$border;
           width: 20%;
           min-width: 150px;
           max-width: 250px;
@@ -532,20 +526,20 @@ img {
     .radioCity {
       border-top: $standard;
       margin: 10px -50px 0 -50px;
-      width: calc(100% + 100px);
+      width: $width;
       padding-top: 10px;
       a {
-        color: $accent;
-        transition: 0.5s;
+        color: vars.$accent;
+        transition: vars.$anim-length;
         &:hover {
-          color: white;
+          color: vars.$top;
         }
         h2 {
           @include h2();
           text-decoration: none;
-          transition: 0.5s;
+          transition: vars.$anim-length;
           &:hover {
-            color: white;
+            color: vars.$top;
           }
         }
       }
@@ -553,8 +547,8 @@ img {
     .top:has(table) {
       container-type: inline-size;
       container-name: topName;
-      background: $accent;
-      width: calc(100% + 100px);
+      background: vars.$accent;
+      width: $width;
       margin: 5px -50px 10px -50px;
       padding: 2px 35px;
       table {
@@ -566,7 +560,7 @@ img {
           width: 20%;
           img {
             width: 100%;
-            border: 1px solid $dark;
+            border: 1px solid vars.$dark;
           }
         }
         td:nth-child(1) img {
@@ -580,7 +574,7 @@ img {
           padding-right: 10px;
           h1 {
             text-align: center;
-            color: $light;
+            color: vars.$light;
             white-space: nowrap;
             font-family: "ABeeZee", sans-serif;
             font-style: italic;
@@ -593,7 +587,7 @@ img {
             }
           }
           p {
-            color: black;
+            color: vars.$dark;
             text-align: center;
             position: relative;
             padding-bottom: 8px;
@@ -602,18 +596,18 @@ img {
               size: 16px;
             }
             &::after {
-              @include underline($dark);
+              @include underline(vars.$dark);
             }
           }
           .buttonContainer {
             display: flex;
             justify-content: center;
             a {
-              color: white;
+              color: vars.$top;
             }
             .button {
               cursor: pointer;
-              background: $mid;
+              background: vars.$mid;
               display: inline-block;
               padding: 7px 14px;
               border-radius: 10px;
@@ -632,7 +626,7 @@ img {
     .paint {
       border-top: $standard;
       border-bottom: $standard;
-      width: calc(100% + 100px);
+      width: $width;
       margin: 15px -50px;
       padding: 10px 35px;
       h1 {
@@ -641,7 +635,7 @@ img {
         font-weight: 900;
         font-style: italic;
         font-size: 30px;
-        color: $accent;
+        color: vars.$accent;
         margin: 0;
         padding: 0;
         span {
@@ -659,19 +653,19 @@ img {
         padding-bottom: 10px;
         margin-bottom: 10px;
         &::after {
-          @include underline($border);
+          @include underline(vars.$border);
         }
       }
       .buttonContainer {
         display: flex;
         justify-content: center;
-        color: $dark;
+        color: vars.$dark;
         a {
-          color: $dark;
+          color: vars.$dark;
         }
         .button {
           cursor: pointer;
-          background: $accent;
+          background: vars.$accent;
           display: inline-block;
           padding: 7px 14px;
           border-radius: 10px;
@@ -685,7 +679,7 @@ img {
       }
     }
     .holiday {
-      width: calc(100% + 100px);
+      width: $width;
       margin: 10px -50px -10px -50px;
       border-top: $standard;
       padding: 10px 35px 0px 35px;
@@ -705,7 +699,7 @@ img {
       margin: -10px -50px 3px -50px !important;
       padding: 0 !important;
       border-bottom: $standard;
-      width: calc(100% + 100px);
+      width: $width;
       .col-12.col-lg-6 {
         padding: 0;
         margin: 0;
@@ -723,15 +717,12 @@ img {
         padding: 10px 35px !important;
         font-family: "Wittgenstein", serif;
         text-shadow: 0px 1px 5px black;
-        div {
-          background: red;
-        }
       }
     }
     .contact-blurb {
-      border-bottom: 2px solid $border;
+      border-bottom: 2px solid vars.$border;
       padding: 5px 35px;
-      width: calc(100% + 100px);
+      width: $width;
       margin: 0px -50px 2px -50px;
       text-align: center;
       font-family: "Times New Roman", serif;
@@ -739,11 +730,11 @@ img {
       font-size: 20px;
       font-style: italic;
       a {
-        color: white;
+        color: vars.$top;
       }
     }
     .radio-top.row {
-      width: calc(100% + 100px);
+      width: $width;
       margin: 0px -50px;
       padding: 10px 35px;
       border-bottom: $standard;
@@ -760,12 +751,12 @@ img {
           line-height: 50px;
           position: relative;
           &::after {
-            @include underline($border);
+            @include underline(vars.$border);
           }
         }
         p,
         a {
-          color: white;
+          color: vars.$top;
           font-size: 20px;
           font-family: "ABeeZee", sans-serif;
           margin: 0;
@@ -775,20 +766,20 @@ img {
           font-style: italic;
         }
         video {
-          border: 2px solid $border;
+          border: 2px solid vars.$border;
           width: 100%;
         }
       }
     }
     .radio-gallery {
-      width: calc(100% + 100px);
+      width: $width;
       margin: 0px -50px;
       padding: 10px 35px;
       container-type: inline-size;
       container-name: radio;
       .radio-item {
-        border: 3px solid $border;
-        background: $border;
+        border: 3px solid vars.$border;
+        background: vars.$border;
         margin-bottom: 20px;
         display: flex;
         .img {
@@ -804,7 +795,7 @@ img {
           display: none;
         }
         .text {
-          color: black;
+          color: vars.$dark;
           width: 60%;
           display: flex;
           flex-direction: column;
@@ -820,7 +811,7 @@ img {
             padding-bottom: 15px;
             padding-top: 10px;
             &::after {
-              @include underline($dark);
+              @include underline(vars.$dark);
             }
           }
           p {
@@ -831,26 +822,26 @@ img {
           }
         }
         .text.right {
-          background: linear-gradient(to left, $accent, $border);
+          background: linear-gradient(to left, vars.$accent, vars.$border);
         }
         .text.left {
-          background: linear-gradient(to right, $accent, $border);
+          background: linear-gradient(to right, vars.$accent, vars.$border);
         }
       }
     }
     .classes {
-      width: calc(100% + 100px);
+      width: $width;
       margin: 0px -50px;
       padding: 10px 35px;
     }
     .special {
       border-top: $standard;
-      width: calc(100% + 100px);
+      width: $width;
       margin: 0px -50px -10px -50px;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(to right, $light, $dark 10% 90%, $light);
+      background: linear-gradient(to right, vars.$light, vars.$dark 10% 90%, vars.$light);
       .inner {
         h1 {
           text-align: center;
@@ -858,9 +849,9 @@ img {
           font-family: "Ingrid Darling", cursive;
         }
         width: 80%;
-        background: $mid;
-        border-right: 3px solid $border;
-        border-left: 3px solid $border;
+        background: vars.$mid;
+        border-right: 3px solid vars.$border;
+        border-left: 3px solid vars.$border;
         padding: 10px;
       }
     }
@@ -873,17 +864,17 @@ img {
     .policy {
       font-family: "Times New Roman", serif;
       font-size: 20px;
-      width: calc(100% + 100px);
+      width: $width;
       margin: -10px -50px 10px -50px;
       padding: 5px 35px;
-      border-bottom: 2px solid $border;
+      border-bottom: 2px solid vars.$border;
       text-decoration: underline;
       font-style: italic;
       a {
         cursor: pointer;
         transition: 0.5s;
         &:hover {
-          color: $accent;
+          color: vars.$accent;
         }
       }
     }
@@ -910,8 +901,8 @@ img {
           align-items: center;
           border: $standard;
           .jobs {
-            color: white;
-            transition: 0.5s;
+            color: vars.$top;
+            transition: vars.$anim-length;
             font-family: "Times New Roman", serif;
             font-style: italic;
             font-size: 20px;
@@ -919,20 +910,20 @@ img {
             text-decoration: underline;
             cursor: pointer;
             &:hover {
-              color: $accent;
+              color: vars.$accent;
             }
           }
           h1 {
             font-family: "Times New Roman", serif;
-            color: $accent;
+            color: vars.$accent;
             text-align: center;
           }
           table {
-            color: white;
+            color: vars.$top;
             tr {
               th {
-                border-right: 1px solid white;
-                background: white;
+                border-right: 1px solid vars.$top;
+                background: vars.$top;
                 mask-size: auto 80%;
                 mask-position: center;
                 mask-repeat: no-repeat;
@@ -945,14 +936,14 @@ img {
                 font-style: italic;
                 font-family: "ABeeZee", sans-serif;
                 a {
-                  color: white !important;
+                  color: vars.$top !important;
                 }
               }
             }
           }
           form {
             label {
-              color: white;
+              color: vars.$top;
               font-family: "Times New Roman", serif;
               margin-top: 8px;
               font-size: 18px;
@@ -962,11 +953,11 @@ img {
               display: block;
               width: 100%;
               background-color: rgba(80, 80, 80, 0.5);
-              border: 1px solid $accent;
+              border: 1px solid vars.$accent;
               transition: 0.5s;
               padding-left: 8px !important;
               padding: 3px;
-              color: white;
+              color: vars.$top;
               &:focus {
                 outline: none;
                 background-color: rgba(120, 120, 120, 0.8);
@@ -976,8 +967,8 @@ img {
               }
             }
             button[type="submit"] {
-              background: $accent;
-              color: black;
+              background: vars.$accent;
+              color: vars.$dark;
               padding: 2px 20px;
               margin: 5px 0px 0px -2px !important;
               border-radius: 5px;
@@ -991,7 +982,7 @@ img {
             padding-right: 5px !important;
             .box1,
             .box2 {
-              color: black;
+              color: vars.$dark;
               font-family: "ABeeZee", sans-serif;
               font-size: 14px;
             }
@@ -1001,8 +992,8 @@ img {
               margin-bottom: 10px;
             }
             .box2 {
-              background-color: rgba(#ffd477, 0.7);
-              border: 5px solid $accent;
+              background: color.adjust(#ffd477, $alpha: -0.3);
+              border: 5px solid vars.$accent;
               padding: 10%;
             }
           }
@@ -1022,15 +1013,15 @@ img {
   }
   #policyModal,
   #jobModal {
-    background: rgba($dark, 0.7);
+    background: color.adjust(vars.$dark, $alpha: -0.3);
     backdrop-filter: blur(3px);
     .modal-content {
-      background: $dark !important;
-      border: 1px solid $border;
+      background: vars.$dark !important;
+      border: 1px solid vars.$border;
       border-radius: 0;
       max-height: 90vh;
       .modal-header {
-        color: $accent;
+        color: vars.$accent;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -1040,8 +1031,8 @@ img {
         }
       }
       .modal-body {
-        color: white;
-        font-family: "Arsenal", sans-serif;
+        color: vars.$top;
+        font-family: vars.$arsenal;
         ul {
           list-style-type: "—   ";
         }
@@ -1053,15 +1044,14 @@ img {
       font-size: 20px;
       font-style: normal;
     }
-
     div:has(a) {
       font-size: 20px;
       font-style: italic;
       a {
-        color: white;
+        color: vars.$top;
         transition: 0.5s;
         &:hover {
-          color: $accent;
+          color: vars.$accent;
         }
       }
     }
@@ -1072,7 +1062,6 @@ img {
     justify-content: space-between;
   }
 }
-//cleaned from bottom
 @media screen and (min-width: 1000px) {
   .headerOver {
     h1 {
@@ -1115,7 +1104,7 @@ img {
   }
   .part3 {
     .text {
-      border-bottom: 1px solid $accent;
+      border-bottom: 1px solid vars.$accent;
     }
   }
 }

@@ -210,7 +210,7 @@ img {
   background: rgb(248, 248, 248);
 }
 #vue_app .heading {
-  background: white;
+  background: black;
   margin-bottom: 0 !important;
   color: #f8ff95;
   overflow: hidden;
@@ -314,11 +314,10 @@ img {
   font-weight: 600;
   font-style: italic;
   color: #f8ff95;
-  padding: 10px 35px;
+  padding: 10px 35px 15px 35px;
   text-align: center;
   border-bottom: 5px solid rgba(248, 255, 149, 0.5);
-  margin-left: -50px;
-  margin-right: -50px;
+  margin: 0 -50px;
   width: calc(100% + 100px);
 }
 #vue_app .content-container.container-fluid .part2 {
@@ -342,8 +341,8 @@ img {
 #vue_app .content-container.container-fluid .part2 table tr td {
   position: relative;
   vertical-align: top;
-  padding: 0 !important;
-  margin: 0 !important;
+  padding: 0;
+  margin: 0;
 }
 #vue_app .content-container.container-fluid .part2 table tr td img {
   width: 100%;
@@ -413,8 +412,8 @@ img {
   font-family: "Jomhuria", sans-serif;
   font-size: 55px;
   color: #f8ff95;
-  padding: 0 !important;
-  margin-top: 10px !important;
+  padding: 0;
+  margin-top: 10px;
   line-height: 40px;
   text-align: center;
 }
@@ -567,7 +566,7 @@ img {
 }
 #vue_app .content-container.container-fluid .radioCity a {
   color: #f8ff95;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 #vue_app .content-container.container-fluid .radioCity a:hover {
   color: white;
@@ -582,7 +581,7 @@ img {
   font-style: italic;
   text-align: center;
   text-decoration: none;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 #vue_app .content-container.container-fluid .radioCity a h2:hover {
   color: white;
@@ -776,9 +775,6 @@ img {
   padding: 10px 35px !important;
   font-family: "Wittgenstein", serif;
   text-shadow: 0px 1px 5px black;
-}
-#vue_app .content-container.container-fluid .heading-top.row p div {
-  background: red;
 }
 #vue_app .content-container.container-fluid .contact-blurb {
   border-bottom: 2px solid rgba(248, 255, 149, 0.5);
@@ -982,7 +978,7 @@ img {
 }
 #vue_app .contact-form.container-fluid .row .formcontainer .inner .jobs {
   color: white;
-  transition: 0.5s;
+  transition: 0.3s;
   font-family: "Times New Roman", serif;
   font-style: italic;
   font-size: 20px;
@@ -1081,7 +1077,7 @@ img {
 }
 #vue_app .contact-form.container-fluid .row .formcontainer .inner .d-none .box2,
 #vue_app .contact-form.container-fluid .row .formcontainer .inner .d-block .box2 {
-  background-color: rgba(255, 212, 119, 0.7);
+  background: rgba(255, 212, 119, 0.7);
   border: 5px solid #f8ff95;
   padding: 10%;
 }
