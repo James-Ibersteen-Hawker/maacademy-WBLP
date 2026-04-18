@@ -113,7 +113,7 @@ const App = createApp({
       }
     }
     function runSelection(e) {
-      const {exact, url, value} = e;
+      const { exact, url, value } = e;
       const path = url === "index.html" ? "" : "/html";
       const inRepo = window.location.pathname.includes(REPONAME);
       const repoBase = inRepo ? REPONAME : "";
@@ -357,8 +357,10 @@ function initSearch() {
   return new Promise((resolve, reject) => {
     try {
       const savedLUT = sessionStorage.getItem(keys.searchKey);
-      if (savedLUT) return resolve(JSON.parse(savedLUT));
+      // if (savedLUT) return resolve(JSON.parse(savedLUT));
       const path = window.location.pathname;
+      const splitPath = path.split("/");
+      const test = "abc/def/efg/html/index.html".split("/");
       const inRepo = path.includes(REPONAME);
       const repoBase = inRepo ? REPONAME : "";
       const max = 4;
@@ -366,10 +368,15 @@ function initSearch() {
       const loadedPages = new Set();
       const iframes = [];
       function* iframe() {
+        const last = splitPath.lastIndexOf("html");
+        let localPath = null;
+        if (last !== -1) localPath = splitPath.slice(0, last).join("/");
+        else localPath = splitPath.slice(0, -1).join("/");
         for (const { url } of pages) {
           const link = url === "index.html" ? url : `html/${url}`;
           const iframe = document.createElement("iframe");
-          iframe.src = `${window.location.origin}${repoBase}/${link}?iframe=true`;
+          iframe.src = `${window.location.origin}${localPath}/${link}?iframe=true`;
+          console.log(iframe.src)
           iframe.style.cssText = "width:0; height:0; visibility:hidden; position:absolute;";
           iframe.classList.add("utilIframeJS");
           yield iframe;
