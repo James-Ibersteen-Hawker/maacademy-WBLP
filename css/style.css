@@ -199,7 +199,7 @@ img {
   font-weight: 700;
   text-shadow: 0px 0px 5px white;
   z-index: 10;
-  transition: 0.5s;
+  transition: 0.3s;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -325,6 +325,7 @@ img {
   container-name: part2;
   border-bottom: 5px solid rgba(248, 255, 149, 0.5);
   margin: 10px -50px;
+  padding-bottom: 20px;
   width: calc(100% + 100px);
   font-family: "ABeeZee", sans-serif;
 }
@@ -458,7 +459,7 @@ img {
   font-size: 20px;
   color: #f8ff95;
   cursor: pointer;
-  transition: 0.5s;
+  transition: 0.3s;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -664,7 +665,7 @@ img {
   padding: 7px 14px;
   border-radius: 10px;
   margin: -5px 0px 0px 0px;
-  transition: 0.5s;
+  transition: 0.3s;
   font-family: "ABeeZee", sans-serif;
 }
 #vue_app .content-container.container-fluid .top:has(table) table td:nth-child(2) .buttonContainer .button:hover {
@@ -726,7 +727,7 @@ img {
   display: inline-block;
   padding: 7px 14px;
   border-radius: 10px;
-  transition: 0.5s;
+  transition: 0.3s;
   font-family: "ABeeZee", sans-serif;
 }
 #vue_app .content-container.container-fluid .paint .buttonContainer .button:hover {
@@ -946,7 +947,7 @@ img {
 }
 #vue_app .content-container.container-fluid .policy a {
   cursor: pointer;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 #vue_app .content-container.container-fluid .policy a:hover {
   color: #f8ff95;
@@ -1030,7 +1031,7 @@ img {
   width: 100%;
   background-color: rgba(80, 80, 80, 0.5);
   border: 1px solid #f8ff95;
-  transition: 0.5s;
+  transition: 0.3s;
   padding-left: 8px !important;
   padding: 3px;
   color: white;
@@ -1134,7 +1135,7 @@ img {
 }
 #vue_app #jobModal div:has(a) a {
   color: white;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 #vue_app #jobModal div:has(a) a:hover {
   color: #f8ff95;
@@ -1251,7 +1252,7 @@ img {
     display: none;
   }
 }
-@container part2 (max-width: 520px) {
+@container part2 (max-width: 355px) {
   .row2 .img1 {
     display: none !important;
   }

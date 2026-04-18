@@ -143,12 +143,12 @@ const App = createApp({
       window.location.href = `${window.location.origin}${repoBase}/html/classes.html?teacher=${encodedName}&accordion=${encodedSpec}`;
     }
     async function accordion() {
-      const [accordion, teacher] = [uPrms.get("accordion"), uPrms.get('teacher')];
+      const [accordion, teacher] = [decodeURIComponent(uPrms.get("accordion")), decodeURIComponent(uPrms.get('teacher'))];
       if (!accordion) return;
       await Vue.nextTick()
       const elems = Array.from(document.querySelectorAll(".accordion"));
       if (elems.length === 0) return;
-      const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === accordion.toLowerCase());
+      const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === CSS.escape(accordion.toLowerCase()));
       const number = match.id.slice(11);
       const collapse = match.querySelector(`#collapse${number}`);
       const button = match.querySelector(`#button${number}`);
