@@ -149,6 +149,7 @@ const App = createApp({
       const elems = Array.from(document.querySelectorAll(".accordion"));
       if (elems.length === 0) return;
       const match = elems.find((e) => e.getAttribute("data-instrument").toLowerCase() === CSS.escape(accordion.toLowerCase()));
+      if (!match) return;
       const number = match.id.slice(11);
       const collapse = match.querySelector(`#collapse${number}`);
       const button = match.querySelector(`#button${number}`);
