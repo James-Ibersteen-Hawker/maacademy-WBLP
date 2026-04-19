@@ -2,7 +2,6 @@
 const { createApp, ref, reactive, onMounted } = Vue;
 const weblink =
   "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
-const REPONAME = "/maacademy-WBLP";
 const [signalTimeout, workerTimeout, dataTimeout] = [20000, 30000, 6];
 const hourInMillis = 60 * 60 * 1000;
 const keys = { dataKey: "sheetData", searchKey: "searchData" };
@@ -10,6 +9,12 @@ const nested = location.pathname.includes("/html/") ? "../" : "./";
 const workerName = `${nested}javascript/worker.js`;
 const worker = new Worker(workerName, { type: "module" });
 const SEP = " \u001f ";
+const window_location_path = window.location.pathname;
+const splitPath = window_location_path.split("/");
+const last = splitPath.lastIndexOf("html");
+let localPath = null;
+if (last !== -1) localPath = splitPath.slice(0, last).join("/");
+else localPath = splitPath.slice(0, -1).join("/");
 const fuseOptions = {
   keys: ["text"],
   ignoreDiacritics: true,
@@ -115,10 +120,8 @@ const App = createApp({
     function runSelection(e) {
       const { exact, url, value } = e;
       const path = url === "index.html" ? "" : "/html";
-      const inRepo = window.location.pathname.includes(REPONAME);
-      const repoBase = inRepo ? REPONAME : "";
       const query = JSON.stringify([value, exact.trim()])
-      window.location.href = `${window.location.origin}${repoBase}${path}/${url}?q=${encodeURIComponent(query)}`;
+      window.location.href = `${window.location.origin}${localPath}${path}/${url}?q=${encodeURIComponent(query)}`;
     }
     function filterTeachers({ data: filters }) {
       const elems = Array.from(document.querySelectorAll(".teacher-container"));
@@ -136,11 +139,9 @@ const App = createApp({
     }
     function seeSchedule(e) {
       const [name, spec] = e;
-      const inRepo = window.location.pathname.includes(REPONAME);
-      const repoBase = inRepo ? REPONAME : "";
       const encodedName = encodeURIComponent(name.trim());
       const encodedSpec = encodeURIComponent(spec.trim())
-      window.location.href = `${window.location.origin}${repoBase}/html/classes.html?teacher=${encodedName}&accordion=${encodedSpec}`;
+      window.location.href = `${window.location.origin}${localPath}/html/classes.html?teacher=${encodedName}&accordion=${encodedSpec}`;
     }
     async function accordion() {
       const [accordion, teacher] = [decodeURIComponent(uPrms.get("accordion")), decodeURIComponent(uPrms.get('teacher'))];
@@ -357,21 +358,12 @@ function initSearch() {
   return new Promise((resolve, reject) => {
     try {
       const savedLUT = sessionStorage.getItem(keys.searchKey);
-      // if (savedLUT) return resolve(JSON.parse(savedLUT));
-      const path = window.location.pathname;
-      const splitPath = path.split("/");
-      const test = "abc/def/efg/html/index.html".split("/");
-      const inRepo = path.includes(REPONAME);
-      const repoBase = inRepo ? REPONAME : "";
+      if (savedLUT) return resolve(JSON.parse(savedLUT));
       const max = 4;
       let activeFrames = 0;
       const loadedPages = new Set();
       const iframes = [];
       function* iframe() {
-        const last = splitPath.lastIndexOf("html");
-        let localPath = null;
-        if (last !== -1) localPath = splitPath.slice(0, last).join("/");
-        else localPath = splitPath.slice(0, -1).join("/");
         for (const { url } of pages) {
           const link = url === "index.html" ? url : `html/${url}`;
           const iframe = document.createElement("iframe");
