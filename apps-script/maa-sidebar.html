@@ -1,0 +1,267 @@
+<html>
+
+<head>
+  <base target="_top">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jomhuria&display=swap" rel="stylesheet">
+
+  <style>
+    html {
+      --light: #2E1000;
+      --dark: #1C0A00;
+      --black: #000000;
+      --accent: #F8FF95;
+      --border: rgba(248, 255, 149, 0.5);
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      background: linear-gradient(to bottom, var(--light) 20%, var(--dark) 80%, var(--black) 100%);
+      height: 100%;
+      width: 100%;
+    }
+    .container-fluid::-webkit-scrollbar {
+      display: none;
+    }
+    .container-fluid {
+      padding: 0 !important;
+      margin: 0 !important;
+      height: 100%;
+      overflow: auto;
+      scrollbar-width: none;
+    }
+    header {
+      height: 50px;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 5px solid var(--border);
+    }
+    h1 {
+      padding: 10px 0 0 0 !important;
+      margin: 0 !important;
+      font-size: 50px;
+      font-family: 'Jomhuria', sans-serif;
+      color: var(--accent);
+    }
+    .selectionBox {
+      width: 90%;
+      height: 75% !important;
+      overflow: auto;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+      background: var(--accent);
+      box-shadow: 0px 0px 5px grey inset;
+      border: 1px solid white;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start !important;
+    }
+    .item {
+      height: 160px;
+      align-items: start;
+      color: var(--black);
+      padding: 5px;
+    }
+    .item img {
+      width: 100%;
+      aspect-ratio: 1/1 !important;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 5px;
+    }
+    .item p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      text-align: center;
+    }
+    .selected {
+      color: white;
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+      min-height: 40px;
+      padding: 5px;
+      border-top: 2px solid var(--border);
+      word-break: break-all;
+    }
+    input {
+      margin: 10px;
+      width: calc(100% - 20px);
+      padding: 5px;
+      color: var(--dark);
+      border-radius: 5px;
+    }
+    .folder-heading {
+      height: 40px;
+      width: 100%;
+      font-weight: 700;
+      text-align: center;
+      padding: 5px;
+      border-bottom: 1px solid var(--black);
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .selectionBox {
+      scrollbar-width: thin;
+      scrollbar-color: var(--dark) transparent;
+    }
+    .selectionBox::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .selectionBox::-webkit-scrollbar-thumb {
+      background-color: var(--dark);
+      border-radius: 10px;
+    }
+    .submitButton {
+      width: 60%;
+      margin-top: 10px;
+      margin-right: auto;
+      margin-left: auto;
+      margin-bottom: 10px;
+    }
+    .selectedBox {
+      border: 1px solid red;
+    }
+    .placeArea {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body id="vueApp">
+  <div class="container-fluid"  @click="deselect()">
+    <header>
+    <h1>Select an Image</h1>
+    </header>
+    <div class="search">
+      <input type="text" placeholder="Search..." id="searchbar" name="searchbar" v-model="query">
+    </div>
+    <!-- <div class="selected">{{selection || "None Selected"}}</div> -->
+    <main class="selectionBox row"  @click="deselect()">
+      <p class="folder-heading">Files in {{folder}}</p>
+      <div class="item col-6" v-for="file in results" :key="file.id" @click.stop="select(file, $event)">
+        <img :src="file.image">
+        <p class="item-name" :id="file.id">{{file.name}}</p>
+      </div>
+    </main>
+    <div class="placeArea">
+    <!-- <button @click.stop="selectCell()" class="submitButton">Select Cell</button> -->
+    <!-- <input type="text" placeholder="Cell e.g. 'A1, B2'" id="searchbar" name="searchbar" v-model="cellSelect"> -->
+    <button @click.stop="submitImage()" class="submitButton">Select</button>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0"></script>
+  <script>
+    const vueApp = Vue.createApp({
+        data() {
+          return {
+            files: <?!= preLoadedFiles ?>,
+            folder: <?!= folderTitle ?>,
+            results: [],
+            query: "",
+            cellSelect: "",
+            selection: null,
+            selectionID: null,
+            fuse: null,
+            searchOptions: {
+              keys: ["name"],
+              ignoreDiacritics: true,
+              includeScore: true,
+              ignoreLocation: true,
+              threshold: 0.3,
+            },
+            imgID: "1FAIpQLSflpbN1er05HguRQV8AJ6K8gxJ8pN6Vdinfu8D10SRO1o8rCA",
+            imgEntry: "1214817824",
+            cellID: "1FAIpQLSeKsExfb47LXp3i12fjPh6Xq_BVgQAhVh9IyziRQLb_-k9dbg",
+            cellEntry: "1334760640",
+            endpointID: "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec"
+          }
+        },
+        async created() {
+          this.results = this.files;
+          this.fuse = new Fuse(this.files, this.searchOptions);
+        },
+        methods: {
+          sendData(id, entry, data) {
+            const formUrl = "https://docs.google.com/forms/d/e/" + id + "/formResponse";
+            const entryId = "entry." + entry; 
+            const formData = new FormData();
+            formData.append(entryId, data);
+            fetch(formUrl, {
+              method: "POST",
+              mode: "no-cors", 
+              body: formData
+            })
+            .then(() => {
+              console.log("success!!!")
+            })
+            .catch(err => {
+              alert("Input Failed. Please type the name instead");
+              console.error("Tunnelerr", err)
+            });
+          },
+          submitImage() {
+            if (!this.selection) alert("Select an item please.")
+            else this.sendData(this.imgID, this.imgEntry, this.selectionID);
+            // else this.endpointConnect(this.selectionID);
+          },
+          async endpointConnect(input) {
+            const jsonData = JSON.stringify(input);
+            const uri = encodeURIComponent(jsonData);
+            const fullUrl = this.endpointID + "?payload=" + uri + "&imagectrl=true";
+            try {
+              const response = await fetch(fullUrl, {
+                method: "GET",
+                mode: "no-cors"
+              });
+              alert("success")
+            } catch (error) {
+              alert(error);
+            }
+          },
+          selectCell() {
+            this.sendData(this.cellID, this.cellEntry, "OPEN")
+          },
+          select(e, event) {
+            this.selection = e.name;
+            const target = event.currentTarget;
+            const idBox = target.querySelector(".item-name");
+            this.selectionID = idBox.id;
+            const items = Array.from(document.querySelectorAll("#vueApp .item"));
+            items.forEach(e => e.classList.remove("selectedBox"));
+            event.currentTarget.classList.add("selectedBox");
+          },
+          deselect() {
+            const items = Array.from(document.querySelectorAll("#vueApp .item"));
+            items.forEach(e => e.classList.remove("selectedBox"));
+            this.selection = null;
+            this.selectionID = null;
+          }
+        },
+        watch: {
+          query: {
+            handler(newData) {
+              if (!newData) this.results = this.files;
+              else this.results = this.fuse.search(this.query).map(e => e.item);
+            }
+          }
+        }
+      }).mount("#vueApp")
+  </script>
+</body>
+
+</html>
