@@ -731,6 +731,7 @@ img {
           font-style: italic;
         }
         video {
+          pointer-events: none;
           border: 2px solid vars.$border;
           width: 100%;
         }

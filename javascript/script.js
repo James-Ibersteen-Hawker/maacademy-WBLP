@@ -1,4 +1,6 @@
 "use strict";
+
+
 const { createApp, ref, reactive, onMounted } = Vue;
 const weblink =
   "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
@@ -53,11 +55,23 @@ const pages = [
   new Page("Radio City", "radio-city.html", "webicons/navbar-icons/radio-city.png"),
   new Page("Gallery", "gallery.html", "webicons/navbar-icons/images.png"),
 ];
+let page404 = false;
+window.onload = () => {
+  const place = window.location.pathname.split("/").at(-1);
+  if (place !== "404.html") return;
+  const a = document.querySelector("#a404link");
+  const search = window.location.search;
+  const uprms = new URLSearchParams(search);
+  if (!uprms.get("path")) window.location.href = "index.html"
+  a.setAttribute("href", uprms.get("path"));
+  page404 = true;
+}
 
 //////////////////////////////
 
 const App = createApp({
   setup() {
+    if (page404 === true) return;
     const searchString = window.location.search;
     const currentLocation = window.location.href;
     const uPrms = new URLSearchParams(searchString);
@@ -256,7 +270,10 @@ const App = createApp({
         setupSearch();
         classFuse();
       })
-      .catch((err) => alert(err.message));
+      .catch((err) => {
+        console.error(err);
+        window.location.href = `${window.location.origin}${localPath}/404.html?path=${encodeURIComponent(window.location.pathname)}`;
+      });
     onMounted(async () => {
       await accordion();
     })

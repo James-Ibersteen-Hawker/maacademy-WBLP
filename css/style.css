@@ -833,6 +833,7 @@ img {
   font-style: italic;
 }
 #vue_app .content-container.container-fluid .radio-top.row .col-12 video {
+  pointer-events: none;
   border: 2px solid rgba(248, 255, 149, 0.5);
   width: 100%;
 }
