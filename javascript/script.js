@@ -3,7 +3,7 @@
 
 const { createApp, ref, reactive, onMounted } = Vue;
 const weblink =
-  "https://script.google.com/macros/s/AKfycbzYbswK98IKpxzb4J58kxBMEa1-_HFqBkAAsP1GliMghJXUFuEVA1y9v6WCY3a6uLpe/exec";
+  "https://script.google.com/macros/s/AKfycbzxsMfqhXFD0GwsDQEXMAZIrHFH9jlQZrZXGM_ulQjIEXVdZrgWKh5467bC9bN2HnULaQ/exec";
 const [signalTimeout, workerTimeout, dataTimeout] = [20000, 30000, 6];
 const hourInMillis = 60 * 60 * 1000;
 const keys = { dataKey: "sheetData", searchKey: "searchData" };
